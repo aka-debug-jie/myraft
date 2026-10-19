@@ -402,6 +402,7 @@ func (d *dashboard) verify(ctx context.Context, s *session, kind string) (any, e
 	d.mu.Lock()
 	saved := d.checkpoint
 	generation := d.generation
+	snapshotSeq := d.snap.Seq
 	d.mu.Unlock()
 	target := 0
 	if kind == "verify_history" {
@@ -471,7 +472,7 @@ func (d *dashboard) verify(ctx context.Context, s *session, kind string) (any, e
 		return nil, fmt.Errorf("session changed during verification")
 	}
 	v.CompletedAt = time.Now().UTC()
-	if v.State == "passed" && d.snap.CompletedAt.After(v.At) && d.snap.Fingerprint != v.Fingerprint {
+	if v.State == "passed" && d.snap.Seq > snapshotSeq && d.snap.Fingerprint != v.Fingerprint {
 		v.State = "stale"
 		v.Error = "a newer shared observation differs; this pass is historical, not current"
 	}

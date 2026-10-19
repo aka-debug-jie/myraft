@@ -141,12 +141,17 @@ func TestOldVerificationCannotOverwriteNewObservation(t *testing.T) {
 	defer close(p.fullRelease)
 	d.mu.Lock()
 	s := d.active
+	sampleTime := d.snap.CompletedAt
 	d.mu.Unlock()
 	done := make(chan error, 1)
 	go func() { _, err := d.verify(context.Background(), s, "verify"); done <- err }()
 	<-p.fullEntered
 	p.revision.Store(2)
 	d.collectRound()
+	d.mu.Lock()
+	// A coarse or adjusted wall clock can give a later round the same timestamp.
+	d.snap.CompletedAt = sampleTime
+	d.mu.Unlock()
 	p.fullRelease <- struct{}{}
 	if err := <-done; err != nil {
 		t.Fatal(err)
