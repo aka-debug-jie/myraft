@@ -1,0 +1,32 @@
+{
+  "nodes": 3,
+  "scenario": "failover",
+  "requested_commands": 2101,
+  "seed": 42,
+  "result": "PASS",
+  "elapsed_seconds": 5.235181317664683,
+  "error": null,
+  "batch_size": 128,
+  "round": 1,
+  "launch_seconds": 0.004301589913666248,
+  "initial_leader": 3,
+  "kill_seconds": 0.0036174235865473747,
+  "leader_observed_seconds": 5.218967525288463,
+  "local_election_ms": 3.321,
+  "killed_ids": [
+    3
+  ],
+  "restarted_nodes_caught_up": true,
+  "checkpoint_index": 2102,
+  "checkpoint_hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+  "checkpoint_x": 0,
+  "checkpoint_preserved": true,
+  "final_leader": 1,
+  "final_term": 2,
+  "committed_commands": 2102,
+  "commit_index": 2104,
+  "x": 0,
+  "committed_hash": "a1202c287cd4d46cee12b19abc154a6fa87f9ead0ed150f6736b6d343d775dae",
+  "last_query_seconds": 0.02037291694432497,
+  "query_timeouts": 0
+}

@@ -1,0 +1,27 @@
+goos: linux
+goarch: amd64
+pkg: myraft/raft
+cpu: Intel(R) Xeon(R) Platinum 8336C CPU @ 2.30GHz
+BenchmarkStatusRead/2101/current-128         	 2211142	       112.1 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/2101/current-128         	 2288834	       111.4 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/2101/current-128         	 1850314	       117.6 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/2101/pending-128         	      55	   4290848 ns/op	  203333 B/op	    4206 allocs/op
+BenchmarkStatusRead/2101/pending-128         	      55	   4200514 ns/op	  203325 B/op	    4206 allocs/op
+BenchmarkStatusRead/2101/pending-128         	      52	   3981944 ns/op	  203402 B/op	    4206 allocs/op
+BenchmarkStatusRead/2101/history-128         	     121	   2142970 ns/op	  101697 B/op	    2104 allocs/op
+BenchmarkStatusRead/2101/history-128         	     157	   2195700 ns/op	  101801 B/op	    2104 allocs/op
+BenchmarkStatusRead/2101/history-128         	     100	   2139979 ns/op	  101654 B/op	    2104 allocs/op
+BenchmarkStatusRead/21010/current-128        	 2318271	        99.76 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/21010/current-128        	 2095651	       102.1 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/21010/current-128        	 2760156	        94.25 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/21010/pending-128        	       7	  32536781 ns/op	 2027910 B/op	   42027 allocs/op
+BenchmarkStatusRead/21010/pending-128        	       7	  34855506 ns/op	 2027908 B/op	   42026 allocs/op
+BenchmarkStatusRead/21010/pending-128        	       7	  34515206 ns/op	 2027849 B/op	   42026 allocs/op
+BenchmarkStatusRead/21010/history-128        	      12	  19085462 ns/op	 1013450 B/op	   21015 allocs/op
+BenchmarkStatusRead/21010/history-128        	      14	  18444672 ns/op	 1014036 B/op	   21014 allocs/op
+BenchmarkStatusRead/21010/history-128        	      14	  16428886 ns/op	 1014099 B/op	   21015 allocs/op
+BenchmarkStatusContention-128                	       6	  39769260 ns/op	  59590988 writer-wait-ns	 2026596 B/op	   42026 allocs/op
+BenchmarkStatusContention-128                	       6	  34347092 ns/op	  68634190 writer-wait-ns	 2026596 B/op	   42026 allocs/op
+BenchmarkStatusContention-128                	       6	  35889942 ns/op	  71728173 writer-wait-ns	 2026526 B/op	   42025 allocs/op
+PASS
+ok  	myraft/raft	10.237s

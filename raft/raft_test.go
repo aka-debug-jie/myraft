@@ -12,7 +12,7 @@ import (
 	wire "myraft/rpc"
 )
 
-func testPeers(t *testing.T, count int) map[int]string {
+func testPeers(t testing.TB, count int) map[int]string {
 	t.Helper()
 	peers := make(map[int]string)
 	var listeners []net.Listener
@@ -32,7 +32,7 @@ func testPeers(t *testing.T, count int) map[int]string {
 	return peers
 }
 
-func testNode(t *testing.T, id int, peers map[int]string, dir string) *Node {
+func testNode(t testing.TB, id int, peers map[int]string, dir string) *Node {
 	t.Helper()
 	n, err := NewNode(Options{ID: id, Peers: peers, DataDir: dir, Logger: log.New(io.Discard, "", 0),
 		ElectionMin: 300 * time.Millisecond, ElectionJitter: 300 * time.Millisecond,
@@ -50,7 +50,7 @@ func snapshot(n *Node) wire.StatusReply {
 	return s
 }
 
-func awaitLeader(t *testing.T, nodes map[int]*Node) (int, int) {
+func awaitLeader(t testing.TB, nodes map[int]*Node) (int, int) {
 	t.Helper()
 	deadline := time.Now().Add(8 * time.Second)
 	for time.Now().Before(deadline) {

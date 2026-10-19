@@ -1,0 +1,36 @@
+goos: linux
+goarch: amd64
+pkg: myraft/raft
+cpu: Intel(R) Xeon(R) Platinum 8336C CPU @ 2.30GHz
+BenchmarkStatusRead/2101/current-128         	 2477602	        99.67 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/2101/current-128         	 1922566	       113.6 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/2101/current-128         	 1923592	       114.8 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/2101/pending-128         	      54	   4049608 ns/op	  203349 B/op	    4206 allocs/op
+BenchmarkStatusRead/2101/pending-128         	      55	   4016949 ns/op	  203333 B/op	    4206 allocs/op
+BenchmarkStatusRead/2101/pending-128         	      62	   4124940 ns/op	  203190 B/op	    4206 allocs/op
+BenchmarkStatusRead/2101/history-128         	     123	   2025596 ns/op	  101698 B/op	    2104 allocs/op
+BenchmarkStatusRead/2101/history-128         	     122	   1988094 ns/op	  101692 B/op	    2104 allocs/op
+BenchmarkStatusRead/2101/history-128         	     100	   2185969 ns/op	  101645 B/op	    2104 allocs/op
+BenchmarkStatusRead/2101/summary-128         	 1893582	       112.4 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/2101/summary-128         	 1983948	       111.3 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/2101/summary-128         	 1941280	       112.0 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/21010/current-128        	 2316514	        96.44 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/21010/current-128        	 2337276	        98.05 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/21010/current-128        	 2316163	        96.64 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/21010/pending-128        	      15	  34583537 ns/op	 2028399 B/op	   42026 allocs/op
+BenchmarkStatusRead/21010/pending-128        	       7	  34502560 ns/op	 2027787 B/op	   42025 allocs/op
+BenchmarkStatusRead/21010/pending-128        	       8	  37569264 ns/op	 2026630 B/op	   42027 allocs/op
+BenchmarkStatusRead/21010/history-128        	      14	  17654502 ns/op	 1014036 B/op	   21014 allocs/op
+BenchmarkStatusRead/21010/history-128        	      12	  17620036 ns/op	 1013450 B/op	   21015 allocs/op
+BenchmarkStatusRead/21010/history-128        	      13	  17085624 ns/op	 1014521 B/op	   21015 allocs/op
+BenchmarkStatusRead/21010/summary-128        	 2058261	        98.07 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/21010/summary-128        	 2362603	        95.40 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusRead/21010/summary-128        	 2383659	        92.48 ns/op	       0 B/op	       0 allocs/op
+BenchmarkStatusContention-128                	       6	  39927208 ns/op	  59821866 writer-wait-ns	 2026577 B/op	   42026 allocs/op
+BenchmarkStatusContention-128                	       8	  35985786 ns/op	  71902372 writer-wait-ns	 2026536 B/op	   42025 allocs/op
+BenchmarkStatusContention-128                	       7	  33307852 ns/op	  58307434 writer-wait-ns	 2027894 B/op	   42026 allocs/op
+BenchmarkSummaryContention-128               	 1020601	       339.9 ns/op	     18988 writer-wait-ns	       0 B/op	       0 allocs/op
+BenchmarkSummaryContention-128               	 1151065	       337.4 ns/op	     15918 writer-wait-ns	       0 B/op	       0 allocs/op
+BenchmarkSummaryContention-128               	  552349	       406.3 ns/op	     17758 writer-wait-ns	       0 B/op	       0 allocs/op
+PASS
+ok  	myraft/raft	17.024s

@@ -87,3 +87,42 @@ func BenchmarkCommitBatches(b *testing.B) {
 		}
 	}
 }
+
+// Real TCP replicas in one Go process. Allocations include all three nodes;
+// this is neither per-process peak memory nor a Windows throughput measurement.
+func BenchmarkBatchReplication(b *testing.B) {
+	for _, count := range []int{2101, 21010} {
+		for _, batch := range []int{64, 128, 256} {
+			b.Run(fmt.Sprintf("entries_%d/batch_%d", count, batch), func(b *testing.B) {
+				b.ReportAllocs()
+				for i := 0; i < b.N; i++ {
+					b.StopTimer()
+					peers, dir := testPeers(b, 3), b.TempDir()
+					nodes := map[int]*Node{}
+					for id := range peers {
+						n := testNode(b, id, peers, dir)
+						n.options.BatchSize = batch
+						nodes[id] = n
+						if err := n.Start(); err != nil {
+							b.Fatal(err)
+						}
+					}
+					leader, _ := awaitLeader(b, nodes)
+					awaitLogs(b, nodes, 0)
+					var reply wire.GenerateReply
+					b.StartTimer()
+					err := nodes[leader].Generate(&wire.GenerateArgs{Count: count, Seed: 42, TimeoutMS: 10000}, &reply)
+					b.StopTimer()
+					if err != nil || !reply.Committed {
+						b.Fatalf("write %+v %v", reply, err)
+					}
+					awaitLogs(b, nodes, count)
+					for _, n := range nodes {
+						n.Stop()
+					}
+					b.StartTimer()
+				}
+			})
+		}
+	}
+}

@@ -35,3 +35,8 @@ __pycache__/
 .idea/
 .DS_Store
 Thumbs.db
+
+# Local process ownership records contain machine paths and PIDs.
+**/session.json
+**/pids.json
+**/startup-status.json

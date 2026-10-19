@@ -1,0 +1,25 @@
+{
+  "baseline_commit": "fd7e8d0",
+  "scope": "Terminal/demo additions and targeted performance measurements; original validation directories are unchanged",
+  "checks": {
+    "Go 格式检查 / vet / build / 单元测试": "PASS (Linux Go 1.27.2)",
+    "go test -race -count=1 ./...": "PASS (Linux)",
+    "Python 回归": "17/17 PASS",
+    "3/11 节点 smoke": "2/2 PASS",
+    "3/11 节点原四场景": "8/8 PASS",
+    "64/128/256 三节点批次功能检查": "6/6 PASS (preliminary Linux run)",
+    "Win11 11节点：提交/追赶 × 三种批次 × 三轮": "18/18 PASS",
+    "Win11 演示菜单动作、状态刷新、故障恢复、历史检查点": "PASS (SYSTEM session)",
+    "Win11 进程身份、其他目录进程保护、成员复用回归": "PASS",
+    "Win11 中文及空格路径、demo.bat 菜单入口": "PASS (scripted actions and exit input)",
+    "真实 Linux watch 接收 SIGINT 后退出": "PASS",
+    "SVG XML 回归及图像预览": "PASS",
+    "Windows race / 手工登录桌面交互": "未执行（未配置 C 工具链 / 未登录原桌面）"
+  },
+  "notes": [
+    "First Windows test harness timed out during PowerShell redirected-output capture; its owned processes were inspected and cleaned up. Final harness uses bounded direct stream reads and passed.",
+    "Windows command-line trailing whitespace and default ANSI JSON decoding were reproduced; argument matching trims only trailing whitespace and JSON reads use explicit UTF-8.",
+    "Control-script UTF-8 changes followed batch measurements and were independently tested. Original measured hashes remain in environment.json; see source-verification.json.",
+    "Microbenchmarks are not network throughput or per-process peak memory. Three Windows repeats per group do not establish a universal optimum."
+  ]
+}

@@ -4,7 +4,7 @@
 
 默认配置只监听 `127.0.0.1`。RPC 没有认证、TLS 或不可信客户端防护；仅在本机或受信任的隔离网络运行，不要将端口映射或开放至公网。详见 [安全说明](SECURITY.md)。
 
-[课程报告](docs/report.md) · [RPC 调用图](docs/rpc-flow.svg) · [实验记录与版本边界](validation/README.md) · [本轮修复说明](docs/closure.md)
+[课程报告](docs/report.md) · [RPC 调用图](docs/rpc-flow.svg) · [实验记录与版本边界](validation/README.md) · [收尾修复说明](docs/closure.md) · [终端演示与性能测量](docs/ux.md)
 
 ## 环境与构建
 
@@ -23,7 +23,7 @@ Windows 的 Go 竞态检测另外需要兼容的 C 编译器；不具备工具�
 
 ## 11 节点现场演示
 
-双击 `start.bat`，直接回车采用 11 个节点。启动脚本先编译一次，新目录生成 JSON，已有目录复用保存的固定成员，再按 JSON 中的 ID/地址打开独立节点终端并核对进程及 Status。每次默认建立新的实验目录。
+双击 `start.bat`，直接回车采用 11 个节点。启动脚本先编译一次，新目录生成 JSON，已有目录复用保存的固定成员，再按 JSON 中的 ID/地址打开独立节点终端并依次报告进程启动、节点可达、观察到一致 Leader。此时没有自动提交算术命令。每次默认建立新的实验目录。
 
 也可以指定已有配置，支持非连续 ID：
 
@@ -38,6 +38,30 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start.ps1 -Nodes 11 
 ```
 
 使用同一目录再次启动会恢复该轮数据；省略 `-Nodes` 会沿用原数量（例如仍为 3）。显式节点数或配置与已存成员冲突时会报错，应换新目录；有数据却缺少配置时会拒绝猜测。首次传入外部配置也会保存到运行目录的 `nodes.json`。启动状态检查失败会停止本轮启动的进程并保留数据与诊断。要做全新实验请换目录，运行中不要删除数据。
+
+## 终端总览与演示菜单
+
+```powershell
+.\raft-node.exe -config demo-runs/classroom/nodes.json -status-all -format table
+.\raft-node.exe -config demo-runs/classroom/nodes.json -status-all -format table -watch 1s
+.\demo.bat demo-runs/classroom
+```
+
+表格按节点 ID 排序，显示本地角色、任期、Leader ID、日志/提交/应用索引、命令数、x 和错误。它使用轻量状态查询，不计算完整日志或历史前缀，因此不能代替 `-verify`。默认 JSON 格式与原完整校验不变；可选 `-watch` 的 JSON 输出为一行一个数组。刷新请求串行执行，查询结束后再等待指定间隔；Ctrl+C 停止观察，活动查询最多再等待约 2 秒。表格不使用 ANSI 控制字符，支持输出重定向。
+
+菜单提供状态、刷新、生成、验证、停止指定节点、恢复节点和停止本会话全部节点。启动检查只表示观察到了 Leader；只有命令回复 `accepted=true, committed=true` 且没有错误时，菜单才显示 COMMITTED。未确认的写入不会自动重试。停止使用强制终止来模拟故障，保留配置和数据；恢复使用原 ID/目录，追赶完成后再验证。
+
+也可直接调用动作，适合课堂脚本：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/demo.ps1 -RunDir demo-runs/classroom -Action generate -Count 2101 -Seed 42
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/demo.ps1 -RunDir demo-runs/classroom -Action stop -NodeID 3
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/demo.ps1 -RunDir demo-runs/classroom -Action restart -NodeID 3
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/demo.ps1 -RunDir demo-runs/classroom -Action verify
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/demo.ps1 -RunDir demo-runs/classroom -Action stop-all
+```
+
+`session.json` 保存本次启动的节点 PID、启动时间、程序和配置摘要及参数。进程控制会核对身份，避免 PID 被复用后误操作其他进程；不会按程序名批量停止节点。配置或程序已改变时拒绝控制，先停止本会话再重新构建。旧目录没有 session.json 时，先使用 start.ps1 正常启动建立会话。退出菜单会保留节点运行，结束演示请选择停止全部。
 
 ## 生成并验证 2101 条命令
 
@@ -134,3 +158,24 @@ python scripts/render_report.py --benchmark validation/closure-20261019/benchmar
 Windows 未配置 C 编译器时跳过 `-race` 并明确记录。启动验收需要新的 WorkRoot；它保留本轮文件并只清理自己的进程。分区测试使用测试专用 TCP 代理，不修改运行节点的 peers；少数派旧 Leader 可仍显示 Leader，但不得提交。计时器单元测试不构成所有网络条件下的活性证明。
 
 报告从输入环境和逐轮记录重新统计；缺失字段写“未记录”，历史故障另列。原报告保留为 [report-81723b8.md](docs/report-81723b8.md)。
+
+## 复制批次比较与 SVG 图表
+
+默认复制批次仍为 128。节点可用 `-batch-size 64` 等值明确设置，范围 1..4096；固定成员和提交条件不变。实验入口支持同一构建的配对比较：
+
+```powershell
+python scripts/benchmark.py --nodes 11 --entries 2101 --rounds 3 --batch-sizes 64 128 256 --scenarios replication catchup --output .test-output/batch-comparison
+python scripts/visualize.py --input .test-output/batch-comparison --output figures/batch-comparison
+```
+
+新增 replication 场景测量从发起命令到确认提交的外部耗时，并另外记录全部节点应用完成的观测耗时；原四场景仍是默认值。结果按场景、节点数、批次分别汇总，不混合不同批次。每个实验保存 events.json，使用从首进程启动前开始的单调时钟偏移记录实际观测事件。
+
+图表脚本只依赖 Python 标准库，生成 performance.svg、timeline.svg 和 index.md。柱高是成功轮次均值、线段为最小至最大值，标注成功/尝试次数；失败不会算作 0 秒。时间线直接读取 events.json，不从旧日志猜测时间；缺少事件时明确标为未记录。输出目录必须新建，避免覆盖已有图。
+
+本轮新增验收入口：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test_demo.ps1 -WorkRoot demo-runs/demo-acceptance-new
+go test ./raft -run '^$' -bench 'BenchmarkStatus|BenchmarkSummary' -benchtime=200ms -count=3
+go test ./raft -run '^$' -bench BenchmarkBatchReplication -benchtime=1x -count=3
+```

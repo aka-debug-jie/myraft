@@ -2,6 +2,7 @@ param([int]$Nodes=11, [string]$Config='', [string]$RunDir='')
 $ErrorActionPreference='Stop'
 $nodesWasSpecified=$PSBoundParameters.ContainsKey('Nodes')
 $project=Split-Path $PSScriptRoot -Parent
+. (Join-Path $PSScriptRoot 'session.ps1')
 if ($Config) { $Config=(Resolve-Path $Config).Path }
 if ($RunDir) { $RunDir=[IO.Path]::GetFullPath($RunDir) }
 Set-Location $project
@@ -12,7 +13,7 @@ $configExists=Test-Path $persistedConfig
 $runHasContent=@(Get-ChildItem -Force $RunDir | Where-Object FullName -ne $persistedConfig).Count -gt 0
 
 function Get-Members([string]$Path) {
-    return @((Get-Content $Path -Raw | ConvertFrom-Json).nodes)
+    return @((Get-Content $Path -Raw -Encoding UTF8 | ConvertFrom-Json).nodes)
 }
 function Get-MemberSignature([object[]]$Members) {
     return (($Members | Sort-Object { [int]$_.id } | ForEach-Object { '{0}|{1}' -f ([int]$_.id),([string]$_.addr) }) -join "`n")
@@ -66,13 +67,21 @@ try {
 
 $started=@()
 $ready=$false
+$reachable=$false
 $lastStatus='No status received'
 try {
     foreach ($node in $members) {
-        $arguments="-id $($node.id) -config `"$Config`" -data-dir `"$RunDir\data`" -log-dir `"$RunDir\logs`""
+        $arguments=Get-NodeArguments $node.id $RunDir
         $started += Start-Process -FilePath "$project\raft-node.exe" -ArgumentList $arguments -PassThru
     }
     $started.Id | ConvertTo-Json | Set-Content "$RunDir\pids.json"
+    $records=@(for ($i=0;$i -lt $members.Count;$i++) { New-NodeRecord $started[$i] $members[$i].id $RunDir })
+    $session=[pscustomobject]@{version=1;run_dir=$RunDir;executable="$project\raft-node.exe";
+        executable_sha256=(Get-FileHash "$project\raft-node.exe").Hash;
+        config_sha256=(Get-FileHash $Config).Hash;nodes=$records}
+    Save-Session $session $RunDir
+    Write-Host "[1/3] Processes started: $($started.Count)."
+
     $expected=(@($members | ForEach-Object { [int]$_.id } | Sort-Object) -join ',')
     $deadline=[DateTime]::UtcNow.AddSeconds(15)
     while ([DateTime]::UtcNow -lt $deadline) {
@@ -88,12 +97,29 @@ try {
             @($ids | Select-Object -Unique).Count -eq $members.Count -and
             (($ids | Sort-Object) -join ',') -eq $expected -and
             @($started | Where-Object HasExited).Count -eq 0 -and [DateTime]::UtcNow -lt $deadline) {
-            $ready=$true
+            $reachable=$true
             break
         }
         Start-Sleep -Milliseconds 100
     }
-    if (-not $ready) { throw 'Nodes did not report healthy Status within 15 seconds.' }
+    if (-not $reachable) { throw 'Node endpoints did not become reachable within 15 seconds.' }
+    Write-Host "[2/3] Node endpoints reachable: $($members.Count)."
+    $deadline=[DateTime]::UtcNow.AddSeconds(15)
+    while ([DateTime]::UtcNow -lt $deadline) {
+        if (@($started | Where-Object HasExited).Count) { throw 'A node exited while waiting for a Leader.' }
+        $raw=& .\raft-node.exe -config $Config -status-all -timeout 2s
+        if ($LASTEXITCODE -ne 0) { throw 'Leader observation query failed.' }
+        $lastStatus=$raw -join "`n"
+        $statuses=ConvertFrom-Json -InputObject $lastStatus
+        if ((Test-LeaderObserved $statuses) -and [DateTime]::UtcNow -lt $deadline) {
+            $leader=@($statuses | Where-Object state -eq 'Leader')[0]
+            $ready=$true
+            Write-Host "[3/3] Leader observed: node $($leader.id), term $($leader.term). No demo commands have been submitted."
+            break
+        }
+        Start-Sleep -Milliseconds 100
+    }
+    if (-not $ready) { throw 'Nodes are reachable but no consistent Leader was observed within 15 seconds.' }
 } finally {
     # Keep diagnostics even when startup fails; only this invocation's handles are stopped.
     try { $lastStatus | Set-Content "$RunDir\startup-status.json" } catch { Write-Warning $_ }
@@ -115,3 +141,5 @@ Write-Host "Data and logs: $RunDir"
 Write-Host ".\raft-node.exe -config `"$Config`" -demo 2101 -seed 42"
 Write-Host ".\raft-node.exe -config `"$Config`" -verify"
 Write-Host 'Restart a closed node with the same ID, configuration and data directory.'
+
+Write-Host "Demo menu: powershell -NoProfile -ExecutionPolicy Bypass -File scripts/demo.ps1 -RunDir `"$RunDir`""

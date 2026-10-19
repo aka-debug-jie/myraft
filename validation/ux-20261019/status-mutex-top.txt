@@ -1,0 +1,45 @@
+File: raft.test
+Build ID: 870daeae4553d6ffe289e9bc631ed76c2da78da1
+Type: delay
+Time: 2026-10-19 13:34:18 CST
+Showing nodes accounting for 688.51ms, 100% of 688.51ms total
+Dropped 46 nodes (cum <= 3.44ms)
+      flat  flat%   sum%        cum   cum%
+  573.64ms 83.32% 83.32%   573.64ms 83.32%  sync.(*Mutex).Unlock
+  104.75ms 15.21% 98.53%   104.75ms 15.21%  runtime.unlock (inline)
+   10.12ms  1.47%   100%    10.12ms  1.47%  runtime._LostContendedRuntimeLock
+         0     0%   100%   573.64ms 83.32%  myraft/raft.(*Node).Status
+         0     0%   100%   573.68ms 83.32%  myraft/raft.BenchmarkStatusContention
+         0     0%   100%   573.68ms 83.32%  myraft/raft.benchmarkStatusContention
+         0     0%   100%    56.60ms  8.22%  runtime.(*gcWork).init
+         0     0%   100%    46.46ms  6.75%  runtime.(*gcWork).putObj
+         0     0%   100%    10.14ms  1.47%  runtime.(*gcWork).tryGetObj
+         0     0%   100%    86.19ms 12.52%  runtime.(*mheap).allocManual
+         0     0%   100%    86.19ms 12.52%  runtime.(*mheap).allocSpan
+         0     0%   100%    28.97ms  4.21%  runtime.(*stackScanState).addObject
+         0     0%   100%     8.23ms  1.20%  runtime.findRunnable
+         0     0%   100%     6.78ms  0.98%  runtime.forEachP (inline)
+         0     0%   100%     6.78ms  0.98%  runtime.forEachP.func1
+         0     0%   100%     6.78ms  0.98%  runtime.forEachPInternal
+         0     0%   100%    94.48ms 13.72%  runtime.gcBgMarkWorker
+         0     0%   100%    86.19ms 12.52%  runtime.gcBgMarkWorker.func2
+         0     0%   100%    86.19ms 12.52%  runtime.gcDrain
+         0     0%   100%    86.12ms 12.51%  runtime.gcDrainMarkWorkerDedicated (inline)
+         0     0%   100%     8.29ms  1.20%  runtime.gcMarkDone
+         0     0%   100%     5.67ms  0.82%  runtime.gcMarkTermination
+         0     0%   100%    86.19ms 12.52%  runtime.getempty
+         0     0%   100%    86.19ms 12.52%  runtime.getempty.func1
+         0     0%   100%    46.46ms  6.75%  runtime.greyobject
+         0     0%   100%    75.43ms 10.96%  runtime.markroot
+         0     0%   100%    75.40ms 10.95%  runtime.markroot.func1
+         0     0%   100%     7.91ms  1.15%  runtime.mcall
+         0     0%   100%     7.89ms  1.15%  runtime.park_m
+         0     0%   100%    46.46ms  6.75%  runtime.scanblock
+         0     0%   100%    75.40ms 10.95%  runtime.scanframeworker
+         0     0%   100%    75.40ms 10.95%  runtime.scanstack
+         0     0%   100%     8.58ms  1.25%  runtime.schedule
+         0     0%   100%    95.43ms 13.86%  runtime.systemstack
+         0     0%   100%   552.37ms 80.23%  testing.(*B).doBench.gowrap1
+         0     0%   100%   552.46ms 80.24%  testing.(*B).launch
+         0     0%   100%    21.39ms  3.11%  testing.(*B).run1.func1
+         0     0%   100%   574.60ms 83.45%  testing.(*B).runN

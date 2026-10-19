@@ -1,0 +1,34 @@
+[
+  {
+    "event": "processes_started",
+    "offset_seconds": 0.01572396419942379
+  },
+  {
+    "event": "leader_observed",
+    "offset_seconds": 3.2798832943663
+  },
+  {
+    "event": "commands_committed",
+    "offset_seconds": 3.356776830740273
+  },
+  {
+    "event": "fault_started",
+    "offset_seconds": 3.4933238020166755
+  },
+  {
+    "event": "replacement_observed",
+    "offset_seconds": 7.00846594851464
+  },
+  {
+    "event": "replacement_write_committed",
+    "offset_seconds": 7.030865057371557
+  },
+  {
+    "event": "nodes_restarted",
+    "offset_seconds": 7.17293346952647
+  },
+  {
+    "event": "converged",
+    "offset_seconds": 7.434725857339799
+  }
+]

@@ -95,5 +95,13 @@ class BenchmarkTests(unittest.TestCase):
                 self.assertEqual(status['status'], expected)
 
 
+    def test_batch_sizes_are_not_pooled(self):
+        rows = [dict(nodes=11, scenario='replication', batch_size=b, result='PASS', elapsed_seconds=v)
+                for b, v in [(64, 1.0), (64, 3.0), (128, 8.0), (256, 4.0)]]
+        stats = summarize(rows)
+        self.assertEqual([s['batch_size'] for s in stats], [64, 128, 256])
+        self.assertEqual([s['mean_seconds'] for s in stats], [2.0, 8.0, 4.0])
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,80 @@
+{
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "python": "3.12.7",
+  "logical_cpus": 128,
+  "node_gomaxprocs": 1,
+  "timings_ms": {
+    "election_min": 3000,
+    "election_jitter": 3000,
+    "heartbeat": 150,
+    "rpc_timeout": 1000
+  },
+  "arguments": {
+    "nodes": [
+      3,
+      11
+    ],
+    "batch_sizes": [
+      128
+    ],
+    "entries": 2101,
+    "rounds": 1,
+    "seed": 42,
+    "timeout": 120,
+    "scenarios": [
+      "election",
+      "failover",
+      "catchup",
+      "divergence"
+    ],
+    "output": "linux-functional"
+  },
+  "measurement": "monotonic polling observation; per wait/generate timeout, not total scenario budget; two consistent snapshots 100 ms apart; includes polling overhead",
+  "go": "go version go1.27.2 linux/amd64",
+  "git_commit": "fd7e8d00a69d4a726a161dde15e66e2c781957ab",
+  "git_dirty": true,
+  "source_sha256": {
+    "config/config.go": "fc159bd5fdd3af9e0e9927ff925b9b103c491374670bb9a3963bb944923e8c4c",
+    "display.go": "dc9d86f318f7a3b55183acb4f336f3694dd05fda837e326c765fa18083c28697",
+    "display_test.go": "6f3ec63bc5aac95b3671a0cb9262762e786d44806c1d47897c63ac7fa52c709f",
+    "go.mod": "9f625a9d7bd67ed216644a207c16ed5ab633c3992e5c64f58654112c327d986b",
+    "main.go": "7005c4c5099ac71e6e3459c7a9525325bba783e9e9281684246a63cb6da673bf",
+    "main_test.go": "0348aebf789c02a56c6eb16d8cf6a1701fdce16020ea4691bf24afb7efceb120",
+    "raft/closure_test.go": "6a062a10c9bead99e160b23d0efe4bb720708226556a4a08ee3141820f034656",
+    "raft/fixture.go": "4bd44e9eed3db532008e71c4090a7c6684e4cd0d6c2e5d643927583b727391b5",
+    "raft/log.go": "f9902cfe0abf2d592e8bbd69bd9783756b76d67cf73b9c0c591c1f3125bc18a0",
+    "raft/monitor_test.go": "4fc1bcb6a58d39c0de7a0a3f5ee632aa79149bfcdef4423b96d1c71ce8dfbcb0",
+    "raft/partition_test.go": "ef938541011bc42e6e92cabfe23f0e70788080f5ea09b7a37ed61a4903e018ed",
+    "raft/performance_test.go": "6bbaa0bd59ffcf704dc51c484fff565c8711e8ab5a1704eae64ec67a2727347f",
+    "raft/raft.go": "e2b619e1ecc2700d2dcf99807909f589e3e0287f80fcbc92d624ec8ca7074ae6",
+    "raft/raft_test.go": "7a07240f0226d11915e3f9cc1b3b0052c6e584a460344fc5fc4224bacb2b7156",
+    "raft/replication_test.go": "dd5e1f0d2a1199fe03bb2f5104863894570a910b5f61c22e25c320522e299b9d",
+    "raft/state_machine.go": "2bd4b60a3b602ab4483dc158837dbecbd6d72de5bf991b9e89a03f465e310354",
+    "raft/status_benchmark_test.go": "c31504cd4726878b2c29fac762c0bf8835faeb8fe9d9c6fc3bc8f689bb466642",
+    "raft/storage.go": "bc9056cfe252926590e296637c7f4b212806ff79efa0cf1365bcea9ced25dd29",
+    "raft/storage_test.go": "1264cdef1d2fe551e5d45ba08e014ac98668f5ef68de7adc3424022f159c746e",
+    "rpc/rpc.go": "3556af9e3db5faab20c6fb11c3e62abae7720726c2e86ee7ec735030aaca8e9e",
+    "rpc/rpc_test.go": "0ed20f3f4d54e88346c2524edb051a5b72175e172311ee13ed87dc049a410507",
+    "scripts/benchmark.py": "09e3580969e898a8a3b3e51e9c17183547b11e6be6a8ff09db292d9b08a270a7",
+    "scripts/demo.ps1": "3a0c605682a6dedefed0f2dd16b4fdd736b92899f68cd6b8ec9d3d3748124291",
+    "scripts/render_report.py": "a10b8f0e94fb85ea569c8127a02ec9787501f76a8cd98cc0cf7f36a7406dc809",
+    "scripts/session.ps1": "7b6d59db18937446b6c718640aab42f38ec90cc40c518f3bf52e05e3b9e987f9",
+    "scripts/smoke_test.py": "345b899449a0a82c6d83ff4d0c0e1276ea23a0aafb739331a62c3cbed386ee51",
+    "scripts/start.ps1": "d55a6e057c2e6510545082f5370887ea6324c9979b2fecd50574fb5328788458",
+    "scripts/test_benchmark.py": "23f20ad160c7400c647c7d474c458446fd3ba88a07e1f8e334ef374ee5f7c17c",
+    "scripts/test_demo.ps1": "0cf8af7f975e213726e11b912773ee1a2adff7615a1d31f516b69fc0544cebed",
+    "scripts/test_report.py": "f231c56bec2176ef0b8499cade862a13f005f986522b561955ca4d1bdd6c0e9e",
+    "scripts/test_smoke.py": "74dbfb8f8daf6354e607e8b51d9ba6583329b56435112f2bdb5a6e108841a3e5",
+    "scripts/test_start.ps1": "9ec4411a9a1c08a478071e7fd58513b0eef61d2cd6778ad7b5cfde412ebc7940",
+    "scripts/test_visualize.py": "6f838d5ec9e41bf87ed7d8459f23d1c0292404dc901ae509cce01688c2c6d196",
+    "scripts/visualize.py": "ff3727a5a28055fe4edd889649f763a3dfa566520ba90335852c1b8b6a2dee89"
+  },
+  "binary_sha256": "e39d2f02f9942e1449ceb41f5c4ea6b6b7cb1299687bed4ee770ed0a678e60a1",
+  "build_command": [
+    "go",
+    "build",
+    "-o",
+    "raft-node",
+    "."
+  ]
+}

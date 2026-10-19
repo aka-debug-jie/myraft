@@ -1,0 +1,24 @@
+goos: linux
+goarch: amd64
+pkg: myraft/raft
+cpu: Intel(R) Xeon(R) Platinum 8336C CPU @ 2.30GHz
+BenchmarkBatchReplication/entries_2101/batch_64-128         	       1	  76291916 ns/op	 3492240 B/op	   21734 allocs/op
+BenchmarkBatchReplication/entries_2101/batch_64-128         	       1	  82617477 ns/op	 3439520 B/op	   21698 allocs/op
+BenchmarkBatchReplication/entries_2101/batch_64-128         	       1	  82019416 ns/op	 3455376 B/op	   21712 allocs/op
+BenchmarkBatchReplication/entries_2101/batch_128-128        	       1	  59166774 ns/op	 4323080 B/op	   19661 allocs/op
+BenchmarkBatchReplication/entries_2101/batch_128-128        	       1	  54422274 ns/op	 4311760 B/op	   19669 allocs/op
+BenchmarkBatchReplication/entries_2101/batch_128-128        	       1	  57625015 ns/op	 4338416 B/op	   19676 allocs/op
+BenchmarkBatchReplication/entries_2101/batch_256-128        	       1	  46852393 ns/op	 4159880 B/op	   18286 allocs/op
+BenchmarkBatchReplication/entries_2101/batch_256-128        	       1	  39032301 ns/op	 4114904 B/op	   18323 allocs/op
+BenchmarkBatchReplication/entries_2101/batch_256-128        	       1	  45709774 ns/op	 4172416 B/op	   18279 allocs/op
+BenchmarkBatchReplication/entries_21010/batch_64-128        	       1	 749660344 ns/op	38395680 B/op	  218653 allocs/op
+BenchmarkBatchReplication/entries_21010/batch_64-128        	       1	 739300916 ns/op	38301104 B/op	  218609 allocs/op
+BenchmarkBatchReplication/entries_21010/batch_64-128        	       1	 687534049 ns/op	38240272 B/op	  218523 allocs/op
+BenchmarkBatchReplication/entries_21010/batch_128-128       	       1	 447916262 ns/op	48144920 B/op	  197701 allocs/op
+BenchmarkBatchReplication/entries_21010/batch_128-128       	       1	 432448579 ns/op	47959496 B/op	  197511 allocs/op
+BenchmarkBatchReplication/entries_21010/batch_128-128       	       1	 428267536 ns/op	47946032 B/op	  197484 allocs/op
+BenchmarkBatchReplication/entries_21010/batch_256-128       	       1	 349717596 ns/op	46676808 B/op	  183606 allocs/op
+BenchmarkBatchReplication/entries_21010/batch_256-128       	       1	 320673348 ns/op	46481552 B/op	  183337 allocs/op
+BenchmarkBatchReplication/entries_21010/batch_256-128       	       1	 317857751 ns/op	46475224 B/op	  183320 allocs/op
+PASS
+ok  	myraft/raft	12.627s

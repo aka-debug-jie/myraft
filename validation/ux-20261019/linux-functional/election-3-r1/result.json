@@ -1,0 +1,22 @@
+{
+  "nodes": 3,
+  "scenario": "election",
+  "requested_commands": 2101,
+  "seed": 42,
+  "result": "PASS",
+  "elapsed_seconds": 4.432362497784197,
+  "error": null,
+  "batch_size": 128,
+  "round": 1,
+  "launch_seconds": 0.0025832094252109528,
+  "initial_leader": 1,
+  "local_election_ms": 4.653,
+  "final_leader": 1,
+  "final_term": 1,
+  "committed_commands": 0,
+  "commit_index": 1,
+  "x": 0,
+  "committed_hash": "f850d93c8787610ea1b48f2edd748afcf4d34a1d67d181026d555cc9ca5ae73c",
+  "last_query_seconds": 0.014293145388364792,
+  "query_timeouts": 0
+}

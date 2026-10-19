@@ -1,0 +1,22 @@
+{
+  "nodes": 11,
+  "scenario": "replication",
+  "requested_commands": 2101,
+  "seed": 42,
+  "result": "PASS",
+  "elapsed_seconds": 0.7949742699993294,
+  "error": null,
+  "batch_size": 128,
+  "round": 1,
+  "launch_seconds": 0.18506815999990067,
+  "initial_leader": 9,
+  "all_applied_seconds": 1.0564895299994532,
+  "final_leader": 9,
+  "final_term": 1,
+  "committed_commands": 2101,
+  "commit_index": 2102,
+  "x": 0,
+  "committed_hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+  "last_query_seconds": 0.11882227000023704,
+  "query_timeouts": 0
+}

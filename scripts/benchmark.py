@@ -18,7 +18,8 @@ FLAGS = subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
 
 
 class Cluster:
-    def __init__(self, count, folder, timeout):
+    def __init__(self, count, folder, timeout, batch_size=128):
+        self.batch_size = batch_size
         self.folder, self.timeout = folder, timeout
         self.processes, self.outputs = {}, []
         self.query_timeouts = 0
@@ -57,7 +58,7 @@ class Cluster:
         self.processes[node_id] = subprocess.Popen(
             [str(EXE), '-id', str(node_id), '-config', str(self.config),
              '-data-dir', str(self.folder / 'data'), '-log-dir', str(self.folder / 'logs'),
-             '-election-min', '3s', '-election-jitter', '3s', '-heartbeat', '150ms', '-rpc-timeout', '1s'],
+             '-election-min', '3s', '-election-jitter', '3s', '-heartbeat', '150ms', '-rpc-timeout', '1s', '-batch-size', str(self.batch_size)],
             cwd=ROOT, stdout=out, stderr=subprocess.STDOUT, creationflags=FLAGS,
             env={**os.environ, 'GOMAXPROCS': '1'})
         self.update_query()
@@ -194,28 +195,41 @@ def build_current(output):
             'build_command': ['go', 'build', '-o', EXE.name, '.']}
 
 
-def experiment(count, scenario, entries, seed, folder, timeout):
-    c = Cluster(count, folder, timeout)
+def experiment(count, scenario, entries, seed, folder, timeout, batch_size=128, round_number=1):
+    c = Cluster(count, folder, timeout, batch_size)
     row = {'nodes': count, 'scenario': scenario, 'requested_commands': entries, 'seed': seed,
-           'result': 'FAIL', 'elapsed_seconds': None, 'error': None}
+           'result': 'FAIL', 'elapsed_seconds': None, 'error': None, 'batch_size': batch_size, 'round': round_number}
     begin = time.perf_counter()
+    origin, events = begin, []
+    def observe(event):
+        events.append({'event': event, 'offset_seconds': time.perf_counter() - origin})
     try:
         if scenario == 'divergence':
             c.run('-prepare-divergence', '-demo', entries, '-seed', seed,
                   '-data-dir', str(folder / 'data'))
         start_ids = range(1, count if scenario == 'catchup' else count + 1)
-        begin = time.perf_counter()
+        begin = origin = time.perf_counter()
         for node_id in start_ids:
             c.start(node_id)
+        observe('processes_started')
         row['launch_seconds'] = time.perf_counter() - begin
         leader, _, _ = c.wait()
+        observe('leader_observed')
         row['initial_leader'] = leader['id']
         if scenario == 'election':
             row['elapsed_seconds'] = time.perf_counter() - begin
             row['local_election_ms'] = leader['election_ms']
             leader, states, query_seconds = c.wait(logs=True)
+        elif scenario == 'replication':
+            begin = time.perf_counter()
+            reply = c.generate(entries, seed)
+            observe('commands_committed')
+            row['elapsed_seconds'] = time.perf_counter() - begin
+            leader, states, query_seconds = c.wait(logs=True, target=reply['last_index'], commands=entries)
+            row['all_applied_seconds'] = time.perf_counter() - begin
         elif scenario == 'failover':
             reply = c.generate(entries, seed)
+            observe('commands_committed')
             leader, initial, _ = c.wait(logs=True, target=reply['last_index'], commands=entries)
             checkpoint = save_checkpoint(c.folder, initial[0])
             rng = random.Random(seed)
@@ -224,14 +238,17 @@ def experiment(count, scenario, entries, seed, folder, timeout):
             killed += rng.sample([i for i in c.processes if i != leader['id']], rng.randrange(max_faults))
             old_term = leader['term']
             begin = time.perf_counter()
+            observe('fault_started')
             for node_id in killed:
                 c.stop(node_id)
             row['kill_seconds'] = time.perf_counter() - begin
             replacement, _, _ = c.wait()
+            observe('replacement_observed')
             row['leader_observed_seconds'] = time.perf_counter() - begin
             if replacement['term'] <= old_term:
                 raise AssertionError('leader term did not advance')
             reply = c.generate(1, seed + 1)
+            observe('replacement_write_committed')
             row['elapsed_seconds'] = time.perf_counter() - begin
             row['local_election_ms'] = replacement['election_ms']
             row['killed_ids'] = killed
@@ -240,15 +257,18 @@ def experiment(count, scenario, entries, seed, folder, timeout):
             # Restart original disks and verify catch-up without changing membership.
             for node_id in killed:
                 c.start(node_id)
+            observe('nodes_restarted')
             leader, states, query_seconds = c.wait(logs=True, target=checkpoint['index'],
                                                     commands=entries + 1, checkpoint=checkpoint)
             row['restarted_nodes_caught_up'] = True
         elif scenario == 'catchup':
             reply = c.generate(entries, seed)
+            observe('commands_committed')
             _, initial, _ = c.wait(logs=True, target=reply['last_index'], commands=entries)
             checkpoint = save_checkpoint(c.folder, initial[0])
             begin = time.perf_counter()
             c.start(count)
+            observe('empty_node_started')
             leader, states, query_seconds = c.wait(logs=True, target=checkpoint['index'],
                                                     commands=entries, checkpoint=checkpoint)
             row['elapsed_seconds'] = time.perf_counter() - begin
@@ -271,6 +291,7 @@ def experiment(count, scenario, entries, seed, folder, timeout):
         if scenario in ('failover', 'catchup'):
             row.update(checkpoint_index=checkpoint['index'], checkpoint_hash=checkpoint['hash'],
                        checkpoint_x=checkpoint['x'], checkpoint_preserved=True)
+        observe('converged')
         row.update(result='PASS', final_leader=leader['id'], final_term=leader['term'],
                    committed_commands=states[0]['committed_commands'],
                    commit_index=states[0]['commit_index'], x=states[0]['x'],
@@ -287,14 +308,15 @@ def experiment(count, scenario, entries, seed, folder, timeout):
             row['result'], row['error'] = 'FAIL', f'{row.get("error")}; {exc}'
             row['cleanup_failed'] = True
         row['query_timeouts'] = c.query_timeouts
+        (folder / 'events.json').write_text(json.dumps(events, indent=2), encoding='utf-8')
         (folder / 'result.json').write_text(json.dumps(row, indent=2), encoding='utf-8')
     return row
 
 
 def summarize(rows):
     groups = []
-    for key in sorted({(r['nodes'], r['scenario']) for r in rows}):
-        selected = [r for r in rows if (r['nodes'], r['scenario']) == key]
+    for key in sorted({(r['nodes'], r['scenario'], r.get('batch_size', 128)) for r in rows}):
+        selected = [r for r in rows if (r['nodes'], r['scenario'], r.get('batch_size', 128)) == key]
         values = [r['elapsed_seconds'] for r in selected if r['result'] == 'PASS']
         local = [r['local_election_ms'] for r in selected if r['result'] == 'PASS' and 'local_election_ms' in r]
         groups.append({'nodes': key[0], 'scenario': key[1], 'attempts': len(selected),
@@ -305,22 +327,27 @@ def summarize(rows):
                        'min_seconds': min(values) if values else None,
                        'max_seconds': max(values) if values else None,
                        'mean_local_election_ms': statistics.mean(local) if local else None})
+        if any('batch_size' in r for r in rows):
+            groups[-1]['batch_size'] = key[2]
     return groups
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--nodes', nargs='+', type=int, default=[10, 20, 50, 100])
+    parser.add_argument('--batch-sizes', nargs='+', type=int, default=[128])
     parser.add_argument('--entries', type=int, default=2101)
     parser.add_argument('--rounds', type=int, default=5)
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--timeout', type=int, default=120)
-    parser.add_argument('--scenarios', nargs='+', choices=['election', 'failover', 'catchup', 'divergence'],
+    parser.add_argument('--scenarios', nargs='+', choices=['election', 'failover', 'catchup', 'divergence', 'replication'],
                         default=['election', 'failover', 'catchup', 'divergence'])
     parser.add_argument('--output', type=Path, default=ROOT / '.test-output' / f'benchmark-{time.time_ns()}')
     args = parser.parse_args()
     if min(args.nodes) < 3 or args.rounds < 1 or args.entries < 256 or not 1 <= args.timeout <= 600:
         parser.error('nodes >=3, rounds >=1, entries >=256, timeout 1..600 required')
+    if any(not 1 <= b <= 4096 for b in args.batch_sizes) or len(set(args.batch_sizes)) != len(args.batch_sizes):
+        parser.error('batch sizes must be unique integers in 1..4096')
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
     environment = {'platform': platform.platform(), 'python': platform.python_version(),
@@ -335,15 +362,16 @@ def main():
         raise
     (output / 'environment.json').write_text(json.dumps(environment, indent=2), encoding='utf-8')
     rows = []
-    cases = ((n, s, r) for n in args.nodes for s in args.scenarios for r in range(args.rounds))
-    for count, scenario, iteration in cases:
-        folder = output / f'{scenario}-{count}-r{iteration+1}'
-        row = experiment(count, scenario, args.entries, args.seed + iteration, folder, args.timeout)
+    cases = ((n, s, b, r) for n in args.nodes for s in args.scenarios for b in args.batch_sizes for r in range(args.rounds))
+    for count, scenario, batch, iteration in cases:
+        batch_part = f'-b{batch}' if len(args.batch_sizes) > 1 else ''
+        folder = output / f'{scenario}-{count}{batch_part}-r{iteration+1}'
+        row = experiment(count, scenario, args.entries, args.seed + iteration, folder, args.timeout, batch, iteration+1)
         row['round'] = iteration + 1
         rows.append(row)
         (output / 'results.json').write_text(json.dumps(rows, indent=2), encoding='utf-8')
         (output / 'summary.json').write_text(json.dumps(summarize(rows), indent=2), encoding='utf-8')
-        print(f"{scenario} n={count} round={iteration+1}: {row['result']} {row['elapsed_seconds']} {(row['error'] or '')[:250]}", flush=True)
+        print(f"{scenario} n={count} batch={batch} round={iteration+1}: {row['result']} {row['elapsed_seconds']} {(row['error'] or '')[:250]}", flush=True)
         if row.get('cleanup_failed') or row['result'] == 'INTERRUPTED':
             break
     keys = sorted({k for row in rows for k in row})
@@ -354,7 +382,7 @@ def main():
     final_status = ('CLEANUP_FAILED' if any(r.get('cleanup_failed') for r in rows) else
                     'INTERRUPTED' if any(r['result'] == 'INTERRUPTED' for r in rows) else 'COMPLETE')
     (output / 'run-status.json').write_text(json.dumps({'status': final_status,
-        'planned': len(args.nodes) * len(args.scenarios) * args.rounds, 'completed': len(rows),
+        'planned': len(args.nodes) * len(args.scenarios) * len(args.batch_sizes) * args.rounds, 'completed': len(rows),
         'passed': sum(r['result'] == 'PASS' for r in rows), 'failed': sum(r['result'] == 'FAIL' for r in rows),
         'interrupted': sum(r['result'] == 'INTERRUPTED' for r in rows)}, indent=2), encoding='utf-8')
     print(f'Results: {output}', flush=True)

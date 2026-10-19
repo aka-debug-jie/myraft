@@ -8,7 +8,7 @@ from benchmark import summarize
 
 ROOT = Path(__file__).resolve().parents[1]
 NAMES = {'election': '初次选举（外部观测）', 'failover': '故障至新写入提交',
-         'catchup': '空节点追赶', 'divergence': '当选至分歧修复观测'}
+         'replication': '命令提交（外部观测）', 'catchup': '空节点追赶', 'divergence': '当选至分歧修复观测'}
 
 
 def _field(mapping, key):
@@ -28,7 +28,7 @@ def _counts(rows, environment):
     groups = {}
     interrupted_states = {'INTERRUPTED', 'ABORTED', 'CANCELLED', 'STOPPED'}
     for row in rows:
-        key = (row['nodes'], row['scenario'])
+        key = (row['nodes'], row['scenario'], row.get('batch_size', 128))
         state = str(row.get('result', '')).upper()
         group = groups.setdefault(key, {'attempted': 0, 'passed': 0, 'failed': 0, 'interrupted': 0})
         group['attempted'] += 1
@@ -41,19 +41,20 @@ def _counts(rows, environment):
 
     arguments = environment.get('arguments', {}) if isinstance(environment, dict) else {}
     nodes, scenarios, rounds = arguments.get('nodes'), arguments.get('scenarios'), arguments.get('rounds')
+    batches = arguments.get('batch_sizes', [128])
     planned = None
     if isinstance(nodes, list) and isinstance(scenarios, list) and isinstance(rounds, int) and rounds >= 0:
-        planned = len(nodes) * len(scenarios) * rounds
+        planned = len(nodes) * len(scenarios) * len(batches) * rounds
     if planned is None:
         for group in groups.values():
             group['unexecuted'] = '未记录'
         unexecuted = None
     else:
-        for key in product(nodes, scenarios):
+        for key in product(nodes, scenarios, batches):
             groups.setdefault(key, {'attempted': 0, 'passed': 0, 'failed': 0, 'interrupted': 0})
         unexecuted = 0
-        for (node_count, scenario), group in groups.items():
-            expected = rounds if node_count in nodes and scenario in scenarios else 0
+        for (node_count, scenario, batch), group in groups.items():
+            expected = rounds if node_count in nodes and scenario in scenarios and batch in batches else 0
             group['unexecuted'] = max(0, expected - group['attempted'])
             if expected:
                 unexecuted += group['unexecuted']
@@ -77,7 +78,7 @@ def main():
         nums = [item.get(k) for k in ['mean_seconds', 'median_seconds', 'min_seconds', 'max_seconds', 'mean_local_election_ms']]
         values = ' | '.join(('—' if i == 4 else '未测得') if value is None else f'{value:.3f}'
                             for i, value in enumerate(nums))
-        table.append(f"| {item['nodes']} | {NAMES.get(item['scenario'], item['scenario'])} | {item['passed']}/{item['attempts']} | {values} |")
+        table.append(f"| {item['nodes']} | {NAMES.get(item['scenario'], item['scenario']) + (f' / batch {item["batch_size"]}' if 'batch_size' in item else '')} | {item['passed']}/{item['attempts']} | {values} |")
 
     groups, planned, unexecuted = _counts(rows, environment)
     nodes = sorted({row['nodes'] for row in rows})
@@ -93,8 +94,9 @@ def main():
     }
     groups_table = ['| 节点数 | 场景 | 实际轮数 | 通过 | 失败 | 中断 | 未执行 |',
                     '|---:|---|---:|---:|---:|---:|---:|']
-    for (node_count, scenario), group in sorted(groups.items()):
-        groups_table.append(f"| {node_count} | {NAMES.get(scenario, scenario)} | {group['attempted']} | {group['passed']} | {group['failed']} | {group['interrupted']} | {group['unexecuted']} |")
+    for (node_count, scenario, batch), group in sorted(groups.items()):
+        label = NAMES.get(scenario, scenario) + (f" / batch {batch}" if any("batch_size" in r for r in rows) else "")
+        groups_table.append(f"| {node_count} | {label} | {group['attempted']} | {group['passed']} | {group['failed']} | {group['interrupted']} | {group['unexecuted']} |")
     if not groups:
         groups_table.append('| 未记录 | 未记录 | 0 | 未记录 | 未记录 | 未记录 | 未记录 |')
 
@@ -119,6 +121,8 @@ def main():
         reproduction = 'python scripts/benchmark.py --nodes ' + ' '.join(map(str, arguments['nodes']))
         reproduction += ' --scenarios ' + ' '.join(map(str, arguments['scenarios']))
         reproduction += f" --rounds {arguments['rounds']}"
+        if 'batch_sizes' in arguments:
+            reproduction += ' --batch-sizes ' + ' '.join(map(str, arguments['batch_sizes']))
         for key in ('entries', 'seed', 'timeout'):
             if key in arguments:
                 reproduction += f" --{key} {arguments[key]}"

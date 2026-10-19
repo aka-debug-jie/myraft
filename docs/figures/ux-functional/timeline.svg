@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1059" viewBox="0 0 1120 1059"><rect width="100%" height="100%" fill="white"/>
+<text x="560.0" y="27" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="18" text-anchor="middle" fill="#243447" font-weight="bold">Observed event timeline · monotonic offsets</text>
+<text x="560.0" y="48" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="12" text-anchor="middle" fill="#536273" font-weight="normal">Offsets from first process launch; not protocol-exact event times.</text>
+<text x="350.0" y="75" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.00s</text>
+<text x="525.0" y="75" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">2.34s</text>
+<text x="700.0" y="75" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">4.68s</text>
+<text x="875.0" y="75" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">7.02s</text>
+<text x="1050.0" y="75" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">9.36s</text>
+<text x="24" y="136" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="bold">catchup · 3 nodes · r1 · batch 128</text>
+<line x1="350" y1="132" x2="1050" y2="132" stroke="#c2cbd4"/>
+<line x1="350.3" y1="132" x2="350.3" y2="119" stroke="#337ab7"/>
+<circle cx="350.3" cy="119" r="7" fill="#337ab7"><title>processes_started 0.003s</title></circle>
+<text x="350.2594608842395" y="122" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">1</text>
+<text x="32" y="157" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">1. processes_started: 0.003s</text>
+<line x1="645.0" y1="132" x2="645.0" y2="106" stroke="#337ab7"/>
+<circle cx="645.0" cy="106" r="7" fill="#337ab7"><title>leader_observed 3.943s</title></circle>
+<text x="645.0304237860479" y="109" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">2</text>
+<text x="567" y="157" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">2. leader_observed: 3.943s</text>
+<line x1="650.1" y1="132" x2="650.1" y2="93" stroke="#337ab7"/>
+<circle cx="650.1" cy="93" r="7" fill="#337ab7"><title>commands_committed 4.011s</title></circle>
+<text x="650.0800449728424" y="96" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">3</text>
+<text x="32" y="174" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">3. commands_committed: 4.011s</text>
+<line x1="660.1" y1="132" x2="660.1" y2="119" stroke="#337ab7"/>
+<circle cx="660.1" cy="119" r="7" fill="#337ab7"><title>empty_node_started 4.144s</title></circle>
+<text x="660.0583501636634" y="122" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">4</text>
+<text x="567" y="174" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">4. empty_node_started: 4.144s</text>
+<line x1="679.0" y1="132" x2="679.0" y2="106" stroke="#337ab7"/>
+<circle cx="679.0" cy="106" r="7" fill="#337ab7"><title>converged 4.397s</title></circle>
+<text x="678.9786588223699" y="109" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">5</text>
+<text x="32" y="191" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">5. converged: 4.397s</text>
+<line x1="20" y1="203" x2="1100" y2="203" stroke="#edf0f3"/>
+<text x="24" y="257" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="bold">catchup · 11 nodes · r1 · batch 128</text>
+<line x1="350" y1="253" x2="1050" y2="253" stroke="#c2cbd4"/>
+<line x1="351.1" y1="253" x2="351.1" y2="240" stroke="#337ab7"/>
+<circle cx="351.1" cy="240" r="7" fill="#337ab7"><title>processes_started 0.015s</title></circle>
+<text x="351.1003703075662" y="243" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">1</text>
+<text x="32" y="278" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">1. processes_started: 0.015s</text>
+<line x1="605.9" y1="253" x2="605.9" y2="227" stroke="#337ab7"/>
+<circle cx="605.9" cy="227" r="7" fill="#337ab7"><title>leader_observed 3.420s</title></circle>
+<text x="605.8692666237307" y="230" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">2</text>
+<text x="567" y="278" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">2. leader_observed: 3.420s</text>
+<line x1="611.1" y1="253" x2="611.1" y2="214" stroke="#337ab7"/>
+<circle cx="611.1" cy="214" r="7" fill="#337ab7"><title>commands_committed 3.490s</title></circle>
+<text x="611.1454432604548" y="217" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">3</text>
+<text x="32" y="295" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">3. commands_committed: 3.490s</text>
+<line x1="621.4" y1="253" x2="621.4" y2="240" stroke="#337ab7"/>
+<circle cx="621.4" cy="240" r="7" fill="#337ab7"><title>empty_node_started 3.628s</title></circle>
+<text x="621.4290982834888" y="243" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">4</text>
+<text x="567" y="295" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">4. empty_node_started: 3.628s</text>
+<line x1="640.6" y1="253" x2="640.6" y2="227" stroke="#337ab7"/>
+<circle cx="640.6" cy="227" r="7" fill="#337ab7"><title>converged 3.884s</title></circle>
+<text x="640.6020151957916" y="230" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">5</text>
+<text x="32" y="312" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">5. converged: 3.884s</text>
+<line x1="20" y1="324" x2="1100" y2="324" stroke="#edf0f3"/>
+<text x="24" y="378" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="bold">divergence · 3 nodes · r1 · batch 128</text>
+<line x1="350" y1="374" x2="1050" y2="374" stroke="#c2cbd4"/>
+<line x1="350.2" y1="374" x2="350.2" y2="361" stroke="#337ab7"/>
+<circle cx="350.2" cy="361" r="7" fill="#337ab7"><title>processes_started 0.003s</title></circle>
+<text x="350.1957220263659" y="364" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">1</text>
+<text x="32" y="399" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">1. processes_started: 0.003s</text>
+<line x1="768.4" y1="374" x2="768.4" y2="348" stroke="#337ab7"/>
+<circle cx="768.4" cy="348" r="7" fill="#337ab7"><title>leader_observed 5.592s</title></circle>
+<text x="768.3944237766331" y="351" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">2</text>
+<text x="567" y="399" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">2. leader_observed: 5.592s</text>
+<line x1="779.4" y1="374" x2="779.4" y2="335" stroke="#337ab7"/>
+<circle cx="779.4" cy="335" r="7" fill="#337ab7"><title>converged 5.739s</title></circle>
+<text x="779.366126424562" y="338" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">3</text>
+<text x="32" y="416" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">3. converged: 5.739s</text>
+<line x1="20" y1="428" x2="1100" y2="428" stroke="#edf0f3"/>
+<text x="24" y="482" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="bold">divergence · 11 nodes · r1 · batch 128</text>
+<line x1="350" y1="478" x2="1050" y2="478" stroke="#c2cbd4"/>
+<line x1="350.7" y1="478" x2="350.7" y2="465" stroke="#337ab7"/>
+<circle cx="350.7" cy="465" r="7" fill="#337ab7"><title>processes_started 0.009s</title></circle>
+<text x="350.6666513406702" y="468" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">1</text>
+<text x="32" y="503" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">1. processes_started: 0.009s</text>
+<line x1="619.9" y1="478" x2="619.9" y2="452" stroke="#337ab7"/>
+<circle cx="619.9" cy="452" r="7" fill="#337ab7"><title>leader_observed 3.607s</title></circle>
+<text x="619.8712275015087" y="455" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">2</text>
+<text x="567" y="503" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">2. leader_observed: 3.607s</text>
+<line x1="630.5" y1="478" x2="630.5" y2="439" stroke="#337ab7"/>
+<circle cx="630.5" cy="439" r="7" fill="#337ab7"><title>converged 3.749s</title></circle>
+<text x="630.5163719605281" y="442" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">3</text>
+<text x="32" y="520" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">3. converged: 3.749s</text>
+<line x1="20" y1="532" x2="1100" y2="532" stroke="#edf0f3"/>
+<text x="24" y="586" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="bold">election · 3 nodes · r1 · batch 128</text>
+<line x1="350" y1="582" x2="1050" y2="582" stroke="#c2cbd4"/>
+<line x1="350.2" y1="582" x2="350.2" y2="569" stroke="#337ab7"/>
+<circle cx="350.2" cy="569" r="7" fill="#337ab7"><title>processes_started 0.003s</title></circle>
+<text x="350.19313410333973" y="572" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">1</text>
+<text x="32" y="607" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">1. processes_started: 0.003s</text>
+<line x1="681.6" y1="582" x2="681.6" y2="556" stroke="#337ab7"/>
+<circle cx="681.6" cy="556" r="7" fill="#337ab7"><title>leader_observed 4.432s</title></circle>
+<text x="681.6224005749485" y="559" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">2</text>
+<text x="567" y="607" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">2. leader_observed: 4.432s</text>
+<line x1="691.4" y1="582" x2="691.4" y2="543" stroke="#337ab7"/>
+<circle cx="691.4" cy="543" r="7" fill="#337ab7"><title>converged 4.563s</title></circle>
+<text x="691.3837694598892" y="546" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">3</text>
+<text x="32" y="624" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">3. converged: 4.563s</text>
+<line x1="20" y1="636" x2="1100" y2="636" stroke="#edf0f3"/>
+<text x="24" y="690" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="bold">election · 11 nodes · r1 · batch 128</text>
+<line x1="350" y1="686" x2="1050" y2="686" stroke="#c2cbd4"/>
+<line x1="351.3" y1="686" x2="351.3" y2="673" stroke="#337ab7"/>
+<circle cx="351.3" cy="673" r="7" fill="#337ab7"><title>processes_started 0.018s</title></circle>
+<text x="351.34290175748913" y="676" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">1</text>
+<text x="32" y="711" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">1. processes_started: 0.018s</text>
+<line x1="625.0" y1="686" x2="625.0" y2="660" stroke="#337ab7"/>
+<circle cx="625.0" cy="660" r="7" fill="#337ab7"><title>leader_observed 3.675s</title></circle>
+<text x="624.9858298746536" y="663" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">2</text>
+<text x="567" y="711" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">2. leader_observed: 3.675s</text>
+<line x1="635.0" y1="686" x2="635.0" y2="647" stroke="#337ab7"/>
+<circle cx="635.0" cy="647" r="7" fill="#337ab7"><title>converged 3.809s</title></circle>
+<text x="634.9930922796846" y="650" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">3</text>
+<text x="32" y="728" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">3. converged: 3.809s</text>
+<line x1="20" y1="740" x2="1100" y2="740" stroke="#edf0f3"/>
+<text x="24" y="794" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="bold">failover · 3 nodes · r1 · batch 128</text>
+<line x1="350" y1="790" x2="1050" y2="790" stroke="#c2cbd4"/>
+<line x1="350.3" y1="790" x2="350.3" y2="777" stroke="#337ab7"/>
+<circle cx="350.3" cy="777" r="7" fill="#337ab7"><title>processes_started 0.004s</title></circle>
+<text x="350.3215368238843" y="780" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">1</text>
+<text x="32" y="815" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">1. processes_started: 0.004s</text>
+<line x1="613.3" y1="790" x2="613.3" y2="764" stroke="#337ab7"/>
+<circle cx="613.3" cy="764" r="7" fill="#337ab7"><title>leader_observed 3.519s</title></circle>
+<text x="613.2890042249894" y="767" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">2</text>
+<text x="567" y="815" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">2. leader_observed: 3.519s</text>
+<line x1="618.3" y1="790" x2="618.3" y2="751" stroke="#337ab7"/>
+<circle cx="618.3" cy="751" r="7" fill="#337ab7"><title>commands_committed 3.586s</title></circle>
+<text x="618.292398723829" y="754" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">3</text>
+<text x="32" y="832" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">3. commands_committed: 3.586s</text>
+<line x1="628.1" y1="790" x2="628.1" y2="777" stroke="#337ab7"/>
+<circle cx="628.1" cy="777" r="7" fill="#337ab7"><title>fault_started 3.717s</title></circle>
+<text x="628.0724604401789" y="780" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">4</text>
+<text x="567" y="832" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">4. fault_started: 3.717s</text>
+<line x1="1018.5" y1="790" x2="1018.5" y2="764" stroke="#337ab7"/>
+<circle cx="1018.5" cy="764" r="7" fill="#337ab7"><title>replacement_observed 8.936s</title></circle>
+<text x="1018.547544830243" y="767" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">5</text>
+<text x="32" y="849" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">5. replacement_observed: 8.936s</text>
+<line x1="1019.8" y1="790" x2="1019.8" y2="751" stroke="#337ab7"/>
+<circle cx="1019.8" cy="751" r="7" fill="#337ab7"><title>replacement_write_committed 8.952s</title></circle>
+<text x="1019.7607658624428" y="754" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">6</text>
+<text x="567" y="849" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">6. replacement_write_committed: 8.952s</text>
+<line x1="1030.3" y1="790" x2="1030.3" y2="777" stroke="#337ab7"/>
+<circle cx="1030.3" cy="777" r="7" fill="#337ab7"><title>nodes_restarted 9.092s</title></circle>
+<text x="1030.2868503235713" y="780" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">7</text>
+<text x="32" y="866" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">7. nodes_restarted: 9.092s</text>
+<line x1="1050.0" y1="790" x2="1050.0" y2="764" stroke="#337ab7"/>
+<circle cx="1050.0" cy="764" r="7" fill="#337ab7"><title>converged 9.356s</title></circle>
+<text x="1050.0" y="767" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">8</text>
+<text x="567" y="866" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">8. converged: 9.356s</text>
+<line x1="20" y1="878" x2="1100" y2="878" stroke="#edf0f3"/>
+<text x="24" y="932" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="bold">failover · 11 nodes · r1 · batch 128</text>
+<line x1="350" y1="928" x2="1050" y2="928" stroke="#c2cbd4"/>
+<line x1="351.2" y1="928" x2="351.2" y2="915" stroke="#337ab7"/>
+<circle cx="351.2" cy="915" r="7" fill="#337ab7"><title>processes_started 0.016s</title></circle>
+<text x="351.1764443047427" y="918" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">1</text>
+<text x="32" y="953" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">1. processes_started: 0.016s</text>
+<line x1="595.4" y1="928" x2="595.4" y2="902" stroke="#337ab7"/>
+<circle cx="595.4" cy="902" r="7" fill="#337ab7"><title>leader_observed 3.280s</title></circle>
+<text x="595.396133757374" y="905" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">2</text>
+<text x="567" y="953" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">2. leader_observed: 3.280s</text>
+<line x1="601.1" y1="928" x2="601.1" y2="889" stroke="#337ab7"/>
+<circle cx="601.1" cy="889" r="7" fill="#337ab7"><title>commands_committed 3.357s</title></circle>
+<text x="601.1491971573785" y="892" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">3</text>
+<text x="32" y="970" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">3. commands_committed: 3.357s</text>
+<line x1="611.4" y1="928" x2="611.4" y2="915" stroke="#337ab7"/>
+<circle cx="611.4" cy="915" r="7" fill="#337ab7"><title>fault_started 3.493s</title></circle>
+<text x="611.3654444504036" y="918" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">4</text>
+<text x="567" y="970" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">4. fault_started: 3.493s</text>
+<line x1="874.4" y1="928" x2="874.4" y2="902" stroke="#337ab7"/>
+<circle cx="874.4" cy="902" r="7" fill="#337ab7"><title>replacement_observed 7.008s</title></circle>
+<text x="874.363305941344" y="905" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">5</text>
+<text x="32" y="987" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">5. replacement_observed: 7.008s</text>
+<line x1="876.0" y1="928" x2="876.0" y2="889" stroke="#337ab7"/>
+<circle cx="876.0" cy="889" r="7" fill="#337ab7"><title>replacement_write_committed 7.031s</title></circle>
+<text x="876.0391749341644" y="892" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">6</text>
+<text x="567" y="987" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">6. replacement_write_committed: 7.031s</text>
+<line x1="886.7" y1="928" x2="886.7" y2="915" stroke="#337ab7"/>
+<circle cx="886.7" cy="915" r="7" fill="#337ab7"><title>nodes_restarted 7.173s</title></circle>
+<text x="886.6685284638303" y="918" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">7</text>
+<text x="32" y="1004" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">7. nodes_restarted: 7.173s</text>
+<line x1="906.3" y1="928" x2="906.3" y2="902" stroke="#337ab7"/>
+<circle cx="906.3" cy="902" r="7" fill="#337ab7"><title>converged 7.435s</title></circle>
+<text x="906.2554570374319" y="905" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="white" font-weight="normal">8</text>
+<text x="567" y="1004" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#243447" font-weight="normal">8. converged: 7.435s</text>
+<line x1="20" y1="1016" x2="1100" y2="1016" stroke="#edf0f3"/>
+</svg>

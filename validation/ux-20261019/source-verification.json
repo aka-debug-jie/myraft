@@ -1,0 +1,24 @@
+{
+  "benchmark_go_and_python_sources_match": true,
+  "guest_matches_export": true,
+  "post_measurement_control_script_changes": [
+    {
+      "path": "scripts/demo.ps1",
+      "recorded": "3a0c605682a6dedefed0f2dd16b4fdd736b92899f68cd6b8ec9d3d3748124291",
+      "current": "739f04b587ce46a31acf3354c00855c3b03549226185e2b8ea22ba6f2b4f7916",
+      "reason": "Post-measurement demo control changes: explicit UTF-8 JSON reads and launcher usage text; these files are not executed by benchmark.py"
+    },
+    {
+      "path": "scripts/session.ps1",
+      "recorded": "7b6d59db18937446b6c718640aab42f38ec90cc40c518f3bf52e05e3b9e987f9",
+      "current": "215606408a55ce9ba4136612498fccfb0e77e79006c818f496deebb8ec44f819",
+      "reason": "Post-measurement demo control changes: explicit UTF-8 JSON reads and launcher usage text; these files are not executed by benchmark.py"
+    },
+    {
+      "path": "scripts/start.ps1",
+      "recorded": "d55a6e057c2e6510545082f5370887ea6324c9979b2fecd50574fb5328788458",
+      "current": "f98b5af9f6c657ffd577c9f8962882abd53894fe44e1ba81581f0bb8223a62cd",
+      "reason": "Post-measurement demo control changes: explicit UTF-8 JSON reads and launcher usage text; these files are not executed by benchmark.py"
+    }
+  ]
+}

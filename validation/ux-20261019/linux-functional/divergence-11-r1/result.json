@@ -1,0 +1,23 @@
+{
+  "nodes": 11,
+  "scenario": "divergence",
+  "requested_commands": 2101,
+  "seed": 42,
+  "result": "PASS",
+  "elapsed_seconds": 0.39535000000000003,
+  "error": null,
+  "batch_size": 128,
+  "round": 1,
+  "launch_seconds": 0.008911351673305035,
+  "initial_leader": 6,
+  "startup_to_sync_seconds": 3.749278251081705,
+  "common_commit_index": 129,
+  "final_leader": 6,
+  "final_term": 5,
+  "committed_commands": 1005,
+  "commit_index": 1008,
+  "x": 0,
+  "committed_hash": "99b411878005e8518ca8adb316fee836119877c3639894fc7dd8c16525c02f6c",
+  "last_query_seconds": 0.014827224425971508,
+  "query_timeouts": 0
+}

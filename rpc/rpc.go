@@ -54,7 +54,10 @@ type GenerateReply struct {
 	Commands   int    `json:"commands"`
 	Error      string `json:"error,omitempty"`
 }
-type StatusArgs struct{ TargetIndex int }
+type StatusArgs struct {
+	TargetIndex int
+	Summary     bool // Monitoring only; no full-log or historical-prefix verification.
+}
 type StatusReply struct {
 	ID                int     `json:"id"`
 	State             string  `json:"state"`

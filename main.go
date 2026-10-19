@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -39,6 +40,9 @@ func run() error {
 	electionJitter := flag.Duration("election-jitter", 3*time.Second, "random election timeout range")
 	rpcTimeout := flag.Duration("rpc-timeout", time.Second, "Raft peer RPC timeout")
 	heartbeat := flag.Duration("heartbeat", 150*time.Millisecond, "leader heartbeat interval")
+	batchSize := flag.Int("batch-size", 128, "maximum entries per replication RPC (1..4096)")
+	format := flag.String("format", "json", "status output: json or table (table uses lightweight monitoring)")
+	watch := flag.Duration("watch", 0, "repeat -status-all, e.g. 1s; Ctrl+C stops")
 	flag.Parse()
 	demoSet := false
 	flag.Visit(func(f *flag.Flag) {
@@ -52,6 +56,15 @@ func run() error {
 
 	if *timeout <= 0 || *timeout > 10*time.Minute || *demo < 0 || *target < 0 {
 		return fmt.Errorf("invalid timeout, command count or target index")
+	}
+	if *batchSize < 1 || *batchSize > 4096 {
+		return fmt.Errorf("-batch-size must be 1..4096")
+	}
+	if (*format != "json" && *format != "table") || (*format == "table" && (!*status && !*all || *target != 0)) {
+		return fmt.Errorf("-format table requires -status or -status-all without -target-index")
+	}
+	if *watch < 0 || (*watch > 0 && (!*all || *watch < 200*time.Millisecond)) {
+		return fmt.Errorf("-watch requires -status-all and an interval of at least 200ms")
 	}
 	modes := 0
 	for _, v := range []bool{*generate != "", *status, *check, *all, *verify, *prepare, *demo > 0 && !*prepare} {
@@ -106,9 +119,19 @@ func run() error {
 		return json.NewEncoder(os.Stdout).Encode(map[string]any{"prepared": true, "nodes": len(peers), "commands": count, "data_dir": *dataDir})
 	}
 	deadline := time.Now().Add(*timeout)
+	if *watch > 0 {
+		ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+		defer stop()
+		return watchStatuses(ctx, os.Stdout, func() []wire.StatusReply {
+			return queryStatuses(c, wire.StatusArgs{TargetIndex: *target, Summary: *format == "table"}, time.Now().Add(min(*timeout, 2*time.Second)))
+		}, *watch, *format)
+	}
 	if *all || *verify {
-		states := queryAll(c, *target, deadline)
+		states := queryStatuses(c, wire.StatusArgs{TargetIndex: *target, Summary: *format == "table"}, deadline)
 		if *all {
+			if *format == "table" {
+				return writeStatusTable(os.Stdout, states)
+			}
 			return json.NewEncoder(os.Stdout).Encode(states)
 		}
 		err := verifyStatuses(states, *target)
@@ -134,8 +157,14 @@ func run() error {
 	}
 	if *status {
 		var reply wire.StatusReply
-		if err = wire.Call(addr, "RaftNode.Status", &wire.StatusArgs{TargetIndex: *target}, &reply, *timeout); err != nil {
+		if err = wire.Call(addr, "RaftNode.Status", &wire.StatusArgs{TargetIndex: *target, Summary: *format == "table"}, &reply, *timeout); err != nil {
 			return err
+		}
+		if reply.ID != *id {
+			return fmt.Errorf("endpoint returned node %d; expected %d", reply.ID, *id)
+		}
+		if *format == "table" {
+			return writeStatusTable(os.Stdout, []wire.StatusReply{reply})
 		}
 		return json.NewEncoder(os.Stdout).Encode(reply)
 	}
@@ -149,7 +178,7 @@ func run() error {
 	}
 	defer output.Close()
 	logger := log.New(io.MultiWriter(os.Stdout, output), "", log.Ldate|log.Ltime|log.Lmicroseconds)
-	node, err := raft.NewNode(raft.Options{ID: *id, Peers: peers, DataDir: *dataDir, Logger: logger, ElectionMin: *electionMin, ElectionJitter: *electionJitter, RPCTimeout: *rpcTimeout, HeartbeatInterval: *heartbeat})
+	node, err := raft.NewNode(raft.Options{ID: *id, Peers: peers, DataDir: *dataDir, Logger: logger, ElectionMin: *electionMin, ElectionJitter: *electionJitter, RPCTimeout: *rpcTimeout, HeartbeatInterval: *heartbeat, BatchSize: *batchSize})
 	if err != nil {
 		return err
 	}
@@ -176,6 +205,10 @@ func main() {
 }
 
 func queryAll(c config.Config, target int, deadline time.Time) []wire.StatusReply {
+	return queryStatuses(c, wire.StatusArgs{TargetIndex: target}, deadline)
+}
+
+func queryStatuses(c config.Config, args wire.StatusArgs, deadline time.Time) []wire.StatusReply {
 	states := make([]wire.StatusReply, len(c.Nodes))
 	jobs := make(chan int, len(c.Nodes))
 	for i := range c.Nodes {
@@ -193,7 +226,7 @@ func queryAll(c config.Config, target int, deadline time.Time) []wire.StatusRepl
 				left := min(time.Second, time.Until(deadline))
 				if left <= 0 {
 					s.Error = "status deadline exceeded"
-				} else if err := wire.Call(node.Addr, "RaftNode.Status", &wire.StatusArgs{TargetIndex: target}, &s, left); err != nil {
+				} else if err := wire.Call(node.Addr, "RaftNode.Status", &args, &s, left); err != nil {
 					s = wire.StatusReply{ID: node.ID, Error: err.Error()}
 				}
 				if s.Error == "" && s.ID != node.ID {

@@ -33,6 +33,7 @@ type Options struct {
 	ElectionJitter    time.Duration
 	HeartbeatInterval time.Duration
 	RPCTimeout        time.Duration
+	BatchSize         int
 }
 
 type Node struct {
@@ -91,6 +92,12 @@ func NewNode(o Options) (*Node, error) {
 	}
 	if o.RPCTimeout == 0 {
 		o.RPCTimeout = 350 * time.Millisecond
+	}
+	if o.BatchSize == 0 {
+		o.BatchSize = 128
+	}
+	if o.BatchSize < 1 || o.BatchSize > 4096 {
+		return nil, errors.New("batch size must be 1..4096")
 	}
 	if o.ElectionMin <= o.HeartbeatInterval+o.RPCTimeout || o.ElectionJitter < 0 || o.HeartbeatInterval <= 0 || o.RPCTimeout <= 0 {
 		return nil, errors.New("invalid timing: election minimum must exceed heartbeat interval + RPC timeout")
@@ -372,7 +379,7 @@ func (n *Node) heartbeatLoop(peerID int, kick <-chan struct{}) {
 				break
 			}
 			next := n.nextIndex[peerID]
-			end := min(next+128, len(n.log))
+			end := min(next+n.options.BatchSize, len(n.log))
 			args := wire.AppendEntriesArgs{Term: n.term, LeaderID: n.id, PrevLogIndex: next - 1, PrevLogTerm: n.log[next-1].Term, LeaderCommit: n.commitIndex,
 				Entries: append([]wire.LogEntry(nil), n.log[next:end]...)}
 			n.mu.Unlock()
@@ -421,12 +428,18 @@ func (n *Node) Heartbeat(args *wire.HeartbeatArgs, reply *wire.HeartbeatReply) e
 }
 
 func (n *Node) Status(args *wire.StatusArgs, reply *wire.StatusReply) error {
+	if args.Summary && args.TargetIndex != 0 {
+		return errors.New("summary status cannot verify a historical prefix")
+	}
 	n.mu.Lock()
 	defer n.mu.Unlock()
 	last := n.log[n.lastIndexLocked()]
 	fullHash := n.committedHash
-	if n.commitIndex != last.Index {
+	if !args.Summary && n.commitIndex != last.Index {
 		fullHash = logHash(n.log[1:])
+	}
+	if args.Summary {
+		fullHash = ""
 	}
 	*reply = wire.StatusReply{ID: n.id, State: string(n.state), Term: n.term, LeaderID: n.leaderID, VotedFor: n.votedFor,
 		LastLogIndex: last.Index, LastLogTerm: last.Term, CommitIndex: n.commitIndex, LastApplied: n.lastApplied,
@@ -434,6 +447,12 @@ func (n *Node) Status(args *wire.StatusArgs, reply *wire.StatusReply) error {
 		LogHash: fullHash, CommittedHash: n.committedHash, ElectionMS: n.electionMS}
 	if n.state == Leader {
 		reply.LeaderAgeMS = float64(time.Since(n.electedAt).Microseconds()) / 1000
+	}
+	if n.fatalErr != nil {
+		reply.Error = n.fatalErr.Error()
+	}
+	if args.Summary {
+		return nil
 	}
 	target := args.TargetIndex
 	if target == 0 {
@@ -451,9 +470,6 @@ func (n *Node) Status(args *wire.StatusArgs, reply *wire.StatusReply) error {
 				reply.TargetX = applyCommand(reply.TargetX, entry.Command)
 			}
 		}
-	}
-	if n.fatalErr != nil {
-		reply.Error = n.fatalErr.Error()
 	}
 	return nil
 }

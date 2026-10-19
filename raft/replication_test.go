@@ -24,7 +24,7 @@ func seedNode(t *testing.T, n *Node, term int, entries []wire.LogEntry, commit i
 		t.Fatal(err)
 	}
 }
-func waitFor(t *testing.T, description string, ready func() bool) {
+func waitFor(t testing.TB, description string, ready func() bool) {
 	t.Helper()
 	deadline := time.Now().Add(15 * time.Second)
 	for time.Now().Before(deadline) {
@@ -35,7 +35,7 @@ func waitFor(t *testing.T, description string, ready func() bool) {
 	}
 	t.Fatal("timeout: " + description)
 }
-func awaitLogs(t *testing.T, nodes map[int]*Node, commands int) {
+func awaitLogs(t testing.TB, nodes map[int]*Node, commands int) {
 	t.Helper()
 	waitFor(t, "consistent logs/state", func() bool {
 		var first wire.StatusReply

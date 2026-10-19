@@ -72,5 +72,18 @@ class ReportInputTests(unittest.TestCase):
         self.assertIn('| 5 | 故障至新写入提交 | 0/1 | 未测得', report)
 
 
+    def test_batch_plan_and_statistics_stay_separate(self):
+        rows = [dict(nodes=3, scenario='replication', batch_size=b, round=1,
+                     result='PASS', elapsed_seconds=float(b)/100) for b in (64,128,256)]
+        env = dict(arguments=dict(nodes=[3], scenarios=['replication'], batch_sizes=[64,128,256], rounds=1))
+        with tempfile.TemporaryDirectory() as name:
+            report, _ = self.render(Path(name), env, rows, [], {})
+        self.assertIn('计划轮数为 3 轮', report)
+        self.assertIn('batch 64', report)
+        self.assertIn('batch 128', report)
+        self.assertIn('batch 256', report)
+        self.assertIn('未执行 0 轮', report)
+
+
 if __name__ == '__main__':
     unittest.main()
