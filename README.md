@@ -4,11 +4,11 @@
 
 默认配置只监听 `127.0.0.1`。RPC 没有认证、TLS 或不可信客户端防护；仅在本机或受信任的隔离网络运行，不要将端口映射或开放至公网。详见 [安全说明](SECURITY.md)。
 
-[课程报告](docs/report.md) · [RPC 调用图](docs/rpc-flow.svg) · [脱敏实验结果](validation/README.md)
+[课程报告](docs/report.md) · [RPC 调用图](docs/rpc-flow.svg) · [实验记录与版本边界](validation/README.md) · [本轮修复说明](docs/closure.md)
 
 ## 环境与构建
 
-已验证环境为 Windows 11 x64、Go 1.26.3、Python 3.13.12。先从 [Go 官网](https://go.dev/dl/) 和 [Python 官网](https://www.python.org/downloads/) 安装工具并加入当前终端 PATH，然后在本仓库根目录执行命令。此公开源码版不附带工具安装包、预编译程序或虚拟机。
+本轮 Linux 验证使用 Go 1.27.2、Python 3.12.7；Win11 兼容性验收使用既有 Go 1.26.3、Python 3.13.12。优先选择官方当前受支持的工具链与补丁；未降低 go.mod 的语言版本要求。先从 [Go 官网](https://go.dev/dl/) 和 [Python 官网](https://www.python.org/downloads/) 安装工具并加入当前终端 PATH，然后在本仓库根目录执行命令。此公开源码版不附带工具安装包、预编译程序或虚拟机。
 
 ```powershell
 go fmt ./...
@@ -16,14 +16,14 @@ go vet ./...
 go test -count=1 ./...
 go build -o raft-node.exe .
 python scripts/smoke_test.py --nodes 3 11
-python scripts/test_benchmark.py
+python -m unittest discover -s scripts -p 'test_*.py'
 ```
 
 Windows 的 Go 竞态检测另外需要兼容的 C 编译器；不具备工具链时不要把未执行写成通过。Linux 可用 `go test -race ./...`；二进制名称改为 `raft-node`。
 
 ## 11 节点现场演示
 
-双击 `start.bat`，直接回车采用 11 个节点。启动脚本先编译一次，生成 JSON，再按 JSON 中的 ID/地址打开独立节点终端。每次默认建立新的实验目录。
+双击 `start.bat`，直接回车采用 11 个节点。启动脚本先编译一次，新目录生成 JSON，已有目录复用保存的固定成员，再按 JSON 中的 ID/地址打开独立节点终端并核对进程及 Status。每次默认建立新的实验目录。
 
 也可以指定已有配置，支持非连续 ID：
 
@@ -37,7 +37,7 @@ Windows 的 Go 竞态检测另外需要兼容的 C 编译器；不具备工具�
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start.ps1 -Nodes 11 -RunDir demo-runs/classroom
 ```
 
-使用同一目录再次启动会恢复该轮数据；要做全新实验请换一个目录，运行中不要删除数据。
+使用同一目录再次启动会恢复该轮数据；省略 `-Nodes` 会沿用原数量（例如仍为 3）。显式节点数或配置与已存成员冲突时会报错，应换新目录；有数据却缺少配置时会拒绝猜测。首次传入外部配置也会保存到运行目录的 `nodes.json`。启动状态检查失败会停止本轮启动的进程并保留数据与诊断。要做全新实验请换目录，运行中不要删除数据。
 
 ## 生成并验证 2101 条命令
 
@@ -94,7 +94,9 @@ python scripts/benchmark.py --nodes 10 20 50 100 --entries 2101 --rounds 5 --see
 
 四场景：`election`、`failover`、`catchup`、`divergence`。支持 `--scenarios` 选择场景、`--output PATH` 指定新的结果目录。每轮独立目录、动态空闲端口，串行运行集群；脚本在成功或失败后清理本轮节点。清理仍失败时记录并停止后续实验。每个节点进程使用 GOMAXPROCS=1。
 
-结果包括逐轮 JSON/CSV、汇总 JSON、配置、节点输出、最终状态和分歧夹具清单。失败轮次保留，不计入成功耗时均值。`query-nodes.json` 只是存活节点的客户端查询列表，节点进程始终使用完整的 `nodes.json` 作为固定成员集合。
+入口会在本轮输出目录构建一次当前源码，并记录 Git 提交、dirty 状态、源码/二进制 SHA-256 和实际 Go/Python 版本，避免复用过期的根目录程序。旧版本 80 轮记录保持原样；本轮结果在 `validation/closure-20261019`。
+
+结果包括逐轮 JSON/CSV、汇总 JSON、配置、节点输出、最终状态和分歧夹具清单。失败轮次保留，不计入成功耗时均值；中断与清理失败单独记录，并停止后续轮次。`query-nodes.json` 只是存活节点的客户端查询列表，节点进程始终使用完整的 `nodes.json` 作为固定成员集合。
 
 计时口径：
 
@@ -102,6 +104,8 @@ python scripts/benchmark.py --nodes 10 20 50 100 --entries 2101 --rounds 5 --see
 - 故障恢复：开始终止节点至新 Leader 的新命令提交成功；另报新 Leader 被观察到的时间和本地选举耗时。
 - 空节点追赶：启动空节点前至固定目标日志和状态全部一致。
 - 分歧同步：新 Leader 当选至确认全部日志一致后的最后一次 Leader 查询，以该进程单调时钟的 `leader_age_ms` 表示观测上界；另报启动至同步完成耗时。
+
+故障与追赶前先保存已提交的 index/hash/x；新 Leader 提交、旧节点恢复及空节点追赶后必须匹配同一个历史检查点。`-verify` 本身比较当前节点状态；跨时间保护由实验保存的检查点额外验证。
 
 快照查询最多 16 路并发，连续两次一致观测之间等待 100 ms。所有外部结果包含轮询和查询开销，不能当作协议瞬时延迟；单机多进程虚拟机数据不能代替物理多机网络结果。
 
@@ -117,4 +121,16 @@ python scripts/benchmark.py --nodes 10 20 50 100 --entries 2101 --rounds 5 --see
 
 ## 公开版本说明
 
-公开目录采用独立 Git 历史，只包含源代码、测试、文档和脱敏结果。未包含原始课程压缩包、虚拟机、账户配置、原始日志、节点数据或工具安装包。Go 源码与实测版本逐文件 SHA-256 一致；公开版仅调整文档和启动脚本的工具查找，详见 [实验来源](validation/README.md)。未为原有代码补写或推定许可证。
+公开目录采用独立 Git 历史，只包含源代码、测试、文档和脱敏结果。未包含原始课程压缩包、虚拟机、账户配置、原始日志、节点数据或工具安装包。`validation/benchmark` 与 `validation/source-sha256.json` 属于 81723b8 的原始测量，不代表本轮修改后的代码。新源码与新实验的对应关系见 [实验来源](validation/README.md)。未为原有代码补写或推定许可证。
+
+## 本轮补充回归与报告
+
+```powershell
+go test -race ./raft -run 'TestElectionDeadlineEvents|TestGenerateReplyReuse|TestIncrementalCommittedHash|TestPartitionRepairs' -count=3
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/test_start.ps1 -WorkRoot demo-runs/launcher-check-new
+python scripts/render_report.py --benchmark validation/closure-20261019/benchmark --validation validation/closure-20261019/checks.json
+```
+
+Windows 未配置 C 编译器时跳过 `-race` 并明确记录。启动验收需要新的 WorkRoot；它保留本轮文件并只清理自己的进程。分区测试使用测试专用 TCP 代理，不修改运行节点的 peers；少数派旧 Leader 可仍显示 Leader，但不得提交。计时器单元测试不构成所有网络条件下的活性证明。
+
+报告从输入环境和逐轮记录重新统计；缺失字段写“未记录”，历史故障另列。原报告保留为 [report-81723b8.md](docs/report-81723b8.md)。

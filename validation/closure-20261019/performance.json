@@ -1,0 +1,333 @@
+{
+  "go": "go1.27.2 linux/amd64",
+  "batch": 128,
+  "idle_peers": 100,
+  "repeats": 3,
+  "commands": {
+    "idle": "go test ./raft -run ^$ -bench BenchmarkAdvanceCommitIdle -benchtime=300ms -count=3",
+    "disk": "go test ./raft -run ^$ -bench BenchmarkCommitBatches -benchtime=3x -count=3"
+  },
+  "meaning": "Each commit sample commits an entire 2101/21010-entry log in batches of 128. sync-only measures metadata create/write/Sync/close/rename without hashing/application. Not an end-to-end cluster throughput result.",
+  "results": {
+    "before": {
+      "BenchmarkAdvanceCommitIdle": {
+        "samples": [
+          {
+            "ns_per_op": 5035.0,
+            "bytes_per_op": 896,
+            "allocs_per_op": 1
+          },
+          {
+            "ns_per_op": 5953.0,
+            "bytes_per_op": 896,
+            "allocs_per_op": 1
+          },
+          {
+            "ns_per_op": 6017.0,
+            "bytes_per_op": 896,
+            "allocs_per_op": 1
+          }
+        ],
+        "median_ns_per_op": 5953.0
+      },
+      "BenchmarkHashPrefixes/2101/incremental_false": {
+        "samples": [
+          {
+            "ns_per_op": 21354038.0,
+            "bytes_per_op": 1896477,
+            "allocs_per_op": 39091
+          },
+          {
+            "ns_per_op": 38074641.0,
+            "bytes_per_op": 1896328,
+            "allocs_per_op": 39089
+          },
+          {
+            "ns_per_op": 38831415.0,
+            "bytes_per_op": 1896472,
+            "allocs_per_op": 39091
+          }
+        ],
+        "median_ns_per_op": 38074641.0
+      },
+      "BenchmarkHashPrefixes/2101/incremental_true": {
+        "samples": [
+          {
+            "ns_per_op": 4389161.0,
+            "bytes_per_op": 210834,
+            "allocs_per_op": 4256
+          },
+          {
+            "ns_per_op": 4557312.0,
+            "bytes_per_op": 210834,
+            "allocs_per_op": 4256
+          },
+          {
+            "ns_per_op": 4363926.0,
+            "bytes_per_op": 210834,
+            "allocs_per_op": 4256
+          }
+        ],
+        "median_ns_per_op": 4389161.0
+      },
+      "BenchmarkHashPrefixes/21010/incremental_false": {
+        "samples": [
+          {
+            "ns_per_op": 2609601623.0,
+            "bytes_per_op": 169222981,
+            "allocs_per_op": 3506521
+          },
+          {
+            "ns_per_op": 2801242379.0,
+            "bytes_per_op": 169223680,
+            "allocs_per_op": 3506528
+          },
+          {
+            "ns_per_op": 2705094017.0,
+            "bytes_per_op": 169224352,
+            "allocs_per_op": 3506536
+          }
+        ],
+        "median_ns_per_op": 2705094017.0
+      },
+      "BenchmarkHashPrefixes/21010/incremental_true": {
+        "samples": [
+          {
+            "ns_per_op": 43807466.0,
+            "bytes_per_op": 2055925,
+            "allocs_per_op": 42519
+          },
+          {
+            "ns_per_op": 40023020.0,
+            "bytes_per_op": 2055925,
+            "allocs_per_op": 42519
+          },
+          {
+            "ns_per_op": 40310179.0,
+            "bytes_per_op": 2055925,
+            "allocs_per_op": 42519
+          }
+        ],
+        "median_ns_per_op": 40310179.0
+      },
+      "BenchmarkCommitBatches/2101/sync-only": {
+        "samples": [
+          {
+            "ns_per_op": 8943677.0,
+            "bytes_per_op": 27954,
+            "allocs_per_op": 292
+          },
+          {
+            "ns_per_op": 9491538.0,
+            "bytes_per_op": 28274,
+            "allocs_per_op": 295
+          },
+          {
+            "ns_per_op": 9661879.0,
+            "bytes_per_op": 27949,
+            "allocs_per_op": 292
+          }
+        ],
+        "median_ns_per_op": 9491538.0
+      },
+      "BenchmarkCommitBatches/2101/commit": {
+        "samples": [
+          {
+            "ns_per_op": 48809812.0,
+            "bytes_per_op": 1936245,
+            "allocs_per_op": 39580
+          },
+          {
+            "ns_per_op": 43415289.0,
+            "bytes_per_op": 1941992,
+            "allocs_per_op": 39577
+          },
+          {
+            "ns_per_op": 50458296.0,
+            "bytes_per_op": 1942005,
+            "allocs_per_op": 39577
+          }
+        ],
+        "median_ns_per_op": 48809812.0
+      },
+      "BenchmarkCommitBatches/21010/sync-only": {
+        "samples": [
+          {
+            "ns_per_op": 80704356.0,
+            "bytes_per_op": 227901,
+            "allocs_per_op": 2827
+          },
+          {
+            "ns_per_op": 80830323.0,
+            "bytes_per_op": 227218,
+            "allocs_per_op": 2821
+          },
+          {
+            "ns_per_op": 80341525.0,
+            "bytes_per_op": 227560,
+            "allocs_per_op": 2824
+          }
+        ],
+        "median_ns_per_op": 80704356.0
+      },
+      "BenchmarkCommitBatches/21010/commit": {
+        "samples": [
+          {
+            "ns_per_op": 3332719977.0,
+            "bytes_per_op": 170462864,
+            "allocs_per_op": 3511518
+          },
+          {
+            "ns_per_op": 3367390364.0,
+            "bytes_per_op": 170466794,
+            "allocs_per_op": 3511560
+          },
+          {
+            "ns_per_op": 3316256457.0,
+            "bytes_per_op": 170455280,
+            "allocs_per_op": 3511560
+          }
+        ],
+        "median_ns_per_op": 3332719977.0
+      }
+    },
+    "after": {
+      "BenchmarkAdvanceCommitIdle": {
+        "samples": [
+          {
+            "ns_per_op": 2.248,
+            "bytes_per_op": 0,
+            "allocs_per_op": 0
+          },
+          {
+            "ns_per_op": 2.508,
+            "bytes_per_op": 0,
+            "allocs_per_op": 0
+          },
+          {
+            "ns_per_op": 2.426,
+            "bytes_per_op": 0,
+            "allocs_per_op": 0
+          }
+        ],
+        "median_ns_per_op": 2.426
+      },
+      "BenchmarkCommitBatches/2101/sync-only": {
+        "samples": [
+          {
+            "ns_per_op": 10368252.0,
+            "bytes_per_op": 27954,
+            "allocs_per_op": 292
+          },
+          {
+            "ns_per_op": 9692808.0,
+            "bytes_per_op": 27949,
+            "allocs_per_op": 292
+          },
+          {
+            "ns_per_op": 10207530.0,
+            "bytes_per_op": 28216,
+            "allocs_per_op": 294
+          }
+        ],
+        "median_ns_per_op": 10207530.0
+      },
+      "BenchmarkCommitBatches/2101/commit": {
+        "samples": [
+          {
+            "ns_per_op": 13889015.0,
+            "bytes_per_op": 237429,
+            "allocs_per_op": 4735
+          },
+          {
+            "ns_per_op": 11508524.0,
+            "bytes_per_op": 237333,
+            "allocs_per_op": 4733
+          },
+          {
+            "ns_per_op": 12958502.0,
+            "bytes_per_op": 237720,
+            "allocs_per_op": 4737
+          }
+        ],
+        "median_ns_per_op": 12958502.0
+      },
+      "BenchmarkCommitBatches/21010/sync-only": {
+        "samples": [
+          {
+            "ns_per_op": 86108517.0,
+            "bytes_per_op": 227560,
+            "allocs_per_op": 2824
+          },
+          {
+            "ns_per_op": 77356902.0,
+            "bytes_per_op": 227234,
+            "allocs_per_op": 2821
+          },
+          {
+            "ns_per_op": 86647422.0,
+            "bytes_per_op": 227880,
+            "allocs_per_op": 2827
+          }
+        ],
+        "median_ns_per_op": 86108517.0
+      },
+      "BenchmarkCommitBatches/21010/commit": {
+        "samples": [
+          {
+            "ns_per_op": 98854233.0,
+            "bytes_per_op": 2346717,
+            "allocs_per_op": 47223
+          },
+          {
+            "ns_per_op": 101265187.0,
+            "bytes_per_op": 2346626,
+            "allocs_per_op": 47221
+          },
+          {
+            "ns_per_op": 110548209.0,
+            "bytes_per_op": 2345880,
+            "allocs_per_op": 47214
+          }
+        ],
+        "median_ns_per_op": 101265187.0
+      }
+    }
+  },
+  "baseline_protocol_commit": "81723b8f46c78805b986831a0d0a4a109d21404e",
+  "before_source_sha256": {
+    "main.go": "5b895eb9a6dfd9811fb28183245f7c5aa5af717459714529687e3092875e1500",
+    "main_test.go": "0348aebf789c02a56c6eb16d8cf6a1701fdce16020ea4691bf24afb7efceb120",
+    "config/config.go": "fc159bd5fdd3af9e0e9927ff925b9b103c491374670bb9a3963bb944923e8c4c",
+    "rpc/rpc.go": "1b2e05d3bd405fdee8312201829fdb958b21f595b51304b3c5d16b329878450d",
+    "rpc/rpc_test.go": "0ed20f3f4d54e88346c2524edb051a5b72175e172311ee13ed87dc049a410507",
+    "raft/storage.go": "5a2dcf02462314e53e2306bd9cfbf6a71e76b57ab12d44571678b98b4f94186a",
+    "raft/log.go": "73c37de940818fb39a629fdfa1e2e7af8c0153ac552f09ee424b214ba34f2c84",
+    "raft/performance_test.go": "64f76acf3fbfbd41b62c71fe0d8b7faf147451832a0273a75ac8a0cbf2f45cd4",
+    "raft/replication_test.go": "2f111a8d42bbc4833f84a712c1c3f054bbedc35b7faa6752be2bc9401fdfe51c",
+    "raft/closure_test.go": "cff0d45f90dcfe8762fe92325533909dc4bbe4e52a5712c31082b57ed65e78ba",
+    "raft/storage_test.go": "1264cdef1d2fe551e5d45ba08e014ac98668f5ef68de7adc3424022f159c746e",
+    "raft/raft.go": "44f6664100685d48957033133b28dbcccb3ca023c785e45829c8301889a4df94",
+    "raft/fixture.go": "4bd44e9eed3db532008e71c4090a7c6684e4cd0d6c2e5d643927583b727391b5",
+    "raft/state_machine.go": "aacc45c8fc7a9b242a01eb29143d7213067018a1e5ea65de1a620de0c79d052e",
+    "raft/raft_test.go": "6728c24852d3403232f3c77fd5700faa2ceb56af2bf316585f8f24d87d0ee0b3"
+  },
+  "after_source_sha256": {
+    "main.go": "5b895eb9a6dfd9811fb28183245f7c5aa5af717459714529687e3092875e1500",
+    "main_test.go": "0348aebf789c02a56c6eb16d8cf6a1701fdce16020ea4691bf24afb7efceb120",
+    "config/config.go": "fc159bd5fdd3af9e0e9927ff925b9b103c491374670bb9a3963bb944923e8c4c",
+    "rpc/rpc.go": "1b2e05d3bd405fdee8312201829fdb958b21f595b51304b3c5d16b329878450d",
+    "rpc/rpc_test.go": "0ed20f3f4d54e88346c2524edb051a5b72175e172311ee13ed87dc049a410507",
+    "raft/storage.go": "bc9056cfe252926590e296637c7f4b212806ff79efa0cf1365bcea9ced25dd29",
+    "raft/log.go": "f9902cfe0abf2d592e8bbd69bd9783756b76d67cf73b9c0c591c1f3125bc18a0",
+    "raft/performance_test.go": "f39116afa012bf66e6d4e1b365a16fd21c30243678ca1d9a18fda2c5a557dcaa",
+    "raft/replication_test.go": "2f111a8d42bbc4833f84a712c1c3f054bbedc35b7faa6752be2bc9401fdfe51c",
+    "raft/closure_test.go": "6a062a10c9bead99e160b23d0efe4bb720708226556a4a08ee3141820f034656",
+    "raft/storage_test.go": "1264cdef1d2fe551e5d45ba08e014ac98668f5ef68de7adc3424022f159c746e",
+    "raft/raft.go": "d7ea7775d6ebde5b56f6ba4ed16ab8d9111788941c15f4fe8cfe5951d0225bf7",
+    "raft/partition_test.go": "ef938541011bc42e6e92cabfe23f0e70788080f5ea09b7a37ed61a4903e018ed",
+    "raft/fixture.go": "4bd44e9eed3db532008e71c4090a7c6684e4cd0d6c2e5d643927583b727391b5",
+    "raft/state_machine.go": "2bd4b60a3b602ab4483dc158837dbecbd6d72de5bf991b9e89a03f465e310354",
+    "raft/raft_test.go": "6728c24852d3403232f3c77fd5700faa2ceb56af2bf316585f8f24d87d0ee0b3"
+  }
+}

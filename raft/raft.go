@@ -4,6 +4,7 @@ package raft
 import (
 	"errors"
 	"fmt"
+	"hash"
 	"log"
 	"math/rand"
 	"net"
@@ -37,6 +38,7 @@ type Options struct {
 type Node struct {
 	votePending                               map[int]bool
 	committedHash                             string
+	commitDigest                              hash.Hash
 	recoveryTruncate                          int64
 	log                                       []wire.LogEntry
 	commitIndex, lastApplied, appliedCommands int
@@ -315,7 +317,6 @@ func (n *Node) followHigherTermLocked(term int) error {
 	n.state, n.leaderID, n.votes = Follower, -1, nil
 	n.notifyLocked()
 	n.kickPeersLocked()
-	n.resetDeadlineLocked()
 	n.eventLocked("higher_term_observed")
 	return nil
 }

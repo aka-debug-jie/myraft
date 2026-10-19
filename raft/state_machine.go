@@ -5,6 +5,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"hash"
 	"math/rand"
 
 	wire "myraft/rpc"
@@ -63,11 +64,15 @@ func generateCommands(count int, seed int64) []wire.Command {
 func logHash(entries []wire.LogEntry) string {
 	// Struct field order and integer JSON encoding make this portable and deterministic.
 	h := sha256.New()
+	appendLogHash(h, entries)
+	return hex.EncodeToString(h.Sum(nil))
+}
+
+func appendLogHash(h hash.Hash, entries []wire.LogEntry) {
 	enc := json.NewEncoder(h)
 	for _, e := range entries {
 		_ = enc.Encode(e)
 	}
-	return hex.EncodeToString(h.Sum(nil))
 }
 
 func (n *Node) applyLocked() {

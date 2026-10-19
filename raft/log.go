@@ -109,13 +109,19 @@ func (n *Node) handleAppendReplyLocked(peerID int, args wire.AppendEntriesArgs, 
 		return changed
 	}
 	matched := args.PrevLogIndex + len(args.Entries)
+	progress := matched > n.matchIndex[peerID]
 	n.matchIndex[peerID] = max(n.matchIndex[peerID], matched)
 	n.nextIndex[peerID] = n.matchIndex[peerID] + 1
-	n.advanceCommitLocked()
+	if progress {
+		n.advanceCommitLocked()
+	}
 	return n.availableLocked() == nil && n.nextIndex[peerID] <= n.lastIndexLocked()
 }
 
 func (n *Node) advanceCommitLocked() {
+	if n.commitIndex == n.lastIndexLocked() {
+		return
+	}
 	matches := make([]int, 0, len(n.peers))
 	for id := range n.peers {
 		if id == n.id {
@@ -134,6 +140,7 @@ func (n *Node) advanceCommitLocked() {
 }
 
 func (n *Node) Generate(args *wire.GenerateArgs, reply *wire.GenerateReply) error {
+	*reply = wire.GenerateReply{}
 	if args.Count < 1 || args.Count > 100000 || args.TimeoutMS < 1 || args.TimeoutMS > 600000 {
 		reply.Error = "count must be 1..100000 and timeout 1..600000 ms"
 		return nil

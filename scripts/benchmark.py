@@ -1,6 +1,7 @@
 """Real-process Raft experiments; Python standard library only, one cluster at a time."""
 import argparse
 import csv
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -55,7 +56,8 @@ class Cluster:
         self.outputs.append(out)
         self.processes[node_id] = subprocess.Popen(
             [str(EXE), '-id', str(node_id), '-config', str(self.config),
-             '-data-dir', str(self.folder / 'data'), '-log-dir', str(self.folder / 'logs')],
+             '-data-dir', str(self.folder / 'data'), '-log-dir', str(self.folder / 'logs'),
+             '-election-min', '3s', '-election-jitter', '3s', '-heartbeat', '150ms', '-rpc-timeout', '1s'],
             cwd=ROOT, stdout=out, stderr=subprocess.STDOUT, creationflags=FLAGS,
             env={**os.environ, 'GOMAXPROCS': '1'})
         self.update_query()
@@ -77,7 +79,7 @@ class Cluster:
         elapsed = time.perf_counter() - begin
         return result, elapsed
 
-    def wait(self, *, logs=False, target=0, commands=None):
+    def wait(self, *, logs=False, target=0, commands=None, checkpoint=None):
         deadline = time.perf_counter() + self.timeout
         stable, previous = 0, None
         last, query_seconds = [], 0.0
@@ -90,7 +92,7 @@ class Cluster:
                 continue
             if time.perf_counter() >= deadline:
                 break
-            good, leader = consistent(last, logs, target, commands)
+            good, leader = consistent(last, logs, target, commands, checkpoint)
             key = (leader['id'], leader['term'], last[0]['committed_hash']) if good else None
             stable = stable + 1 if good and key == previous else int(good)
             previous = key
@@ -128,7 +130,7 @@ class Cluster:
             raise RuntimeError('process cleanup failed: ' + '; '.join(errors))
 
 
-def consistent(states, logs, target, commands):
+def consistent(states, logs, target, commands, checkpoint=None):
     if not states or any(s.get('error') for s in states):
         return False, None
     leaders = [s for s in states if s['state'] == 'Leader']
@@ -151,7 +153,45 @@ def consistent(states, logs, target, commands):
             if target and (not s['target_available'] or s['target_index'] != target or
                            s['target_hash'] != base['target_hash'] or s['target_x'] != base['target_x']):
                 return False, None
+    if checkpoint and any(not s.get('target_available') or s.get('target_index') != checkpoint['index'] or
+                          s.get('target_hash') != checkpoint['hash'] or s.get('target_x') != checkpoint['x']
+                          for s in states):
+        return False, None
     return True, leader
+
+
+def save_checkpoint(folder, state):
+    checkpoint = {'index': state['target_index'], 'hash': state['target_hash'], 'x': state['target_x']}
+    (folder / 'checkpoint.json').write_text(json.dumps(checkpoint, indent=2), encoding='utf-8')
+    return checkpoint
+
+
+def source_hashes():
+    paths = [ROOT / 'go.mod', *ROOT.glob('*.go')]
+    for directory in ('config', 'raft', 'rpc', 'scripts'):
+        paths.extend(p for p in (ROOT / directory).iterdir() if p.suffix in ('.go', '.py', '.ps1'))
+    return {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths)}
+
+
+def build_current(output):
+    global EXE
+    def git(*args):
+        try:
+            r = subprocess.run(['git', *args], cwd=ROOT, capture_output=True, text=True, timeout=10)
+            return r.stdout.strip() if r.returncode == 0 else None
+        except FileNotFoundError:
+            return None
+    version = subprocess.check_output(['go', 'version'], cwd=ROOT, text=True).strip()
+    before = source_hashes()
+    dirty = git('status', '--porcelain=v1', '--untracked-files=normal')
+    EXE = output / ('raft-node.exe' if os.name == 'nt' else 'raft-node')
+    subprocess.run(['go', 'build', '-o', str(EXE), '.'], cwd=ROOT, check=True)
+    if source_hashes() != before:
+        raise RuntimeError('source changed during build; rerun with a stable working tree')
+    return {'go': version, 'git_commit': git('rev-parse', 'HEAD'),
+            'git_dirty': None if dirty is None else bool(dirty),
+            'source_sha256': before, 'binary_sha256': hashlib.sha256(EXE.read_bytes()).hexdigest(),
+            'build_command': ['go', 'build', '-o', EXE.name, '.']}
 
 
 def experiment(count, scenario, entries, seed, folder, timeout):
@@ -176,7 +216,8 @@ def experiment(count, scenario, entries, seed, folder, timeout):
             leader, states, query_seconds = c.wait(logs=True)
         elif scenario == 'failover':
             reply = c.generate(entries, seed)
-            leader, _, _ = c.wait(logs=True, target=reply['last_index'], commands=entries)
+            leader, initial, _ = c.wait(logs=True, target=reply['last_index'], commands=entries)
+            checkpoint = save_checkpoint(c.folder, initial[0])
             rng = random.Random(seed)
             killed = [leader['id']]
             max_faults = (count - 1) // 2
@@ -194,18 +235,22 @@ def experiment(count, scenario, entries, seed, folder, timeout):
             row['elapsed_seconds'] = time.perf_counter() - begin
             row['local_election_ms'] = replacement['election_ms']
             row['killed_ids'] = killed
-            leader, states, query_seconds = c.wait(logs=True, target=reply['last_index'], commands=entries + 1)
+            leader, states, query_seconds = c.wait(logs=True, target=checkpoint['index'],
+                                                    commands=entries + 1, checkpoint=checkpoint)
             # Restart original disks and verify catch-up without changing membership.
             for node_id in killed:
                 c.start(node_id)
-            leader, states, query_seconds = c.wait(logs=True, target=reply['last_index'], commands=entries + 1)
+            leader, states, query_seconds = c.wait(logs=True, target=checkpoint['index'],
+                                                    commands=entries + 1, checkpoint=checkpoint)
             row['restarted_nodes_caught_up'] = True
         elif scenario == 'catchup':
             reply = c.generate(entries, seed)
-            c.wait(logs=True, target=reply['last_index'], commands=entries)
+            _, initial, _ = c.wait(logs=True, target=reply['last_index'], commands=entries)
+            checkpoint = save_checkpoint(c.folder, initial[0])
             begin = time.perf_counter()
             c.start(count)
-            leader, states, query_seconds = c.wait(logs=True, target=reply['last_index'], commands=entries)
+            leader, states, query_seconds = c.wait(logs=True, target=checkpoint['index'],
+                                                    commands=entries, checkpoint=checkpoint)
             row['elapsed_seconds'] = time.perf_counter() - begin
             row['target_index'] = reply['last_index']
         else:
@@ -223,10 +268,15 @@ def experiment(count, scenario, entries, seed, folder, timeout):
             # Uncommitted arithmetic tails may legitimately be discarded by Raft.
             if any(s['commit_index'] < 129 or s['applied_commands'] < 128 for s in states):
                 raise AssertionError('committed fixture prefix was lost')
+        if scenario in ('failover', 'catchup'):
+            row.update(checkpoint_index=checkpoint['index'], checkpoint_hash=checkpoint['hash'],
+                       checkpoint_x=checkpoint['x'], checkpoint_preserved=True)
         row.update(result='PASS', final_leader=leader['id'], final_term=leader['term'],
                    committed_commands=states[0]['committed_commands'],
                    commit_index=states[0]['commit_index'], x=states[0]['x'],
                    committed_hash=states[0]['committed_hash'], last_query_seconds=query_seconds)
+    except KeyboardInterrupt:
+        row['result'], row['error'] = 'INTERRUPTED', 'KeyboardInterrupt'
     except Exception as exc:
         row['error'] = f'{type(exc).__name__}: {exc}'
         row['failure_observed_seconds'] = time.perf_counter() - begin
@@ -248,7 +298,8 @@ def summarize(rows):
         values = [r['elapsed_seconds'] for r in selected if r['result'] == 'PASS']
         local = [r['local_election_ms'] for r in selected if r['result'] == 'PASS' and 'local_election_ms' in r]
         groups.append({'nodes': key[0], 'scenario': key[1], 'attempts': len(selected),
-                       'passed': len(values), 'failed': len(selected) - len(values),
+                       'passed': len(values), 'failed': sum(r['result'] == 'FAIL' for r in selected),
+                       'interrupted': sum(r['result'] == 'INTERRUPTED' for r in selected),
                        'mean_seconds': statistics.mean(values) if values else None,
                        'median_seconds': statistics.median(values) if values else None,
                        'min_seconds': min(values) if values else None,
@@ -277,6 +328,12 @@ def main():
                    'measurement': 'monotonic polling observation; per wait/generate timeout, not total scenario budget; two consistent snapshots 100 ms apart; includes polling overhead'}
     environment['arguments']['output'] = str(output)
     (output / 'environment.json').write_text(json.dumps(environment, indent=2), encoding='utf-8')
+    try:
+        environment.update(build_current(output))
+    except BaseException as exc:
+        (output / 'run-status.json').write_text(json.dumps({'status': 'INTERRUPTED' if isinstance(exc, KeyboardInterrupt) else 'BUILD_FAILED', 'completed': 0}), encoding='utf-8')
+        raise
+    (output / 'environment.json').write_text(json.dumps(environment, indent=2), encoding='utf-8')
     rows = []
     cases = ((n, s, r) for n in args.nodes for s in args.scenarios for r in range(args.rounds))
     for count, scenario, iteration in cases:
@@ -287,14 +344,19 @@ def main():
         (output / 'results.json').write_text(json.dumps(rows, indent=2), encoding='utf-8')
         (output / 'summary.json').write_text(json.dumps(summarize(rows), indent=2), encoding='utf-8')
         print(f"{scenario} n={count} round={iteration+1}: {row['result']} {row['elapsed_seconds']} {(row['error'] or '')[:250]}", flush=True)
-        if row.get('cleanup_failed'):
-            (output / 'run-status.json').write_text(json.dumps({'status': 'stopped_on_cleanup_failure', 'completed': len(rows)}), encoding='utf-8')
+        if row.get('cleanup_failed') or row['result'] == 'INTERRUPTED':
             break
     keys = sorted({k for row in rows for k in row})
     with (output / 'results.csv').open('w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=keys)
         writer.writeheader()
         writer.writerows(rows)
+    final_status = ('CLEANUP_FAILED' if any(r.get('cleanup_failed') for r in rows) else
+                    'INTERRUPTED' if any(r['result'] == 'INTERRUPTED' for r in rows) else 'COMPLETE')
+    (output / 'run-status.json').write_text(json.dumps({'status': final_status,
+        'planned': len(args.nodes) * len(args.scenarios) * args.rounds, 'completed': len(rows),
+        'passed': sum(r['result'] == 'PASS' for r in rows), 'failed': sum(r['result'] == 'FAIL' for r in rows),
+        'interrupted': sum(r['result'] == 'INTERRUPTED' for r in rows)}, indent=2), encoding='utf-8')
     print(f'Results: {output}', flush=True)
     return 0 if all(r['result'] == 'PASS' for r in rows) else 1
 

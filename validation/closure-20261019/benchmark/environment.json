@@ -1,0 +1,70 @@
+{
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "python": "3.12.7",
+  "logical_cpus": 128,
+  "node_gomaxprocs": 1,
+  "timings_ms": {
+    "election_min": 3000,
+    "election_jitter": 3000,
+    "heartbeat": 150,
+    "rpc_timeout": 1000
+  },
+  "arguments": {
+    "nodes": [
+      10,
+      20,
+      50,
+      100
+    ],
+    "entries": 2101,
+    "rounds": 1,
+    "seed": 42,
+    "timeout": 120,
+    "scenarios": [
+      "election",
+      "failover",
+      "catchup",
+      "divergence"
+    ],
+    "output": ".test-output/closure-20261019"
+  },
+  "measurement": "monotonic polling observation; per wait/generate timeout, not total scenario budget; two consistent snapshots 100 ms apart; includes polling overhead",
+  "go": "go version go1.27.2 linux/amd64",
+  "git_commit": "81723b8f46c78805b986831a0d0a4a109d21404e",
+  "git_dirty": true,
+  "source_sha256": {
+    "config/config.go": "fc159bd5fdd3af9e0e9927ff925b9b103c491374670bb9a3963bb944923e8c4c",
+    "go.mod": "9f625a9d7bd67ed216644a207c16ed5ab633c3992e5c64f58654112c327d986b",
+    "main.go": "5b895eb9a6dfd9811fb28183245f7c5aa5af717459714529687e3092875e1500",
+    "main_test.go": "0348aebf789c02a56c6eb16d8cf6a1701fdce16020ea4691bf24afb7efceb120",
+    "raft/closure_test.go": "6a062a10c9bead99e160b23d0efe4bb720708226556a4a08ee3141820f034656",
+    "raft/fixture.go": "4bd44e9eed3db532008e71c4090a7c6684e4cd0d6c2e5d643927583b727391b5",
+    "raft/log.go": "f9902cfe0abf2d592e8bbd69bd9783756b76d67cf73b9c0c591c1f3125bc18a0",
+    "raft/partition_test.go": "ef938541011bc42e6e92cabfe23f0e70788080f5ea09b7a37ed61a4903e018ed",
+    "raft/performance_test.go": "f39116afa012bf66e6d4e1b365a16fd21c30243678ca1d9a18fda2c5a557dcaa",
+    "raft/raft.go": "d7ea7775d6ebde5b56f6ba4ed16ab8d9111788941c15f4fe8cfe5951d0225bf7",
+    "raft/raft_test.go": "6728c24852d3403232f3c77fd5700faa2ceb56af2bf316585f8f24d87d0ee0b3",
+    "raft/replication_test.go": "2f111a8d42bbc4833f84a712c1c3f054bbedc35b7faa6752be2bc9401fdfe51c",
+    "raft/state_machine.go": "2bd4b60a3b602ab4483dc158837dbecbd6d72de5bf991b9e89a03f465e310354",
+    "raft/storage.go": "bc9056cfe252926590e296637c7f4b212806ff79efa0cf1365bcea9ced25dd29",
+    "raft/storage_test.go": "1264cdef1d2fe551e5d45ba08e014ac98668f5ef68de7adc3424022f159c746e",
+    "rpc/rpc.go": "1b2e05d3bd405fdee8312201829fdb958b21f595b51304b3c5d16b329878450d",
+    "rpc/rpc_test.go": "0ed20f3f4d54e88346c2524edb051a5b72175e172311ee13ed87dc049a410507",
+    "scripts/benchmark.py": "b36c23c99679277271465a4d8f6a784c88ee58bfadd3571653c87b0d129eebfd",
+    "scripts/render_report.py": "83ff0587ccb8d5b08da8e8996c96afbf2e517667a65cef7d7f8bf707f9c727c6",
+    "scripts/smoke_test.py": "345b899449a0a82c6d83ff4d0c0e1276ea23a0aafb739331a62c3cbed386ee51",
+    "scripts/start.ps1": "4a8d19ebb349d1f25e0afed379e29b6d576f7288c00f5f7f60199f0f00c06e1f",
+    "scripts/test_benchmark.py": "9da37d81e61d0b603cef8f2bf25c0b2322b46fca8fc2d9d38ab1389f45f65c5c",
+    "scripts/test_report.py": "63bd6e300a8350d020f1ebc2363a7d0ec7873a0c9367eee543287457ca025a61",
+    "scripts/test_smoke.py": "74dbfb8f8daf6354e607e8b51d9ba6583329b56435112f2bdb5a6e108841a3e5",
+    "scripts/test_start.ps1": "9ec4411a9a1c08a478071e7fd58513b0eef61d2cd6778ad7b5cfde412ebc7940"
+  },
+  "binary_sha256": "aa63fabf991314f089c8cae2479ad6640272af702ddd8c7e04b22b8de5b673c8",
+  "build_command": [
+    "go",
+    "build",
+    "-o",
+    "raft-node",
+    "."
+  ]
+}

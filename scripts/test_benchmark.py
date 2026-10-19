@@ -1,5 +1,11 @@
 """Regression tests for experiment cleanup, without starting any node processes."""
 import subprocess
+import contextlib
+import io
+import json
+import tempfile
+from unittest import mock
+import benchmark
 import sys
 from pathlib import Path
 import unittest
@@ -55,6 +61,38 @@ class BenchmarkTests(unittest.TestCase):
                  applied_commands=1, x=0)
         b = dict(a, id=2, state='Follower', log_hash='B', committed_hash='B')
         self.assertFalse(consistent([a, b], logs=True, target=0, commands=1)[0])
+
+
+    def test_equal_final_state_cannot_replace_saved_history(self):
+        checkpoint = dict(index=2, hash='original-prefix', x=7)
+        a = dict(id=1, state='Leader', term=3, leader_id=1, last_log_index=9,
+                 commit_index=9, last_applied=9, log_hash='same-final',
+                 committed_hash='same-final', committed_commands=7, applied_commands=7,
+                 x=20, target_available=True, target_index=2,
+                 target_hash='replaced-prefix', target_x=7)
+        b = dict(a, id=2, state='Follower')
+        self.assertTrue(consistent([a, b], True, 2, 7)[0])
+        self.assertFalse(consistent([a, b], True, 2, 7, checkpoint=checkpoint)[0])
+        a['target_hash'] = b['target_hash'] = checkpoint['hash']
+        self.assertTrue(consistent([a, b], True, 2, 7, checkpoint=checkpoint)[0])
+        b['target_x'] = 8
+        self.assertFalse(consistent([a, b], True, 2, 7, checkpoint=checkpoint)[0])
+
+
+    def test_last_round_interrupt_or_cleanup_failure_is_not_complete(self):
+        for outcome, extra, expected in [('INTERRUPTED', {}, 'INTERRUPTED'),
+                                          ('FAIL', {'cleanup_failed': True}, 'CLEANUP_FAILED')]:
+            with self.subTest(outcome=outcome), tempfile.TemporaryDirectory() as directory:
+                output = Path(directory) / 'run'
+                row = dict(nodes=3, scenario='election', result=outcome,
+                           elapsed_seconds=None, error='injected', **extra)
+                argv = ['benchmark.py', '--nodes', '3', '--rounds', '1',
+                        '--scenarios', 'election', '--output', str(output)]
+                with mock.patch.object(sys, 'argv', argv), mock.patch.object(benchmark, 'build_current', return_value={}), \
+                     mock.patch.object(benchmark, 'experiment', return_value=row), contextlib.redirect_stdout(io.StringIO()):
+                    self.assertEqual(benchmark.main(), 1)
+                status = json.loads((output / 'run-status.json').read_text())
+                self.assertEqual(status['status'], expected)
 
 
 if __name__ == '__main__':

@@ -2,7 +2,9 @@ package raft
 
 import (
 	"bytes"
+	"crypto/sha256"
 	"encoding/binary"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"hash/crc32"
@@ -53,7 +55,9 @@ func (n *Node) loadState() error {
 		n.wal.Close()
 		return fmt.Errorf("persistent metadata does not cover the recovered log")
 	}
-	n.committedHash = logHash(n.log[1 : n.commitIndex+1])
+	n.commitDigest = sha256.New()
+	appendLogHash(n.commitDigest, n.log[1:n.commitIndex+1])
+	n.committedHash = hex.EncodeToString(n.commitDigest.Sum(nil))
 	if (n.commitIndex > 0 || savedHash != "") && savedHash != n.committedHash {
 		n.wal.Close()
 		return fmt.Errorf("committed log hash mismatch: refusing inconsistent recovery")
@@ -232,13 +236,19 @@ func (n *Node) persistLocked(term, vote int) error {
 }
 
 func (n *Node) commitLocked(index int) error {
+	if err := n.availableLocked(); err != nil {
+		return err
+	}
 	if index <= n.commitIndex {
 		return nil
 	}
 	if index > n.lastIndexLocked() {
 		return fmt.Errorf("commit index beyond log")
 	}
-	hash := logHash(n.log[1 : index+1])
+	// Committed entries never change. On storage failure the node fails closed;
+	// the advanced digest cannot be reused until recovery rebuilds it from disk.
+	appendLogHash(n.commitDigest, n.log[n.commitIndex+1:index+1])
+	hash := hex.EncodeToString(n.commitDigest.Sum(nil))
 	if err := n.saveState(persistentState{n.id, n.term, n.votedFor, index, hash}); err != nil {
 		err = fmt.Errorf("persist commit: %w", err)
 		n.failLocked(err)

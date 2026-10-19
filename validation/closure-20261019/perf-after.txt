@@ -1,0 +1,21 @@
+goos: linux
+goarch: amd64
+pkg: myraft/raft
+cpu: Intel(R) Xeon(R) Platinum 8336C CPU @ 2.30GHz
+BenchmarkAdvanceCommitIdle-128     	       3	       286.0 ns/op	       0 B/op	       0 allocs/op
+BenchmarkAdvanceCommitIdle-128     	       3	       272.3 ns/op	       0 B/op	       0 allocs/op
+BenchmarkAdvanceCommitIdle-128     	       3	       299.7 ns/op	       0 B/op	       0 allocs/op
+BenchmarkCommitBatches/2101/sync-only-128         	       3	  10368252 ns/op	   27954 B/op	     292 allocs/op
+BenchmarkCommitBatches/2101/sync-only-128         	       3	   9692808 ns/op	   27949 B/op	     292 allocs/op
+BenchmarkCommitBatches/2101/sync-only-128         	       3	  10207530 ns/op	   28216 B/op	     294 allocs/op
+BenchmarkCommitBatches/2101/commit-128            	       3	  13889015 ns/op	  237429 B/op	    4735 allocs/op
+BenchmarkCommitBatches/2101/commit-128            	       3	  11508524 ns/op	  237333 B/op	    4733 allocs/op
+BenchmarkCommitBatches/2101/commit-128            	       3	  12958502 ns/op	  237720 B/op	    4737 allocs/op
+BenchmarkCommitBatches/21010/sync-only-128        	       3	  86108517 ns/op	  227560 B/op	    2824 allocs/op
+BenchmarkCommitBatches/21010/sync-only-128        	       3	  77356902 ns/op	  227234 B/op	    2821 allocs/op
+BenchmarkCommitBatches/21010/sync-only-128        	       3	  86647422 ns/op	  227880 B/op	    2827 allocs/op
+BenchmarkCommitBatches/21010/commit-128           	       3	  98854233 ns/op	 2346717 B/op	   47223 allocs/op
+BenchmarkCommitBatches/21010/commit-128           	       3	 101265187 ns/op	 2346626 B/op	   47221 allocs/op
+BenchmarkCommitBatches/21010/commit-128           	       3	 110548209 ns/op	 2345880 B/op	   47214 allocs/op
+PASS
+ok  	myraft/raft	4.803s

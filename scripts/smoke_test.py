@@ -12,6 +12,30 @@ EXE = ROOT / ("raft-node.exe" if os.name == "nt" else "raft-node")
 FLAGS = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
 
 
+def _stop_process(processes, node_id):
+    process = processes[node_id]
+    process.kill()
+    process.wait(timeout=5)
+    processes.pop(node_id)
+
+
+def _cleanup_processes(processes):
+    failures = []
+    for node_id, process in list(processes.items()):
+        try:
+            if process.poll() is None:
+                process.kill()
+        except Exception as exc:
+            failures.append((node_id, exc))
+        try:
+            process.wait(timeout=5)
+        except Exception as exc:
+            failures.append((node_id, exc))
+    if failures:
+        details = "; ".join(f"node {node_id}: {error}" for node_id, error in failures)
+        raise RuntimeError(f"failed to clean up smoke-test processes: {details}") from failures[0][1]
+
+
 def scenario(count):
     folder = ROOT / ".test-output" / f"smoke-{count}-{time.time_ns()}"
     folder.mkdir(parents=True)
@@ -39,9 +63,7 @@ def scenario(count):
                 cwd=ROOT, stdout=out, stderr=subprocess.STDOUT, creationflags=FLAGS)
 
         def stop(node_id):
-            p = processes.pop(node_id)
-            p.kill()
-            p.wait(timeout=5)
+            _stop_process(processes, node_id)
 
         def status(node_id):
             p = processes[node_id]
@@ -105,14 +127,13 @@ def scenario(count):
         (folder / "result.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
         print(f"{count} nodes: PASS restart and minority checks; evidence: {folder}", flush=True)
     finally:
-        for p in processes.values():
-            if p.poll() is None:
-                p.kill()
-            p.wait(timeout=5)
-        for out in outputs:
-            out.close()
-        for s in sockets:
-            s.close()
+        try:
+            _cleanup_processes(processes)
+        finally:
+            for out in outputs:
+                out.close()
+            for s in sockets:
+                s.close()
 
 
 if __name__ == "__main__":

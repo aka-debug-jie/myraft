@@ -1,5 +1,7 @@
 # 实测结果与公开范围
 
+本目录原有结果均属于 81723b8，未覆盖或重算。本轮修复和独立测量见 [closure-20261019](closure-20261019/README.md)，当前报告使用新结果。
+
 `publication-checks.json` 单独记录公开副本的复测与审查，不混入原 80 轮规模实验。
 
 这些结果来自已完成的 Windows 11 KVM 虚拟机实验（8 vCPU、约 8 GiB RAM），不是 GitHub CI 或目标统一 Windows 主机的新测量。Go 1.26.3、Python 3.13.12；完整计时口径见 [课程报告](../docs/report.md)。

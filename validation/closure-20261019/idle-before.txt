@@ -1,0 +1,9 @@
+goos: linux
+goarch: amd64
+pkg: myraft/raft
+cpu: Intel(R) Xeon(R) Platinum 8336C CPU @ 2.30GHz
+BenchmarkAdvanceCommitIdle-128     	  150393	      5035 ns/op	     896 B/op	       1 allocs/op
+BenchmarkAdvanceCommitIdle-128     	   54410	      5953 ns/op	     896 B/op	       1 allocs/op
+BenchmarkAdvanceCommitIdle-128     	   91023	      6017 ns/op	     896 B/op	       1 allocs/op
+PASS
+ok  	myraft/raft	2.345s
