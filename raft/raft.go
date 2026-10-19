@@ -46,6 +46,7 @@ type Node struct {
 	x                                         int64
 	nextIndex, matchIndex                     map[int]int
 	wal                                       *os.File
+	storageLock                               *os.File
 	changed                                   chan struct{}
 	electedAt                                 time.Time
 	electionMS                                float64
@@ -67,6 +68,7 @@ type Node struct {
 	connections                               map[net.Conn]bool
 	kicks                                     map[int]chan struct{}
 	stop                                      chan struct{}
+	stopDone                                  chan struct{}
 	errors                                    chan error
 	fatalErr                                  error
 	started                                   bool
@@ -106,7 +108,7 @@ func NewNode(o Options) (*Node, error) {
 		o.Logger = log.Default()
 	}
 	n := &Node{votePending: make(map[int]bool), committedHash: logHash(nil), log: []wire.LogEntry{{}}, changed: make(chan struct{}), id: o.ID, addr: o.Peers[o.ID], peers: make(map[int]string), state: Follower,
-		votedFor: -1, leaderID: -1, options: o, logger: o.Logger, stop: make(chan struct{}),
+		votedFor: -1, leaderID: -1, options: o, logger: o.Logger, stop: make(chan struct{}), stopDone: make(chan struct{}),
 		errors: make(chan error, 1), connections: make(map[net.Conn]bool), kicks: make(map[int]chan struct{})}
 	for id, addr := range o.Peers {
 		n.peers[id] = addr
@@ -155,7 +157,7 @@ func (n *Node) Stop() {
 	n.mu.Lock()
 	if n.stopped {
 		n.mu.Unlock()
-		n.wg.Wait()
+		<-n.stopDone
 		return
 	}
 	n.stopped = true
@@ -178,7 +180,11 @@ func (n *Node) Stop() {
 	if n.wal != nil {
 		n.wal.Close()
 	}
+	if n.storageLock != nil {
+		n.storageLock.Close()
+	}
 	n.eventLocked("stopped")
+	close(n.stopDone)
 	n.mu.Unlock()
 }
 

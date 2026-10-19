@@ -1,0 +1,11 @@
+test_cleanup_continues_after_one_process_fails (test_smoke.SmokeCleanupTests.test_cleanup_continues_after_one_process_fails) ... ok
+test_cleanup_failure_changes_final_result_to_fail (test_smoke.SmokeCleanupTests.test_cleanup_failure_changes_final_result_to_fail) ... ok
+test_kill_failure_keeps_process_registered (test_smoke.SmokeCleanupTests.test_kill_failure_keeps_process_registered) ... ok
+test_scenario_publishes_pass_only_after_cleanup (test_smoke.SmokeCleanupTests.test_scenario_publishes_pass_only_after_cleanup) ... ok
+test_scenario_records_failure_or_interruption (test_smoke.SmokeCleanupTests.test_scenario_records_failure_or_interruption) ... ok
+test_wait_timeout_keeps_process_registered (test_smoke.SmokeCleanupTests.test_wait_timeout_keeps_process_registered) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.008s
+
+OK

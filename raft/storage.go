@@ -27,10 +27,24 @@ type logRecord struct {
 	Entries []wire.LogEntry `json:"entries"`
 }
 
-func (n *Node) loadState() error {
+const maxWALPayload = 32 << 20
+
+func (n *Node) loadState() (err error) {
 	if err := os.MkdirAll(n.options.DataDir, 0755); err != nil {
 		return err
 	}
+	lockPath := filepath.Join(n.options.DataDir, fmt.Sprintf("node-%d.lock", n.id))
+	if n.storageLock, err = lockStorage(lockPath); err != nil {
+		return fmt.Errorf("lock node %d storage (another instance may be using it): %w", n.id, err)
+	}
+	defer func() {
+		if err != nil {
+			if n.wal != nil {
+				n.wal.Close()
+			}
+			n.storageLock.Close()
+		}
+	}()
 	n.statePath = filepath.Join(n.options.DataDir, fmt.Sprintf("node-%d-state.json", n.id))
 	savedHash := ""
 	b, err := os.ReadFile(n.statePath)
@@ -52,19 +66,16 @@ func (n *Node) loadState() error {
 		return err
 	}
 	if n.commitIndex > n.lastIndexLocked() || n.log[n.lastIndexLocked()].Term > n.term {
-		n.wal.Close()
 		return fmt.Errorf("persistent metadata does not cover the recovered log")
 	}
 	n.commitDigest = sha256.New()
 	appendLogHash(n.commitDigest, n.log[1:n.commitIndex+1])
 	n.committedHash = hex.EncodeToString(n.commitDigest.Sum(nil))
 	if (n.commitIndex > 0 || savedHash != "") && savedHash != n.committedHash {
-		n.wal.Close()
 		return fmt.Errorf("committed log hash mismatch: refusing inconsistent recovery")
 	}
 	if n.recoveryTruncate > 0 {
 		if err := n.trimWAL(n.recoveryTruncate); err != nil {
-			n.wal.Close()
 			return err
 		}
 	}
@@ -73,7 +84,7 @@ func (n *Node) loadState() error {
 	return nil
 }
 
-func (n *Node) loadLog() (err error) {
+func (n *Node) loadLog() error {
 	p := filepath.Join(n.options.DataDir, fmt.Sprintf("node-%d-log.wal", n.id))
 	flags := os.O_RDWR
 	if n.commitIndex == 0 {
@@ -84,11 +95,6 @@ func (n *Node) loadLog() (err error) {
 		return err
 	}
 	n.wal = f
-	defer func() {
-		if err != nil {
-			f.Close()
-		}
-	}()
 	header := make([]byte, 16)
 	copy(header, "RAFTLOG2")
 	binary.LittleEndian.PutUint64(header[8:], uint64(n.id))
@@ -130,7 +136,7 @@ func (n *Node) loadLog() (err error) {
 			return fmt.Errorf("WAL frame header checksum mismatch at %d", offset)
 		}
 		size := binary.LittleEndian.Uint32(frame[:4])
-		if size == 0 || size > 32<<20 {
+		if size == 0 || size > maxWALPayload {
 			return fmt.Errorf("invalid WAL frame length at %d", offset)
 		}
 		payload := make([]byte, int(size))
@@ -199,6 +205,9 @@ func (n *Node) replaceLogLocked(from int, entries []wire.LogEntry) error {
 	payload, err := json.Marshal(logRecord{From: from, Entries: entries})
 	if err != nil {
 		return err
+	}
+	if len(payload) > maxWALPayload {
+		return fmt.Errorf("WAL payload exceeds %d bytes", maxWALPayload)
 	}
 	frame := make([]byte, 12+len(payload))
 	binary.LittleEndian.PutUint32(frame[:4], uint32(len(payload)))

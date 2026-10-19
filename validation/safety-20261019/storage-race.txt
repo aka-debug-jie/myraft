@@ -1,0 +1,18 @@
+=== RUN   TestNodeStorageExclusive
+--- PASS: TestNodeStorageExclusive (0.01s)
+=== RUN   TestNodeStorageLockReleasedAfterLoadError
+=== RUN   TestNodeStorageLockReleasedAfterLoadError/state
+=== RUN   TestNodeStorageLockReleasedAfterLoadError/wal
+--- PASS: TestNodeStorageLockReleasedAfterLoadError (0.01s)
+    --- PASS: TestNodeStorageLockReleasedAfterLoadError/state (0.00s)
+    --- PASS: TestNodeStorageLockReleasedAfterLoadError/wal (0.00s)
+=== RUN   TestNodeStorageLockLifetime
+--- PASS: TestNodeStorageLockLifetime (0.00s)
+=== RUN   TestNodeStorageLockDirectoryAlias
+--- PASS: TestNodeStorageLockDirectoryAlias (0.00s)
+=== RUN   TestNodeStorageLockProcess
+--- PASS: TestNodeStorageLockProcess (0.03s)
+=== RUN   TestOversizedAppendRejectedBeforeWALWrite
+--- PASS: TestOversizedAppendRejectedBeforeWALWrite (3.00s)
+PASS
+ok  	myraft/raft	4.163s

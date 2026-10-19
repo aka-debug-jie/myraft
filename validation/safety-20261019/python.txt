@@ -1,0 +1,25 @@
+test_batch_sizes_are_not_pooled (test_benchmark.BenchmarkTests.test_batch_sizes_are_not_pooled) ... ok
+test_equal_final_state_cannot_replace_saved_history (test_benchmark.BenchmarkTests.test_equal_final_state_cannot_replace_saved_history) ... ok
+test_equal_x_does_not_hide_log_difference (test_benchmark.BenchmarkTests.test_equal_x_does_not_hide_log_difference) ... ok
+test_failed_stop_keeps_handle_for_final_cleanup (test_benchmark.BenchmarkTests.test_failed_stop_keeps_handle_for_final_cleanup) ... ok
+test_failed_trials_do_not_enter_timing_mean (test_benchmark.BenchmarkTests.test_failed_trials_do_not_enter_timing_mean) ... ok
+test_last_round_interrupt_or_cleanup_failure_is_not_complete (test_benchmark.BenchmarkTests.test_last_round_interrupt_or_cleanup_failure_is_not_complete) ... ok
+test_batch_plan_and_statistics_stay_separate (test_report.ReportInputTests.test_batch_plan_and_statistics_stay_separate) ... ok
+test_linux_two_rounds_counts_results_and_ignores_stale_summary (test_report.ReportInputTests.test_linux_two_rounds_counts_results_and_ignores_stale_summary) ... ok
+test_missing_environment_and_validation_fields_are_reported (test_report.ReportInputTests.test_missing_environment_and_validation_fields_are_reported) ... ok
+test_cleanup_continues_after_one_process_fails (test_smoke.SmokeCleanupTests.test_cleanup_continues_after_one_process_fails) ... ok
+test_cleanup_failure_changes_final_result_to_fail (test_smoke.SmokeCleanupTests.test_cleanup_failure_changes_final_result_to_fail) ... ok
+test_kill_failure_keeps_process_registered (test_smoke.SmokeCleanupTests.test_kill_failure_keeps_process_registered) ... ok
+test_scenario_publishes_pass_only_after_cleanup (test_smoke.SmokeCleanupTests.test_scenario_publishes_pass_only_after_cleanup) ... ok
+test_scenario_records_failure_or_interruption (test_smoke.SmokeCleanupTests.test_scenario_records_failure_or_interruption) ... ok
+test_wait_timeout_keeps_process_registered (test_smoke.SmokeCleanupTests.test_wait_timeout_keeps_process_registered) ... ok
+test_batch_size_separates_groups (test_visualize.VisualizeTests.test_batch_size_separates_groups) ... ok
+test_cli_writes_outputs_and_refuses_existing_output (test_visualize.VisualizeTests.test_cli_writes_outputs_and_refuses_existing_output) ... ok
+test_performance_groups_scenarios_rounds_and_failures (test_visualize.VisualizeTests.test_performance_groups_scenarios_rounds_and_failures) ... ok
+test_timeline_uses_offsets_and_marks_missing_events (test_visualize.VisualizeTests.test_timeline_uses_offsets_and_marks_missing_events) ... ok
+test_zero_timing_and_missing_batch_group (test_visualize.VisualizeTests.test_zero_timing_and_missing_batch_group) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.314s
+
+OK

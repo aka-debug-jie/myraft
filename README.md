@@ -4,7 +4,7 @@
 
 默认配置只监听 `127.0.0.1`。RPC 没有认证、TLS 或不可信客户端防护；仅在本机或受信任的隔离网络运行，不要将端口映射或开放至公网。详见 [安全说明](SECURITY.md)。
 
-[课程报告](docs/report.md) · [RPC 调用图](docs/rpc-flow.svg) · [实验记录与版本边界](validation/README.md) · [收尾修复说明](docs/closure.md) · [终端演示与性能测量](docs/ux.md)
+[课程报告](docs/report.md) · [RPC 调用图](docs/rpc-flow.svg) · [实验记录与版本边界](validation/README.md) · [收尾修复说明](docs/closure.md) · [终端演示与性能测量](docs/ux.md) · [存储与测试结果修复](docs/storage-safety.md)
 
 ## 环境与构建
 
@@ -136,6 +136,10 @@ python scripts/benchmark.py --nodes 10 20 50 100 --entries 2101 --rounds 5 --see
 ## 数据、实现与限制
 
 每节点保存 `node-ID-state.json`（term/votedFor/commitIndex/已提交前缀哈希）和 `node-ID-log.wal`。WAL v2 对长度/负载校验值构成的帧头和负载分别做 CRC 校验；追加一条逻辑后缀替换记录完成追加或冲突修复。日志先 Sync，提交元数据再同步替换，最后执行状态机。重启验证已提交前缀哈希后才重放，防止缺失后缀替换记录时恢复出旧日志。不完整末尾帧可恢复，完整帧损坏拒绝启动。
+
+节点在读取或创建数据前独占 `node-ID.lock`，防止同一 ID、同一目录被两个实例同时写入；不同 ID 仍可共用目录。停止或进程异常退出会由操作系统释放所有权，锁文件保留，文件存在不表示节点仍在运行。运行中不要删除锁文件、替换或移动数据目录；升级前先停止旧版节点，旧版不会遵守这项锁约定。此保证针对本机文件系统上的协作进程，未验证 NFS/SMB。直接使用 Go API 时，成功 `NewNode` 后必须调用 `Stop`，即使 `Start` 失败；并发 `Stop` 均等待资源释放后返回。
+
+WAL 写入与恢复使用相同的 32 MiB 单帧 JSON 负载上限。超限追加在写 WAL 前拒绝，不改变日志、提交或应用状态，节点仍可接受后续正常请求；更高任期仍按协议处理。原 WAL v2 格式和已有数据不变。smoke 测试只在进程及资源清理完成后写入最终结果；清理失败记录 FAIL，原始失败或中断保留其诊断。
 
 核心文件：`raft.go` 选举/生命周期；`log.go` 复制/提交/客户端等待；`storage.go` 持久化；`state_machine.go` 确定性计算；`fixture.go` 离线实验历史；`rpc.go` 消息类型；`main.go` CLI；`scripts/benchmark.py` 实验；`docs/report.md` 报告及 `docs/rpc-flow.svg` 调用图。
 

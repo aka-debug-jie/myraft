@@ -1,0 +1,7 @@
+--- FAIL: TestNodeStorageExclusive (0.00s)
+    storage_safety_test.go:24: same node storage opened twice
+--- FAIL: TestOversizedAppendRejectedBeforeWALWrite (0.96s)
+    storage_safety_test.go:60: oversized frame acknowledged: {Term:1 Success:true ConflictIndex:2} <nil>
+FAIL
+FAIL	myraft/raft	1.016s
+FAIL

@@ -1,0 +1,34 @@
+{
+  "base_commit": "18d1e4b8bd6411cdb9f7a40077470d3c8d545c53",
+  "tested_worktree_dirty": true,
+  "source_binding": "benchmark/environment.json source_sha256 matches current source; source-under-test-sha256.json binds Windows export as well",
+  "checks": {
+    "gofmt": "PASS (no unformatted Go files)",
+    "go_vet": "PASS",
+    "go_test_count_1": "PASS",
+    "go_build": "PASS",
+    "linux_go_test_race_count_1": "PASS",
+    "linux_lock_repeats": "PASS x3 (exclusive open, helper process kill, aliases, failed initialization, concurrent Stop)",
+    "python_linux": "20/20 PASS",
+    "smoke_linux": "3 and 11 nodes PASS; owned nodes cleaned",
+    "benchmark_linux": "16/16 PASS, sizes 10/20/50/100, four scenarios, one round, seed107, 2101 commands",
+    "windows_go_vet_and_test": "PASS on Go1.26.3",
+    "windows_storage_repeats": "PASS x3 including oversized frame, child process kill/recovery and directory symlink",
+    "windows_python": "20/20 PASS with project-local embedded interpreter scripts path configured",
+    "windows_start_and_demo": "PASS: member reuse, 11 nodes, Unicode/spaces, 2101 commands, failover, recovery, historical prefix, owned cleanup",
+    "cross_compile": "windows/darwin/dragonfly/freebsd/netbsd/openbsd amd64 test packages PASS",
+    "windows_race": "NOT EXECUTED",
+    "macos_bsd_runtime": "NOT EXECUTED"
+  },
+  "environment_issue": {
+    "initial_windows_python": "17 passed, 3 report tests errored: isolated portable Python could not import adjacent benchmark module in child interpreter",
+    "resolution": "Copied portable Python into new test directory and added this checkout scripts directory to its _pth; original interpreter and repository scripts unchanged"
+  },
+  "scope": "Only storage ownership, WAL frame limit, smoke final result; no Status performance change, WAL migration, or reduced synchronization",
+  "limits": [
+    "Local cooperative file ownership only; old binaries do not honor new lock",
+    "Do not delete lock files or move running data directories",
+    "NFS/SMB and whole-machine power loss not qualified",
+    "Single-host one-round scale regression is not a performance speedup study"
+  ]
+}

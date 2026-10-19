@@ -36,12 +36,34 @@ def _cleanup_processes(processes):
         raise RuntimeError(f"failed to clean up smoke-test processes: {details}") from failures[0][1]
 
 
+def _finalize_result(folder, result, processes, outputs, sockets):
+    was_pass = result["result"] == "PASS"
+    failures = []
+    try:
+        _cleanup_processes(processes)
+    except Exception as exc:
+        failures.append(f"process cleanup: {exc}")
+    for resource in [*outputs, *sockets]:
+        try:
+            resource.close()
+        except Exception as exc:
+            failures.append(f"resource close: {exc}")
+    if failures:
+        if was_pass:
+            result["result"] = "FAIL"
+        result["cleanup_error"] = "; ".join(failures)
+    (folder / "result.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+    if failures and was_pass:
+        raise RuntimeError(result["cleanup_error"])
+
+
 def scenario(count):
     folder = ROOT / ".test-output" / f"smoke-{count}-{time.time_ns()}"
     folder.mkdir(parents=True)
     sockets = []
     processes = {}
     outputs = []
+    result = {"nodes": count, "result": "FAIL"}
     try:
         for _ in range(count):
             s = socket.socket()
@@ -124,16 +146,17 @@ def scenario(count):
         result = {"nodes": count, "initial_leader": first, "replacement_leader": second,
                   "observed_failover_seconds": elapsed, "restart_joined": True,
                   "minority_rejected": True, "result": "PASS"}
-        (folder / "result.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
-        print(f"{count} nodes: PASS restart and minority checks; evidence: {folder}", flush=True)
+    except KeyboardInterrupt as exc:
+        result["result"] = "INTERRUPTED"
+        result["error"] = str(exc) or "KeyboardInterrupt"
+        raise
+    except Exception as exc:
+        result["result"] = "FAIL"
+        result["error"] = str(exc)
+        raise
     finally:
-        try:
-            _cleanup_processes(processes)
-        finally:
-            for out in outputs:
-                out.close()
-            for s in sockets:
-                s.close()
+        _finalize_result(folder, result, processes, outputs, sockets)
+    print(f"{count} nodes: PASS restart and minority checks; evidence: {folder}", flush=True)
 
 
 if __name__ == "__main__":
