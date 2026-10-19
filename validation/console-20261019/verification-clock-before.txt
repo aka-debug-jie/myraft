@@ -1,0 +1,5 @@
+--- FAIL: TestOldVerificationCannotOverwriteNewObservation (0.01s)
+    operations_test.go:163: old result repainted current pass: passed
+FAIL
+FAIL	myraft/cmd/dashboard	0.024s
+FAIL

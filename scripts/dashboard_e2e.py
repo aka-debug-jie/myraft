@@ -11,6 +11,8 @@ parser.add_argument('--dashboard', type=Path, required=True)
 parser.add_argument('--node', type=Path, required=True)
 parser.add_argument('--output', type=Path, required=True)
 args=parser.parse_args()
+if os.name == 'nt':
+ parser.error('This browser harness uses POSIX graceful shutdown; use the documented native Windows console acceptance steps.')
 repo=Path(__file__).resolve().parents[1];root=args.output.resolve();root.mkdir(parents=True,exist_ok=False);output=(root/'controller.txt').open('wb')
 env=os.environ.copy()
 process=subprocess.Popen([str(args.dashboard.resolve()),'-listen','127.0.0.1:0','-data-root',str(root/'sessions'),'-node-bin',str(args.node.resolve()),'-source-dir',str(repo),'-python',sys.executable,'-allow-control'],stdout=output,stderr=subprocess.STDOUT,env=env)

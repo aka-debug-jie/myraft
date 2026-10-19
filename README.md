@@ -6,6 +6,8 @@
 
 [课程报告](docs/report.md) · [RPC 调用图](docs/rpc-flow.svg) · [实验记录与版本边界](validation/README.md) · [收尾修复说明](docs/closure.md) · [终端演示与性能测量](docs/ux.md) · [存储与测试结果修复](docs/storage-safety.md)
 
+新增 [本机 Web Console：启动、修复、验收与真实截图](docs/console.md)。本轮结果单独保存在 [console-20261019](validation/console-20261019/README.md)，不替换以前的实验数据。
+
 ## 环境与构建
 
 共享配置现在必须含明确的 `cluster_id`。`-generate-config` 为新实验生成一次随机 ID，所有节点使用同一文件；网络代理/地址变化不改变成员身份。没有配置文件启动时，所有节点必须传相同的 `-cluster-id`。不同实验请生成新配置，不能复用同一集群身份。

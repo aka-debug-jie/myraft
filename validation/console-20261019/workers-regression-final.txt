@@ -1,0 +1,41 @@
+=== RUN   TestPartitionRepairsUncommittedLeaderTail
+--- PASS: TestPartitionRepairsUncommittedLeaderTail (1.04s)
+=== RUN   TestCurrentTermCommitAndStaleReply
+--- PASS: TestCurrentTermCommitAndStaleReply (0.01s)
+=== RUN   TestFollowersDoNotStartPeerWorkers
+    workers_test.go:33: 100 pre-election nodes: additional goroutines=300 startup=328.226269ms
+--- PASS: TestFollowersDoNotStartPeerWorkers (0.35s)
+=== RUN   TestReplicationWorkersReusedAcrossTerms
+--- PASS: TestReplicationWorkersReusedAcrossTerms (0.10s)
+=== RUN   TestFirstLeadershipRacingStop
+--- PASS: TestFirstLeadershipRacingStop (0.07s)
+=== RUN   TestStartAfterLocalLeaderSetup
+--- PASS: TestStartAfterLocalLeaderSetup (0.01s)
+=== RUN   TestPartitionRepairsUncommittedLeaderTail
+--- PASS: TestPartitionRepairsUncommittedLeaderTail (1.00s)
+=== RUN   TestCurrentTermCommitAndStaleReply
+--- PASS: TestCurrentTermCommitAndStaleReply (0.01s)
+=== RUN   TestFollowersDoNotStartPeerWorkers
+    workers_test.go:33: 100 pre-election nodes: additional goroutines=300 startup=284.980085ms
+--- PASS: TestFollowersDoNotStartPeerWorkers (0.32s)
+=== RUN   TestReplicationWorkersReusedAcrossTerms
+--- PASS: TestReplicationWorkersReusedAcrossTerms (0.10s)
+=== RUN   TestFirstLeadershipRacingStop
+--- PASS: TestFirstLeadershipRacingStop (0.07s)
+=== RUN   TestStartAfterLocalLeaderSetup
+--- PASS: TestStartAfterLocalLeaderSetup (0.01s)
+=== RUN   TestPartitionRepairsUncommittedLeaderTail
+--- PASS: TestPartitionRepairsUncommittedLeaderTail (1.09s)
+=== RUN   TestCurrentTermCommitAndStaleReply
+--- PASS: TestCurrentTermCommitAndStaleReply (0.01s)
+=== RUN   TestFollowersDoNotStartPeerWorkers
+    workers_test.go:33: 100 pre-election nodes: additional goroutines=300 startup=304.874169ms
+--- PASS: TestFollowersDoNotStartPeerWorkers (0.33s)
+=== RUN   TestReplicationWorkersReusedAcrossTerms
+--- PASS: TestReplicationWorkersReusedAcrossTerms (0.10s)
+=== RUN   TestFirstLeadershipRacingStop
+--- PASS: TestFirstLeadershipRacingStop (0.06s)
+=== RUN   TestStartAfterLocalLeaderSetup
+--- PASS: TestStartAfterLocalLeaderSetup (0.00s)
+PASS
+ok  	myraft/raft	5.840s

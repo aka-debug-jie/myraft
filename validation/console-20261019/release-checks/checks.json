@@ -1,0 +1,64 @@
+[
+  {
+    "command": [
+      "go",
+      "fmt",
+      "./..."
+    ],
+    "exit_code": 0,
+    "seconds": 0.12424920871853828
+  },
+  {
+    "command": [
+      "go",
+      "vet",
+      "./..."
+    ],
+    "exit_code": 0,
+    "seconds": 0.36347485799342394
+  },
+  {
+    "command": [
+      "go",
+      "test",
+      "-count=1",
+      "./..."
+    ],
+    "exit_code": 0,
+    "seconds": 12.604521931149065
+  },
+  {
+    "command": [
+      "go",
+      "build",
+      "./..."
+    ],
+    "exit_code": 0,
+    "seconds": 0.7319705495610833
+  },
+  {
+    "command": [
+      "go",
+      "test",
+      "-race",
+      "-count=1",
+      "./..."
+    ],
+    "exit_code": 0,
+    "seconds": 18.639644579961896
+  },
+  {
+    "command": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "scripts",
+      "-p",
+      "test_*.py"
+    ],
+    "exit_code": 0,
+    "seconds": 1.055663464590907
+  }
+]

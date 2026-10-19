@@ -1,0 +1,11 @@
+=== RUN   TestFollowersDoNotStartPeerWorkers
+    workers_test.go:33: 100 pre-election nodes: additional goroutines=300 startup=197.753192ms
+--- PASS: TestFollowersDoNotStartPeerWorkers (0.22s)
+=== RUN   TestFollowersDoNotStartPeerWorkers
+    workers_test.go:33: 100 pre-election nodes: additional goroutines=300 startup=135.507358ms
+--- PASS: TestFollowersDoNotStartPeerWorkers (0.15s)
+=== RUN   TestFollowersDoNotStartPeerWorkers
+    workers_test.go:33: 100 pre-election nodes: additional goroutines=300 startup=124.549222ms
+--- PASS: TestFollowersDoNotStartPeerWorkers (0.14s)
+PASS
+ok  	myraft/raft	0.530s

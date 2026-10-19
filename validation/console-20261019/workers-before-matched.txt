@@ -1,0 +1,15 @@
+=== RUN   TestFollowersDoNotStartPeerWorkers
+    workers_test.go:31: 100 pre-election nodes: additional goroutines=10200 startup=214.675264ms
+    workers_test.go:34: idle followers started peer workers: 10200 goroutines
+--- FAIL: TestFollowersDoNotStartPeerWorkers (0.25s)
+=== RUN   TestFollowersDoNotStartPeerWorkers
+    workers_test.go:31: 100 pre-election nodes: additional goroutines=10200 startup=164.221187ms
+    workers_test.go:34: idle followers started peer workers: 10200 goroutines
+--- FAIL: TestFollowersDoNotStartPeerWorkers (0.20s)
+=== RUN   TestFollowersDoNotStartPeerWorkers
+    workers_test.go:31: 100 pre-election nodes: additional goroutines=10200 startup=136.69933ms
+    workers_test.go:34: idle followers started peer workers: 10200 goroutines
+--- FAIL: TestFollowersDoNotStartPeerWorkers (0.17s)
+FAIL
+FAIL	myraft/raft	0.647s
+FAIL

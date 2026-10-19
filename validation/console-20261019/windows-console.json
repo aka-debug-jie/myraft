@@ -1,0 +1,77 @@
+{
+  "result": "PASS",
+  "mode": "REAL",
+  "nodes": 11,
+  "commands": 2101,
+  "transport": "native HTTP + net/rpc; no native browser used",
+  "history_at_verification": "passed",
+  "history_after_stopping_nodes": "stale (expected)",
+  "receipts": [
+    {
+      "id": "994b13c62713c0cfdae361bfc1b1e85c",
+      "kind": "generate",
+      "state": "succeeded",
+      "accepted": true,
+      "committed": true
+    },
+    {
+      "id": "eab62cfed107350eb0f82b926018872e",
+      "kind": "checkpoint",
+      "state": "succeeded",
+      "accepted": null,
+      "committed": null,
+      "verification_state": "passed"
+    },
+    {
+      "id": "72a2f0168a450f44093a64aaf024403f",
+      "kind": "verify",
+      "state": "succeeded",
+      "accepted": null,
+      "committed": null,
+      "verification_state": "passed"
+    },
+    {
+      "id": "81549d7916761ff501fedd97126680f9",
+      "kind": "stop_all",
+      "state": "succeeded",
+      "accepted": null,
+      "committed": null
+    },
+    {
+      "id": "644f8c787eb356829bdd9656452f8109",
+      "kind": "resume",
+      "state": "succeeded",
+      "accepted": null,
+      "committed": null
+    },
+    {
+      "id": "4e57ebf589eb90c75c0e454c7ba4d801",
+      "kind": "verify_history",
+      "state": "succeeded",
+      "accepted": null,
+      "committed": null,
+      "verification_state": "passed"
+    },
+    {
+      "id": "6c3a22919b6a85df996feeb248365479",
+      "kind": "export",
+      "state": "succeeded",
+      "accepted": null,
+      "committed": null
+    },
+    {
+      "id": "be38727dc9972a117779c3e76bb19688",
+      "kind": "stop_all",
+      "state": "succeeded",
+      "accepted": null,
+      "committed": null
+    },
+    {
+      "id": "698f2958561ba54ecf0bcceba04b2435",
+      "kind": "stop_all",
+      "state": "succeeded",
+      "accepted": null,
+      "committed": null
+    }
+  ]
+}

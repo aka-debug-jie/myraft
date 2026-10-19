@@ -1,0 +1,24 @@
+Guest PID: 2496
+go version go1.26.3 windows/amd64
+Python 3.13.12
+ok  	myraft	1.334s
+ok  	myraft/cmd/dashboard	4.193s
+?   	myraft/config	[no test files]
+ok  	myraft/raft	22.702s
+ok  	myraft/rpc	1.117s
+3 nodes: initial leader 3, term 1
+3 nodes: killed leader; new leader 2 after 3.920s (polling observation)
+3 nodes: PASS restart and minority checks; evidence: <win11-test-root>\.test-output\smoke-3-1792408711514633400
+11 nodes: initial leader 6, term 1
+11 nodes: killed leader; new leader 4 after 4.503s (polling observation)
+11 nodes: PASS restart and minority checks; evidence: <win11-test-root>\.test-output\smoke-11-1792408727047438700
+START_ACCEPTANCE_PASSED
+DEMO_ACCEPTANCE_PASS: phases, JSON, table/watch, 2101 commands, failover/restart, history, identity guards, owned cleanup
+CONSOLE_WINDOWS_PASS zero_owned_nodes_remaining
+.......s...................
+----------------------------------------------------------------------
+Ran 27 tests in 3.592s
+
+OK (skipped=1)
+
+Guest result: {"exitcode": 0, "exited": true}
