@@ -14,7 +14,7 @@ export async function bootstrap() {
 export function operate(kind, state, params = {}) {
   return request('/api/operations', {method: 'POST',
     headers: {'Content-Type': 'application/json', 'X-CSRF-Token': csrf},
-    body: JSON.stringify({kind, session_id: state.frame?.session?.id || '',
+    body: JSON.stringify({kind, controller_id: state.frame?.controller_id || state.bootstrap?.controller_id, session_id: state.frame?.session?.id || '',
       generation: state.frame?.generation || state.bootstrap?.generation || 1, ...params})});
 }
 export function logs(id, from, limit, session, generation) {

@@ -42,13 +42,15 @@ func (d *dashboard) handler() http.Handler {
 	mux.HandleFunc("GET /api/nodes/{id}/logs", d.logsHTTP)
 	mux.HandleFunc("GET /api/operations/{id}", func(w http.ResponseWriter, r *http.Request) {
 		d.mu.Lock()
-		defer d.mu.Unlock()
 		for _, op := range d.operations {
 			if op.ID == r.PathValue("id") {
-				respond(w, 200, op)
+				copy := *op
+				d.mu.Unlock()
+				respond(w, 200, copy)
 				return
 			}
 		}
+		d.mu.Unlock()
 		failure(w, 404, fmt.Errorf("operation not found"))
 	})
 	mux.HandleFunc("POST /api/operations", d.operationsHTTP)
@@ -79,20 +81,25 @@ func (d *dashboard) handler() http.Handler {
 
 func (d *dashboard) sessionHTTP(w http.ResponseWriter, r *http.Request) {
 	d.mu.Lock()
-	defer d.mu.Unlock()
 	list := make([]session, 0, len(d.sessions))
 	for _, s := range d.sessions {
 		list = append(list, *s)
 	}
 	sort.Slice(list, func(i, j int) bool { return list[i].CreatedAt.Before(list[j].CreatedAt) })
-	respond(w, 200, map[string]any{"mode": "REAL", "csrf_token": d.csrf, "session": d.active, "sessions": list, "generation": d.generation, "control_allowed": d.opts.AllowControl, "control_enabled": d.control, "poll_ms": d.opts.Interval.Milliseconds(), "network_partition_supported": false})
+	view := map[string]any{"controller_id": d.controllerID, "mode": "REAL", "csrf_token": d.csrf, "session": d.active, "sessions": list, "generation": d.generation, "control_allowed": d.opts.AllowControl, "control_enabled": d.control, "poll_ms": d.opts.Interval.Milliseconds(), "network_partition_supported": false}
+	d.mu.Unlock()
+	respond(w, 200, view)
 }
 
 func (d *dashboard) frameLocked(after, dropped uint64) any {
 	events := make([]consoleEvent, 0)
 	gap := false
+	if after > d.eventSeq {
+		after = 0
+		gap = true
+	}
 	if len(d.events) > 0 {
-		gap = after+1 < d.events[0].Seq
+		gap = gap || after+1 < d.events[0].Seq
 		for _, e := range d.events {
 			if e.Seq > after {
 				events = append(events, e)
@@ -100,10 +107,13 @@ func (d *dashboard) frameLocked(after, dropped uint64) any {
 		}
 	}
 	ops := make([]operation, 0, len(d.operations))
-	for _, op := range d.operations {
+	for _, op := range d.operations[max(0, len(d.operations)-20):] {
+		if d.active != nil && op.SessionID != "" && op.SessionID != d.active.ID {
+			continue
+		}
 		ops = append(ops, *op)
 	}
-	return map[string]any{"mode": "REAL", "session": d.active, "generation": d.generation, "snapshot": d.snap, "events": events, "event_seq": d.eventSeq, "gap": gap, "stream_dropped": dropped, "operations": ops, "current_verification": d.currentCheck, "history_verification": d.historyCheck, "checkpoint": d.checkpoint, "target": d.target, "control_enabled": d.control, "busy": d.busy}
+	return map[string]any{"controller_id": d.controllerID, "mode": "REAL", "session": d.active, "generation": d.generation, "snapshot": d.snap, "events": events, "event_seq": d.eventSeq, "gap": gap, "stream_dropped": dropped, "operations": ops, "current_verification": d.currentCheck, "history_verification": d.historyCheck, "checkpoint": d.checkpoint, "target": d.target, "control_enabled": d.control, "busy": d.busy}
 }
 
 func (d *dashboard) eventsHTTP(w http.ResponseWriter, r *http.Request) {
@@ -213,9 +223,6 @@ func (d *dashboard) logsHTTP(w http.ResponseWriter, r *http.Request) {
 	respond(w, 200, map[string]any{"session_id": s.ID, "generation": gen, "range": result})
 }
 
-func (d *dashboard) operationsHTTP(w http.ResponseWriter, r *http.Request) {
-	failure(w, 503, fmt.Errorf("local actions are not enabled"))
-}
 func (d *dashboard) exportsHTTP(w http.ResponseWriter, r *http.Request) {
 	d.mu.Lock()
 	path := d.exports[r.PathValue("id")]

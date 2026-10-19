@@ -71,6 +71,7 @@ type verification struct {
 	Kind        string             `json:"kind"`
 	Fingerprint string             `json:"fingerprint"`
 	At          time.Time          `json:"at"`
+	CompletedAt time.Time          `json:"completed_at"`
 	Error       string             `json:"error,omitempty"`
 	Target      int                `json:"target"`
 	Nodes       []wire.StatusReply `json:"nodes,omitempty"`
@@ -92,6 +93,11 @@ type subscription struct {
 	notify  chan struct{}
 	dropped uint64
 }
+
+type eventCursor struct {
+	Instance string
+	Seq      uint64
+}
 type dashboard struct {
 	mu                         sync.Mutex
 	opts                       settings
@@ -100,6 +106,7 @@ type dashboard struct {
 	closeOnce                  sync.Once
 	wg                         sync.WaitGroup
 	csrf                       string
+	controllerID               string
 	control                    bool
 	sessions                   map[string]*session
 	active                     *session
@@ -107,6 +114,7 @@ type dashboard struct {
 	snap                       snapshot
 	events                     []consoleEvent
 	eventSeq                   uint64
+	eventCursors               map[int]eventCursor
 	subs                       map[*subscription]bool
 	operations                 []*operation
 	currentCheck, historyCheck verification
@@ -129,7 +137,13 @@ func newDashboard(o settings) (*dashboard, error) {
 	}
 	ctx, cancel := context.WithCancel(context.Background())
 	d := &dashboard{opts: o, ctx: ctx, cancel: cancel, csrf: config.NewClusterID() + config.NewClusterID(), sessions: map[string]*session{}, generation: 1, subs: map[*subscription]bool{}, processes: map[int]*ownedProcess{}, jobs: make(chan operationJob, 1), exports: map[string]string{}, currentCheck: verification{State: "not_run", Kind: "current"}, historyCheck: verification{State: "not_run", Kind: "history"}}
+	d.controllerID = config.NewClusterID()
+	d.eventCursors = map[int]eventCursor{}
 	if err := d.loadSessions(); err != nil {
+		cancel()
+		return nil, err
+	}
+	if err := d.loadOperations(); err != nil {
 		cancel()
 		return nil, err
 	}
@@ -144,9 +158,39 @@ func newDashboard(o settings) (*dashboard, error) {
 			cancel()
 			return nil, err
 		}
-		s := &session{ID: config.NewClusterID(), Name: "已登记的只读集群", Config: c, CreatedAt: time.Now().UTC()}
+		var s *session
+		for _, existing := range d.sessions {
+			if digestJSON(existing.Config) == digestJSON(c) {
+				s = existing
+				break
+			}
+		}
+		if s == nil {
+			s = &session{ID: config.NewClusterID(), Name: "已登记的只读集群", Config: c, CreatedAt: time.Now().UTC()}
+			dir := filepath.Join(o.Root, s.ID)
+			if err := os.MkdirAll(dir, 0700); err != nil {
+				cancel()
+				return nil, err
+			}
+			if err := writeJSONFile(filepath.Join(dir, "session.json"), s); err != nil {
+				cancel()
+				return nil, err
+			}
+		}
 		d.active = s
 		d.sessions[s.ID] = s
+	}
+	if d.active != nil {
+		var err error
+		d.checkpoint, d.target, err = d.readEvidence(d.active)
+		if err != nil {
+			cancel()
+			return nil, err
+		}
+		if err := writeJSONFile(filepath.Join(o.Root, "active.json"), map[string]string{"id": d.active.ID}); err != nil {
+			cancel()
+			return nil, err
+		}
 	}
 	d.wg.Add(2)
 	go d.collectLoop()

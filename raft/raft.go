@@ -486,7 +486,7 @@ func (n *Node) Status(args *wire.StatusArgs, reply *wire.StatusReply) error {
 	if args.Summary {
 		fullHash = ""
 	}
-	*reply = wire.StatusReply{EventSeq: n.eventSeq, DroppedEvents: n.logDropped.Load(), ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, InstanceID: n.instanceID, Revision: n.revision, ID: n.id, State: string(n.state), Term: n.term, LeaderID: n.leaderID, VotedFor: n.votedFor,
+	*reply = wire.StatusReply{ProcessID: os.Getpid(), EventSeq: n.eventSeq, DroppedEvents: n.logDropped.Load(), ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, InstanceID: n.instanceID, Revision: n.revision, ID: n.id, State: string(n.state), Term: n.term, LeaderID: n.leaderID, VotedFor: n.votedFor,
 		LastLogIndex: last.Index, LastLogTerm: last.Term, CommitIndex: n.commitIndex, LastApplied: n.lastApplied,
 		CommittedCommands: n.appliedCommands, AppliedCommands: n.appliedCommands, X: n.x,
 		LogHash: fullHash, CommittedHash: n.committedHash, ElectionMS: n.electionMS}

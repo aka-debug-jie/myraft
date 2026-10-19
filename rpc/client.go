@@ -10,6 +10,10 @@ import (
 )
 
 func QueryStatuses(c config.Config, args StatusArgs, deadline time.Time) []StatusReply {
+	return QueryStatusesContext(context.Background(), c, args, deadline)
+}
+
+func QueryStatusesContext(ctx context.Context, c config.Config, args StatusArgs, deadline time.Time) []StatusReply {
 	states := make([]StatusReply, len(c.Nodes))
 	jobs := make(chan int, len(c.Nodes))
 	for i := range c.Nodes {
@@ -27,7 +31,7 @@ func QueryStatuses(c config.Config, args StatusArgs, deadline time.Time) []Statu
 				left := min(time.Second, time.Until(deadline))
 				if left <= 0 {
 					s.Error = "status deadline exceeded"
-				} else if err := Call(node.Addr, "RaftNode.Status", &args, &s, left); err != nil {
+				} else if err := CallContext(ctx, node.Addr, "RaftNode.Status", &args, &s, left); err != nil {
 					s = StatusReply{ID: node.ID, Error: err.Error()}
 				}
 				if s.Error == "" && c.ClusterID != "" && s.ClusterID != c.ClusterID {

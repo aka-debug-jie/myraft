@@ -49,7 +49,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	server := &http.Server{Handler: d.handler(), ReadHeaderTimeout: 3 * time.Second, IdleTimeout: 30 * time.Second}
+	server := &http.Server{Handler: d.handler(), ReadHeaderTimeout: 3 * time.Second, ReadTimeout: 5 * time.Second, IdleTimeout: 30 * time.Second}
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 	go func() {

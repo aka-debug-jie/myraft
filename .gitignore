@@ -41,3 +41,8 @@ Thumbs.db
 **/session.json
 **/pids.json
 **/startup-status.json
+
+# Optional local console state and binaries
+/dashboard-runs/
+/raft-console
+/dashboard

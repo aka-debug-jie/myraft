@@ -29,20 +29,20 @@ function toast(message){$('toast').textContent=message;$('toast').classList.remo
 function closeDialog(){const d=$('action-dialog');d?.close();$('overlay').replaceChildren();}
 function dialog(title,body,submit,label='确认',danger=false){
   $('overlay').innerHTML=`<dialog id="action-dialog" class="dialog" aria-labelledby="dialog-title"><form method="dialog" id="dialog-form"><h2 id="dialog-title">${esc(title)}</h2>${body}<div class="actions"><button class="btn" value="cancel">取消</button><button id="confirm" class="btn ${danger?'danger':'primary'}" value="confirm">${label}</button></div></form></dialog>`;
-  const d=$('action-dialog');d.showModal();let sent=false;
-  $('dialog-form').addEventListener('submit',async e=>{if(e.submitter?.value!=='confirm'){closeDialog();return;}e.preventDefault();if(sent)return;if(!e.target.reportValidity())return;sent=true;$('confirm').disabled=true;try{await submit(new FormData(e.target));closeDialog();}catch(err){sent=false;if($('confirm'))$('confirm').disabled=false;toast(err.message);}});
+  const d=$('action-dialog');d.showModal();let sent=false;const scope={frame:state.frame,bootstrap:state.bootstrap};
+  $('dialog-form').addEventListener('submit',async e=>{if(e.submitter?.value!=='confirm'){closeDialog();return;}e.preventDefault();if(sent)return;if(!e.target.reportValidity())return;sent=true;$('confirm').disabled=true;try{await submit(new FormData(e.target),scope);closeDialog();}catch(err){sent=false;if($('confirm'))$('confirm').disabled=false;toast(err.message);}});
 }
-async function action(kind,params={}) {
+async function action(kind,params={},scope=state) {
   if(state.pending)throw new Error('请求已经发送，请等待回执。');
   state.pending=true;
-  try {const data=await api.operate(kind,state,params);toast(`操作 ${data.id||kind}：${data.state||'已登记'}`);return data;}
+  try {const data=await api.operate(kind,scope,params);toast(`操作 ${data.id||kind}：${data.state||'已登记'}`);return data;}
   finally {state.pending=false;}
 }
 async function refreshBootstrap(){state.bootstrap=await api.bootstrap();}
 function receive(frame){
   if(frame.mode!=='REAL')return;
-  if(state.frame && frame.generation<state.frame.generation)return;
-  const changed=frame.session?.id!==state.frame?.session?.id||frame.generation!==state.frame?.generation;
+  if(state.frame && frame.controller_id===state.frame.controller_id && frame.generation<state.frame.generation)return;
+  const changed=frame.controller_id!==state.frame?.controller_id||frame.session?.id!==state.frame?.session?.id||frame.generation!==state.frame?.generation;
   if(changed){logRequest++;state.logData={};state.logNodes=[];state.events=[];state.selected=frame.session?.config.nodes[0]?.id||1;refreshBootstrap().catch(()=>{});}
   state.connected=true;
   for(const e of frame.events||[])if(!state.events.some(old=>old.seq===e.seq))state.events.push(e);
@@ -75,18 +75,18 @@ document.addEventListener('click',async e=>{
     if(act==='theme'){const theme=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;localStorage.setItem('myraft-theme',theme);return;}
     if(act==='present'){document.body.classList.toggle('present');return;}
     if(act==='open-logs'){state.page='logs';render();return;}
-    if(act==='generate'){dialog('提交确定性命令',`<p>实际发送给 Raft。受理不等于提交；未知结果不会自动重发。</p><label class="field">命令数<input name="count" type="number" min="1" max="100000" value="2101" required></label><label class="field">种子<input name="seed" type="number" value="42" required></label>`,v=>action('generate',{count:Number(v.get('count')),seed:Number(v.get('seed'))}),'发送一次');return;}
+    if(act==='generate'){dialog('提交确定性命令',`<p>实际发送给 Raft。受理不等于提交；未知结果不会自动重发。</p><label class="field">命令数<input name="count" type="number" min="1" max="100000" value="2101" required></label><label class="field">种子<input name="seed" type="number" value="42" required></label>`,(v,scope)=>action('generate',{count:Number(v.get('count')),seed:Number(v.get('seed'))},scope),'发送一次');return;}
     if(act==='stop'||act==='stop-all'){
       const members=state.frame?.session?.config.nodes.length||0,reachable=state.frame?.snapshot.nodes.filter(n=>n.reachable).length||0;
-      dialog(act==='stop'?`停止节点 #${state.selected}`:'停止本会话全部自有节点',`<p>将终止本控制器拥有的进程，保留数据。</p><div class="notice warn">当前可达 ${reachable}/${members}；多数派门槛 ${Math.floor(members/2)+1}。预计减少 ${act==='stop'?1:reachable} 个进程，可达数不等于实际连通性。</div>`,()=>action(act==='stop'?'stop':'stop_all',{node_id:state.selected,confirm:true}),'确认停止',true);return;}
-    if(act==='enable-control'){dialog('启用本机会话控制','<p>允许创建实验、发起真实写入、停止或恢复本会话节点。每次停止仍需单独确认。</p>',()=>action('enable_control',{confirm:true}),'明确启用');return;}
+      dialog(act==='stop'?`停止节点 #${state.selected}`:'停止本会话全部自有节点',`<p>将终止本控制器拥有的进程，保留数据。</p><div class="notice warn">当前可达 ${reachable}/${members}；多数派门槛 ${Math.floor(members/2)+1}。预计减少 ${act==='stop'?1:reachable} 个进程，可达数不等于实际连通性。</div>`,(_,scope)=>action(act==='stop'?'stop':'stop_all',{node_id:state.selected,confirm:true},scope),'确认停止',true);return;}
+    if(act==='enable-control'){dialog('启用本机会话控制','<p>允许创建实验、发起真实写入、停止或恢复本会话节点。每次停止仍需单独确认。</p>',(_,scope)=>action('enable_control',{confirm:true},scope),'明确启用');return;}
     if(act==='restart'){await action('restart',{node_id:state.selected});return;}
     if(act==='resume'){await action('resume');return;}
     if(act==='verify'){await action('verify');return;}
     if(act==='verify-history'){await action('verify_history');return;}
     if(act==='checkpoint'){await action('checkpoint');return;}
     if(act==='export'){await action('export');return;}
-    if(act==='divergence'){dialog('独立分歧实验','<p>新建独立构建与数据目录，保留当前会话日志；不在运行节点上改写日志。</p>',()=>action('experiment',{nodes:[3],scenarios:['divergence'],count:2101,rounds:1,seed:42,batch:128}),'开始独立实验');return;}
+    if(act==='divergence'){dialog('独立分歧实验','<p>新建独立构建与数据目录，保留当前会话日志；不在运行节点上改写日志。</p>',(_,scope)=>action('experiment',{nodes:[3],scenarios:['divergence'],count:2101,rounds:1,seed:42,batch:128},scope),'开始独立实验');return;}
     if(act==='cancel-experiment'){const op=state.frame?.operations.find(o=>o.kind==='experiment'&&!o.ended_at);if(op)await action('cancel_experiment',{operation_id:op.id});return;}
   }catch(err){toast(err.message);}
 });

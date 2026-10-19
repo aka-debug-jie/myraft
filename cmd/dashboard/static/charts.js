@@ -8,6 +8,18 @@ const nodeState = (node) => {
   return state.toLowerCase() === 'leader' ? 'Leader · local' : state;
 };
 
+const targetIndex = (target) => {
+  if (target == null || target === '' || !Number.isFinite(Number(target)) || Number(target) <= 0) return null;
+  return Number(target);
+};
+
+const targetStatus = (target, node) => {
+  const index = targetIndex(target);
+  if (index == null) return '目标未设置';
+  if (!node.reachable || !node.status) return `目标 ${escapeHTML(index)} · 未知`;
+  return `目标 ${escapeHTML(index)} · ${Number(node.status.last_applied) >= index ? '已应用' : '待应用'}`;
+};
+
 const nodeTile = (node, selected, target) => {
   const id = String(node.id);
   const isSelected = selected != null && id === String(selected);
@@ -16,30 +28,41 @@ const nodeTile = (node, selected, target) => {
   const progress = status
     ? `<span class="small muted">term ${escapeHTML(status.term ?? '—')} · applied ${escapeHTML(status.last_applied ?? '—')}</span>`
     : `<span class="small muted">${node.reachable ? '状态未知' : '不可达 · 未知'}</span>`;
-  const targetHint = target != null && Number.isFinite(Number(target)) && target !== '' && status
-    ? `<span class="small muted">目标 ${escapeHTML(target)}：${Number(status.last_applied) >= Number(target) ? '已应用' : '待应用'}</span>`
-    : '';
+  const targetHint = `<span class="small muted">${targetStatus(target, node)}</span>`;
   return `<div class="node-tile" role="listitem"><button type="button" data-node="${escapeHTML(id)}" aria-pressed="${isSelected}"${isSelected ? ' class="selected"' : ''} style="display:grid;gap:4px;width:100%;padding:0;border:0;background:transparent;text-align:left;color:inherit"><strong>${escapeHTML(id)}</strong><span>${escapeHTML(currentState)}</span>${progress}${targetHint}</button></div>`;
 };
 
 const nodeGrid = (nodes, selected, target) => `<div class="node-grid" role="list">${nodes.map((node) => nodeTile(node, selected, target)).join('')}</div>`;
 
 const topologyMap = (nodes, selected, target) => {
-  const points = nodes.map((node, index) => {
-    const angle = (2 * Math.PI * index / nodes.length) - Math.PI / 2;
-    return { node, x: 50 + 38 * Math.cos(angle), y: 50 + 40 * Math.sin(angle) };
+  const leaderIndex = nodes.findIndex((node) => node.reachable &&
+    String(node.status?.state ?? '').toLowerCase() === 'leader');
+  const center = leaderIndex < 0 ? null : nodes[leaderIndex];
+  const ring = nodes.filter((_, index) => index !== leaderIndex);
+  const points = ring.map((node, index) => {
+    const angle = (2 * Math.PI * index / ring.length) - Math.PI / 2;
+    return { node, x: 50 + 36 * Math.cos(angle), y: 50 + 32 * Math.sin(angle) };
   });
-  const lines = points.map(({ x, y }) => `<line x1="50" y1="50" x2="${x.toFixed(2)}" y2="${y.toFixed(2)}" stroke="var(--line)" stroke-width="1.5" stroke-dasharray="4 5"/>`).join('');
-  const buttons = points.map(({ node, x, y }) => {
+  const lines = points.map(({ x, y }) => `<line x1="50" y1="50" x2="${x.toFixed(2)}" y2="${y.toFixed(2)}" stroke="var(--line)" stroke-width="0.7" stroke-dasharray="1.2 1.5" vector-effect="non-scaling-stroke"/>`).join('');
+  const button = (node, x, y) => {
     const id = String(node.id);
     const isSelected = selected != null && id === String(selected);
     const status = node.reachable ? node.status : null;
-    const progress = status ? `term ${escapeHTML(status.term ?? '—')} · applied ${escapeHTML(status.last_applied ?? '—')}` : '不可达 · 未知';
-    const targetHint = target != null && Number.isFinite(Number(target)) && target !== '' && status
-      ? ` · 目标 ${escapeHTML(target)} ${Number(status.last_applied) >= Number(target) ? '已应用' : '待应用'}` : '';
-    return `<button type="button" data-node="${escapeHTML(id)}" aria-pressed="${isSelected}"${isSelected ? ' class="selected"' : ''} style="position:absolute;left:${x.toFixed(2)}%;top:${y.toFixed(2)}%;transform:translate(-50%,-50%);display:grid;gap:3px;width:112px;min-height:68px;padding:9px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);text-align:left;box-shadow:var(--shadow)"><strong>${escapeHTML(id)}</strong><span>${escapeHTML(nodeState(node))}</span><span class="small muted">${progress}${targetHint}</span></button>`;
-  }).join('');
-  return `<div style="position:relative;min-height:360px;overflow:hidden"><svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">${lines}</svg>${buttons}</div>`;
+    const role = nodeState(node);
+    const term = status ? `term ${escapeHTML(status.term ?? '—')}` : (node.reachable ? 'term —' : '');
+    const ariaLabel = `节点 ${id}，${role}${term ? `，${term}` : ''}`;
+    return `<button type="button" data-node="${escapeHTML(id)}" aria-label="${escapeHTML(ariaLabel)}" aria-pressed="${isSelected}"${isSelected ? ' class="selected"' : ''} style="position:absolute;left:${x.toFixed(2)}%;top:${y.toFixed(2)}%;transform:translate(-50%,-50%);display:grid;place-items:center;width:46px;height:46px;padding:0;border:0;background:transparent;color:var(--ink);text-align:center"><span style="display:grid;place-items:center;width:42px;height:42px;border:1px solid ${isSelected ? 'var(--accent)' : 'var(--line)'};border-radius:50%;background:${isSelected ? 'var(--accentbg)' : 'var(--surface)'};font-size:11px;font-weight:600;box-shadow:var(--shadow)">${escapeHTML(id)}</span><span class="topology-meta"><span>${escapeHTML(role)}</span>${term ? `<span class="small muted node-term">${term}</span>` : ''}</span></button>`;
+  };
+  const buttons = [
+    ...(center ? [button(center, 50, 50)] : []),
+    ...points.map(({ node, x, y }) => button(node, x, y)),
+  ].join('');
+  const leaderCount = nodes.filter((node) => node.reachable && String(node.status?.state ?? '').toLowerCase() === 'leader').length;
+  const multipleLeadersNote = leaderCount > 1
+    ? '<p class="small muted" style="margin:0;text-align:center">多个 Leader 时仅居中展示一个观察结果，不表示额外授权。</p>' : '';
+  const index = targetIndex(target);
+  const targetText = index == null ? '目标未设置' : `目标索引 ${escapeHTML(index)}`;
+  return `<div style="height:300px;display:grid;place-items:center;overflow:hidden"><div style="position:relative;width:min(100%,560px);height:300px"><svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%">${lines}</svg>${buttons}</div></div>${multipleLeadersNote}<p class="small muted" style="margin:3px 0 0;text-align:center">${targetText}</p>`;
 };
 
 export function topology(nodes, selected, target) {

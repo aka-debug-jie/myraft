@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"io"
 	"net"
 	"net/http"
@@ -18,9 +19,28 @@ import (
 )
 
 type consoleRPC struct {
-	calls, full        atomic.Int64
-	identity           config.Identity
-	blockLogs, entered chan struct{}
+	calls, full                    atomic.Int64
+	identity                       config.Identity
+	blockLogs, entered             chan struct{}
+	generates                      atomic.Int64
+	hold, unknown                  atomic.Bool
+	writeEntered, writeRelease     chan struct{}
+	eventSeq, eventCalls, revision atomic.Uint64
+	eventFailure, holdFull         atomic.Bool
+	fullEntered, fullRelease       chan struct{}
+}
+
+func (p *consoleRPC) Generate(a *wire.GenerateArgs, r *wire.GenerateReply) error {
+	p.generates.Add(1)
+	if p.hold.Load() {
+		p.writeEntered <- struct{}{}
+		<-p.writeRelease
+	}
+	if p.unknown.Load() {
+		return errors.New("injected transport/response failure")
+	}
+	*r = wire.GenerateReply{Accepted: true, Committed: true, Commands: a.Count, LastIndex: 1}
+	return nil
 }
 
 func (p *consoleRPC) Status(args *wire.StatusArgs, r *wire.StatusReply) error {
@@ -28,7 +48,23 @@ func (p *consoleRPC) Status(args *wire.StatusArgs, r *wire.StatusReply) error {
 	if !args.Summary {
 		p.full.Add(1)
 	}
-	*r = wire.StatusReply{ID: 1, ClusterID: p.identity.ClusterID, MembershipHash: p.identity.MembershipHash(), InstanceID: "instance", State: "Leader", LeaderID: 1, Term: 1, CommittedHash: "hash", LogHash: "hash"}
+	*r = wire.StatusReply{ID: 1, ClusterID: p.identity.ClusterID, MembershipHash: p.identity.MembershipHash(), InstanceID: "instance", State: "Leader", LeaderID: 1, Term: 1, CommittedHash: "hash", LogHash: "hash", Revision: p.revision.Load(), EventSeq: p.eventSeq.Load(), LastLogIndex: 1, CommitIndex: 1, LastApplied: 1, TargetAvailable: true, TargetIndex: 1, TargetHash: "hash"}
+	if !args.Summary && p.holdFull.Load() {
+		p.fullEntered <- struct{}{}
+		<-p.fullRelease
+	}
+	return nil
+}
+
+func (p *consoleRPC) EventRange(a *wire.EventArgs, r *wire.EventReply) error {
+	p.eventCalls.Add(1)
+	if p.eventFailure.Load() {
+		return errors.New("event read failed")
+	}
+	*r = wire.EventReply{NodeID: 1, ClusterID: p.identity.ClusterID, InstanceID: "instance", LastSeq: p.eventSeq.Load()}
+	if a.After < r.LastSeq {
+		r.Events = []wire.Event{{Seq: r.LastSeq, NodeID: 1, Name: "real_event"}}
+	}
 	return nil
 }
 func (p *consoleRPC) LogRange(args *wire.LogRangeArgs, r *wire.LogRangeReply) error {
@@ -49,7 +85,7 @@ func testConsole(t *testing.T) (*dashboard, *httptest.Server, *consoleRPC) {
 	c := config.Config{ClusterID: "console-test", Nodes: []config.Node{{ID: 1, Addr: l.Addr().String()}}}
 	peers, _ := c.Peers()
 	identity, _ := config.FixedIdentity(c.ClusterID, peers)
-	p := &consoleRPC{identity: identity}
+	p := &consoleRPC{identity: identity, writeEntered: make(chan struct{}, 1), writeRelease: make(chan struct{}), fullEntered: make(chan struct{}, 1), fullRelease: make(chan struct{})}
 	rpcServer := stdrpc.NewServer()
 	rpcServer.RegisterName("RaftNode", p)
 	go func() {

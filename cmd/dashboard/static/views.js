@@ -16,7 +16,7 @@ function receipt(op) {
   if (!op) return empty('尚未执行操作。请求受理、提交、全体应用和校验分别记录。');
   const accepted = op.accepted == null ? '未知 / 未返回' : op.accepted ? '已受理' : '未受理';
   const committed = op.committed == null ? '未确认' : op.committed ? '已提交' : '未确认提交';
-  return `<div class="job"><strong>${esc(op.kind)} · ${esc(op.state)}</strong><p class="mono small">${esc(op.id)}</p><p>${accepted} → ${committed}</p>${op.error?`<p class="error-text">${esc(op.error)}</p>`:''}<p class="small muted">operation_id 仅跟踪控制器任务，不提供 Raft exactly-once。</p></div>`;
+  return `<div class="job"><strong>${esc(op.kind)} · ${esc(op.state)}</strong><p class="mono small">${esc(op.id)}</p><p>${op.kind==='generate'?accepted+' → '+committed:'控制器任务回执；不代表 Raft 写入提交'}</p>${op.error?`<p class="error-text">${esc(op.error)}</p>`:''}<p class="small muted">operation_id 仅跟踪控制器任务，不提供 Raft exactly-once。</p></div>`;
 }
 function events(frame, limit=20) {
   const rows=(frame?.eventsHistory||frame?.events||[]).slice(-limit).reverse();
