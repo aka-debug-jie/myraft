@@ -14,7 +14,7 @@ import (
 type clientTestServer struct{ calls atomic.Int32 }
 
 func (s *clientTestServer) Status(_ *wire.StatusArgs, r *wire.StatusReply) error {
-	*r = wire.StatusReply{ID: 7, State: "Leader", LeaderID: 7, Term: 1, LogHash: "hash", CommittedHash: "hash"}
+	*r = wire.StatusReply{ClusterID: "test-client", ID: 7, State: "Leader", LeaderID: 7, Term: 1, LogHash: "hash", CommittedHash: "hash"}
 	return nil
 }
 func (s *clientTestServer) Generate(_ *wire.GenerateArgs, r *wire.GenerateReply) error {
@@ -51,7 +51,7 @@ func serveClientTest(t *testing.T) (string, *clientTestServer) {
 }
 func TestStatusBindsConfiguredIdentity(t *testing.T) {
 	addr, _ := serveClientTest(t)
-	c := config.Config{Nodes: []config.Node{{ID: 7, Addr: addr}, {ID: 8, Addr: addr}}}
+	c := config.Config{ClusterID: "test-client", Nodes: []config.Node{{ID: 7, Addr: addr}, {ID: 8, Addr: addr}}}
 	states := queryAll(c, 0, time.Now().Add(time.Second))
 	if states[0].ID != 7 || states[0].Error != "" || states[1].ID != 8 || states[1].Error == "" {
 		t.Fatalf("unexpected identities %+v", states)
@@ -62,7 +62,7 @@ func TestStatusBindsConfiguredIdentity(t *testing.T) {
 }
 func TestUncertainSubmissionNotRetried(t *testing.T) {
 	addr, receiver := serveClientTest(t)
-	c := config.Config{Nodes: []config.Node{{ID: 7, Addr: addr}}}
+	c := config.Config{ClusterID: "test-client", Nodes: []config.Node{{ID: 7, Addr: addr}}}
 	reply, err := submitGenerated(c, map[int]string{7: addr}, 1, 42, time.Now().Add(70*time.Millisecond))
 	if err == nil || reply.Committed || receiver.calls.Load() != 1 {
 		t.Fatalf("reply %+v err %v calls %d", reply, err, receiver.calls.Load())
@@ -70,5 +70,13 @@ func TestUncertainSubmissionNotRetried(t *testing.T) {
 	time.Sleep(170 * time.Millisecond)
 	if receiver.calls.Load() != 1 {
 		t.Fatal("non-idempotent request retried")
+	}
+}
+
+func TestSubmissionRequiresExplicitClusterIdentity(t *testing.T) {
+	addr, receiver := serveClientTest(t)
+	c := config.Config{Nodes: []config.Node{{ID: 7, Addr: addr}}}
+	if _, err := submitGenerated(c, map[int]string{7: addr}, 1, 42, time.Now().Add(time.Second)); err == nil || receiver.calls.Load() != 0 {
+		t.Fatal("write adopted remote identity")
 	}
 }

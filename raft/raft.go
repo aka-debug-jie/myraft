@@ -11,6 +11,7 @@ import (
 	stdrpc "net/rpc"
 	"os"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"myraft/config"
@@ -43,6 +44,11 @@ type Node struct {
 	membershipHash                            string
 	instanceID                                string
 	revision                                  uint64
+	events                                    [eventCapacity]wire.Event
+	eventSeq                                  uint64
+	logQueue                                  chan string
+	logStop, logDone                          chan struct{}
+	logDropped                                atomic.Uint64
 	votePending                               map[int]bool
 	committedHash                             string
 	commitDigest                              hash.Hash
@@ -122,6 +128,7 @@ func NewNode(o Options) (*Node, error) {
 		errors: make(chan error, 1), connections: make(map[net.Conn]bool), kicks: make(map[int]chan struct{})}
 	n.identity, n.membershipHash = identity, identity.MembershipHash()
 	n.instanceID = config.NewClusterID()
+	n.logQueue, n.logStop, n.logDone = make(chan string, eventCapacity), make(chan struct{}), make(chan struct{})
 	for id, addr := range o.Peers {
 		n.peers[id] = addr
 		if id != o.ID {
@@ -131,6 +138,7 @@ func NewNode(o Options) (*Node, error) {
 	if err := n.loadState(); err != nil {
 		return nil, err
 	}
+	n.startEventOutput()
 	n.resetDeadlineLocked()
 	return n, nil
 }
@@ -196,8 +204,21 @@ func (n *Node) Stop() {
 		n.storageLock.Close()
 	}
 	n.eventLocked("stopped")
-	close(n.stopDone)
+	close(n.logStop)
+	for len(n.logQueue) > 0 {
+		select {
+		case <-n.logQueue:
+			n.logDropped.Add(1)
+		default:
+		}
+	}
 	n.mu.Unlock()
+	// Ordinary sinks may be uninterruptible io.Writers. Never hold storage hostage.
+	select {
+	case <-n.logDone:
+	case <-time.After(100 * time.Millisecond):
+	}
+	close(n.stopDone)
 }
 
 func (n *Node) acceptLoop(server *stdrpc.Server) {
@@ -465,7 +486,7 @@ func (n *Node) Status(args *wire.StatusArgs, reply *wire.StatusReply) error {
 	if args.Summary {
 		fullHash = ""
 	}
-	*reply = wire.StatusReply{ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, InstanceID: n.instanceID, Revision: n.revision, ID: n.id, State: string(n.state), Term: n.term, LeaderID: n.leaderID, VotedFor: n.votedFor,
+	*reply = wire.StatusReply{EventSeq: n.eventSeq, DroppedEvents: n.logDropped.Load(), ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, InstanceID: n.instanceID, Revision: n.revision, ID: n.id, State: string(n.state), Term: n.term, LeaderID: n.leaderID, VotedFor: n.votedFor,
 		LastLogIndex: last.Index, LastLogTerm: last.Term, CommitIndex: n.commitIndex, LastApplied: n.lastApplied,
 		CommittedCommands: n.appliedCommands, AppliedCommands: n.appliedCommands, X: n.x,
 		LogHash: fullHash, CommittedHash: n.committedHash, ElectionMS: n.electionMS}
@@ -521,8 +542,4 @@ func (n *Node) failLocked(err error) {
 	n.kickPeersLocked()
 	n.eventLocked("fatal_error error=%q", err)
 	n.errors <- err
-}
-
-func (n *Node) eventLocked(format string, args ...any) {
-	n.logger.Printf("node=%d term=%d role=%s | %s", n.id, n.term, n.state, fmt.Sprintf(format, args...))
 }

@@ -10,7 +10,6 @@ import (
 	"os"
 	"os/signal"
 	"path/filepath"
-	"sync"
 	"syscall"
 	"time"
 
@@ -227,94 +226,14 @@ func main() {
 }
 
 func queryAll(c config.Config, target int, deadline time.Time) []wire.StatusReply {
-	return queryStatuses(c, wire.StatusArgs{TargetIndex: target}, deadline)
+	return wire.QueryStatuses(c, wire.StatusArgs{TargetIndex: target}, deadline)
 }
-
 func queryStatuses(c config.Config, args wire.StatusArgs, deadline time.Time) []wire.StatusReply {
-	states := make([]wire.StatusReply, len(c.Nodes))
-	jobs := make(chan int, len(c.Nodes))
-	for i := range c.Nodes {
-		jobs <- i
-	}
-	close(jobs)
-	var wg sync.WaitGroup
-	for worker := 0; worker < min(16, len(c.Nodes)); worker++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			for i := range jobs {
-				node := c.Nodes[i]
-				s := wire.StatusReply{ID: node.ID}
-				left := min(time.Second, time.Until(deadline))
-				if left <= 0 {
-					s.Error = "status deadline exceeded"
-				} else if err := wire.Call(node.Addr, "RaftNode.Status", &args, &s, left); err != nil {
-					s = wire.StatusReply{ID: node.ID, Error: err.Error()}
-				}
-				if s.Error == "" && s.ID != node.ID {
-					s = wire.StatusReply{ID: node.ID, Error: fmt.Sprintf("endpoint returned node %d; expected %d", s.ID, node.ID)}
-				}
-				states[i] = s
-			}
-		}()
-	}
-	wg.Wait()
-	return states
+	return wire.QueryStatuses(c, args, deadline)
 }
-
 func verifyStatuses(states []wire.StatusReply, target int) error {
-	if len(states) == 0 {
-		return fmt.Errorf("no nodes")
-	}
-	first := states[0]
-	for _, s := range states {
-		if s.Error != "" {
-			return fmt.Errorf("node %d: %s", s.ID, s.Error)
-		}
-		if s.LastApplied != s.CommitIndex || s.CommitIndex != s.LastLogIndex {
-			return fmt.Errorf("node %d has uncommitted or unapplied entries", s.ID)
-		}
-		if s.LogHash == "" || s.CommittedHash == "" || s.LastLogIndex != first.LastLogIndex || s.CommitIndex != first.CommitIndex || s.LogHash != first.LogHash || s.CommittedHash != first.CommittedHash || s.X != first.X || s.AppliedCommands != first.AppliedCommands || s.CommittedCommands != first.CommittedCommands {
-			return fmt.Errorf("node %d log/state differs", s.ID)
-		}
-		if target > 0 && (!s.TargetAvailable || s.TargetIndex != target || s.TargetHash != first.TargetHash || s.TargetX != first.TargetX) {
-			return fmt.Errorf("node %d has not matched target %d", s.ID, target)
-		}
-	}
-	return nil
+	return wire.VerifyStatuses(states, target)
 }
-
 func submitGenerated(c config.Config, peers map[int]string, count int, seed int64, deadline time.Time) (wire.GenerateReply, error) {
-	for time.Until(deadline) > 0 {
-		leader, term := 0, -1
-		for _, s := range queryAll(c, 0, deadline) {
-			if s.Error == "" && s.State == "Leader" && s.LeaderID == s.ID && s.Term > term {
-				leader, term = s.ID, s.Term
-			}
-		}
-		if leader == 0 {
-			time.Sleep(min(100*time.Millisecond, max(0, time.Until(deadline))))
-			continue
-		}
-		left := time.Until(deadline)
-		if left < time.Millisecond {
-			break
-		}
-		var reply wire.GenerateReply
-		args := wire.GenerateArgs{ClusterID: c.ClusterID, Count: count, Seed: seed, TimeoutMS: int(left / time.Millisecond)}
-		if err := wire.Call(peers[leader], "RaftNode.Generate", &args, &reply, left); err != nil {
-			reply.Error = fmt.Sprintf("submission outcome unknown; do not retry automatically: %v", err)
-			return reply, fmt.Errorf("%s", reply.Error)
-		}
-		if reply.Accepted && reply.Committed && reply.Error == "" {
-			return reply, nil
-		}
-		if !reply.Accepted && reply.Error == "not leader" {
-			time.Sleep(min(100*time.Millisecond, max(0, time.Until(deadline))))
-			continue
-		}
-		return reply, fmt.Errorf("submission not confirmed: %s", reply.Error)
-	}
-	r := wire.GenerateReply{Error: "leader discovery timed out"}
-	return r, fmt.Errorf("%s", r.Error)
+	return wire.SubmitGenerated(context.Background(), c, count, seed, deadline)
 }

@@ -2,6 +2,7 @@
 package rpc
 
 import (
+	"context"
 	"net"
 	stdrpc "net/rpc"
 	"time"
@@ -67,6 +68,7 @@ type StatusArgs struct {
 	Summary     bool // Monitoring only; no full-log or historical-prefix verification.
 }
 type StatusReply struct {
+	EventSeq          uint64  `json:"event_seq"`
 	ClusterID         string  `json:"cluster_id"`
 	MembershipHash    string  `json:"membership_hash"`
 	InstanceID        string  `json:"instance_id"`
@@ -95,10 +97,58 @@ type StatusReply struct {
 	Error             string  `json:"error,omitempty"`
 }
 
+type Event struct {
+	Seq     uint64    `json:"seq"`
+	At      time.Time `json:"at"`
+	NodeID  int       `json:"node_id"`
+	Term    int       `json:"term"`
+	Role    string    `json:"role"`
+	Index   int       `json:"index"`
+	Name    string    `json:"name"`
+	Message string    `json:"message"`
+}
+type EventArgs struct {
+	After uint64
+	Limit int
+}
+type EventReply struct {
+	NodeID     int     `json:"node_id"`
+	ClusterID  string  `json:"cluster_id"`
+	InstanceID string  `json:"instance_id"`
+	LastSeq    uint64  `json:"last_seq"`
+	Gap        bool    `json:"gap"`
+	Dropped    uint64  `json:"dropped"`
+	Events     []Event `json:"events"`
+}
+type LogRangeArgs struct{ From, Limit int }
+type LogRangeReply struct {
+	NodeID         int        `json:"node_id"`
+	ClusterID      string     `json:"cluster_id"`
+	MembershipHash string     `json:"membership_hash"`
+	InstanceID     string     `json:"instance_id"`
+	Term           int        `json:"term"`
+	Revision       uint64     `json:"revision"`
+	From           int        `json:"from"`
+	Next           int        `json:"next"`
+	LastLogIndex   int        `json:"last_log_index"`
+	CommitIndex    int        `json:"commit_index"`
+	LastApplied    int        `json:"last_applied"`
+	Truncated      bool       `json:"truncated"`
+	Entries        []LogEntry `json:"entries"`
+}
+
 // The deadline includes both connection and response waits.
 func Call(addr, method string, args, reply any, timeout time.Duration) error {
+	return CallContext(context.Background(), addr, method, args, reply, timeout)
+}
+
+func CallContext(ctx context.Context, addr, method string, args, reply any, timeout time.Duration) error {
 	deadline := time.Now().Add(timeout)
-	conn, err := net.DialTimeout("tcp", addr, timeout)
+	if end, ok := ctx.Deadline(); ok && end.Before(deadline) {
+		deadline = end
+	}
+	dialer := net.Dialer{Timeout: timeout}
+	conn, err := dialer.DialContext(ctx, "tcp", addr)
 	if err != nil {
 		return err
 	}
@@ -108,6 +158,8 @@ func Call(addr, method string, args, reply any, timeout time.Duration) error {
 	}
 	client := stdrpc.NewClient(conn)
 	defer client.Close()
+	stopCancel := context.AfterFunc(ctx, func() { conn.Close() })
+	defer stopCancel()
 	return client.Call(method, args, reply)
 }
 
