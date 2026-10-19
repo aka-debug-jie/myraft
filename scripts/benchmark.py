@@ -60,10 +60,14 @@ def run_tool(command, timeout):
                 process.communicate(timeout=5)
         except (OSError, subprocess.SubprocessError) as cleanup:
             # Retain an explicit cleanup failure even if the original event was cancellation.
+            detail = str(cleanup)
             if process.returncode is None:
-                process.kill()
-                process.wait(timeout=5)
-            raise CleanupError(f'owned build-tool cleanup failed: {cleanup}') from cleanup
+                try:
+                    process.kill()
+                    process.wait(timeout=5)
+                except (OSError, subprocess.SubprocessError) as fallback:
+                    detail += f'; direct-child fallback failed: {fallback}'
+            raise CleanupError(f'owned build-tool cleanup failed: {detail}') from cleanup
         finally:
             process.stdout.close()
             process.stderr.close()

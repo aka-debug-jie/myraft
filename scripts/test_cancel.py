@@ -15,6 +15,16 @@ import benchmark
 
 
 class CancellationTests(unittest.TestCase):
+    def test_failed_tree_cleanup_and_fallback_remain_cleanup_failure(self):
+        process = Mock(returncode=None)
+        with patch.object(benchmark, 'check_cancelled', side_effect=[None, KeyboardInterrupt]), \
+             patch.object(benchmark.subprocess, 'Popen', return_value=process), \
+             patch.object(benchmark.os, 'killpg', side_effect=OSError('tree cleanup failed'), create=True), \
+             patch.object(benchmark.subprocess, 'run', side_effect=OSError('tree cleanup failed')):
+            process.wait.side_effect = subprocess.TimeoutExpired('owned child', 5)
+            with self.assertRaises(benchmark.CleanupError):
+                benchmark.run_tool(['fake-go'], 10)
+
     @unittest.skipUnless(sys.platform == 'linux', 'process group assertion uses Linux /proc')
     def test_cancel_build_tree_preserves_unrelated_process(self):
         with tempfile.TemporaryDirectory() as directory:
