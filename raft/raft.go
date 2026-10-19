@@ -50,6 +50,7 @@ type Node struct {
 	logStop, logDone                          chan struct{}
 	logDropped                                atomic.Uint64
 	rpcCalls                                  atomic.Uint64
+	replicationStarted                        bool
 	votePending                               map[int]bool
 	committedHash                             string
 	commitDigest                              hash.Hash
@@ -165,9 +166,8 @@ func (n *Node) Start() error {
 	n.wg.Add(2)
 	go n.acceptLoop(server)
 	go n.electionLoop()
-	for id, kick := range n.kicks {
-		n.wg.Add(1)
-		go n.heartbeatLoop(id, kick)
+	if n.state == Leader {
+		n.startReplicationLocked()
 	}
 	return nil
 }
@@ -354,7 +354,21 @@ func (n *Node) becomeLeaderLocked() {
 	n.eventLocked("leader_elected votes=%d/%d election_ms=%.3f index=%d", len(n.votes), len(n.peers), n.electionMS, n.lastIndexLocked())
 	n.notifyLocked()
 	n.advanceCommitLocked()
+	n.startReplicationLocked()
 	n.kickPeersLocked()
+}
+
+func (n *Node) startReplicationLocked() {
+	if !n.started || n.stopped || n.replicationStarted {
+		return
+	}
+	// Keep one worker per peer after first leadership; later terms reuse it.
+	// Stop takes the same lock before Wait, so no worker can be added afterward.
+	n.replicationStarted = true
+	for id, kick := range n.kicks {
+		n.wg.Add(1)
+		go n.heartbeatLoop(id, kick)
+	}
 }
 
 func (n *Node) followHigherTermLocked(term int) error {
