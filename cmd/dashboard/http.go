@@ -107,11 +107,14 @@ func (d *dashboard) frameLocked(after, dropped uint64) any {
 		}
 	}
 	ops := make([]operation, 0, len(d.operations))
-	for _, op := range d.operations[max(0, len(d.operations)-20):] {
+	for _, op := range d.operations {
 		if d.active != nil && op.SessionID != "" && op.SessionID != d.active.ID {
 			continue
 		}
 		ops = append(ops, *op)
+	}
+	if len(ops) > 20 {
+		ops = ops[len(ops)-20:]
 	}
 	return map[string]any{"controller_id": d.controllerID, "mode": "REAL", "session": d.active, "generation": d.generation, "snapshot": d.snap, "events": events, "event_seq": d.eventSeq, "gap": gap, "stream_dropped": dropped, "operations": ops, "current_verification": d.currentCheck, "history_verification": d.historyCheck, "checkpoint": d.checkpoint, "target": d.target, "control_enabled": d.control, "busy": d.busy}
 }

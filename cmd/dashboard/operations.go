@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"context"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -49,7 +51,9 @@ func (d *dashboard) loadOperations() error {
 	if err != nil {
 		return err
 	}
-	if err = json.Unmarshal(b, &d.operations); err != nil {
+	decoder := json.NewDecoder(bytes.NewReader(b))
+	decoder.UseNumber()
+	if err = decoder.Decode(&d.operations); err != nil {
 		return err
 	}
 	for _, op := range d.operations {
@@ -61,6 +65,18 @@ func (d *dashboard) loadOperations() error {
 				op.State = "outcome_unknown"
 			}
 			op.Error = "controller restarted; prior task will not be sent again"
+		}
+		if op.Kind == "export" && op.State == "succeeded" {
+			if raw, e := hex.DecodeString(op.ID); e == nil && len(raw) == 16 {
+				if result, ok := op.Result.(map[string]any); ok {
+					if expected, ok := result["sha256"].(string); ok {
+						path := filepath.Join(d.opts.Root, "exports", op.ID+".zip")
+						if actual, e := fileSHA(path); e == nil && actual == expected {
+							d.exports[op.ID] = path
+						}
+					}
+				}
+			}
 		}
 	}
 	return d.persistOperationsLocked()
@@ -174,6 +190,9 @@ func (d *dashboard) operationsHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func validateOperation(r operationRequest, s *session, sessions map[string]*session) error {
+	if (r.Kind == "generate" || r.Kind == "experiment") && (r.Seed < -2147483648 || r.Seed > 2147483647) {
+		return fmt.Errorf("console seed must fit a signed 32-bit integer")
+	}
 	if r.Kind != "create_session" && r.Kind != "select_session" && s == nil {
 		return fmt.Errorf("no active session")
 	}
@@ -258,7 +277,7 @@ func (d *dashboard) operationLoop() {
 			if result != nil {
 				job.op.Result = result
 			}
-			if job.op.State != "outcome_unknown" && job.op.State != "canceled" {
+			if job.op.State != "outcome_unknown" && job.op.State != "canceled" && job.op.State != "cleanup_unconfirmed" {
 				if err != nil {
 					job.op.State = "failed"
 				} else {
@@ -333,7 +352,8 @@ func (d *dashboard) execute(job operationJob) (any, error) {
 		err := d.startNode(ctx, s, r.NodeID)
 		return map[string]any{"node_id": r.NodeID, "endpoint_ready": err == nil, "catchup_verified": false}, err
 	case "resume":
-		return map[string]string{"message": "原配置节点已启动；追赶需另行校验"}, d.resume(ctx, s)
+		err := d.resume(ctx, s)
+		return map[string]any{"endpoints_started": err == nil, "catchup_verified": false}, err
 	case "generate":
 		reply, err := wire.SubmitGenerated(ctx, s.Config, r.Count, r.Seed, time.Now().Add(60*time.Second))
 		d.mu.Lock()
@@ -469,11 +489,4 @@ func (d *dashboard) verify(ctx context.Context, s *session, kind string) (any, e
 		}
 	}
 	return v, err
-}
-
-func (d *dashboard) runExperiment(ctx context.Context, job operationJob) (any, error) {
-	return nil, fmt.Errorf("experiment runner not configured")
-}
-func (d *dashboard) exportEvidence(job operationJob) (any, error) {
-	return nil, fmt.Errorf("evidence exporter not configured")
 }

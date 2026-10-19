@@ -21,6 +21,7 @@ func (n *Node) kickPeersLocked() {
 }
 
 func (n *Node) AppendEntries(args *wire.AppendEntriesArgs, reply *wire.AppendEntriesReply) error {
+	n.rpcCalls.Add(1)
 	n.mu.Lock()
 	defer n.mu.Unlock()
 	if err := n.checkIdentity(args.ClusterID, args.MembershipHash); err != nil {
@@ -143,6 +144,7 @@ func (n *Node) advanceCommitLocked() {
 }
 
 func (n *Node) Generate(args *wire.GenerateArgs, reply *wire.GenerateReply) error {
+	n.rpcCalls.Add(1)
 	*reply = wire.GenerateReply{}
 	if args.Count < 1 || args.Count > 100000 || args.TimeoutMS < 1 || args.TimeoutMS > 600000 {
 		reply.Error = "count must be 1..100000 and timeout 1..600000 ms"

@@ -68,6 +68,7 @@ type StatusArgs struct {
 	Summary     bool // Monitoring only; no full-log or historical-prefix verification.
 }
 type StatusReply struct {
+	RPCRequests       uint64  `json:"rpc_requests"`
 	ProcessID         int     `json:"process_id,omitempty"`
 	EventSeq          uint64  `json:"event_seq"`
 	ClusterID         string  `json:"cluster_id"`

@@ -44,6 +44,7 @@ func (n *Node) startEventOutput() {
 }
 
 func (n *Node) EventRange(args *wire.EventArgs, reply *wire.EventReply) error {
+	n.rpcCalls.Add(1)
 	limit := args.Limit
 	if limit == 0 {
 		limit = 64
@@ -65,6 +66,7 @@ func (n *Node) EventRange(args *wire.EventArgs, reply *wire.EventReply) error {
 }
 
 func (n *Node) LogRange(args *wire.LogRangeArgs, reply *wire.LogRangeReply) error {
+	n.rpcCalls.Add(1)
 	limit := args.Limit
 	if limit == 0 {
 		limit = 128

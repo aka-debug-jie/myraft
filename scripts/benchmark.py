@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import platform
 import random
+import signal
 import socket
 import statistics
 import subprocess
@@ -16,6 +17,60 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 EXE = ROOT / ('raft-node.exe' if os.name == 'nt' else 'raft-node')
 FLAGS = subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
+CANCEL_FILE = None
+
+
+def check_cancelled():
+    if CANCEL_FILE is not None and CANCEL_FILE.exists():
+        raise KeyboardInterrupt('controller cancellation requested')
+
+
+class CleanupError(RuntimeError):
+    pass
+
+
+def run_tool(command, timeout):
+    """Bound build tools, including their owned compiler children, on cancel/timeout."""
+    check_cancelled()
+    process = subprocess.Popen(command, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                               text=True, encoding='utf-8', creationflags=FLAGS,
+                               start_new_session=os.name != 'nt')
+    deadline = time.monotonic() + timeout
+    try:
+        while True:
+            check_cancelled()
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise subprocess.TimeoutExpired(command, timeout)
+            try:
+                stdout, stderr = process.communicate(timeout=min(.2, remaining))
+                break
+            except subprocess.TimeoutExpired:
+                continue
+    except BaseException:
+        # Do not poll/reap before killpg: the live child handle anchors this process group.
+        try:
+            if process.returncode is None:
+                if os.name == 'nt':
+                    taskkill = str(Path(os.environ.get('SystemRoot', r'C:\Windows')) / 'System32' / 'taskkill.exe')
+                    subprocess.run([taskkill, '/PID', str(process.pid), '/T', '/F'],
+                                   capture_output=True, timeout=5, check=True, creationflags=FLAGS)
+                else:
+                    os.killpg(process.pid, signal.SIGKILL)
+                process.communicate(timeout=5)
+        except (OSError, subprocess.SubprocessError) as cleanup:
+            # Retain an explicit cleanup failure even if the original event was cancellation.
+            if process.returncode is None:
+                process.kill()
+                process.wait(timeout=5)
+            raise CleanupError(f'owned build-tool cleanup failed: {cleanup}') from cleanup
+        finally:
+            process.stdout.close()
+            process.stderr.close()
+        raise
+    if process.returncode:
+        raise subprocess.CalledProcessError(process.returncode, command, stdout, stderr)
+    return stdout.strip()
 
 
 class Cluster:
@@ -42,12 +97,29 @@ class Cluster:
                 s.close()
 
     def run(self, *args, config=None, timeout=None):
-        result = subprocess.run([str(EXE), '-config', str(config or self.config), *map(str, args)],
-                                cwd=ROOT, capture_output=True, text=True, encoding='utf-8',
-                                timeout=timeout or self.timeout + 3, creationflags=FLAGS)
-        if result.returncode:
-            raise RuntimeError(f'CLI {args}: {result.stdout}\n{result.stderr}')
-        return json.loads(result.stdout)
+        command = [str(EXE), '-config', str(config or self.config), *map(str, args)]
+        budget = timeout or self.timeout + 3
+        deadline = time.perf_counter() + budget
+        process = subprocess.Popen(command, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                   text=True, encoding='utf-8', creationflags=FLAGS)
+        try:
+            while True:
+                check_cancelled()
+                remaining = deadline - time.perf_counter()
+                if remaining <= 0:
+                    raise subprocess.TimeoutExpired(command, budget)
+                try:
+                    stdout, stderr = process.communicate(timeout=min(0.2, remaining))
+                    break
+                except subprocess.TimeoutExpired:
+                    continue
+        finally:
+            if process.poll() is None:
+                process.kill()
+            process.wait(timeout=5)
+        if process.returncode:
+            raise RuntimeError(f'CLI {args}: {stdout}\n{stderr}')
+        return json.loads(stdout)
 
     def update_query(self):
         # This is only a client query list; the voters' original configuration never changes.
@@ -87,6 +159,7 @@ class Cluster:
         stable, previous = 0, None
         last, query_seconds = [], 0.0
         while time.perf_counter() < deadline:
+            check_cancelled()
             try:
                 last, query_seconds = self.statuses(target)
             except subprocess.TimeoutExpired:
@@ -180,15 +253,14 @@ def build_current(output):
     global EXE
     def git(*args):
         try:
-            r = subprocess.run(['git', *args], cwd=ROOT, capture_output=True, text=True, timeout=10)
-            return r.stdout.strip() if r.returncode == 0 else None
-        except FileNotFoundError:
+            return run_tool(['git', *args], 10)
+        except (FileNotFoundError, subprocess.CalledProcessError):
             return None
-    version = subprocess.check_output(['go', 'version'], cwd=ROOT, text=True).strip()
+    version = run_tool(['go', 'version'], 10)
     before = source_hashes()
     dirty = git('status', '--porcelain=v1', '--untracked-files=normal')
     EXE = output / ('raft-node.exe' if os.name == 'nt' else 'raft-node')
-    subprocess.run(['go', 'build', '-o', str(EXE), '.'], cwd=ROOT, check=True)
+    run_tool(['go', 'build', '-o', str(EXE), '.'], 120)
     if source_hashes() != before:
         raise RuntimeError('source changed during build; rerun with a stable working tree')
     return {'go': version, 'git_commit': git('rev-parse', 'HEAD'),
@@ -206,6 +278,7 @@ def experiment(count, scenario, entries, seed, folder, timeout, batch_size=128, 
     def observe(event):
         events.append({'event': event, 'offset_seconds': time.perf_counter() - origin})
     try:
+        check_cancelled()
         if scenario == 'divergence':
             c.run('-prepare-divergence', '-demo', entries, '-seed', seed,
                   '-data-dir', str(folder / 'data'))
@@ -335,6 +408,7 @@ def summarize(rows):
 
 
 def main():
+    global CANCEL_FILE
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--nodes', nargs='+', type=int, default=[10, 20, 50, 100])
     parser.add_argument('--batch-sizes', nargs='+', type=int, default=[128])
@@ -345,7 +419,9 @@ def main():
     parser.add_argument('--scenarios', nargs='+', choices=['election', 'failover', 'catchup', 'divergence', 'replication'],
                         default=['election', 'failover', 'catchup', 'divergence'])
     parser.add_argument('--output', type=Path, default=ROOT / '.test-output' / f'benchmark-{time.time_ns()}')
+    parser.add_argument('--cancel-file', type=Path, help='controller-owned cancellation marker; preserves partial results and cleans owned processes')
     args = parser.parse_args()
+    CANCEL_FILE = args.cancel_file
     if min(args.nodes) < 3 or args.rounds < 1 or args.entries < 256 or not 1 <= args.timeout <= 600:
         parser.error('nodes >=3, rounds >=1, entries >=256, timeout 1..600 required')
     if any(not 1 <= b <= 4096 for b in args.batch_sizes) or len(set(args.batch_sizes)) != len(args.batch_sizes):
@@ -356,11 +432,14 @@ def main():
                    'logical_cpus': os.cpu_count(), 'node_gomaxprocs': 1, 'timings_ms': {'election_min': 3000, 'election_jitter': 3000, 'heartbeat': 150, 'rpc_timeout': 1000}, 'arguments': vars(args).copy(),
                    'measurement': 'monotonic polling observation; per wait/generate timeout, not total scenario budget; two consistent snapshots 100 ms apart; includes polling overhead'}
     environment['arguments']['output'] = str(output)
+    environment['arguments']['cancel_file'] = str(CANCEL_FILE) if CANCEL_FILE is not None else None
     (output / 'environment.json').write_text(json.dumps(environment, indent=2), encoding='utf-8')
     try:
+        check_cancelled()
         environment.update(build_current(output))
     except BaseException as exc:
-        (output / 'run-status.json').write_text(json.dumps({'status': 'INTERRUPTED' if isinstance(exc, KeyboardInterrupt) else 'BUILD_FAILED', 'completed': 0}), encoding='utf-8')
+        status = 'CLEANUP_FAILED' if isinstance(exc, CleanupError) else 'INTERRUPTED' if isinstance(exc, KeyboardInterrupt) else 'BUILD_FAILED'
+        (output / 'run-status.json').write_text(json.dumps({'status': status, 'completed': 0, 'error': str(exc)}), encoding='utf-8')
         raise
     (output / 'environment.json').write_text(json.dumps(environment, indent=2), encoding='utf-8')
     rows = []

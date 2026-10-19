@@ -49,6 +49,7 @@ type Node struct {
 	logQueue                                  chan string
 	logStop, logDone                          chan struct{}
 	logDropped                                atomic.Uint64
+	rpcCalls                                  atomic.Uint64
 	votePending                               map[int]bool
 	committedHash                             string
 	commitDigest                              hash.Hash
@@ -368,6 +369,7 @@ func (n *Node) followHigherTermLocked(term int) error {
 }
 
 func (n *Node) RequestVote(args *wire.VoteArgs, reply *wire.VoteReply) error {
+	n.rpcCalls.Add(1)
 	n.mu.Lock()
 	defer n.mu.Unlock()
 	if err := n.checkIdentity(args.ClusterID, args.MembershipHash); err != nil {
@@ -440,6 +442,7 @@ func (n *Node) heartbeatLoop(peerID int, kick <-chan struct{}) {
 }
 
 func (n *Node) Heartbeat(args *wire.HeartbeatArgs, reply *wire.HeartbeatReply) error {
+	n.rpcCalls.Add(1)
 	n.mu.Lock()
 	defer n.mu.Unlock()
 	if err := n.checkIdentity(args.ClusterID, args.MembershipHash); err != nil {
@@ -473,6 +476,7 @@ func (n *Node) Heartbeat(args *wire.HeartbeatArgs, reply *wire.HeartbeatReply) e
 }
 
 func (n *Node) Status(args *wire.StatusArgs, reply *wire.StatusReply) error {
+	n.rpcCalls.Add(1)
 	if args.Summary && args.TargetIndex != 0 {
 		return errors.New("summary status cannot verify a historical prefix")
 	}
@@ -486,7 +490,7 @@ func (n *Node) Status(args *wire.StatusArgs, reply *wire.StatusReply) error {
 	if args.Summary {
 		fullHash = ""
 	}
-	*reply = wire.StatusReply{ProcessID: os.Getpid(), EventSeq: n.eventSeq, DroppedEvents: n.logDropped.Load(), ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, InstanceID: n.instanceID, Revision: n.revision, ID: n.id, State: string(n.state), Term: n.term, LeaderID: n.leaderID, VotedFor: n.votedFor,
+	*reply = wire.StatusReply{RPCRequests: n.rpcCalls.Load(), ProcessID: os.Getpid(), EventSeq: n.eventSeq, DroppedEvents: n.logDropped.Load(), ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, InstanceID: n.instanceID, Revision: n.revision, ID: n.id, State: string(n.state), Term: n.term, LeaderID: n.leaderID, VotedFor: n.votedFor,
 		LastLogIndex: last.Index, LastLogTerm: last.Term, CommitIndex: n.commitIndex, LastApplied: n.lastApplied,
 		CommittedCommands: n.appliedCommands, AppliedCommands: n.appliedCommands, X: n.x,
 		LogHash: fullHash, CommittedHash: n.committedHash, ElectionMS: n.electionMS}

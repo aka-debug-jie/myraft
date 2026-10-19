@@ -32,3 +32,5 @@ dialog form{margin:0}
 .graph{height:auto;min-height:350px}.mainrow>aside .timeline{max-height:360px;overflow:auto}.mainrow>section{align-self:start}.sidebottom{line-height:1.7}
 
 .topology-meta{position:absolute;top:48px;left:50%;transform:translateX(-50%);width:96px;font-size:10px;line-height:1.5;pointer-events:none}.topology-meta span{display:block}@media(max-width:550px){.topology-meta .node-term{display:none}}
+
+.node-grid{max-height:480px;overflow:auto}.mainrow>section .table-scroll{max-height:540px;overflow:auto}.table-scroll th{position:sticky;top:0;z-index:1}@media(max-width:960px){.mainrow>.panel:last-child,.bottomrow>.panel:last-child{display:block}}
