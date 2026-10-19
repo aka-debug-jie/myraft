@@ -1,0 +1,31 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.12",
+  "logical_cpus": 8,
+  "node_gomaxprocs": 1,
+  "timings_ms": {
+    "election_min": 3000,
+    "election_jitter": 3000,
+    "heartbeat": 150,
+    "rpc_timeout": 1000
+  },
+  "arguments": {
+    "nodes": [
+      10,
+      20,
+      50,
+      100
+    ],
+    "entries": 2101,
+    "rounds": 5,
+    "seed": 42,
+    "timeout": 120,
+    "scenarios": [
+      "election",
+      "failover",
+      "catchup",
+      "divergence"
+    ]
+  },
+  "measurement": "monotonic polling observation; per wait/generate timeout, not total scenario budget; two consistent snapshots 100 ms apart; includes polling overhead"
+}

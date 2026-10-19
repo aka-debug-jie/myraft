@@ -1,0 +1,122 @@
+[
+  {
+    "path": "go.mod",
+    "measured_sha256": "9f625a9d7bd67ed216644a207c16ed5ab633c3992e5c64f58654112c327d986b",
+    "public_sha256": "9f625a9d7bd67ed216644a207c16ed5ab633c3992e5c64f58654112c327d986b",
+    "matches_measured": true
+  },
+  {
+    "path": "main.go",
+    "measured_sha256": "5b895eb9a6dfd9811fb28183245f7c5aa5af717459714529687e3092875e1500",
+    "public_sha256": "5b895eb9a6dfd9811fb28183245f7c5aa5af717459714529687e3092875e1500",
+    "matches_measured": true
+  },
+  {
+    "path": "main_test.go",
+    "measured_sha256": "0348aebf789c02a56c6eb16d8cf6a1701fdce16020ea4691bf24afb7efceb120",
+    "public_sha256": "0348aebf789c02a56c6eb16d8cf6a1701fdce16020ea4691bf24afb7efceb120",
+    "matches_measured": true
+  },
+  {
+    "path": "start.bat",
+    "measured_sha256": "45f62eefeb41508d07e64f44e687f6ffc6153fc374c3128b11e3047639dda572",
+    "public_sha256": "45f62eefeb41508d07e64f44e687f6ffc6153fc374c3128b11e3047639dda572",
+    "matches_measured": true
+  },
+  {
+    "path": "config/config.go",
+    "measured_sha256": "fc159bd5fdd3af9e0e9927ff925b9b103c491374670bb9a3963bb944923e8c4c",
+    "public_sha256": "fc159bd5fdd3af9e0e9927ff925b9b103c491374670bb9a3963bb944923e8c4c",
+    "matches_measured": true
+  },
+  {
+    "path": "raft/fixture.go",
+    "measured_sha256": "4bd44e9eed3db532008e71c4090a7c6684e4cd0d6c2e5d643927583b727391b5",
+    "public_sha256": "4bd44e9eed3db532008e71c4090a7c6684e4cd0d6c2e5d643927583b727391b5",
+    "matches_measured": true
+  },
+  {
+    "path": "raft/log.go",
+    "measured_sha256": "73c37de940818fb39a629fdfa1e2e7af8c0153ac552f09ee424b214ba34f2c84",
+    "public_sha256": "73c37de940818fb39a629fdfa1e2e7af8c0153ac552f09ee424b214ba34f2c84",
+    "matches_measured": true
+  },
+  {
+    "path": "raft/raft.go",
+    "measured_sha256": "44f6664100685d48957033133b28dbcccb3ca023c785e45829c8301889a4df94",
+    "public_sha256": "44f6664100685d48957033133b28dbcccb3ca023c785e45829c8301889a4df94",
+    "matches_measured": true
+  },
+  {
+    "path": "raft/raft_test.go",
+    "measured_sha256": "6728c24852d3403232f3c77fd5700faa2ceb56af2bf316585f8f24d87d0ee0b3",
+    "public_sha256": "6728c24852d3403232f3c77fd5700faa2ceb56af2bf316585f8f24d87d0ee0b3",
+    "matches_measured": true
+  },
+  {
+    "path": "raft/replication_test.go",
+    "measured_sha256": "2f111a8d42bbc4833f84a712c1c3f054bbedc35b7faa6752be2bc9401fdfe51c",
+    "public_sha256": "2f111a8d42bbc4833f84a712c1c3f054bbedc35b7faa6752be2bc9401fdfe51c",
+    "matches_measured": true
+  },
+  {
+    "path": "raft/state_machine.go",
+    "measured_sha256": "aacc45c8fc7a9b242a01eb29143d7213067018a1e5ea65de1a620de0c79d052e",
+    "public_sha256": "aacc45c8fc7a9b242a01eb29143d7213067018a1e5ea65de1a620de0c79d052e",
+    "matches_measured": true
+  },
+  {
+    "path": "raft/storage.go",
+    "measured_sha256": "5a2dcf02462314e53e2306bd9cfbf6a71e76b57ab12d44571678b98b4f94186a",
+    "public_sha256": "5a2dcf02462314e53e2306bd9cfbf6a71e76b57ab12d44571678b98b4f94186a",
+    "matches_measured": true
+  },
+  {
+    "path": "raft/storage_test.go",
+    "measured_sha256": "1264cdef1d2fe551e5d45ba08e014ac98668f5ef68de7adc3424022f159c746e",
+    "public_sha256": "1264cdef1d2fe551e5d45ba08e014ac98668f5ef68de7adc3424022f159c746e",
+    "matches_measured": true
+  },
+  {
+    "path": "rpc/rpc.go",
+    "measured_sha256": "1b2e05d3bd405fdee8312201829fdb958b21f595b51304b3c5d16b329878450d",
+    "public_sha256": "1b2e05d3bd405fdee8312201829fdb958b21f595b51304b3c5d16b329878450d",
+    "matches_measured": true
+  },
+  {
+    "path": "rpc/rpc_test.go",
+    "measured_sha256": "0ed20f3f4d54e88346c2524edb051a5b72175e172311ee13ed87dc049a410507",
+    "public_sha256": "0ed20f3f4d54e88346c2524edb051a5b72175e172311ee13ed87dc049a410507",
+    "matches_measured": true
+  },
+  {
+    "path": "scripts/benchmark.py",
+    "measured_sha256": "5e2b90d77fa1111ea8ccbe603ccdefc08887559bc73b6f94dacb63540236919d",
+    "public_sha256": "5e2b90d77fa1111ea8ccbe603ccdefc08887559bc73b6f94dacb63540236919d",
+    "matches_measured": true
+  },
+  {
+    "path": "scripts/render_report.py",
+    "measured_sha256": "6e9489fb45478be71eb64d84f2cffbf3845903906134d20dfdee67809575ee06",
+    "public_sha256": "dab4b7423d5ccec2ba2d000ed8f8288b1fd23c13c3e2bc8070d87d47e3e6b6c9",
+    "matches_measured": false
+  },
+  {
+    "path": "scripts/smoke_test.py",
+    "measured_sha256": "d6d1821574100a533eae935555ce938238a7b98b692089988de9bedf618d7d90",
+    "public_sha256": "d6d1821574100a533eae935555ce938238a7b98b692089988de9bedf618d7d90",
+    "matches_measured": true
+  },
+  {
+    "path": "scripts/start.ps1",
+    "measured_sha256": "a91485d8e389299e2e046307ef1123e6563bc24af8f48c7ef90b69034fd93af3",
+    "public_sha256": "f4a5a2690af48beb4d8cd531270b5c90a4d5ea109887e5ab3be47179cbb59dac",
+    "matches_measured": false
+  },
+  {
+    "path": "scripts/test_benchmark.py",
+    "measured_sha256": "215ab835839916eba3087d748702e1da8d3b70ae520ec1da5e73740a52d26b67",
+    "public_sha256": "215ab835839916eba3087d748702e1da8d3b70ae520ec1da5e73740a52d26b67",
+    "matches_measured": true
+  }
+]

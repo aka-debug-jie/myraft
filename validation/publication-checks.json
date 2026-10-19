@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-19",
+  "scope": "Public source copy; pre-publication regression, not a rerun of the 80 Windows benchmark trials",
+  "checks": {
+    "gofmt_no_changes": "PASS",
+    "go_vet": "PASS",
+    "go_build": "PASS",
+    "go_test_race_count_1": "PASS: Linux/amd64, Go 1.26.3",
+    "smoke_3_11_nodes": "PASS: Linux, election/failover/restart/minority assertions",
+    "python_benchmark_regressions": "PASS: 3 tests",
+    "public_windows_launcher": "PASS: Windows 11 SYSTEM session, 11 nodes, run directory containing spaces, 2101 commands, verify, child-process cleanup",
+    "measured_source_mapping": "PASS: 20 file mappings checked against measurement snapshot; Go files unchanged",
+    "gitleaks_directory_scan": "PASS: v8.30.1, zero findings on exact staged snapshot",
+    "privacy_pattern_review": "PASS: reviewed tracked files, no personal paths or credentials found",
+    "independent_read_only_review": "PASS: no blocking public-release finding"
+  },
+  "environment_issue": "The first Windows build failed because the system temporary volume was low on space. The same source passed after cache and temporary paths were directed to the project volume; no source fix or deletion was used.",
+  "limits": [
+    "Windows race detection not run",
+    "Interactive desktop window operations not manually tested",
+    "No penetration test or production security certification"
+  ]
+}

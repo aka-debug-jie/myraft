@@ -1,0 +1,125 @@
+"""Real-process election smoke test. Build raft-node.exe first; stdlib only."""
+import argparse
+import json
+import os
+from pathlib import Path
+import socket
+import subprocess
+import time
+
+ROOT = Path(__file__).resolve().parents[1]
+EXE = ROOT / ("raft-node.exe" if os.name == "nt" else "raft-node")
+FLAGS = subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0
+
+
+def scenario(count):
+    folder = ROOT / ".test-output" / f"smoke-{count}-{time.time_ns()}"
+    folder.mkdir(parents=True)
+    sockets = []
+    processes = {}
+    outputs = []
+    try:
+        for _ in range(count):
+            s = socket.socket()
+            s.bind(("127.0.0.1", 0))
+            sockets.append(s)
+        config = {"nodes": [{"id": i + 1, "addr": f"127.0.0.1:{s.getsockname()[1]}"}
+                            for i, s in enumerate(sockets)]}
+        config_path = folder / "nodes.json"
+        config_path.write_text(json.dumps(config), encoding="utf-8")
+        for s in sockets:
+            s.close()
+
+        def start(node_id):
+            out = (folder / f"process-{node_id}.log").open("ab")
+            outputs.append(out)
+            processes[node_id] = subprocess.Popen(
+                [str(EXE), "-id", str(node_id), "-config", str(config_path),
+                 "-data-dir", str(folder / "data"), "-log-dir", str(folder / "logs")],
+                cwd=ROOT, stdout=out, stderr=subprocess.STDOUT, creationflags=FLAGS)
+
+        def stop(node_id):
+            p = processes.pop(node_id)
+            p.kill()
+            p.wait(timeout=5)
+
+        def status(node_id):
+            p = processes[node_id]
+            if p.poll() is not None:
+                raise RuntimeError(f"node {node_id} exited: see {folder}")
+            r = subprocess.run([str(EXE), "-id", str(node_id), "-config", str(config_path), "-status"],
+                               capture_output=True, text=True, timeout=3, creationflags=FLAGS)
+            if r.returncode:
+                raise RuntimeError(r.stderr)
+            result = json.loads(r.stdout)
+            assert not result.get("error"), result
+            return result
+
+        def converged(timeout=15):
+            deadline = time.monotonic() + timeout
+            last = []
+            while time.monotonic() < deadline:
+                try:
+                    last = [status(i) for i in processes]
+                    leaders = [s for s in last if s["state"] == "Leader"]
+                    if len(leaders) == 1:
+                        leader = leaders[0]
+                        if all(s["term"] == leader["term"] and s["leader_id"] == leader["id"] for s in last):
+                            return leader
+                except (RuntimeError, subprocess.TimeoutExpired):
+                    pass
+                time.sleep(0.1)
+            raise AssertionError(f"no converged leader: {last}; logs: {folder}")
+
+        for i in range(1, count + 1):
+            start(i)
+        first = converged()
+        print(f"{count} nodes: initial leader {first['id']}, term {first['term']}", flush=True)
+        time.sleep(3)
+        stable = converged()
+        assert (stable["id"], stable["term"]) == (first["id"], first["term"]), "unstable healthy leader"
+        begin = time.monotonic()
+        stop(first["id"])
+        second = converged()
+        elapsed = time.monotonic() - begin
+        assert second["id"] != first["id"] and second["term"] > first["term"]
+        print(f"{count} nodes: killed leader; new leader {second['id']} after {elapsed:.3f}s (polling observation)", flush=True)
+        start(first["id"])
+        joined = converged()
+        assert joined["id"] == second["id"], "rejoining node disrupted leader"
+        survivor = first["id"]
+        initial_term = status(survivor)["term"]
+        for i in list(processes):
+            if i != survivor:
+                stop(i)
+        deadline = time.monotonic() + 15
+        minority = status(survivor)
+        while minority["term"] <= initial_term and time.monotonic() < deadline:
+            assert minority["state"] != "Leader", "minority elected a leader"
+            time.sleep(0.2)
+            minority = status(survivor)
+        assert minority["state"] != "Leader" and minority["term"] > initial_term
+        result = {"nodes": count, "initial_leader": first, "replacement_leader": second,
+                  "observed_failover_seconds": elapsed, "restart_joined": True,
+                  "minority_rejected": True, "result": "PASS"}
+        (folder / "result.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+        print(f"{count} nodes: PASS restart and minority checks; evidence: {folder}", flush=True)
+    finally:
+        for p in processes.values():
+            if p.poll() is None:
+                p.kill()
+            p.wait(timeout=5)
+        for out in outputs:
+            out.close()
+        for s in sockets:
+            s.close()
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--nodes", nargs="+", type=int, default=[3, 11])
+    args = parser.parse_args()
+    if any(n < 3 for n in args.nodes):
+        parser.error("failover scenarios require at least 3 nodes")
+    for count in args.nodes:
+        scenario(count)

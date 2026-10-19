@@ -1,0 +1,37 @@
+# Local builds and experiment output
+/raft-node
+/raft-node.exe
+/data/
+/logs/
+/configs/
+/.test-output/
+/demo-runs/
+/results/
+/tools/
+/vendor/
+/.tools/
+/.cache/
+__pycache__/
+*.py[cod]
+*.log
+*.wal
+*.exe
+*.zip
+*.qcow2
+*.vhd*
+*.iso
+# Local credentials and editor state
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+.ssh/
+.aws/
+.codex/
+.agents/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

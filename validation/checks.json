@@ -1,0 +1,17 @@
+{
+  "source_verified": true,
+  "benchmark_passed": 80,
+  "benchmark_total": 80,
+  "checks": {
+    "Windows go fmt / go vet / go test / go build": "PASS",
+    "原3/11节点 smoke（保留安全断言，适配选举窗口）": "PASS",
+    "3/11节点四场景集成（8轮）": "8/8 PASS",
+    "11节点及非连续ID启动 + 2101命令": "PASS（SYSTEM会话）",
+    "Windows Python实验脚本回归": "3/3 PASS",
+    "Linux go test -race -count=1 ./...": "PASS（源码哈希已绑定）",
+    "10/20/50/100节点四场景各5轮": "80/80 PASS",
+    "Windows竞态检测": "未执行：未配置C工具链",
+    "登录桌面后手工关闭终端": "未执行：需使用原Windows账户登录"
+  },
+  "scope": "Recorded pre-publication Windows VM and Linux validation; see README.md"
+}
