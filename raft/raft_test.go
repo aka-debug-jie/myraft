@@ -34,7 +34,7 @@ func testPeers(t testing.TB, count int) map[int]string {
 
 func testNode(t testing.TB, id int, peers map[int]string, dir string) *Node {
 	t.Helper()
-	n, err := NewNode(Options{ID: id, Peers: peers, DataDir: dir, Logger: log.New(io.Discard, "", 0),
+	n, err := NewNode(Options{ClusterID: "test-cluster", ID: id, Peers: peers, DataDir: dir, Logger: log.New(io.Discard, "", 0),
 		ElectionMin: 300 * time.Millisecond, ElectionJitter: 300 * time.Millisecond,
 		HeartbeatInterval: 50 * time.Millisecond, RPCTimeout: 100 * time.Millisecond})
 	if err != nil {
@@ -139,25 +139,25 @@ func TestVoteSurvivesRestart(t *testing.T) {
 	peers, dir := testPeers(t, 3), t.TempDir()
 	n := testNode(t, 1, peers, dir)
 	var reply wire.VoteReply
-	if err := n.RequestVote(&wire.VoteArgs{Term: 7, CandidateID: 2}, &reply); err != nil || !reply.VoteGranted {
+	if err := n.RequestVote(&wire.VoteArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 7, CandidateID: 2}, &reply); err != nil || !reply.VoteGranted {
 		t.Fatalf("first vote: %+v %v", reply, err)
 	}
 	n.Stop()
 	n = testNode(t, 1, peers, dir)
-	if err := n.RequestVote(&wire.VoteArgs{Term: 7, CandidateID: 3}, &reply); err != nil || reply.VoteGranted {
+	if err := n.RequestVote(&wire.VoteArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 7, CandidateID: 3}, &reply); err != nil || reply.VoteGranted {
 		t.Fatalf("double vote after restart: %+v %v", reply, err)
 	}
 	var hb wire.HeartbeatReply
-	if err := n.Heartbeat(&wire.HeartbeatArgs{Term: 7, LeaderID: 2}, &hb); err != nil {
+	if err := n.Heartbeat(&wire.HeartbeatArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 7, LeaderID: 2}, &hb); err != nil {
 		t.Fatal(err)
 	}
 	if snapshot(n).VotedFor != 2 {
 		t.Fatal("same-term heartbeat cleared vote")
 	}
-	if err := n.RequestVote(&wire.VoteArgs{Term: 6, CandidateID: 3}, &reply); err != nil || reply.VoteGranted || reply.Term != 7 {
+	if err := n.RequestVote(&wire.VoteArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 6, CandidateID: 3}, &reply); err != nil || reply.VoteGranted || reply.Term != 7 {
 		t.Fatalf("stale request: %+v %v", reply, err)
 	}
-	if err := n.RequestVote(&wire.VoteArgs{Term: 8, CandidateID: 3}, &reply); err != nil || !reply.VoteGranted {
+	if err := n.RequestVote(&wire.VoteArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 8, CandidateID: 3}, &reply); err != nil || !reply.VoteGranted {
 		t.Fatalf("new term: %+v %v", reply, err)
 	}
 }
@@ -196,7 +196,7 @@ func TestCorruptStateRejected(t *testing.T) {
 	if err := os.WriteFile(filepath.Join(dir, "node-1-state.json"), []byte("broken"), 0644); err != nil {
 		t.Fatal(err)
 	}
-	if _, err := NewNode(Options{ID: 1, Peers: testPeers(t, 1), DataDir: dir}); err == nil {
+	if _, err := NewNode(Options{ClusterID: "test-cluster", ID: 1, Peers: testPeers(t, 1), DataDir: dir}); err == nil {
 		t.Fatal("corrupt state silently reset")
 	}
 }
@@ -206,7 +206,7 @@ func TestPersistenceFailureDoesNotGrantVote(t *testing.T) {
 	// Renaming a file onto an existing directory must fail.
 	n.statePath = n.options.DataDir
 	var reply wire.VoteReply
-	err := n.RequestVote(&wire.VoteArgs{Term: 1, CandidateID: 2}, &reply)
+	err := n.RequestVote(&wire.VoteArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 1, CandidateID: 2}, &reply)
 	if err == nil || reply.VoteGranted || snapshot(n).Error == "" {
 		t.Fatalf("storage error ignored: %+v %v", reply, err)
 	}

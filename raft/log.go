@@ -23,6 +23,9 @@ func (n *Node) kickPeersLocked() {
 func (n *Node) AppendEntries(args *wire.AppendEntriesArgs, reply *wire.AppendEntriesReply) error {
 	n.mu.Lock()
 	defer n.mu.Unlock()
+	if err := n.checkIdentity(args.ClusterID, args.MembershipHash); err != nil {
+		return err
+	}
 	if err := n.availableLocked(); err != nil {
 		return err
 	}
@@ -147,6 +150,11 @@ func (n *Node) Generate(args *wire.GenerateArgs, reply *wire.GenerateReply) erro
 	}
 	commands := generateCommands(args.Count, args.Seed)
 	n.mu.Lock()
+	if args.ClusterID != n.identity.ClusterID {
+		reply.Error = "cluster identity mismatch"
+		n.mu.Unlock()
+		return nil
+	}
 	if err := n.availableLocked(); err != nil {
 		n.mu.Unlock()
 		return err

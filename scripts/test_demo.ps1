@@ -57,7 +57,7 @@ try {
     $other=Join-Path $work 'unrelated session'
     New-Item -ItemType Directory $other | Out-Null
     $socket=[Net.Sockets.TcpListener]::new([Net.IPAddress]::Loopback,0);$socket.Start();$port=$socket.LocalEndpoint.Port;$socket.Stop()
-    $otherConfig=@{nodes=@(@{id=$session.nodes[0].id;addr="127.0.0.1:$port"})}
+    $otherConfig=@{cluster_id='test-demo-other-cluster';nodes=@(@{id=$session.nodes[0].id;addr="127.0.0.1:$port"})}
     [IO.File]::WriteAllText("$other\nodes.json",($otherConfig | ConvertTo-Json -Depth 4),(New-Object Text.UTF8Encoding($false)))
     $extra=Start-Process -FilePath $exe -ArgumentList (Get-NodeArguments $session.nodes[0].id $other) -PassThru
     $manifest=Join-Path $run 'session.json'

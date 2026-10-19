@@ -15,7 +15,8 @@ type Node struct {
 }
 
 type Config struct {
-	Nodes []Node `json:"nodes"`
+	ClusterID string `json:"cluster_id,omitempty"`
+	Nodes     []Node `json:"nodes"`
 }
 
 func (c Config) Peers() (map[int]string, error) {
@@ -44,6 +45,11 @@ func (c Config) Peers() (map[int]string, error) {
 		}
 		addresses[n.Addr] = true
 		peers[n.ID] = n.Addr
+	}
+	if c.ClusterID != "" {
+		if _, err := FixedIdentity(c.ClusterID, peers); err != nil {
+			return nil, err
+		}
 	}
 	return peers, nil
 }

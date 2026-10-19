@@ -16,12 +16,16 @@ type LogEntry struct {
 	Term    int     `json:"term"`
 	Command Command `json:"command"`
 }
-type VoteArgs struct{ Term, CandidateID, LastLogIndex, LastLogTerm int }
+type VoteArgs struct {
+	Term, CandidateID, LastLogIndex, LastLogTerm int
+	ClusterID, MembershipHash                    string
+}
 type VoteReply struct {
 	Term        int
 	VoteGranted bool
 }
 type AppendEntriesArgs struct {
+	ClusterID, MembershipHash                 string
 	Term, LeaderID, PrevLogIndex, PrevLogTerm int
 	Entries                                   []LogEntry
 	LeaderCommit                              int
@@ -33,13 +37,17 @@ type AppendEntriesReply struct {
 }
 
 // Kept for old clients; this RPC never acknowledges or commits log entries.
-type HeartbeatArgs struct{ Term, LeaderID int }
+type HeartbeatArgs struct {
+	Term, LeaderID            int
+	ClusterID, MembershipHash string
+}
 type HeartbeatReply struct {
 	Term     int
 	Accepted bool
 }
 
 type GenerateArgs struct {
+	ClusterID string
 	Count     int
 	Seed      int64
 	TimeoutMS int
@@ -59,6 +67,11 @@ type StatusArgs struct {
 	Summary     bool // Monitoring only; no full-log or historical-prefix verification.
 }
 type StatusReply struct {
+	ClusterID         string  `json:"cluster_id"`
+	MembershipHash    string  `json:"membership_hash"`
+	InstanceID        string  `json:"instance_id"`
+	Revision          uint64  `json:"revision"`
+	DroppedEvents     uint64  `json:"dropped_events"`
 	ID                int     `json:"id"`
 	State             string  `json:"state"`
 	Term              int     `json:"term"`

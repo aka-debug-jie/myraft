@@ -22,7 +22,7 @@ func TestElectionDeadlineEvents(t *testing.T) {
 					lastTerm, reset = 2, true
 				}
 				var reply wire.VoteReply
-				if err := n.RequestVote(&wire.VoteArgs{Term: 3, CandidateID: 2, LastLogIndex: 1, LastLogTerm: lastTerm}, &reply); err != nil {
+				if err := n.RequestVote(&wire.VoteArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 3, CandidateID: 2, LastLogIndex: 1, LastLogTerm: lastTerm}, &reply); err != nil {
 					t.Fatal(err)
 				}
 				if reply.Term != 3 || reply.VoteGranted != reset || n.state != Follower {
@@ -34,7 +34,7 @@ func TestElectionDeadlineEvents(t *testing.T) {
 					term, reset = 3, true
 				}
 				var reply wire.AppendEntriesReply
-				if err := n.AppendEntries(&wire.AppendEntriesArgs{Term: term, LeaderID: 2, PrevLogIndex: 8, PrevLogTerm: 2}, &reply); err != nil {
+				if err := n.AppendEntries(&wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: term, LeaderID: 2, PrevLogIndex: 8, PrevLogTerm: 2}, &reply); err != nil {
 					t.Fatal(err)
 				}
 				if reply.Success {
@@ -43,14 +43,14 @@ func TestElectionDeadlineEvents(t *testing.T) {
 			case "higher-vote-reply":
 				n.handleVoteReplyLocked(2, 2, wire.VoteReply{Term: 3})
 			case "higher-append-reply":
-				n.handleAppendReplyLocked(2, wire.AppendEntriesArgs{Term: 2}, wire.AppendEntriesReply{Term: 3})
+				n.handleAppendReplyLocked(2, wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 2}, wire.AppendEntriesReply{Term: 3})
 			case "expired-heartbeat", "valid-heartbeat":
 				term := 1
 				if name == "valid-heartbeat" {
 					term, reset = 3, true
 				}
 				var reply wire.HeartbeatReply
-				if err := n.Heartbeat(&wire.HeartbeatArgs{Term: term, LeaderID: 2}, &reply); err != nil {
+				if err := n.Heartbeat(&wire.HeartbeatArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: term, LeaderID: 2}, &reply); err != nil {
 					t.Fatal(err)
 				}
 				if reply.Accepted != reset {
@@ -73,17 +73,17 @@ func TestGenerateReplyReuse(t *testing.T) {
 	var reply wire.GenerateReply
 	succeed := func() {
 		t.Helper()
-		if err := n.Generate(&wire.GenerateArgs{Count: 2, Seed: 42, TimeoutMS: 100}, &reply); err != nil || !reply.Accepted || !reply.Committed || reply.Error != "" {
+		if err := n.Generate(&wire.GenerateArgs{ClusterID: "test-cluster", Count: 2, Seed: 42, TimeoutMS: 100}, &reply); err != nil || !reply.Accepted || !reply.Committed || reply.Error != "" {
 			t.Fatalf("success %+v %v", reply, err)
 		}
 	}
 	succeed()
-	if err := n.Generate(&wire.GenerateArgs{}, &reply); err != nil || reply.Accepted || reply.Committed || reply.Commands != 0 || reply.Error == "" {
+	if err := n.Generate(&wire.GenerateArgs{ClusterID: "test-cluster"}, &reply); err != nil || reply.Accepted || reply.Committed || reply.Commands != 0 || reply.Error == "" {
 		t.Fatalf("invalid args reused success: %+v %v", reply, err)
 	}
 	succeed()
 	n.state = Follower
-	if err := n.Generate(&wire.GenerateArgs{Count: 1, TimeoutMS: 10}, &reply); err != nil || reply.Accepted || reply.Committed || reply.Error != "not leader" {
+	if err := n.Generate(&wire.GenerateArgs{ClusterID: "test-cluster", Count: 1, TimeoutMS: 10}, &reply); err != nil || reply.Accepted || reply.Committed || reply.Error != "not leader" {
 		t.Fatalf("rejection reused success: %+v %v", reply, err)
 	}
 	n.state = Leader
@@ -92,7 +92,7 @@ func TestGenerateReplyReuse(t *testing.T) {
 	seedNode(t, minority, 1, nil, 0)
 	minority.electionStarted = time.Now()
 	minority.becomeLeaderLocked()
-	if err := minority.Generate(&wire.GenerateArgs{Count: 1, TimeoutMS: 10}, &reply); err != nil || !reply.Accepted || reply.Committed || reply.Error == "" {
+	if err := minority.Generate(&wire.GenerateArgs{ClusterID: "test-cluster", Count: 1, TimeoutMS: 10}, &reply); err != nil || !reply.Accepted || reply.Committed || reply.Error == "" {
 		t.Fatalf("timeout reused success: %+v %v", reply, err)
 	}
 }

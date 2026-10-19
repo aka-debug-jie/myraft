@@ -15,6 +15,9 @@ $runHasContent=@(Get-ChildItem -Force $RunDir | Where-Object FullName -ne $persi
 function Get-Members([string]$Path) {
     return @((Get-Content $Path -Raw -Encoding UTF8 | ConvertFrom-Json).nodes)
 }
+function Get-ClusterID([string]$Path) {
+    return [string](Get-Content $Path -Raw -Encoding UTF8 | ConvertFrom-Json).cluster_id
+}
 function Get-MemberSignature([object[]]$Members) {
     return (($Members | Sort-Object { [int]$_.id } | ForEach-Object { '{0}|{1}' -f ([int]$_.id),([string]$_.addr) }) -join "`n")
 }
@@ -32,6 +35,9 @@ if ($configExists) {
         if ($LASTEXITCODE -ne 0) { throw 'Supplied configuration validation failed.' }
         if ((Get-MemberSignature (Get-Members $Config)) -ne (Get-MemberSignature $members)) {
             throw "Supplied configuration conflicts with RunDir nodes.json; use a new RunDir. The persisted configuration was not changed."
+        }
+        if ((Get-ClusterID $Config) -cne (Get-ClusterID $persistedConfig)) {
+            throw "Supplied configuration cluster_id conflicts with RunDir nodes.json; use a new RunDir. The persisted configuration was not changed."
         }
     }
     $Config=$persistedConfig

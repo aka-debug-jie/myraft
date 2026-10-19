@@ -13,7 +13,10 @@ import (
 )
 
 // PrepareDivergence creates an offline, reachable history in a new experiment directory.
-func PrepareDivergence(peers map[int]string, dir string, count int, seed int64) error {
+func PrepareDivergence(peers map[int]string, dir string, count int, seed int64, clusterID ...string) error {
+	if len(clusterID) != 1 || clusterID[0] == "" {
+		return fmt.Errorf("explicit cluster identity required for fixture")
+	}
 	if len(peers) < 3 || count < 256 || count > 100000 {
 		return fmt.Errorf("fixture requires >=3 nodes and 256..100000 commands")
 	}
@@ -35,7 +38,7 @@ func PrepareDivergence(peers map[int]string, dir string, count int, seed int64) 
 	commonHash := ""
 	var commonX int64
 	for rank, id := range ids {
-		n, err := NewNode(Options{ID: id, Peers: peers, DataDir: dir, Logger: log.New(io.Discard, "", 0)})
+		n, err := NewNode(Options{ClusterID: clusterID[0], ID: id, Peers: peers, DataDir: dir, Logger: log.New(io.Discard, "", 0)})
 		if err != nil {
 			return err
 		}

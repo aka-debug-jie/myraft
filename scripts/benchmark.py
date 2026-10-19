@@ -11,6 +11,7 @@ import socket
 import statistics
 import subprocess
 import time
+import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 EXE = ROOT / ('raft-node.exe' if os.name == 'nt' else 'raft-node')
@@ -21,6 +22,7 @@ class Cluster:
     def __init__(self, count, folder, timeout, batch_size=128):
         self.batch_size = batch_size
         self.folder, self.timeout = folder, timeout
+        self.cluster_id = uuid.uuid4().hex
         self.processes, self.outputs = {}, []
         self.query_timeouts = 0
         self.folder.mkdir(parents=True)
@@ -34,7 +36,7 @@ class Cluster:
                           for i, s in enumerate(sockets)]
             self.config = folder / 'nodes.json'
             self.query_config = folder / 'query-nodes.json'
-            self.config.write_text(json.dumps({'nodes': self.nodes}), encoding='utf-8')
+            self.config.write_text(json.dumps({'cluster_id': self.cluster_id, 'nodes': self.nodes}), encoding='utf-8')
         finally:
             for s in sockets:
                 s.close()
@@ -49,8 +51,8 @@ class Cluster:
 
     def update_query(self):
         # This is only a client query list; the voters' original configuration never changes.
-        self.query_config.write_text(json.dumps({'nodes': [n for n in self.nodes
-                                                          if n['id'] in self.processes]}), encoding='utf-8')
+        self.query_config.write_text(json.dumps({'cluster_id': self.cluster_id, 'nodes': [n for n in self.nodes
+                                                                                           if n['id'] in self.processes]}), encoding='utf-8')
 
     def start(self, node_id):
         out = (self.folder / f'process-{node_id}.log').open('ab')

@@ -117,7 +117,7 @@ func TestPartitionRepairsUncommittedLeaderTail(t *testing.T) {
 	generate := func(id, count int, seed int64, budget int) wire.GenerateReply {
 		t.Helper()
 		var r wire.GenerateReply
-		if err := wire.Call(addresses[id], "RaftNode.Generate", &wire.GenerateArgs{Count: count, Seed: seed, TimeoutMS: budget}, &r, time.Duration(budget)*time.Millisecond+2*time.Second); err != nil {
+		if err := wire.Call(addresses[id], "RaftNode.Generate", &wire.GenerateArgs{ClusterID: "test-cluster", Count: count, Seed: seed, TimeoutMS: budget}, &r, time.Duration(budget)*time.Millisecond+2*time.Second); err != nil {
 			t.Fatal(err)
 		}
 		return r

@@ -24,6 +24,8 @@ func run() error {
 	port := flag.Int("port", 8001, "shared BASE port (same on every node); used without -config")
 	nodes := flag.Int("nodes", 3, "number of configured nodes; used without -config")
 	configPath := flag.String("config", "", "shared JSON configuration file")
+	clusterID := flag.String("cluster-id", "", "explicit cluster identity (or cluster_id in shared config)")
+	claim := flag.Bool("claim-legacy", false, "explicitly audit/backup and claim this node's legacy data using its ORIGINAL membership")
 	generate := flag.String("generate-config", "", "write configuration using -nodes and -port, then exit")
 	dataDir := flag.String("data-dir", "data", "persistent node data directory")
 	logDir := flag.String("log-dir", "logs", "node output directory")
@@ -67,7 +69,7 @@ func run() error {
 		return fmt.Errorf("-watch requires -status-all and an interval of at least 200ms")
 	}
 	modes := 0
-	for _, v := range []bool{*generate != "", *status, *check, *all, *verify, *prepare, *demo > 0 && !*prepare} {
+	for _, v := range []bool{*generate != "", *status, *check, *all, *verify, *prepare, *claim, *demo > 0 && !*prepare} {
 		if v {
 			modes++
 		}
@@ -87,6 +89,10 @@ func run() error {
 		if err != nil {
 			return err
 		}
+		c.ClusterID = *clusterID
+		if c.ClusterID == "" {
+			c.ClusterID = config.NewClusterID()
+		}
 		if err = c.Save(*generate); err != nil {
 			return err
 		}
@@ -101,6 +107,12 @@ func run() error {
 	if err != nil {
 		return err
 	}
+	if *clusterID != "" {
+		if c.ClusterID != "" && c.ClusterID != *clusterID {
+			return fmt.Errorf("-cluster-id conflicts with configuration")
+		}
+		c.ClusterID = *clusterID
+	}
 	peers, err := c.Peers()
 	if err != nil {
 		return err
@@ -108,12 +120,22 @@ func run() error {
 	if *check {
 		return json.NewEncoder(os.Stdout).Encode(c)
 	}
+	if *claim {
+		if *configPath == "" {
+			return fmt.Errorf("claim requires explicit original -config")
+		}
+		report, err := raft.ClaimLegacy(raft.Options{ClusterID: c.ClusterID, ID: *id, Peers: peers, DataDir: *dataDir})
+		if err != nil {
+			return err
+		}
+		return json.NewEncoder(os.Stdout).Encode(report)
+	}
 	if *prepare {
 		count := *demo
 		if count == 0 {
 			count = 2101
 		}
-		if err := raft.PrepareDivergence(peers, *dataDir, count, *seed); err != nil {
+		if err := raft.PrepareDivergence(peers, *dataDir, count, *seed, c.ClusterID); err != nil {
 			return err
 		}
 		return json.NewEncoder(os.Stdout).Encode(map[string]any{"prepared": true, "nodes": len(peers), "commands": count, "data_dir": *dataDir})
@@ -178,7 +200,7 @@ func run() error {
 	}
 	defer output.Close()
 	logger := log.New(io.MultiWriter(os.Stdout, output), "", log.Ldate|log.Ltime|log.Lmicroseconds)
-	node, err := raft.NewNode(raft.Options{ID: *id, Peers: peers, DataDir: *dataDir, Logger: logger, ElectionMin: *electionMin, ElectionJitter: *electionJitter, RPCTimeout: *rpcTimeout, HeartbeatInterval: *heartbeat, BatchSize: *batchSize})
+	node, err := raft.NewNode(raft.Options{ClusterID: c.ClusterID, ID: *id, Peers: peers, DataDir: *dataDir, Logger: logger, ElectionMin: *electionMin, ElectionJitter: *electionJitter, RPCTimeout: *rpcTimeout, HeartbeatInterval: *heartbeat, BatchSize: *batchSize})
 	if err != nil {
 		return err
 	}
@@ -279,7 +301,7 @@ func submitGenerated(c config.Config, peers map[int]string, count int, seed int6
 			break
 		}
 		var reply wire.GenerateReply
-		args := wire.GenerateArgs{Count: count, Seed: seed, TimeoutMS: int(left / time.Millisecond)}
+		args := wire.GenerateArgs{ClusterID: c.ClusterID, Count: count, Seed: seed, TimeoutMS: int(left / time.Millisecond)}
 		if err := wire.Call(peers[leader], "RaftNode.Generate", &args, &reply, left); err != nil {
 			reply.Error = fmt.Sprintf("submission outcome unknown; do not retry automatically: %v", err)
 			return reply, fmt.Errorf("%s", reply.Error)

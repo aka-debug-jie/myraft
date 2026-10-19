@@ -1,4 +1,5 @@
 {
+  "cluster_id": "myraft-example-three-nodes",
   "nodes": [
     { "id": 1, "addr": "127.0.0.1:8001" },
     { "id": 2, "addr": "127.0.0.1:8002" },

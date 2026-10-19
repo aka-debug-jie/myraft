@@ -12,15 +12,17 @@ import (
 	"os"
 	"path/filepath"
 
+	"myraft/config"
 	wire "myraft/rpc"
 )
 
 type persistentState struct {
-	NodeID      int    `json:"node_id"`
-	Term        int    `json:"term"`
-	VotedFor    int    `json:"voted_for"`
-	CommitIndex int    `json:"commit_index"`
-	CommitHash  string `json:"commit_hash"`
+	NodeID      int             `json:"node_id"`
+	Term        int             `json:"term"`
+	VotedFor    int             `json:"voted_for"`
+	CommitIndex int             `json:"commit_index"`
+	CommitHash  string          `json:"commit_hash"`
+	Identity    config.Identity `json:"identity"`
 }
 type logRecord struct {
 	From    int             `json:"from"`
@@ -51,10 +53,23 @@ func (n *Node) loadState() (err error) {
 	if err != nil && !os.IsNotExist(err) {
 		return err
 	}
-	if err == nil {
+	if os.IsNotExist(err) {
+		if _, statErr := os.Stat(filepath.Join(n.options.DataDir, fmt.Sprintf("node-%d-log.wal", n.id))); !os.IsNotExist(statErr) {
+			return fmt.Errorf("legacy data requires explicit original-configuration claim before recovery")
+		}
+		if err = n.saveState(n.diskState(0, -1, 0, n.committedHash)); err != nil {
+			return err
+		}
+	} else if err == nil {
 		var s persistentState
 		if err = json.Unmarshal(b, &s); err != nil {
 			return fmt.Errorf("invalid persistent state: %w", err)
+		}
+		if s.Identity.ClusterID == "" {
+			return fmt.Errorf("legacy data requires explicit original-configuration claim before recovery")
+		}
+		if !n.identity.Equal(s.Identity) {
+			return fmt.Errorf("stored cluster/member identity differs; use the original configuration or a new data directory")
 		}
 		if s.NodeID != n.id || s.Term < 0 || (s.VotedFor != -1 && s.VotedFor < 1) || s.CommitIndex < 0 {
 			return fmt.Errorf("invalid persistent state in %s", n.statePath)
@@ -62,7 +77,7 @@ func (n *Node) loadState() (err error) {
 		n.term, n.votedFor, n.commitIndex = s.Term, s.VotedFor, s.CommitIndex
 		savedHash = s.CommitHash
 	}
-	if err = n.loadLog(); err != nil {
+	if err = n.loadLog(false); err != nil {
 		return err
 	}
 	if n.commitIndex > n.lastIndexLocked() || n.log[n.lastIndexLocked()].Term > n.term {
@@ -84,13 +99,19 @@ func (n *Node) loadState() (err error) {
 	return nil
 }
 
-func (n *Node) loadLog() error {
+func (n *Node) loadLog(readOnly bool) error {
 	p := filepath.Join(n.options.DataDir, fmt.Sprintf("node-%d-log.wal", n.id))
 	flags := os.O_RDWR
 	if n.commitIndex == 0 {
 		flags |= os.O_CREATE
 	}
+	if readOnly {
+		flags = os.O_RDONLY
+	}
 	f, err := os.OpenFile(p, flags, 0644)
+	if readOnly && os.IsNotExist(err) && n.commitIndex == 0 {
+		return nil
+	}
 	if err != nil {
 		return err
 	}
@@ -105,6 +126,9 @@ func (n *Node) loadLog() error {
 	if info.Size() == 0 {
 		if n.commitIndex > 0 {
 			return fmt.Errorf("empty WAL cannot recover committed entries")
+		}
+		if readOnly {
+			return nil
 		}
 		if _, err = f.Write(header); err != nil {
 			return err
@@ -227,6 +251,7 @@ func (n *Node) replaceLogLocked(from int, entries []wire.LogEntry) error {
 		return err
 	}
 	n.log = append(n.log[:from], entries...)
+	n.revision++
 	return nil
 }
 
@@ -235,12 +260,13 @@ func (n *Node) appendEntriesLocked(entries []wire.LogEntry) error {
 }
 
 func (n *Node) persistLocked(term, vote int) error {
-	if err := n.saveState(persistentState{n.id, term, vote, n.commitIndex, n.committedHash}); err != nil {
+	if err := n.saveState(n.diskState(term, vote, n.commitIndex, n.committedHash)); err != nil {
 		err = fmt.Errorf("persist election state: %w", err)
 		n.failLocked(err)
 		return err
 	}
 	n.term, n.votedFor = term, vote
+	n.revision++
 	return nil
 }
 
@@ -258,17 +284,22 @@ func (n *Node) commitLocked(index int) error {
 	// the advanced digest cannot be reused until recovery rebuilds it from disk.
 	appendLogHash(n.commitDigest, n.log[n.commitIndex+1:index+1])
 	hash := hex.EncodeToString(n.commitDigest.Sum(nil))
-	if err := n.saveState(persistentState{n.id, n.term, n.votedFor, index, hash}); err != nil {
+	if err := n.saveState(n.diskState(n.term, n.votedFor, index, hash)); err != nil {
 		err = fmt.Errorf("persist commit: %w", err)
 		n.failLocked(err)
 		return err
 	}
 	n.commitIndex = index
+	n.revision++
 	n.committedHash = hash
 	n.eventLocked("log_committed index=%d", index)
 	n.applyLocked()
 	n.notifyLocked()
 	return nil
+}
+
+func (n *Node) diskState(term, vote, commit int, digest string) persistentState {
+	return persistentState{NodeID: n.id, Term: term, VotedFor: vote, CommitIndex: commit, CommitHash: digest, Identity: n.identity}
 }
 
 // File replacement is used for process-crash recovery; whole-machine power loss is not qualified.

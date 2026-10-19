@@ -8,6 +8,16 @@
 
 ## 环境与构建
 
+共享配置现在必须含明确的 `cluster_id`。`-generate-config` 为新实验生成一次随机 ID，所有节点使用同一文件；网络代理/地址变化不改变成员身份。没有配置文件启动时，所有节点必须传相同的 `-cluster-id`。不同实验请生成新配置，不能复用同一集群身份。
+
+旧版本数据缺少身份时会拒绝恢复，不会自动认领或擦盘。先停掉全部旧节点，保存原 `nodes.json`，仅为该原配置增加一个共同的 `cluster_id`（如 `classroom-2026`，保持原成员 ID 不变）。然后对每个有旧数据的节点显式认领：
+
+```powershell
+.\raft-node.exe -config demo-runs/classroom/nodes.json -data-dir demo-runs/classroom/data -id 1 -claim-legacy
+```
+
+将 `-id` 换为各原节点 ID。命令只读审计旧 WAL、核对已提交摘要，将原始元数据/WAL 和审计清单同步备份至数据目录的 `node-ID-claim-*`，然后绑定身份；认领本身不修剪 WAL。正常启动再恢复。该操作是使用者对“这是原配置”的明确声明；没有历史身份的数据无法自动证明原成员集合。错误身份、损坏数据或备份失败都会拒绝认领，不覆盖已绑定身份。
+
 本轮 Linux 验证使用 Go 1.27.2、Python 3.12.7；Win11 兼容性验收使用既有 Go 1.26.3、Python 3.13.12。优先选择官方当前受支持的工具链与补丁；未降低 go.mod 的语言版本要求。先从 [Go 官网](https://go.dev/dl/) 和 [Python 官网](https://www.python.org/downloads/) 安装工具并加入当前终端 PATH，然后在本仓库根目录执行命令。此公开源码版不附带工具安装包、预编译程序或虚拟机。
 
 ```powershell

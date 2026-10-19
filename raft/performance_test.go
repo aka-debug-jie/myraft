@@ -54,7 +54,7 @@ func BenchmarkCommitBatches(b *testing.B) {
 				b.ReportAllocs()
 				for i := 0; i < b.N; i++ {
 					b.StopTimer()
-					n, err := NewNode(Options{ID: 1, Peers: map[int]string{1: "127.0.0.1:1"}, DataDir: b.TempDir(), Logger: log.New(io.Discard, "", 0)})
+					n, err := NewNode(Options{ClusterID: "test-cluster", ID: 1, Peers: map[int]string{1: "127.0.0.1:1"}, DataDir: b.TempDir(), Logger: log.New(io.Discard, "", 0)})
 					if err != nil {
 						b.Fatal(err)
 					}
@@ -70,7 +70,7 @@ func BenchmarkCommitBatches(b *testing.B) {
 						if mode == "commit" {
 							err = n.commitLocked(end)
 						} else {
-							err = n.saveState(persistentState{1, 1, -1, end, digest})
+							err = n.saveState(n.diskState(1, -1, end, digest))
 						}
 						if err != nil {
 							b.Fatal(err)
@@ -111,7 +111,7 @@ func BenchmarkBatchReplication(b *testing.B) {
 					awaitLogs(b, nodes, 0)
 					var reply wire.GenerateReply
 					b.StartTimer()
-					err := nodes[leader].Generate(&wire.GenerateArgs{Count: count, Seed: 42, TimeoutMS: 10000}, &reply)
+					err := nodes[leader].Generate(&wire.GenerateArgs{ClusterID: "test-cluster", Count: count, Seed: 42, TimeoutMS: 10000}, &reply)
 					b.StopTimer()
 					if err != nil || !reply.Committed {
 						b.Fatalf("write %+v %v", reply, err)

@@ -13,6 +13,7 @@ import (
 	"sync"
 	"time"
 
+	"myraft/config"
 	wire "myraft/rpc"
 )
 
@@ -25,6 +26,7 @@ const (
 )
 
 type Options struct {
+	ClusterID         string
 	ID                int
 	Peers             map[int]string
 	DataDir           string
@@ -37,6 +39,10 @@ type Options struct {
 }
 
 type Node struct {
+	identity                                  config.Identity
+	membershipHash                            string
+	instanceID                                string
+	revision                                  uint64
 	votePending                               map[int]bool
 	committedHash                             string
 	commitDigest                              hash.Hash
@@ -83,6 +89,10 @@ func NewNode(o Options) (*Node, error) {
 	if o.DataDir == "" {
 		return nil, errors.New("data directory is required")
 	}
+	identity, err := config.FixedIdentity(o.ClusterID, o.Peers)
+	if err != nil {
+		return nil, err
+	}
 	if o.ElectionMin == 0 {
 		o.ElectionMin = 800 * time.Millisecond
 	}
@@ -110,6 +120,8 @@ func NewNode(o Options) (*Node, error) {
 	n := &Node{votePending: make(map[int]bool), committedHash: logHash(nil), log: []wire.LogEntry{{}}, changed: make(chan struct{}), id: o.ID, addr: o.Peers[o.ID], peers: make(map[int]string), state: Follower,
 		votedFor: -1, leaderID: -1, options: o, logger: o.Logger, stop: make(chan struct{}), stopDone: make(chan struct{}),
 		errors: make(chan error, 1), connections: make(map[net.Conn]bool), kicks: make(map[int]chan struct{})}
+	n.identity, n.membershipHash = identity, identity.MembershipHash()
+	n.instanceID = config.NewClusterID()
 	for id, addr := range o.Peers {
 		n.peers[id] = addr
 		if id != o.ID {
@@ -263,7 +275,7 @@ func (n *Node) startElectionLocked() {
 		n.becomeLeaderLocked()
 		return
 	}
-	args := wire.VoteArgs{Term: n.term, CandidateID: n.id, LastLogIndex: n.lastIndexLocked(), LastLogTerm: n.log[n.lastIndexLocked()].Term}
+	args := wire.VoteArgs{ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: n.term, CandidateID: n.id, LastLogIndex: n.lastIndexLocked(), LastLogTerm: n.log[n.lastIndexLocked()].Term}
 	for id, addr := range n.peers {
 		if id == n.id {
 			continue
@@ -337,6 +349,9 @@ func (n *Node) followHigherTermLocked(term int) error {
 func (n *Node) RequestVote(args *wire.VoteArgs, reply *wire.VoteReply) error {
 	n.mu.Lock()
 	defer n.mu.Unlock()
+	if err := n.checkIdentity(args.ClusterID, args.MembershipHash); err != nil {
+		return err
+	}
 	if err := n.availableLocked(); err != nil {
 		return err
 	}
@@ -386,7 +401,7 @@ func (n *Node) heartbeatLoop(peerID int, kick <-chan struct{}) {
 			}
 			next := n.nextIndex[peerID]
 			end := min(next+n.options.BatchSize, len(n.log))
-			args := wire.AppendEntriesArgs{Term: n.term, LeaderID: n.id, PrevLogIndex: next - 1, PrevLogTerm: n.log[next-1].Term, LeaderCommit: n.commitIndex,
+			args := wire.AppendEntriesArgs{ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: n.term, LeaderID: n.id, PrevLogIndex: next - 1, PrevLogTerm: n.log[next-1].Term, LeaderCommit: n.commitIndex,
 				Entries: append([]wire.LogEntry(nil), n.log[next:end]...)}
 			n.mu.Unlock()
 			var reply wire.AppendEntriesReply
@@ -406,6 +421,9 @@ func (n *Node) heartbeatLoop(peerID int, kick <-chan struct{}) {
 func (n *Node) Heartbeat(args *wire.HeartbeatArgs, reply *wire.HeartbeatReply) error {
 	n.mu.Lock()
 	defer n.mu.Unlock()
+	if err := n.checkIdentity(args.ClusterID, args.MembershipHash); err != nil {
+		return err
+	}
 	if err := n.availableLocked(); err != nil {
 		return err
 	}
@@ -447,7 +465,7 @@ func (n *Node) Status(args *wire.StatusArgs, reply *wire.StatusReply) error {
 	if args.Summary {
 		fullHash = ""
 	}
-	*reply = wire.StatusReply{ID: n.id, State: string(n.state), Term: n.term, LeaderID: n.leaderID, VotedFor: n.votedFor,
+	*reply = wire.StatusReply{ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, InstanceID: n.instanceID, Revision: n.revision, ID: n.id, State: string(n.state), Term: n.term, LeaderID: n.leaderID, VotedFor: n.votedFor,
 		LastLogIndex: last.Index, LastLogTerm: last.Term, CommitIndex: n.commitIndex, LastApplied: n.lastApplied,
 		CommittedCommands: n.appliedCommands, AppliedCommands: n.appliedCommands, X: n.x,
 		LogHash: fullHash, CommittedHash: n.committedHash, ElectionMS: n.electionMS}
@@ -476,6 +494,13 @@ func (n *Node) Status(args *wire.StatusArgs, reply *wire.StatusReply) error {
 				reply.TargetX = applyCommand(reply.TargetX, entry.Command)
 			}
 		}
+	}
+	return nil
+}
+
+func (n *Node) checkIdentity(cluster, members string) error {
+	if cluster != n.identity.ClusterID || members != n.membershipHash {
+		return errors.New("cluster/member identity mismatch")
 	}
 	return nil
 }

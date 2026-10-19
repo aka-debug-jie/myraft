@@ -45,14 +45,14 @@ func TestReplicationBatchSizes(t *testing.T) {
 			}
 			leader, _ := awaitLeader(t, nodes)
 			var reply wire.GenerateReply
-			if err := nodes[leader].Generate(&wire.GenerateArgs{Count: 513, Seed: 42, TimeoutMS: 5000}, &reply); err != nil || !reply.Committed {
+			if err := nodes[leader].Generate(&wire.GenerateArgs{ClusterID: "test-cluster", Count: 513, Seed: 42, TimeoutMS: 5000}, &reply); err != nil || !reply.Committed {
 				t.Fatalf("%+v %v", reply, err)
 			}
 			awaitLogs(t, nodes, 513)
 		})
 	}
 	for _, size := range []int{-1, 4097} {
-		if n, err := NewNode(Options{ID: 1, Peers: map[int]string{1: "127.0.0.1:1"}, DataDir: t.TempDir(), BatchSize: size}); err == nil {
+		if n, err := NewNode(Options{ClusterID: "test-cluster", ID: 1, Peers: map[int]string{1: "127.0.0.1:1"}, DataDir: t.TempDir(), BatchSize: size}); err == nil {
 			n.Stop()
 			t.Fatal("invalid batch size accepted")
 		}

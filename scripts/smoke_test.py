@@ -6,6 +6,7 @@ from pathlib import Path
 import socket
 import subprocess
 import time
+import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 EXE = ROOT / ("raft-node.exe" if os.name == "nt" else "raft-node")
@@ -69,7 +70,8 @@ def scenario(count):
             s = socket.socket()
             s.bind(("127.0.0.1", 0))
             sockets.append(s)
-        config = {"nodes": [{"id": i + 1, "addr": f"127.0.0.1:{s.getsockname()[1]}"}
+        config = {"cluster_id": uuid.uuid4().hex,
+                  "nodes": [{"id": i + 1, "addr": f"127.0.0.1:{s.getsockname()[1]}"}
                             for i, s in enumerate(sockets)]}
         config_path = folder / "nodes.json"
         config_path.write_text(json.dumps(config), encoding="utf-8")

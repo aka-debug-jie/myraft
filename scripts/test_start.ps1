@@ -64,7 +64,7 @@ if ($BaselineOnly) {
 $externalRun = Join-Path $work 'external config run'
 $externalConfig = Join-Path $work 'external configs with spaces\members.json'
 New-Item -ItemType Directory -Force (Split-Path $externalConfig -Parent) | Out-Null
-$external = @{ nodes = @(
+$external = @{ cluster_id = 'test-start-external-cluster'; nodes = @(
     @{ id = 7; addr = '127.0.0.1:18007' },
     @{ id = 19; addr = '127.0.0.1:18019' },
     @{ id = 42; addr = '127.0.0.1:18042' }
@@ -103,6 +103,12 @@ try {
     [IO.File]::WriteAllText($conflictingConfig, ($external | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
     Invoke-Start @('-Config',$conflictingConfig,'-RunDir',$externalRun) $false | Out-Null
     if ((Get-FileHash $runConfig -Algorithm SHA256).Hash -ne $beforeHash) { throw 'Conflicting same-count member addresses overwrote nodes.json.' }
+    $external.cluster_id = 'different-cluster-id'
+    $conflictingClusterConfig = Join-Path (Split-Path $externalConfig -Parent) 'conflicting-cluster.json'
+    $external.nodes[2].addr = '127.0.0.1:18042'
+    [IO.File]::WriteAllText($conflictingClusterConfig, ($external | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
+    Invoke-Start @('-Config',$conflictingClusterConfig,'-RunDir',$externalRun) $false | Out-Null
+    if ((Get-FileHash $runConfig -Algorithm SHA256).Hash -ne $beforeHash) { throw 'Conflicting cluster_id overwrote nodes.json.' }
     Invoke-Start @('-Nodes','11','-RunDir',$externalRun) $false | Out-Null
     if ((Get-FileHash $runConfig -Algorithm SHA256).Hash -ne $beforeHash) { throw 'Conflicting Nodes overwrote nodes.json.' }
 } finally { Stop-Run $externalRun }

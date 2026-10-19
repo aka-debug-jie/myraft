@@ -26,7 +26,7 @@ func TestNodeStorageExclusive(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	duplicate, err := NewNode(Options{ID: 1, Peers: peers, DataDir: dir, Logger: log.New(io.Discard, "", 0)})
+	duplicate, err := NewNode(Options{ClusterID: "test-cluster", ID: 1, Peers: peers, DataDir: dir, Logger: log.New(io.Discard, "", 0)})
 	if err == nil {
 		duplicate.Stop()
 		t.Fatal("same node storage opened twice")
@@ -43,7 +43,7 @@ func TestNodeStorageExclusive(t *testing.T) {
 		t.Fatalf("recovery: %+v", s)
 	}
 	n.Stop() // A repeated old Stop must not release the new instance's ownership.
-	duplicate, err = NewNode(Options{ID: 1, Peers: peers, DataDir: dir})
+	duplicate, err = NewNode(Options{ClusterID: "test-cluster", ID: 1, Peers: peers, DataDir: dir})
 	if err == nil {
 		duplicate.Stop()
 		t.Fatal("old Stop released new instance")
@@ -68,7 +68,7 @@ func TestNodeStorageLockReleasedAfterLoadError(t *testing.T) {
 			if err := os.WriteFile(path, []byte("corrupt"), 0600); err != nil {
 				t.Fatal(err)
 			}
-			bad, err := NewNode(Options{ID: 1, Peers: peers, DataDir: dir})
+			bad, err := NewNode(Options{ClusterID: "test-cluster", ID: 1, Peers: peers, DataDir: dir})
 			if err == nil {
 				bad.Stop()
 				t.Fatal("corrupt storage accepted")
@@ -94,7 +94,7 @@ func TestNodeStorageLockLifetime(t *testing.T) {
 	if n.Start() == nil {
 		t.Fatal("occupied listener accepted")
 	}
-	duplicate, err := NewNode(Options{ID: 1, Peers: peers, DataDir: dir})
+	duplicate, err := NewNode(Options{ClusterID: "test-cluster", ID: 1, Peers: peers, DataDir: dir})
 	if err == nil {
 		duplicate.Stop()
 		t.Fatal("failed Start released live node's lock")
@@ -159,7 +159,7 @@ func TestNodeStorageLockDirectoryAlias(t *testing.T) {
 	}
 	peers := testPeers(t, 1)
 	testNode(t, 1, peers, dir)
-	duplicate, err := NewNode(Options{ID: 1, Peers: peers, DataDir: link})
+	duplicate, err := NewNode(Options{ClusterID: "test-cluster", ID: 1, Peers: peers, DataDir: link})
 	if err == nil {
 		duplicate.Stop()
 		t.Fatal("directory alias bypassed lock")
@@ -210,7 +210,7 @@ func TestNodeStorageLockProcess(t *testing.T) {
 	case <-time.After(10 * time.Second):
 		t.Fatal("child storage initialization timed out")
 	}
-	duplicate, err := NewNode(Options{ID: 1, Peers: peers, DataDir: dir})
+	duplicate, err := NewNode(Options{ClusterID: "test-cluster", ID: 1, Peers: peers, DataDir: dir})
 	if err == nil {
 		duplicate.Stop()
 		t.Fatal("child process storage opened twice")
@@ -242,7 +242,7 @@ func TestOversizedAppendRejectedBeforeWALWrite(t *testing.T) {
 		entries[i] = entry(i+2, 1, "add", 1)
 	}
 	var reply wire.AppendEntriesReply
-	err = n.AppendEntries(&wire.AppendEntriesArgs{Term: 1, LeaderID: 2, PrevLogIndex: 1, PrevLogTerm: 1, Entries: entries, LeaderCommit: len(entries) + 1}, &reply)
+	err = n.AppendEntries(&wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 1, LeaderID: 2, PrevLogIndex: 1, PrevLogTerm: 1, Entries: entries, LeaderCommit: len(entries) + 1}, &reply)
 	if err == nil || reply.Success {
 		t.Fatalf("oversized frame acknowledged: %+v %v", reply, err)
 	}
@@ -254,7 +254,7 @@ func TestOversizedAppendRejectedBeforeWALWrite(t *testing.T) {
 		t.Fatalf("rejected frame changed state: %+v", s)
 	}
 	// An input limit error must leave the node usable and its WAL recoverable.
-	err = n.AppendEntries(&wire.AppendEntriesArgs{Term: 1, LeaderID: 2, PrevLogIndex: 1, PrevLogTerm: 1, Entries: []wire.LogEntry{entry(2, 1, "add", 2)}, LeaderCommit: 2}, &reply)
+	err = n.AppendEntries(&wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 1, LeaderID: 2, PrevLogIndex: 1, PrevLogTerm: 1, Entries: []wire.LogEntry{entry(2, 1, "add", 2)}, LeaderCommit: 2}, &reply)
 	if err != nil || !reply.Success {
 		t.Fatalf("valid append: %+v %v", reply, err)
 	}
