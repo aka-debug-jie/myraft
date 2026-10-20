@@ -1,0 +1,128 @@
+[
+  {
+    "nodes": 11,
+    "browsers": 0,
+    "round": 1,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 55,
+      "expected_summary_rpcs": 55
+    },
+    "probe_wall_seconds": 6.686686159999226,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.02668945,
+    "p95_seconds": 0.0310434
+  },
+  {
+    "nodes": 11,
+    "browsers": 0,
+    "round": 2,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 55,
+      "expected_summary_rpcs": 55
+    },
+    "probe_wall_seconds": 7.27564822000204,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.03107795,
+    "p95_seconds": 0.0376047
+  },
+  {
+    "nodes": 11,
+    "browsers": 0,
+    "round": 3,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 55,
+      "expected_summary_rpcs": 55
+    },
+    "probe_wall_seconds": 7.249993320001522,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.0307353,
+    "p95_seconds": 0.0370695
+  },
+  {
+    "nodes": 100,
+    "browsers": 0,
+    "round": 1,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 500,
+      "expected_summary_rpcs": 500
+    },
+    "probe_wall_seconds": 56.444181890001346,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.25177795000000003,
+    "p95_seconds": 0.2920516
+  },
+  {
+    "nodes": 100,
+    "browsers": 0,
+    "round": 2,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 500,
+      "expected_summary_rpcs": 500
+    },
+    "probe_wall_seconds": 56.223917190000066,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.25136674999999997,
+    "p95_seconds": 0.2856943
+  },
+  {
+    "nodes": 100,
+    "browsers": 0,
+    "round": 3,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 500,
+      "expected_summary_rpcs": 500
+    },
+    "probe_wall_seconds": 56.33929070999875,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.25009570000000003,
+    "p95_seconds": 0.2948722
+  }
+]

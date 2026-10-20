@@ -1,0 +1,16 @@
+{
+  "nodes": 11,
+  "browsers": 0,
+  "round": 3,
+  "batch": 128,
+  "collector": false,
+  "result": "PASS",
+  "requested_samples": 200,
+  "probe_wall_seconds": 0.9561760658398271,
+  "percentile_population": "successful_requests_only",
+  "attempts": 200,
+  "successes": 200,
+  "failures": 0,
+  "p50_seconds": 0.0042103755,
+  "p95_seconds": 0.005058925
+}

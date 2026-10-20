@@ -1,0 +1,6 @@
+3 nodes: initial leader 2, term 1
+3 nodes: killed leader; new leader 1 after 4.165s (polling observation)
+3 nodes: PASS restart and minority checks; evidence: <workspace>/public/myraft/.test-output/smoke-3-1792510130876413603
+11 nodes: initial leader 2, term 1
+11 nodes: killed leader; new leader 10 after 3.754s (polling observation)
+11 nodes: PASS restart and minority checks; evidence: <workspace>/public/myraft/.test-output/smoke-11-1792510145593078391

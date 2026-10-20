@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="420" viewBox="0 0 1100 420">
+<rect width="1100" height="420" fill="#f5f7f5"/>
+<g font-family="sans-serif" fill="#263c35" font-size="13">
+<text x="40" y="28">每轮 P95 的中位数；范围为轮次最小/最大。纵轴毫秒，横轴节点数/浏览器数。</text>
+<text x="40" y="50">基线：灰蓝 · 候选：青绿 · 缺失结果不绘点</text>
+<path d="M70 350H1060" stroke="#dbe1dd"/><text x="5" y="355">0.0</text>
+<path d="M70 285H1060" stroke="#dbe1dd"/><text x="5" y="290">2.9</text>
+<path d="M70 220H1060" stroke="#dbe1dd"/><text x="5" y="225">5.8</text>
+<path d="M70 155H1060" stroke="#dbe1dd"/><text x="5" y="160">8.7</text>
+<path d="M70 90H1060" stroke="#dbe1dd"/><text x="5" y="95">11.6</text>
+<text x="100.0" y="380" text-anchor="middle">50/1</text>
+<path d="M94.0 165.39909770283955V113.2780374516677" stroke="#728499"/><circle cx="94.0" cy="123.53177188581239" r="4" fill="#728499"><title>baseline: 10.132 ms</title></circle>
+<path d="M106.0 179.127737862224V90.0" stroke="#268b6b"/><circle cx="106.0" cy="165.58715636788642" r="4" fill="#268b6b"><title>candidate: 8.251 ms</title></circle>
+</g></svg>

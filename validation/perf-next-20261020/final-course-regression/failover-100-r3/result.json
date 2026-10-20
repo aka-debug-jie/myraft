@@ -1,0 +1,527 @@
+{
+  "nodes": 100,
+  "scenario": "failover",
+  "requested_commands": 2101,
+  "seed": 44,
+  "result": "PASS",
+  "elapsed_seconds": 9.49086264334619,
+  "error": null,
+  "batch_size": 128,
+  "round": 3,
+  "launch_seconds": 0.07725792564451694,
+  "initial_leader": 72,
+  "initial_local_election_ms": 20.853,
+  "initial_election_observed_seconds": 3.612017066217959,
+  "failure_plan": [
+    {
+      "id": 72,
+      "role": "Leader",
+      "term": 1
+    },
+    {
+      "id": 67,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 70,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 91,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 15,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 23,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 49,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 29,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 38,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 4,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 94,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 97,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 74,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 2,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 13,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 21,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 66,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 39,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 83,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 95,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 77,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 52,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 42,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 46,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 10,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 44,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 37,
+      "role": "Follower",
+      "term": 1
+    }
+  ],
+  "killed_ids": [
+    72,
+    67,
+    70,
+    91,
+    15,
+    23,
+    49,
+    29,
+    38,
+    4,
+    94,
+    97,
+    74,
+    2,
+    13,
+    21,
+    66,
+    39,
+    83,
+    95,
+    77,
+    52,
+    42,
+    46,
+    10,
+    44,
+    37
+  ],
+  "stop_records": [
+    {
+      "id": 72,
+      "role": "Leader",
+      "term": 1,
+      "start_offset_seconds": 4.0621073972433805,
+      "started_at_utc": "2026-10-20T14:23:38.885724+00:00",
+      "end_offset_seconds": 4.069595004431903,
+      "ended_at_utc": "2026-10-20T14:23:38.893211+00:00",
+      "remaining_nodes": 99,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 67,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.069609138183296,
+      "started_at_utc": "2026-10-20T14:23:38.893224+00:00",
+      "end_offset_seconds": 4.072982579469681,
+      "ended_at_utc": "2026-10-20T14:23:38.896598+00:00",
+      "remaining_nodes": 98,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 70,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.072992105036974,
+      "started_at_utc": "2026-10-20T14:23:38.896607+00:00",
+      "end_offset_seconds": 4.074279529042542,
+      "ended_at_utc": "2026-10-20T14:23:38.897895+00:00",
+      "remaining_nodes": 97,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 91,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.074287004768848,
+      "started_at_utc": "2026-10-20T14:23:38.897902+00:00",
+      "end_offset_seconds": 4.077798480167985,
+      "ended_at_utc": "2026-10-20T14:23:38.901415+00:00",
+      "remaining_nodes": 96,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 15,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.077822777442634,
+      "started_at_utc": "2026-10-20T14:23:38.901438+00:00",
+      "end_offset_seconds": 4.081212930381298,
+      "ended_at_utc": "2026-10-20T14:23:38.904829+00:00",
+      "remaining_nodes": 95,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 23,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.081229577772319,
+      "started_at_utc": "2026-10-20T14:23:38.904844+00:00",
+      "end_offset_seconds": 4.084597752429545,
+      "ended_at_utc": "2026-10-20T14:23:38.908213+00:00",
+      "remaining_nodes": 94,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 49,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.084612070582807,
+      "started_at_utc": "2026-10-20T14:23:38.908227+00:00",
+      "end_offset_seconds": 4.087986628524959,
+      "ended_at_utc": "2026-10-20T14:23:38.911602+00:00",
+      "remaining_nodes": 93,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 29,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.088000716641545,
+      "started_at_utc": "2026-10-20T14:23:38.911615+00:00",
+      "end_offset_seconds": 4.091376424767077,
+      "ended_at_utc": "2026-10-20T14:23:38.914992+00:00",
+      "remaining_nodes": 92,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 38,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.09138919878751,
+      "started_at_utc": "2026-10-20T14:23:38.915004+00:00",
+      "end_offset_seconds": 4.095068510621786,
+      "ended_at_utc": "2026-10-20T14:23:38.918684+00:00",
+      "remaining_nodes": 91,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 4,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.095083320513368,
+      "started_at_utc": "2026-10-20T14:23:38.918698+00:00",
+      "end_offset_seconds": 4.098412119783461,
+      "ended_at_utc": "2026-10-20T14:23:38.922027+00:00",
+      "remaining_nodes": 90,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 94,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.098424971103668,
+      "started_at_utc": "2026-10-20T14:23:38.922040+00:00",
+      "end_offset_seconds": 4.102147231809795,
+      "ended_at_utc": "2026-10-20T14:23:38.925763+00:00",
+      "remaining_nodes": 89,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 97,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.10216049104929,
+      "started_at_utc": "2026-10-20T14:23:38.925775+00:00",
+      "end_offset_seconds": 4.105582430958748,
+      "ended_at_utc": "2026-10-20T14:23:38.929198+00:00",
+      "remaining_nodes": 88,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 74,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.105594888329506,
+      "started_at_utc": "2026-10-20T14:23:38.929210+00:00",
+      "end_offset_seconds": 4.109001953154802,
+      "ended_at_utc": "2026-10-20T14:23:38.932618+00:00",
+      "remaining_nodes": 87,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 2,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.109016242437065,
+      "started_at_utc": "2026-10-20T14:23:38.932631+00:00",
+      "end_offset_seconds": 4.112314415164292,
+      "ended_at_utc": "2026-10-20T14:23:38.935930+00:00",
+      "remaining_nodes": 86,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 13,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.1123256757855415,
+      "started_at_utc": "2026-10-20T14:23:38.935940+00:00",
+      "end_offset_seconds": 4.115623992867768,
+      "ended_at_utc": "2026-10-20T14:23:38.939239+00:00",
+      "remaining_nodes": 85,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 21,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.115632028318942,
+      "started_at_utc": "2026-10-20T14:23:38.939247+00:00",
+      "end_offset_seconds": 4.116877231746912,
+      "ended_at_utc": "2026-10-20T14:23:38.940492+00:00",
+      "remaining_nodes": 84,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 66,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.116885574534535,
+      "started_at_utc": "2026-10-20T14:23:38.940500+00:00",
+      "end_offset_seconds": 4.1202141949906945,
+      "ended_at_utc": "2026-10-20T14:23:38.943829+00:00",
+      "remaining_nodes": 83,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 39,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.120222192257643,
+      "started_at_utc": "2026-10-20T14:23:38.943837+00:00",
+      "end_offset_seconds": 4.123523321002722,
+      "ended_at_utc": "2026-10-20T14:23:38.947138+00:00",
+      "remaining_nodes": 82,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 83,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.12353056948632,
+      "started_at_utc": "2026-10-20T14:23:38.947145+00:00",
+      "end_offset_seconds": 4.126878160983324,
+      "ended_at_utc": "2026-10-20T14:23:38.950493+00:00",
+      "remaining_nodes": 81,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 95,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.126885847188532,
+      "started_at_utc": "2026-10-20T14:23:38.950500+00:00",
+      "end_offset_seconds": 4.130224913358688,
+      "ended_at_utc": "2026-10-20T14:23:38.953840+00:00",
+      "remaining_nodes": 80,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 77,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.1302321860566735,
+      "started_at_utc": "2026-10-20T14:23:38.953847+00:00",
+      "end_offset_seconds": 4.133575112558901,
+      "ended_at_utc": "2026-10-20T14:23:38.957190+00:00",
+      "remaining_nodes": 79,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 52,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.133583017624915,
+      "started_at_utc": "2026-10-20T14:23:38.957198+00:00",
+      "end_offset_seconds": 4.136896716430783,
+      "ended_at_utc": "2026-10-20T14:23:38.960512+00:00",
+      "remaining_nodes": 78,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 42,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.136903798207641,
+      "started_at_utc": "2026-10-20T14:23:38.960518+00:00",
+      "end_offset_seconds": 4.140223826281726,
+      "ended_at_utc": "2026-10-20T14:23:38.963839+00:00",
+      "remaining_nodes": 77,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 46,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.140232475474477,
+      "started_at_utc": "2026-10-20T14:23:38.963847+00:00",
+      "end_offset_seconds": 4.143550761044025,
+      "ended_at_utc": "2026-10-20T14:23:38.967166+00:00",
+      "remaining_nodes": 76,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 10,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.143558426760137,
+      "started_at_utc": "2026-10-20T14:23:38.967173+00:00",
+      "end_offset_seconds": 4.1469324585050344,
+      "ended_at_utc": "2026-10-20T14:23:38.970548+00:00",
+      "remaining_nodes": 75,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 44,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.1469407472759485,
+      "started_at_utc": "2026-10-20T14:23:38.970555+00:00",
+      "end_offset_seconds": 4.150259215384722,
+      "ended_at_utc": "2026-10-20T14:23:38.973874+00:00",
+      "remaining_nodes": 74,
+      "quorum": 51,
+      "majority_available": true
+    },
+    {
+      "id": 37,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.150267015211284,
+      "started_at_utc": "2026-10-20T14:23:38.973882+00:00",
+      "end_offset_seconds": 4.151504723355174,
+      "ended_at_utc": "2026-10-20T14:23:38.975120+00:00",
+      "remaining_nodes": 73,
+      "quorum": 51,
+      "majority_available": true
+    }
+  ],
+  "kill_seconds": 0.08940564189106226,
+  "leader_observed_seconds": 9.470466181635857,
+  "election_observed_seconds": 9.470466181635857,
+  "fault_local_election_ms": 54.746,
+  "service_restored_seconds": 9.49086264334619,
+  "local_election_ms": 54.746,
+  "restarted_nodes_caught_up": true,
+  "checkpoint_index": 2102,
+  "checkpoint_hash": "8c02da0f37882bfdf75b86e0aedf2d2c5366dafdde6458edcfc428159ff6e7c8",
+  "checkpoint_x": -1,
+  "checkpoint_preserved": true,
+  "final_leader": 58,
+  "final_term": 4,
+  "committed_commands": 2102,
+  "commit_index": 2104,
+  "x": -1,
+  "committed_hash": "d3e7c15011034fb0e8cc64eea8358e4361dfe210851816221373e0af48519cc0",
+  "last_query_seconds": 0.03795124031603336,
+  "independent_reference": "PASS",
+  "query_timeouts": 0
+}

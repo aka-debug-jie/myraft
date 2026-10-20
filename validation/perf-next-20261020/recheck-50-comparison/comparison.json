@@ -1,0 +1,48 @@
+{
+  "sources": {
+    "baseline": {
+      "environment_sha256": "d979617b4e974b1aa666353a9c23226ff827e2a1cd26f28b75b8a773f105f8d6",
+      "results_sha256": "fc69396bf4e7b4263c496f392ab2da5e6517b73b508e2b32cc9980e2536494d3"
+    },
+    "candidate": {
+      "environment_sha256": "32cb2dba47e7d325761b7e28da06b1e928f389d6b450485a805642c5a7910e95",
+      "results_sha256": "9aec3f6f175afa2652cfccd697613aa98305b2b10f53d14fd02b3a740caaecae"
+    }
+  },
+  "groups": [
+    {
+      "nodes": 50,
+      "browsers": 1,
+      "batch": 128,
+      "collector": true,
+      "baseline": {
+        "attempted_rounds": 3,
+        "planned_rounds": 3,
+        "passed_rounds": 3,
+        "failed_rounds": 0,
+        "interrupted_rounds": 0,
+        "successful_requests": 600,
+        "p50_seconds": 0.0064261990000000005,
+        "p95_seconds": 0.010132496,
+        "p95_range_seconds": [
+          0.008259295,
+          0.010591262
+        ]
+      },
+      "candidate": {
+        "attempted_rounds": 3,
+        "planned_rounds": 3,
+        "passed_rounds": 3,
+        "failed_rounds": 0,
+        "interrupted_rounds": 0,
+        "successful_requests": 600,
+        "p50_seconds": 0.005383797500000001,
+        "p95_seconds": 0.008250881,
+        "p95_range_seconds": [
+          0.007645057,
+          0.011632753
+        ]
+      }
+    }
+  ]
+}

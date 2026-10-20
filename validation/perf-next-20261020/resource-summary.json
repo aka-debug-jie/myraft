@@ -1,0 +1,341 @@
+{
+  "scope": "node+controller only; includes warmup; RSS sums may double-count shared pages; Windows RSS is working set",
+  "cases": [
+    {
+      "dataset": "final-latency",
+      "case": "n100-b0-r1",
+      "mean_used_cpu_cores": 10.84174620532738,
+      "peak_sum_rss_bytes": 1508954112,
+      "peak_sum_handles": 1220,
+      "sample_window_seconds": 2.4138178024441004
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n100-b0-r2",
+      "mean_used_cpu_cores": 10.135015233741582,
+      "peak_sum_rss_bytes": 1494528000,
+      "peak_sum_handles": 1223,
+      "sample_window_seconds": 2.7252055732533336
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n100-b0-r3",
+      "mean_used_cpu_cores": 10.577551575489593,
+      "peak_sum_rss_bytes": 1505214464,
+      "peak_sum_handles": 1232,
+      "sample_window_seconds": 2.7265288941562176
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n100-b1-r1",
+      "mean_used_cpu_cores": 10.11685748670354,
+      "peak_sum_rss_bytes": 1513635840,
+      "peak_sum_handles": 1226,
+      "sample_window_seconds": 2.997966516762972
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n100-b1-r2",
+      "mean_used_cpu_cores": 10.134239426655549,
+      "peak_sum_rss_bytes": 1513275392,
+      "peak_sum_handles": 1224,
+      "sample_window_seconds": 2.736268488690257
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n100-b1-r3",
+      "mean_used_cpu_cores": 11.33038537484309,
+      "peak_sum_rss_bytes": 1504571392,
+      "peak_sum_handles": 1236,
+      "sample_window_seconds": 2.4429883966222405
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n100-b10-r1",
+      "mean_used_cpu_cores": 10.381752418037305,
+      "peak_sum_rss_bytes": 1505439744,
+      "peak_sum_handles": 1251,
+      "sample_window_seconds": 3.037059518508613
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n100-b10-r2",
+      "mean_used_cpu_cores": 10.3959690723717,
+      "peak_sum_rss_bytes": 1492934656,
+      "peak_sum_handles": 1256,
+      "sample_window_seconds": 2.9953917507082224
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n100-b10-r3",
+      "mean_used_cpu_cores": 10.774109735173347,
+      "peak_sum_rss_bytes": 1504395264,
+      "peak_sum_handles": 1257,
+      "sample_window_seconds": 2.457743669860065
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n100-b5-r1",
+      "mean_used_cpu_cores": 10.43229910236624,
+      "peak_sum_rss_bytes": 1482461184,
+      "peak_sum_handles": 1236,
+      "sample_window_seconds": 2.991670358926058
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n100-b5-r2",
+      "mean_used_cpu_cores": 10.447780438731234,
+      "peak_sum_rss_bytes": 1506635776,
+      "peak_sum_handles": 1234,
+      "sample_window_seconds": 2.7211521305143833
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n100-b5-r3",
+      "mean_used_cpu_cores": 10.792252127218571,
+      "peak_sum_rss_bytes": 1505165312,
+      "peak_sum_handles": 1250,
+      "sample_window_seconds": 2.4452727464959025
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b0-r1",
+      "mean_used_cpu_cores": 3.567618977053266,
+      "peak_sum_rss_bytes": 170090496,
+      "peak_sum_handles": 142,
+      "sample_window_seconds": 0.7568072760477662
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b0-r2",
+      "mean_used_cpu_cores": 3.676728796325327,
+      "peak_sum_rss_bytes": 171937792,
+      "peak_sum_handles": 142,
+      "sample_window_seconds": 0.7588267056271434
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b0-r3",
+      "mean_used_cpu_cores": 3.481446862604264,
+      "peak_sum_rss_bytes": 174145536,
+      "peak_sum_handles": 140,
+      "sample_window_seconds": 0.7583054127171636
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b1-r1",
+      "mean_used_cpu_cores": 3.565470757974853,
+      "peak_sum_rss_bytes": 175775744,
+      "peak_sum_handles": 143,
+      "sample_window_seconds": 0.7600679360330105
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b1-r2",
+      "mean_used_cpu_cores": 3.520453635817333,
+      "peak_sum_rss_bytes": 176250880,
+      "peak_sum_handles": 143,
+      "sample_window_seconds": 0.758424986153841
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b1-r3",
+      "mean_used_cpu_cores": 3.6340787723009034,
+      "peak_sum_rss_bytes": 176603136,
+      "peak_sum_handles": 144,
+      "sample_window_seconds": 0.8282704334706068
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b10-r1",
+      "mean_used_cpu_cores": 3.6373520747680863,
+      "peak_sum_rss_bytes": 174739456,
+      "peak_sum_handles": 171,
+      "sample_window_seconds": 0.7587937442585826
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b10-r2",
+      "mean_used_cpu_cores": 3.7340638487904383,
+      "peak_sum_rss_bytes": 173559808,
+      "peak_sum_handles": 172,
+      "sample_window_seconds": 0.7578874155879021
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b10-r3",
+      "mean_used_cpu_cores": 3.70386953597011,
+      "peak_sum_rss_bytes": 172605440,
+      "peak_sum_handles": 169,
+      "sample_window_seconds": 0.7613659100607038
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b5-r1",
+      "mean_used_cpu_cores": 3.4254821604236247,
+      "peak_sum_rss_bytes": 173461504,
+      "peak_sum_handles": 157,
+      "sample_window_seconds": 0.7590172355994582
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b5-r2",
+      "mean_used_cpu_cores": 3.7177018572839287,
+      "peak_sum_rss_bytes": 173858816,
+      "peak_sum_handles": 153,
+      "sample_window_seconds": 0.7585331229493022
+    },
+    {
+      "dataset": "final-latency",
+      "case": "n11-b5-r3",
+      "mean_used_cpu_cores": 3.6778184594986305,
+      "peak_sum_rss_bytes": 176758784,
+      "peak_sum_handles": 156,
+      "sample_window_seconds": 0.7586018806323409
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b0-r1",
+      "mean_used_cpu_cores": 8.120799541603356,
+      "peak_sum_rss_bytes": 743124992,
+      "peak_sum_handles": 615,
+      "sample_window_seconds": 1.2929761344566941
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b0-r2",
+      "mean_used_cpu_cores": 7.821565040152038,
+      "peak_sum_rss_bytes": 746057728,
+      "peak_sum_handles": 631,
+      "sample_window_seconds": 1.5597901362925768
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b0-r3",
+      "mean_used_cpu_cores": 7.777990029448666,
+      "peak_sum_rss_bytes": 746311680,
+      "peak_sum_handles": 616,
+      "sample_window_seconds": 1.2869648793712258
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b1-r1",
+      "mean_used_cpu_cores": 7.801293846884159,
+      "peak_sum_rss_bytes": 742735872,
+      "peak_sum_handles": 620,
+      "sample_window_seconds": 1.558715802617371
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b1-r2",
+      "mean_used_cpu_cores": 7.702805525511101,
+      "peak_sum_rss_bytes": 750604288,
+      "peak_sum_handles": 616,
+      "sample_window_seconds": 1.8162213694304228
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b1-r3",
+      "mean_used_cpu_cores": 7.815644322306842,
+      "peak_sum_rss_bytes": 733396992,
+      "peak_sum_handles": 618,
+      "sample_window_seconds": 1.0325444284826517
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b10-r1",
+      "mean_used_cpu_cores": 7.761003950890117,
+      "peak_sum_rss_bytes": 749522944,
+      "peak_sum_handles": 643,
+      "sample_window_seconds": 1.8257947154343128
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b10-r2",
+      "mean_used_cpu_cores": 8.350199030531392,
+      "peak_sum_rss_bytes": 748134400,
+      "peak_sum_handles": 645,
+      "sample_window_seconds": 1.56163942348212
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b10-r3",
+      "mean_used_cpu_cores": 7.931972360387567,
+      "peak_sum_rss_bytes": 746799104,
+      "peak_sum_handles": 647,
+      "sample_window_seconds": 1.287195609882474
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b5-r1",
+      "mean_used_cpu_cores": 8.330660173879505,
+      "peak_sum_rss_bytes": 746942464,
+      "peak_sum_handles": 633,
+      "sample_window_seconds": 1.5532982656732202
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b5-r2",
+      "mean_used_cpu_cores": 7.840161618869092,
+      "peak_sum_rss_bytes": 752103424,
+      "peak_sum_handles": 631,
+      "sample_window_seconds": 1.82011554017663
+    },
+    {
+      "dataset": "final-latency-50",
+      "case": "n50-b5-r3",
+      "mean_used_cpu_cores": 7.792470930146719,
+      "peak_sum_rss_bytes": 742404096,
+      "peak_sum_handles": 629,
+      "sample_window_seconds": 1.2871398674324155
+    },
+    {
+      "dataset": "windows-evidence/final-latency",
+      "case": "n100-b0-r1",
+      "mean_used_cpu_cores": 1.2834503218407987,
+      "peak_sum_rss_bytes": 1589878784,
+      "peak_sum_handles": 13416,
+      "sample_window_seconds": 56.184001650002756
+    },
+    {
+      "dataset": "windows-evidence/final-latency",
+      "case": "n100-b0-r2",
+      "mean_used_cpu_cores": 1.2963477130400862,
+      "peak_sum_rss_bytes": 1585864704,
+      "peak_sum_handles": 13387,
+      "sample_window_seconds": 56.119202640002186
+    },
+    {
+      "dataset": "windows-evidence/final-latency",
+      "case": "n100-b0-r3",
+      "mean_used_cpu_cores": 1.3089470409169346,
+      "peak_sum_rss_bytes": 1581297664,
+      "peak_sum_handles": 13408,
+      "sample_window_seconds": 56.31912345999808
+    },
+    {
+      "dataset": "windows-evidence/final-latency",
+      "case": "n11-b0-r1",
+      "mean_used_cpu_cores": 0.9705662957443559,
+      "peak_sum_rss_bytes": 269352960,
+      "peak_sum_handles": 1536,
+      "sample_window_seconds": 6.584429139998974
+    },
+    {
+      "dataset": "windows-evidence/final-latency",
+      "case": "n11-b0-r2",
+      "mean_used_cpu_cores": 0.9659949162589899,
+      "peak_sum_rss_bytes": 187707392,
+      "peak_sum_handles": 1508,
+      "sample_window_seconds": 7.019964480001363
+    },
+    {
+      "dataset": "windows-evidence/final-latency",
+      "case": "n11-b0-r3",
+      "mean_used_cpu_cores": 1.0239489237090063,
+      "peak_sum_rss_bytes": 187125760,
+      "peak_sum_handles": 1525,
+      "sample_window_seconds": 6.9888739900015935
+    }
+  ]
+}

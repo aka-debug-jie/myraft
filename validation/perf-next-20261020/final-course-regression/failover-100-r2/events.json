@@ -1,0 +1,85 @@
+[
+  {
+    "event": "processes_started",
+    "offset_seconds": 0.07972128503024578
+  },
+  {
+    "event": "leader_observed",
+    "offset_seconds": 3.4979410711675882
+  },
+  {
+    "event": "commands_committed",
+    "offset_seconds": 3.6770889963954687
+  },
+  {
+    "event": "fault_started",
+    "offset_seconds": 3.831422303803265
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8314432501792908,
+    "id": 77,
+    "role": "Leader",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.8353729946538806,
+    "id": 77,
+    "role": "Leader",
+    "term": 1,
+    "remaining_nodes": 99,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.835391848348081,
+    "id": 37,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.8388584861531854,
+    "id": 37,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 98,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8388642305508256,
+    "id": 91,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.8428431460633874,
+    "id": 91,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 97,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "replacement_observed",
+    "offset_seconds": 7.091915210708976
+  },
+  {
+    "event": "replacement_write_committed",
+    "offset_seconds": 7.116752197034657
+  },
+  {
+    "event": "nodes_restarted",
+    "offset_seconds": 7.284422627650201
+  },
+  {
+    "event": "converged",
+    "offset_seconds": 7.592968402430415
+  }
+]

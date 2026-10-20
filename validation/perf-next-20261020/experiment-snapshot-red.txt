@@ -1,0 +1,5 @@
+--- FAIL: TestExperimentReadPreservesPublishedRows (0.00s)
+    experiment_snapshot_test.go:24: refresh mutated rows already published to HTTP/SSE
+FAIL
+FAIL	myraft/cmd/dashboard	0.018s
+FAIL

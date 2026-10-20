@@ -1,0 +1,24 @@
+File: raft.test
+Build ID: c1267a90158bcff1b0530533c94e46ecc42b483e
+Type: cpu
+Time: 2026-10-20 21:46:01 CST
+Duration: 10.40s, Total samples = 2850ms (27.41%)
+Showing nodes accounting for 1910ms, 67.02% of 2850ms total
+Dropped 138 nodes (cum <= 14.25ms)
+Showing top 15 nodes out of 244
+      flat  flat%   sum%        cum   cum%
+     790ms 27.72% 27.72%      790ms 27.72%  internal/runtime/syscall/linux.Syscall6
+     260ms  9.12% 36.84%      990ms 34.74%  encoding/json/v2.makeStructArshaler.func2
+     220ms  7.72% 44.56%      220ms  7.72%  runtime.memmove
+     140ms  4.91% 49.47%      150ms  5.26%  runtime.tryDeferToSpanScan
+      60ms  2.11% 51.58%       60ms  2.11%  crypto/internal/fips140/sha256.blockSHANI
+      60ms  2.11% 53.68%       60ms  2.11%  encoding/json/internal/jsonflags.Flags.Get (partial-inline)
+      60ms  2.11% 55.79%      120ms  4.21%  encoding/json/v2.makeStringArshaler.func1
+      60ms  2.11% 57.89%       60ms  2.11%  internal/abi.Name.IsExported (inline)
+      50ms  1.75% 59.65%      100ms  3.51%  runtime.findObject
+      40ms  1.40% 61.05%       40ms  1.40%  encoding/json/internal/jsonwire.AppendQuote
+      40ms  1.40% 62.46%      110ms  3.86%  internal/strconv.AppendUint
+      40ms  1.40% 63.86%       40ms  1.40%  runtime.typePointers.next
+      30ms  1.05% 64.91%       60ms  2.11%  encoding/gob.(*Decoder).decodeStruct
+      30ms  1.05% 65.96%       90ms  3.16%  encoding/json/jsontext.(*encoderState).WriteToken
+      30ms  1.05% 67.02%       80ms  2.81%  encoding/json/jsontext.(*encoderState).reset

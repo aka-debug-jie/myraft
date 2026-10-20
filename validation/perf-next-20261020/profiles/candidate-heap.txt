@@ -1,0 +1,23 @@
+File: raft.test
+Build ID: c1267a90158bcff1b0530533c94e46ecc42b483e
+Type: alloc_space
+Time: 2026-10-20 21:46:10 CST
+Showing nodes accounting for 408.34MB, 96.27% of 424.17MB total
+Dropped 61 nodes (cum <= 2.12MB)
+Showing top 15 nodes out of 56
+      flat  flat%   sum%        cum   cum%
+  120.56MB 28.42% 28.42%   333.61MB 78.65%  myraft/raft.(*Node).replaceLogLocked
+  108.60MB 25.60% 54.03%   171.21MB 40.36%  encoding/json/v2.makeStructArshaler.func2
+   43.34MB 10.22% 64.24%    43.34MB 10.22%  bytes.Clone (inline)
+   27.37MB  6.45% 70.70%    27.37MB  6.45%  encoding/json/jsontext.stateMachine.MayAppendDelim (inline)
+   20.60MB  4.86% 75.55%    25.10MB  5.92%  myraft/raft.(*Node).heartbeatLoop
+   19.60MB  4.62% 80.17%    19.60MB  4.62%  reflect.unsafe_NewArray
+   18.36MB  4.33% 84.50%    18.36MB  4.33%  internal/strconv.AppendUint
+   15.88MB  3.74% 88.24%    15.88MB  3.74%  slices.Grow[go.shape.[]uint8,go.shape.uint8] (inline)
+   10.06MB  2.37% 90.62%    10.06MB  2.37%  myraft/raft.(*Node).Status
+   10.02MB  2.36% 92.98%    10.02MB  2.36%  internal/saferio.ReadData
+    8.05MB  1.90% 94.88%   110.77MB 26.11%  myraft/raft.(*Node).Generate
+    3.90MB  0.92% 95.80%     3.90MB  0.92%  myraft/raft.generateCommands
+       1MB  0.24% 96.03%    22.67MB  5.35%  encoding/json/jsontext.(*encoderState).WriteToken
+    0.50MB  0.12% 96.15%    31.62MB  7.45%  net/rpc.(*Server).ServeCodec
+    0.50MB  0.12% 96.27%     3.50MB  0.83%  os.CreateTemp

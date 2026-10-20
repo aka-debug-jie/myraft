@@ -1,0 +1,116 @@
+{
+  "scanner": "gitleaks 8.30.1 directory scan",
+  "findings": 18,
+  "reviewed_source_hash_false_positives": [
+    {
+      "file": "validation/acceptance-20261020/native-build-receipt.json",
+      "line": 15,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/acceptance-20261020/windows-source-sha256.json",
+      "line": 74,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/console-20261019/delivery-source-sha256.json",
+      "line": 15,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "f5a82184e82d816f944c3ef545c31f045d5939d3"
+    },
+    {
+      "file": "validation/console-20261019/windows-source.json",
+      "line": 21,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "f5a82184e82d816f944c3ef545c31f045d5939d3"
+    },
+    {
+      "file": "validation/perf-next-20261020/baseline-collector-off/environment.json",
+      "line": 89,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/baseline-latency-v2/environment.json",
+      "line": 89,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/candidate-collector-off/environment.json",
+      "line": 96,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/candidate-latency-v2/environment.json",
+      "line": 96,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/delivery-native-build-receipt.json",
+      "line": 16,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/final-latency/environment.json",
+      "line": 99,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/final-latency-50/environment.json",
+      "line": 99,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/native-build-receipt.json",
+      "line": 16,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/final-latency-all/environment.json",
+      "line": 99,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/windows/native-build-receipt.json",
+      "line": 16,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/windows-evidence/baseline-latency/environment.json",
+      "line": 89,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/windows-evidence/final-latency/environment.json",
+      "line": 99,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/windows-recheck-data/baseline/environment.json",
+      "line": 89,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    },
+    {
+      "file": "validation/perf-next-20261020/windows-recheck-data/final/environment.json",
+      "line": 99,
+      "classification": "source SHA-256, verified against Git blob",
+      "source_commit": "3a4dbce6029138600b10eb63fc48eb611435a065"
+    }
+  ],
+  "unresolved_findings": 0,
+  "scope": "current working tree; no remote publication"
+}

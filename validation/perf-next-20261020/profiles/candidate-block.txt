@@ -1,0 +1,23 @@
+File: raft.test
+Build ID: c1267a90158bcff1b0530533c94e46ecc42b483e
+Type: delay
+Time: 2026-10-20 21:46:10 CST
+Showing nodes accounting for 96.28s, 100% of 96.29s total
+Dropped 26 nodes (cum <= 0.48s)
+Showing top 15 nodes out of 27
+      flat  flat%   sum%        cum   cum%
+    65.74s 68.28% 68.28%     65.74s 68.28%  runtime.selectgo
+    29.81s 30.96% 99.24%     29.81s 30.96%  runtime.chanrecv1
+     0.73s  0.76%   100%      0.73s  0.76%  sync.(*Mutex).Lock (inline)
+         0     0%   100%     10.40s 10.80%  main.main
+         0     0%   100%      4.95s  5.14%  myraft/raft.(*Node).Generate
+         0     0%   100%     30.59s 31.77%  myraft/raft.(*Node).Start.gowrap3
+         0     0%   100%     30.59s 31.77%  myraft/raft.(*Node).electionLoop
+         0     0%   100%     11.04s 11.47%  myraft/raft.(*Node).heartbeatLoop
+         0     0%   100%     28.81s 29.92%  myraft/raft.(*Node).startEventOutput.func1
+         0     0%   100%     11.04s 11.47%  myraft/raft.(*Node).startReplicationLocked.gowrap1
+         0     0%   100%     10.40s 10.80%  myraft/raft.BenchmarkBatchReplication
+         0     0%   100%      4.96s  5.15%  myraft/raft.BenchmarkBatchReplication.func1
+         0     0%   100%      8.92s  9.26%  myraft/rpc.(*PeerClient).Call
+         0     0%   100%      9.01s  9.36%  net/rpc.(*Client).Call (inline)
+         0     0%   100%     10.40s 10.80%  runtime.main

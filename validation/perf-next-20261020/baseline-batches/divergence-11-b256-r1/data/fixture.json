@@ -1,0 +1,126 @@
+{
+  "commands": 2101,
+  "common_arithmetic_commands": 128,
+  "common_commit_index": 129,
+  "common_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+  "common_x": 8,
+  "history": "term 1 noop and 128 commands committed everywhere; each later branch has less than quorum copies; neutral voted for term 3 but received no suffix",
+  "latest_node": 11,
+  "neutral": 1,
+  "nodes": [
+    {
+      "commit_index": 129,
+      "committed_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "id": 1,
+      "last_log_index": 129,
+      "last_log_term": 1,
+      "log_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "x": 8
+    },
+    {
+      "commit_index": 129,
+      "committed_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "id": 2,
+      "last_log_index": 131,
+      "last_log_term": 2,
+      "log_hash": "82542afe97779629eca4b1ef2b44ee6ddcfc4914d7d8dd61c0057e462fc912f8",
+      "x": 8
+    },
+    {
+      "commit_index": 129,
+      "committed_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "id": 3,
+      "last_log_index": 350,
+      "last_log_term": 2,
+      "log_hash": "6f13920296b6f22b0694edfb09ccd28062a94f58af360003186099018a86546a",
+      "x": 8
+    },
+    {
+      "commit_index": 129,
+      "committed_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "id": 4,
+      "last_log_index": 569,
+      "last_log_term": 2,
+      "log_hash": "adb23ad207d2f55ee021ec3fe00c387517e5e7e041d5c59715e1e573b700deb2",
+      "x": 8
+    },
+    {
+      "commit_index": 129,
+      "committed_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "id": 5,
+      "last_log_index": 788,
+      "last_log_term": 2,
+      "log_hash": "5f7bb917d1fc6bc69ea361fd140f43e8f9160dc615c6af6125f7b8bf2403ca60",
+      "x": 8
+    },
+    {
+      "commit_index": 129,
+      "committed_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "id": 6,
+      "last_log_index": 1007,
+      "last_log_term": 2,
+      "log_hash": "e3c33de7cfe9fd7b99f414649b82ffdf6f8b61fff1a349cb08b54f7328964fff",
+      "x": 8
+    },
+    {
+      "commit_index": 129,
+      "committed_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "id": 7,
+      "last_log_index": 1226,
+      "last_log_term": 3,
+      "log_hash": "b33df31dd0730e5536aa1e324e98c9ee3d20ea18a14bd8d116e3a3f0576ea804",
+      "x": 8
+    },
+    {
+      "commit_index": 129,
+      "committed_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "id": 8,
+      "last_log_index": 1445,
+      "last_log_term": 3,
+      "log_hash": "da99f1ec28ebfbff2543becfa348e6f31c077092f489b831f0a6a0ffefd73abd",
+      "x": 8
+    },
+    {
+      "commit_index": 129,
+      "committed_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "id": 9,
+      "last_log_index": 1664,
+      "last_log_term": 3,
+      "log_hash": "beca67cef319d215eb5fac3483332459fe55c58196b62e6c9a99725728ac0786",
+      "x": 8
+    },
+    {
+      "commit_index": 129,
+      "committed_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "id": 10,
+      "last_log_index": 1883,
+      "last_log_term": 3,
+      "log_hash": "0088c6158e57f430a5d3fdf717e77ff35f215d6df9b34708aea599facad128f8",
+      "x": 8
+    },
+    {
+      "commit_index": 129,
+      "committed_hash": "2c89f527e0e1b936cc2c3e9266347e2fed21bccc6aed7e96f5af50b795e522e6",
+      "id": 11,
+      "last_log_index": 2103,
+      "last_log_term": 3,
+      "log_hash": "ed00020258856dbb9e9ef9ec0dd8156463b1d9205b419b55822e305d9c82bd0c",
+      "x": 8
+    }
+  ],
+  "seed": 42,
+  "term2_branch": [
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "term3_branch": [
+    7,
+    8,
+    9,
+    10,
+    11
+  ]
+}

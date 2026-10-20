@@ -1,0 +1,62 @@
+[
+  {
+    "name": "baseline-latency-v2",
+    "exit": 0,
+    "seconds": 827.3423397541046
+  },
+  {
+    "name": "baseline-collector-off",
+    "exit": 0,
+    "seconds": 86.22341465950012
+  },
+  {
+    "name": "baseline-contention-2cpu",
+    "exit": 0,
+    "seconds": 4.664743423461914
+  },
+  {
+    "name": "baseline-profiles",
+    "exit": 0,
+    "seconds": 11.430346250534058
+  },
+  {
+    "name": "candidate-latency-v2",
+    "exit": 0,
+    "seconds": 818.1937167644501
+  },
+  {
+    "name": "candidate-collector-off",
+    "exit": 0,
+    "seconds": 87.24267292022705
+  },
+  {
+    "name": "candidate-contention-2cpu",
+    "exit": 0,
+    "seconds": 4.789477825164795
+  },
+  {
+    "name": "candidate-profiles",
+    "exit": 0,
+    "seconds": 9.872045516967773
+  },
+  {
+    "name": "baseline-soak-11",
+    "exit": 0,
+    "seconds": 106.80052185058594
+  },
+  {
+    "name": "baseline-soak-100",
+    "exit": 0,
+    "seconds": 1801.7307469844818
+  },
+  {
+    "name": "candidate-soak-11",
+    "exit": 0,
+    "seconds": 108.48717880249023
+  },
+  {
+    "name": "candidate-soak-100",
+    "exit": 0,
+    "seconds": 1801.092699766159
+  }
+]

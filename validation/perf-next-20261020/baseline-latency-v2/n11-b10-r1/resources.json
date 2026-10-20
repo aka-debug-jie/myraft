@@ -1,0 +1,310 @@
+[
+  {
+    "elapsed_seconds": 8.968636393547058e-07,
+    "processes": {
+      "node-1": {
+        "cpu_seconds": 0.17,
+        "rss_bytes": 11472896,
+        "threads": 7,
+        "handles": 20
+      },
+      "node-2": {
+        "cpu_seconds": 0.15,
+        "rss_bytes": 9977856,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-3": {
+        "cpu_seconds": 0.14,
+        "rss_bytes": 9957376,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-4": {
+        "cpu_seconds": 0.12,
+        "rss_bytes": 9977856,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-5": {
+        "cpu_seconds": 0.16,
+        "rss_bytes": 9977856,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-6": {
+        "cpu_seconds": 0.15,
+        "rss_bytes": 9957376,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-7": {
+        "cpu_seconds": 0.15,
+        "rss_bytes": 9949184,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-8": {
+        "cpu_seconds": 0.16,
+        "rss_bytes": 9961472,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-9": {
+        "cpu_seconds": 0.16,
+        "rss_bytes": 9961472,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-10": {
+        "cpu_seconds": 0.14,
+        "rss_bytes": 9961472,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-11": {
+        "cpu_seconds": 0.15,
+        "rss_bytes": 9957376,
+        "threads": 7,
+        "handles": 11
+      },
+      "controller": {
+        "cpu_seconds": 0.21,
+        "rss_bytes": 16175104,
+        "threads": 6,
+        "handles": 27
+      }
+    }
+  },
+  {
+    "elapsed_seconds": 0.2532818363979459,
+    "processes": {
+      "node-1": {
+        "cpu_seconds": 0.32,
+        "rss_bytes": 15142912,
+        "threads": 7,
+        "handles": 21
+      },
+      "node-2": {
+        "cpu_seconds": 0.22,
+        "rss_bytes": 12099584,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-3": {
+        "cpu_seconds": 0.2,
+        "rss_bytes": 12083200,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-4": {
+        "cpu_seconds": 0.2,
+        "rss_bytes": 12103680,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-5": {
+        "cpu_seconds": 0.22,
+        "rss_bytes": 12103680,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-6": {
+        "cpu_seconds": 0.22,
+        "rss_bytes": 12083200,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-7": {
+        "cpu_seconds": 0.22,
+        "rss_bytes": 12079104,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-8": {
+        "cpu_seconds": 0.22,
+        "rss_bytes": 12095488,
+        "threads": 7,
+        "handles": 12
+      },
+      "node-9": {
+        "cpu_seconds": 0.22,
+        "rss_bytes": 12095488,
+        "threads": 7,
+        "handles": 12
+      },
+      "node-10": {
+        "cpu_seconds": 0.22,
+        "rss_bytes": 12099584,
+        "threads": 7,
+        "handles": 12
+      },
+      "node-11": {
+        "cpu_seconds": 0.23,
+        "rss_bytes": 12066816,
+        "threads": 7,
+        "handles": 12
+      },
+      "controller": {
+        "cpu_seconds": 0.21,
+        "rss_bytes": 16175104,
+        "threads": 6,
+        "handles": 27
+      }
+    }
+  },
+  {
+    "elapsed_seconds": 0.505669491365552,
+    "processes": {
+      "node-1": {
+        "cpu_seconds": 0.48,
+        "rss_bytes": 15147008,
+        "threads": 7,
+        "handles": 21
+      },
+      "node-2": {
+        "cpu_seconds": 0.29,
+        "rss_bytes": 13815808,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-3": {
+        "cpu_seconds": 0.29,
+        "rss_bytes": 13983744,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-4": {
+        "cpu_seconds": 0.27,
+        "rss_bytes": 13832192,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-5": {
+        "cpu_seconds": 0.3,
+        "rss_bytes": 13881344,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-6": {
+        "cpu_seconds": 0.31,
+        "rss_bytes": 14016512,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-7": {
+        "cpu_seconds": 0.29,
+        "rss_bytes": 13844480,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-8": {
+        "cpu_seconds": 0.3,
+        "rss_bytes": 13799424,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-9": {
+        "cpu_seconds": 0.29,
+        "rss_bytes": 13819904,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-10": {
+        "cpu_seconds": 0.3,
+        "rss_bytes": 13819904,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-11": {
+        "cpu_seconds": 0.32,
+        "rss_bytes": 13914112,
+        "threads": 7,
+        "handles": 12
+      },
+      "controller": {
+        "cpu_seconds": 0.21,
+        "rss_bytes": 16175104,
+        "threads": 6,
+        "handles": 27
+      }
+    }
+  },
+  {
+    "elapsed_seconds": 0.7585817454382777,
+    "processes": {
+      "node-1": {
+        "cpu_seconds": 0.65,
+        "rss_bytes": 15077376,
+        "threads": 7,
+        "handles": 22
+      },
+      "node-2": {
+        "cpu_seconds": 0.38,
+        "rss_bytes": 14651392,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-3": {
+        "cpu_seconds": 0.38,
+        "rss_bytes": 14614528,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-4": {
+        "cpu_seconds": 0.35,
+        "rss_bytes": 14671872,
+        "threads": 7,
+        "handles": 12
+      },
+      "node-5": {
+        "cpu_seconds": 0.37,
+        "rss_bytes": 14557184,
+        "threads": 7,
+        "handles": 12
+      },
+      "node-6": {
+        "cpu_seconds": 0.4,
+        "rss_bytes": 14577664,
+        "threads": 7,
+        "handles": 12
+      },
+      "node-7": {
+        "cpu_seconds": 0.36,
+        "rss_bytes": 14647296,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-8": {
+        "cpu_seconds": 0.37,
+        "rss_bytes": 14639104,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-9": {
+        "cpu_seconds": 0.38,
+        "rss_bytes": 14614528,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-10": {
+        "cpu_seconds": 0.39,
+        "rss_bytes": 14643200,
+        "threads": 7,
+        "handles": 11
+      },
+      "node-11": {
+        "cpu_seconds": 0.4,
+        "rss_bytes": 14585856,
+        "threads": 7,
+        "handles": 11
+      },
+      "controller": {
+        "cpu_seconds": 0.21,
+        "rss_bytes": 16175104,
+        "threads": 6,
+        "handles": 27
+      }
+    }
+  }
+]

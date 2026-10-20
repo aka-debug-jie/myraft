@@ -1,0 +1,25 @@
+test_create_and_experiment_form_drafts_survive_blur_and_sse (__main__.DashboardBrowserTests.test_create_and_experiment_form_drafts_survive_blur_and_sse)
+Synthetic typing, blur, and SSE renders preserve both form drafts. ... ok
+test_experiment_chart_separates_requested_workloads (__main__.DashboardBrowserTests.test_experiment_chart_separates_requested_workloads)
+Rows with distinct requested command counts have separate chart groups. ... ok
+test_live_console_read_only_tabs_and_screenshots (__main__.DashboardBrowserTests.test_live_console_read_only_tabs_and_screenshots)
+Capture the supplied live target; only GET traffic is allowed. ... skipped '--synthetic-only: no live console target was supplied'
+test_log_request_in_flight_then_session_generation_switch (__main__.DashboardBrowserTests.test_log_request_in_flight_then_session_generation_switch)
+A stale synthetic LogRange response must not leave the read button disabled. ... ok
+test_mobile_menu_keyboard_focus_theme_and_projection (__main__.DashboardBrowserTests.test_mobile_menu_keyboard_focus_theme_and_projection)
+Exercise mobile navigation and presentation controls without API writes. ... ok
+test_stage_event_budget_fit_and_update_cost (__main__.DashboardBrowserTests.test_stage_event_budget_fit_and_update_cost)
+Synthetic rendering cost only; no claim about protocol or network timing. ... ok
+test_synthetic_empty_connection_error_and_stale_fixtures (__main__.DashboardBrowserTests.test_synthetic_empty_connection_error_and_stale_fixtures)
+Check empty, disconnected, and stale labels using intercepted fixtures. ... ok
+test_synthetic_loading_fixture (__main__.DashboardBrowserTests.test_synthetic_loading_fixture)
+Capture the shipped initial loading markup with app bootstrap intercepted. ... ok
+test_synthetic_stage_layout_counts_and_leader_stability (__main__.DashboardBrowserTests.test_synthetic_stage_layout_counts_and_leader_stability)
+Exercise the Stage DOM renderer with synthetic 11, 50, and 100 node fixtures. ... ok
+test_unsafe_integer_api_and_sse_values_remain_exact (__main__.DashboardBrowserTests.test_unsafe_integer_api_and_sse_values_remain_exact)
+Raw JSON fixtures preserve unsafe integers in API responses and displayed SSE data. ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 10.577s
+
+OK (skipped=1)

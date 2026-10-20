@@ -1,0 +1,59 @@
+{
+  "nodes": 10,
+  "scenario": "failover",
+  "requested_commands": 2101,
+  "seed": 43,
+  "result": "PASS",
+  "elapsed_seconds": 3.632531021721661,
+  "error": null,
+  "batch_size": 128,
+  "round": 2,
+  "launch_seconds": 0.007799363695085049,
+  "initial_leader": 7,
+  "initial_local_election_ms": 5.995,
+  "initial_election_observed_seconds": 3.344362893141806,
+  "failure_plan": [
+    {
+      "id": 7,
+      "role": "Leader",
+      "term": 1
+    }
+  ],
+  "killed_ids": [
+    7
+  ],
+  "stop_records": [
+    {
+      "id": 7,
+      "role": "Leader",
+      "term": 1,
+      "start_offset_seconds": 3.5628808941692114,
+      "started_at_utc": "2026-10-20T14:19:32.641166+00:00",
+      "end_offset_seconds": 3.5664868392050266,
+      "ended_at_utc": "2026-10-20T14:19:32.644770+00:00",
+      "remaining_nodes": 9,
+      "quorum": 6,
+      "majority_available": true
+    }
+  ],
+  "kill_seconds": 0.0036524683237075806,
+  "leader_observed_seconds": 3.617646544240415,
+  "election_observed_seconds": 3.617646544240415,
+  "fault_local_election_ms": 6.392,
+  "service_restored_seconds": 3.632531021721661,
+  "local_election_ms": 6.392,
+  "restarted_nodes_caught_up": true,
+  "checkpoint_index": 2102,
+  "checkpoint_hash": "793e47def68e2ed8c5b0a9f90258807b3df3a6d48384454ddea358e5878709fd",
+  "checkpoint_x": 8,
+  "checkpoint_preserved": true,
+  "final_leader": 1,
+  "final_term": 2,
+  "committed_commands": 2102,
+  "commit_index": 2104,
+  "x": 8,
+  "committed_hash": "3257bcda6cb9e3139ac8de62914fa804ccba8e912495b37f81e76660f10d39d3",
+  "last_query_seconds": 0.024341574870049953,
+  "independent_reference": "PASS",
+  "query_timeouts": 0
+}

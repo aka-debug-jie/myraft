@@ -1,0 +1,24 @@
+File: raft.test
+Build ID: 14a87d5c1fca29c0191e763d493d15a056712f3a
+Type: cpu
+Time: 2026-10-20 21:30:39 CST
+Duration: 11.11s, Total samples = 2670ms (24.03%)
+Showing nodes accounting for 1700ms, 63.67% of 2670ms total
+Dropped 181 nodes (cum <= 13.35ms)
+Showing top 15 nodes out of 245
+      flat  flat%   sum%        cum   cum%
+     600ms 22.47% 22.47%      600ms 22.47%  internal/runtime/syscall/linux.Syscall6
+     210ms  7.87% 30.34%      210ms  7.87%  runtime.memmove
+     200ms  7.49% 37.83%      820ms 30.71%  encoding/json/v2.makeStructArshaler.func2
+     160ms  5.99% 43.82%      160ms  5.99%  runtime.tryDeferToSpanScan
+     120ms  4.49% 48.31%      150ms  5.62%  reflect.Value.Field
+      60ms  2.25% 50.56%      240ms  8.99%  runtime.scanObject
+      60ms  2.25% 52.81%       70ms  2.62%  runtime.typePointers.next
+      50ms  1.87% 54.68%       50ms  1.87%  crypto/internal/fips140/sha256.blockSHANI
+      40ms  1.50% 56.18%       40ms  1.50%  encoding/json/internal/jsonflags.Flags.Get
+      40ms  1.50% 57.68%      130ms  4.87%  encoding/json/jsontext.(*encoderState).WriteToken
+      40ms  1.50% 59.18%       40ms  1.50%  myraft/raft.validateCommand
+      30ms  1.12% 60.30%       60ms  2.25%  encoding/json/jsontext.(*encoderState).reset
+      30ms  1.12% 61.42%       30ms  1.12%  encoding/json/jsontext.(*stateMachine).popObject (inline)
+      30ms  1.12% 62.55%       30ms  1.12%  internal/abi.Name.IsExported (inline)
+      30ms  1.12% 63.67%       40ms  1.50%  runtime.step

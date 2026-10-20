@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="420" viewBox="0 0 1100 420">
+<rect width="1100" height="420" fill="#f5f7f5"/>
+<g font-family="sans-serif" fill="#263c35" font-size="13">
+<text x="40" y="28">每轮 P95 的中位数；范围为轮次最小/最大。纵轴毫秒，横轴节点数/浏览器数。</text>
+<text x="40" y="50">基线：灰蓝 · 候选：青绿 · 缺失结果不绘点</text>
+<path d="M70 350H1060" stroke="#dbe1dd"/><text x="5" y="355">0.0</text>
+<path d="M70 285H1060" stroke="#dbe1dd"/><text x="5" y="290">5.5</text>
+<path d="M70 220H1060" stroke="#dbe1dd"/><text x="5" y="225">11.1</text>
+<path d="M70 155H1060" stroke="#dbe1dd"/><text x="5" y="160">16.6</text>
+<path d="M70 90H1060" stroke="#dbe1dd"/><text x="5" y="95">22.1</text>
+<text x="100.0" y="380" text-anchor="middle">11/10</text>
+<path d="M94.0 301.35295333063993V295.87269729444256" stroke="#728499"/><circle cx="94.0" cy="300.63767509174454" r="4" fill="#728499"><title>baseline: 4.197 ms</title></circle>
+<path d="M106.0 299.48332296308814V293.86383575558017" stroke="#268b6b"/><circle cx="106.0" cy="298.017085484051" r="4" fill="#268b6b"><title>candidate: 4.420 ms</title></circle>
+<text x="565.0" y="380" text-anchor="middle">100/0</text>
+<path d="M559.0 107.86466820974948V93.46313870864844" stroke="#728499"/><circle cx="559.0" cy="97.7843972650054" r="4" fill="#728499"><title>baseline: 21.446 ms</title></circle>
+<path d="M571.0 124.20844844184879V90.0" stroke="#268b6b"/><circle cx="571.0" cy="94.66325048656321" r="4" fill="#268b6b"><title>candidate: 21.712 ms</title></circle>
+<text x="1030.0" y="380" text-anchor="middle">100/5</text>
+<path d="M1024.0 102.61065841678831V92.7327954194576" stroke="#728499"/><circle cx="1024.0" cy="96.50729026126325" r="4" fill="#728499"><title>baseline: 21.555 ms</title></circle>
+<path d="M1036.0 108.30718789165465V103.206674614273" stroke="#268b6b"/><circle cx="1036.0" cy="108.25719450460832" r="4" fill="#268b6b"><title>candidate: 20.556 ms</title></circle>
+</g></svg>

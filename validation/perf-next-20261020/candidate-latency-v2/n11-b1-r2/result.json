@@ -1,0 +1,21 @@
+{
+  "nodes": 11,
+  "browsers": 1,
+  "round": 2,
+  "batch": 128,
+  "collector": true,
+  "result": "PASS",
+  "requested_samples": 200,
+  "idle_sampling": {
+    "rounds": 5,
+    "monitor_rpcs": 55,
+    "expected_summary_rpcs": 55
+  },
+  "probe_wall_seconds": 0.9628840265795588,
+  "percentile_population": "successful_requests_only",
+  "attempts": 200,
+  "successes": 200,
+  "failures": 0,
+  "p50_seconds": 0.004155527500000001,
+  "p95_seconds": 0.004863604
+}

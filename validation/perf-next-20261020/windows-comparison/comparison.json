@@ -1,0 +1,82 @@
+{
+  "sources": {
+    "baseline": {
+      "environment_sha256": "9f585e476c4dd00050c860383a08375a9ff489acf1fd55ef9a4b1d957a6783c2",
+      "results_sha256": "8c28ea1fab46f3d7a5c40e52890f69f0f8ced6b33e8d35f041310c97a9f6c970"
+    },
+    "candidate": {
+      "environment_sha256": "1e0cc65879ebabbc69157cf67553016eb357d0c78f7a1a007fa290f43d9233ec",
+      "results_sha256": "2304feca057222fb47b2c8b58d75cfd0d645d1c8105508656f462bf44e5f3c21"
+    }
+  },
+  "groups": [
+    {
+      "nodes": 11,
+      "browsers": 0,
+      "batch": 128,
+      "collector": true,
+      "baseline": {
+        "attempted_rounds": 3,
+        "planned_rounds": 3,
+        "passed_rounds": 3,
+        "failed_rounds": 0,
+        "interrupted_rounds": 0,
+        "successful_requests": 600,
+        "p50_seconds": 0.027918600000000002,
+        "p95_seconds": 0.0341023,
+        "p95_range_seconds": [
+          0.0337034,
+          0.0343465
+        ]
+      },
+      "candidate": {
+        "attempted_rounds": 3,
+        "planned_rounds": 3,
+        "passed_rounds": 3,
+        "failed_rounds": 0,
+        "interrupted_rounds": 0,
+        "successful_requests": 600,
+        "p50_seconds": 0.0307353,
+        "p95_seconds": 0.0370695,
+        "p95_range_seconds": [
+          0.0310434,
+          0.0376047
+        ]
+      }
+    },
+    {
+      "nodes": 100,
+      "browsers": 0,
+      "batch": 128,
+      "collector": true,
+      "baseline": {
+        "attempted_rounds": 3,
+        "planned_rounds": 3,
+        "passed_rounds": 3,
+        "failed_rounds": 0,
+        "interrupted_rounds": 0,
+        "successful_requests": 600,
+        "p50_seconds": 0.25361885,
+        "p95_seconds": 0.2929214,
+        "p95_range_seconds": [
+          0.2826194,
+          0.2968469
+        ]
+      },
+      "candidate": {
+        "attempted_rounds": 3,
+        "planned_rounds": 3,
+        "passed_rounds": 3,
+        "failed_rounds": 0,
+        "interrupted_rounds": 0,
+        "successful_requests": 600,
+        "p50_seconds": 0.25136674999999997,
+        "p95_seconds": 0.2920516,
+        "p95_range_seconds": [
+          0.2856943,
+          0.2948722
+        ]
+      }
+    }
+  ]
+}

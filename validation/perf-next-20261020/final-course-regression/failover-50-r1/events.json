@@ -1,0 +1,391 @@
+[
+  {
+    "event": "processes_started",
+    "offset_seconds": 0.047300856560468674
+  },
+  {
+    "event": "leader_observed",
+    "offset_seconds": 3.442431813105941
+  },
+  {
+    "event": "commands_committed",
+    "offset_seconds": 3.6024895682930946
+  },
+  {
+    "event": "fault_started",
+    "offset_seconds": 3.7579872608184814
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.758010528050363,
+    "id": 44,
+    "role": "Leader",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.765618935227394,
+    "id": 44,
+    "role": "Leader",
+    "term": 1,
+    "remaining_nodes": 49,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.765627725981176,
+    "id": 8,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.7669903272762895,
+    "id": 8,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 48,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.7669966500252485,
+    "id": 2,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.7683216482400894,
+    "id": 2,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 47,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.7683284068480134,
+    "id": 18,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.771717100404203,
+    "id": 18,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 46,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.77172365039587,
+    "id": 16,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.773076946847141,
+    "id": 16,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 45,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.7730825105682015,
+    "id": 15,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.774404611438513,
+    "id": 15,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 44,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.7744102254509926,
+    "id": 9,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.777750948444009,
+    "id": 9,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 43,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.777756524272263,
+    "id": 7,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.7811349472030997,
+    "id": 7,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 42,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.781140334904194,
+    "id": 35,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.7845727913081646,
+    "id": 35,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 41,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.7845783289521933,
+    "id": 6,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.787949505262077,
+    "id": 6,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 40,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.7879560152068734,
+    "id": 38,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.791377038694918,
+    "id": 38,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 39,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.7913823472335935,
+    "id": 28,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.7927030120044947,
+    "id": 28,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 38,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.792708040215075,
+    "id": 3,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.794000681489706,
+    "id": 3,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 37,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.7940059369429946,
+    "id": 49,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.7953943368047476,
+    "id": 49,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 36,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.7954000998288393,
+    "id": 41,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.7988844718784094,
+    "id": 41,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 35,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.7988899378106,
+    "id": 14,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.800212288275361,
+    "id": 14,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 34,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.800217998214066,
+    "id": 46,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.8016138412058353,
+    "id": 46,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 33,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8016191450878978,
+    "id": 33,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.8029616167768836,
+    "id": 33,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 32,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8029668545350432,
+    "id": 37,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.804292726330459,
+    "id": 37,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 31,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8042984791100025,
+    "id": 48,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.8056710930541158,
+    "id": 48,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 30,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.805678370408714,
+    "id": 43,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.808993875980377,
+    "id": 43,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 29,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "replacement_observed",
+    "offset_seconds": 7.055058985948563
+  },
+  {
+    "event": "replacement_write_committed",
+    "offset_seconds": 7.07655066344887
+  },
+  {
+    "event": "nodes_restarted",
+    "offset_seconds": 7.246806842274964
+  },
+  {
+    "event": "converged",
+    "offset_seconds": 7.601894571445882
+  }
+]

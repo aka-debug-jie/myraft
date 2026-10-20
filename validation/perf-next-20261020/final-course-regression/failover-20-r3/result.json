@@ -1,0 +1,167 @@
+{
+  "nodes": 20,
+  "scenario": "failover",
+  "requested_commands": 2101,
+  "seed": 44,
+  "result": "PASS",
+  "elapsed_seconds": 3.3247511852532625,
+  "error": null,
+  "batch_size": 128,
+  "round": 3,
+  "launch_seconds": 0.012992068193852901,
+  "initial_leader": 18,
+  "initial_local_election_ms": 13.762,
+  "initial_election_observed_seconds": 4.370293778367341,
+  "failure_plan": [
+    {
+      "id": 18,
+      "role": "Leader",
+      "term": 1
+    },
+    {
+      "id": 17,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 19,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 4,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 6,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 7,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 20,
+      "role": "Follower",
+      "term": 1
+    }
+  ],
+  "killed_ids": [
+    18,
+    17,
+    19,
+    4,
+    6,
+    7,
+    20
+  ],
+  "stop_records": [
+    {
+      "id": 18,
+      "role": "Leader",
+      "term": 1,
+      "start_offset_seconds": 4.629147167317569,
+      "started_at_utc": "2026-10-20T14:20:54.495233+00:00",
+      "end_offset_seconds": 4.632459635846317,
+      "ended_at_utc": "2026-10-20T14:20:54.498549+00:00",
+      "remaining_nodes": 19,
+      "quorum": 11,
+      "majority_available": true
+    },
+    {
+      "id": 17,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.632477598264813,
+      "started_at_utc": "2026-10-20T14:20:54.498561+00:00",
+      "end_offset_seconds": 4.636025100946426,
+      "ended_at_utc": "2026-10-20T14:20:54.502110+00:00",
+      "remaining_nodes": 18,
+      "quorum": 11,
+      "majority_available": true
+    },
+    {
+      "id": 19,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.636052479036152,
+      "started_at_utc": "2026-10-20T14:20:54.502137+00:00",
+      "end_offset_seconds": 4.637294510379434,
+      "ended_at_utc": "2026-10-20T14:20:54.503378+00:00",
+      "remaining_nodes": 17,
+      "quorum": 11,
+      "majority_available": true
+    },
+    {
+      "id": 4,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.637305865064263,
+      "started_at_utc": "2026-10-20T14:20:54.503389+00:00",
+      "end_offset_seconds": 4.640807087533176,
+      "ended_at_utc": "2026-10-20T14:20:54.506892+00:00",
+      "remaining_nodes": 16,
+      "quorum": 11,
+      "majority_available": true
+    },
+    {
+      "id": 6,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.640832833014429,
+      "started_at_utc": "2026-10-20T14:20:54.506916+00:00",
+      "end_offset_seconds": 4.64229856710881,
+      "ended_at_utc": "2026-10-20T14:20:54.508384+00:00",
+      "remaining_nodes": 15,
+      "quorum": 11,
+      "majority_available": true
+    },
+    {
+      "id": 7,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.642325124703348,
+      "started_at_utc": "2026-10-20T14:20:54.508409+00:00",
+      "end_offset_seconds": 4.6458290768787265,
+      "ended_at_utc": "2026-10-20T14:20:54.511914+00:00",
+      "remaining_nodes": 14,
+      "quorum": 11,
+      "majority_available": true
+    },
+    {
+      "id": 20,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 4.645852900110185,
+      "started_at_utc": "2026-10-20T14:20:54.511936+00:00",
+      "end_offset_seconds": 4.6491281213238835,
+      "ended_at_utc": "2026-10-20T14:20:54.515212+00:00",
+      "remaining_nodes": 13,
+      "quorum": 11,
+      "majority_available": true
+    }
+  ],
+  "kill_seconds": 0.019994237460196018,
+  "leader_observed_seconds": 3.2998817656189203,
+  "election_observed_seconds": 3.2998817656189203,
+  "fault_local_election_ms": 5.719,
+  "service_restored_seconds": 3.3247511852532625,
+  "local_election_ms": 5.719,
+  "restarted_nodes_caught_up": true,
+  "checkpoint_index": 2102,
+  "checkpoint_hash": "8c02da0f37882bfdf75b86e0aedf2d2c5366dafdde6458edcfc428159ff6e7c8",
+  "checkpoint_x": -1,
+  "checkpoint_preserved": true,
+  "final_leader": 11,
+  "final_term": 2,
+  "committed_commands": 2102,
+  "commit_index": 2104,
+  "x": -1,
+  "committed_hash": "a1fd24ba496d4a99ed738382ff456f2cecea9e42a5fa6acd7333982537f457df",
+  "last_query_seconds": 0.03073124773800373,
+  "independent_reference": "PASS",
+  "query_timeouts": 0
+}

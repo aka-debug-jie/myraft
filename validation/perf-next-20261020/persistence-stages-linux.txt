@@ -1,0 +1,15 @@
+goos: linux
+goarch: amd64
+pkg: myraft/raft
+cpu: Intel(R) Xeon(R) Platinum 8336C CPU @ 2.30GHz
+BenchmarkPersistenceStages/wal-json         	    9700	     38516 ns/op	    8256 B/op	       3 allocs/op
+BenchmarkPersistenceStages/wal-json         	   10000	     38618 ns/op	    8256 B/op	       3 allocs/op
+BenchmarkPersistenceStages/wal-json         	   10000	     39060 ns/op	    8256 B/op	       3 allocs/op
+BenchmarkPersistenceStages/wal-write-sync   	     867	    423410 ns/op	    414413 sync-ns/op	      8851 write-ns/op	       0 B/op	       0 allocs/op
+BenchmarkPersistenceStages/wal-write-sync   	     878	    432758 ns/op	    422808 sync-ns/op	      9791 write-ns/op	       0 B/op	       0 allocs/op
+BenchmarkPersistenceStages/wal-write-sync   	     789	    445145 ns/op	    432586 sync-ns/op	     12356 write-ns/op	       0 B/op	       0 allocs/op
+BenchmarkPersistenceStages/metadata-save    	     712	    516050 ns/op	    2183 B/op	      17 allocs/op
+BenchmarkPersistenceStages/metadata-save    	     716	    530211 ns/op	    2183 B/op	      17 allocs/op
+BenchmarkPersistenceStages/metadata-save    	     740	    514172 ns/op	    2183 B/op	      17 allocs/op
+PASS
+ok  	myraft/raft	3.986s

@@ -1,0 +1,42 @@
+[
+  {
+    "profile": "baseline.cpu.pprof",
+    "sha256": "2e44dcfaddd416059c5e707a48fdb5af3d5b2ddb8607742aeed8b3a76f89c52d",
+    "raw_location": "isolated local experiment root; binary profile retains debug paths"
+  },
+  {
+    "profile": "baseline.heap.pprof",
+    "sha256": "091b2c36c5cf7d32692db0632666f23213e45b543784318b3a0af82dd6696e0f",
+    "raw_location": "isolated local experiment root; binary profile retains debug paths"
+  },
+  {
+    "profile": "baseline.mutex.pprof",
+    "sha256": "0ad2e588668c01bdc2209ce648091c83ac41fc67123a42332c9afcb5a00f9bba",
+    "raw_location": "isolated local experiment root; binary profile retains debug paths"
+  },
+  {
+    "profile": "baseline.block.pprof",
+    "sha256": "331d93843b2ba7648c1e8872ee25bd072754e1c752457d7401652e3239b02b54",
+    "raw_location": "isolated local experiment root; binary profile retains debug paths"
+  },
+  {
+    "profile": "candidate.cpu.pprof",
+    "sha256": "10095aa4eb3d635ef27ba00794427f4a91dc556d1f473cb2dd10b34c76ee672c",
+    "raw_location": "isolated local experiment root; binary profile retains debug paths"
+  },
+  {
+    "profile": "candidate.heap.pprof",
+    "sha256": "ea08206278f71f0a128977ba3a5aef4a482424403dadfa64bfd8e975ba888b53",
+    "raw_location": "isolated local experiment root; binary profile retains debug paths"
+  },
+  {
+    "profile": "candidate.mutex.pprof",
+    "sha256": "6f59f0d2e8569cc0ed54950aae4fc2a7b37ca15f5889c60dff3a111fa582e6e9",
+    "raw_location": "isolated local experiment root; binary profile retains debug paths"
+  },
+  {
+    "profile": "candidate.block.pprof",
+    "sha256": "fa86aa542d2033da4b06b177f4dc853009ff614036d78862bd798f3860ef4da5",
+    "raw_location": "isolated local experiment root; binary profile retains debug paths"
+  }
+]

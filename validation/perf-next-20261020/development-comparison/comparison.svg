@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="420" viewBox="0 0 1100 420">
+<rect width="1100" height="420" fill="#f5f7f5"/>
+<g font-family="sans-serif" fill="#263c35" font-size="13">
+<text x="40" y="28">每轮 P95 的中位数；范围为轮次最小/最大。纵轴毫秒，横轴节点数/浏览器数。</text>
+<text x="40" y="50">基线：灰蓝 · 候选：青绿 · 缺失结果不绘点</text>
+<path d="M70 350H1060" stroke="#dbe1dd"/><text x="5" y="355">0.0</text>
+<path d="M70 285H1060" stroke="#dbe1dd"/><text x="5" y="290">6.7</text>
+<path d="M70 220H1060" stroke="#dbe1dd"/><text x="5" y="225">13.3</text>
+<path d="M70 155H1060" stroke="#dbe1dd"/><text x="5" y="160">20.0</text>
+<path d="M70 90H1060" stroke="#dbe1dd"/><text x="5" y="95">26.7</text>
+<text x="100.0" y="380" text-anchor="middle">11/0</text>
+<path d="M94.0 303.35300901551614V297.65755228112243" stroke="#728499"/><circle cx="94.0" cy="302.95052141981984" r="4" fill="#728499"><title>baseline: 4.828 ms</title></circle>
+<path d="M106.0 311.45434841083954V295.97621355517254" stroke="#268b6b"/><circle cx="106.0" cy="307.0934717084956" r="4" fill="#268b6b"><title>candidate: 4.403 ms</title></circle>
+<text x="184.54545454545456" y="380" text-anchor="middle">11/1</text>
+<path d="M178.54545454545456 305.4197434515617V298.25688889678446" stroke="#728499"/><circle cx="178.54545454545456" cy="298.34865302831344" r="4" fill="#728499"><title>baseline: 5.301 ms</title></circle>
+<path d="M190.54545454545456 304.40526111055954V296.0538481347511" stroke="#268b6b"/><circle cx="190.54545454545456" cy="302.6065204246796" r="4" fill="#268b6b"><title>candidate: 4.864 ms</title></circle>
+<text x="269.0909090909091" y="380" text-anchor="middle">11/5</text>
+<path d="M263.0909090909091 305.6940808833271V295.8937359498565" stroke="#728499"/><circle cx="263.0909090909091" cy="303.03070906326803" r="4" fill="#728499"><title>baseline: 4.820 ms</title></circle>
+<path d="M275.0909090909091 308.7313888596241V302.96067520818696" stroke="#268b6b"/><circle cx="275.0909090909091" cy="307.2076872108478" r="4" fill="#268b6b"><title>candidate: 4.391 ms</title></circle>
+<text x="353.6363636363636" y="380" text-anchor="middle">11/10</text>
+<path d="M347.6363636363636 305.3111310473967V298.4561935354339" stroke="#728499"/><circle cx="347.6363636363636" cy="302.43219098716736" r="4" fill="#728499"><title>baseline: 4.881 ms</title></circle>
+<path d="M359.6363636363636 299.4213198897955V297.60722184262323" stroke="#268b6b"/><circle cx="359.6363636363636" cy="299.13262878215215" r="4" fill="#268b6b"><title>candidate: 5.220 ms</title></circle>
+<text x="438.1818181818182" y="380" text-anchor="middle">50/0</text>
+<path d="M432.1818181818182 247.96943346905573V237.4902853708503" stroke="#728499"/><circle cx="432.1818181818182" cy="242.06092258028707" r="4" fill="#728499"><title>baseline: 11.077 ms</title></circle>
+<path d="M444.1818181818182 265.39014784945783V234.41106622011287" stroke="#268b6b"/><circle cx="444.1818181818182" cy="253.50395947899358" r="4" fill="#268b6b"><title>candidate: 9.903 ms</title></circle>
+<text x="522.7272727272727" y="380" text-anchor="middle">50/1</text>
+<path d="M516.7272727272727 267.2789863541884V233.06364291256614" stroke="#728499"/><circle cx="516.7272727272727" cy="249.6793431235012" r="4" fill="#728499"><title>baseline: 10.295 ms</title></circle>
+<path d="M528.7272727272727 275.56313291819436V255.30425928784734" stroke="#268b6b"/><circle cx="528.7272727272727" cy="255.61690242217622" r="4" fill="#268b6b"><title>candidate: 9.686 ms</title></circle>
+<text x="607.2727272727273" y="380" text-anchor="middle">50/5</text>
+<path d="M601.2727272727273 238.8124996088138V231.85400709783238" stroke="#728499"/><circle cx="601.2727272727273" cy="238.07618429538155" r="4" fill="#728499"><title>baseline: 11.486 ms</title></circle>
+<path d="M613.2727272727273 256.6913427860411V238.1027283640111" stroke="#268b6b"/><circle cx="613.2727272727273" cy="246.40556491466594" r="4" fill="#268b6b"><title>candidate: 10.631 ms</title></circle>
+<text x="691.8181818181819" y="380" text-anchor="middle">50/10</text>
+<path d="M685.8181818181819 246.68864317960345V235.40930444863136" stroke="#728499"/><circle cx="685.8181818181819" cy="241.6626348721015" r="4" fill="#728499"><title>baseline: 11.118 ms</title></circle>
+<path d="M697.8181818181819 250.25854756376353V226.3226772899909" stroke="#268b6b"/><circle cx="697.8181818181819" cy="239.04310364116304" r="4" fill="#268b6b"><title>candidate: 11.387 ms</title></circle>
+<text x="776.3636363636364" y="380" text-anchor="middle">100/0</text>
+<path d="M770.3636363636364 168.1354673229375V139.3311283736507" stroke="#728499"/><circle cx="770.3636363636364" cy="144.43606728170317" r="4" fill="#728499"><title>baseline: 21.095 ms</title></circle>
+<path d="M782.3636363636364 145.3583567323586V90.0" stroke="#268b6b"/><circle cx="782.3636363636364" cy="127.13612646466206" r="4" fill="#268b6b"><title>candidate: 22.871 ms</title></circle>
+<text x="860.9090909090909" y="380" text-anchor="middle">100/1</text>
+<path d="M854.9090909090909 147.07405463084447V141.15553612148747" stroke="#728499"/><circle cx="854.9090909090909" cy="144.11690506443992" r="4" fill="#728499"><title>baseline: 21.128 ms</title></circle>
+<path d="M866.9090909090909 147.35539837147357V101.15922779487502" stroke="#268b6b"/><circle cx="866.9090909090909" cy="147.27485018083766" r="4" fill="#268b6b"><title>candidate: 20.804 ms</title></circle>
+<text x="945.4545454545455" y="380" text-anchor="middle">100/5</text>
+<path d="M939.4545454545455 141.83893869899507V141.02068172876903" stroke="#728499"/><circle cx="939.4545454545455" cy="141.1223073131075" r="4" fill="#728499"><title>baseline: 21.435 ms</title></circle>
+<path d="M951.4545454545455 148.13777602426416V122.37451617996729" stroke="#268b6b"/><circle cx="951.4545454545455" cy="125.97964699881754" r="4" fill="#268b6b"><title>candidate: 22.989 ms</title></circle>
+<text x="1030.0" y="380" text-anchor="middle">100/10</text>
+<path d="M1024.0 145.45351195635567V129.03276058426184" stroke="#728499"/><circle cx="1024.0" cy="129.65598101497932" r="4" fill="#728499"><title>baseline: 22.612 ms</title></circle>
+<path d="M1036.0 140.07129277192462V130.80024085451635" stroke="#268b6b"/><circle cx="1036.0" cy="138.6271063948141" r="4" fill="#268b6b"><title>candidate: 21.691 ms</title></circle>
+</g></svg>

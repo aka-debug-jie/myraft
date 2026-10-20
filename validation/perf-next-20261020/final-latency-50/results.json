@@ -1,0 +1,254 @@
+[
+  {
+    "nodes": 50,
+    "browsers": 10,
+    "round": 1,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.8839928405359387,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.0077734845,
+    "p95_seconds": 0.012207341
+  },
+  {
+    "nodes": 50,
+    "browsers": 5,
+    "round": 1,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.7102615013718605,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.0072472149999999996,
+    "p95_seconds": 0.0100879
+  },
+  {
+    "nodes": 50,
+    "browsers": 1,
+    "round": 1,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.8098721336573362,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.007554527,
+    "p95_seconds": 0.011850186
+  },
+  {
+    "nodes": 50,
+    "browsers": 0,
+    "round": 1,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.4864935604855418,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.0060713095,
+    "p95_seconds": 0.00923036
+  },
+  {
+    "nodes": 50,
+    "browsers": 0,
+    "round": 2,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.6958383163437247,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.007144886,
+    "p95_seconds": 0.010825235
+  },
+  {
+    "nodes": 50,
+    "browsers": 1,
+    "round": 2,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.950560382567346,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.0083168435,
+    "p95_seconds": 0.011927848
+  },
+  {
+    "nodes": 50,
+    "browsers": 5,
+    "round": 2,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.8337249485775828,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.0075787295,
+    "p95_seconds": 0.012322964
+  },
+  {
+    "nodes": 50,
+    "browsers": 10,
+    "round": 2,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.6768870605155826,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.0068233905,
+    "p95_seconds": 0.010450136
+  },
+  {
+    "nodes": 50,
+    "browsers": 10,
+    "round": 3,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.486287660896778,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.0059046675,
+    "p95_seconds": 0.009760972
+  },
+  {
+    "nodes": 50,
+    "browsers": 5,
+    "round": 3,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.3421097183600068,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.005318569,
+    "p95_seconds": 0.007831256
+  },
+  {
+    "nodes": 50,
+    "browsers": 1,
+    "round": 3,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.2755955504253507,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.0049618555,
+    "p95_seconds": 0.007318091
+  },
+  {
+    "nodes": 50,
+    "browsers": 0,
+    "round": 3,
+    "batch": 128,
+    "collector": true,
+    "result": "PASS",
+    "requested_samples": 200,
+    "idle_sampling": {
+      "rounds": 5,
+      "monitor_rpcs": 250,
+      "expected_summary_rpcs": 250
+    },
+    "probe_wall_seconds": 1.4058950124308467,
+    "percentile_population": "successful_requests_only",
+    "attempts": 200,
+    "successes": 200,
+    "failures": 0,
+    "p50_seconds": 0.0054568355,
+    "p95_seconds": 0.008275861
+  }
+]

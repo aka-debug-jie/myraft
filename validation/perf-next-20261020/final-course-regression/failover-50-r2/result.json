@@ -1,0 +1,77 @@
+{
+  "nodes": 50,
+  "scenario": "failover",
+  "requested_commands": 2101,
+  "seed": 43,
+  "result": "PASS",
+  "elapsed_seconds": 3.28401686437428,
+  "error": null,
+  "batch_size": 128,
+  "round": 2,
+  "launch_seconds": 0.046791763976216316,
+  "initial_leader": 6,
+  "initial_local_election_ms": 13.273,
+  "initial_election_observed_seconds": 3.3279781006276608,
+  "failure_plan": [
+    {
+      "id": 6,
+      "role": "Leader",
+      "term": 1
+    },
+    {
+      "id": 20,
+      "role": "Follower",
+      "term": 1
+    }
+  ],
+  "killed_ids": [
+    6,
+    20
+  ],
+  "stop_records": [
+    {
+      "id": 6,
+      "role": "Leader",
+      "term": 1,
+      "start_offset_seconds": 3.569285432808101,
+      "started_at_utc": "2026-10-20T14:22:01.863833+00:00",
+      "end_offset_seconds": 3.5726783387362957,
+      "ended_at_utc": "2026-10-20T14:22:01.867205+00:00",
+      "remaining_nodes": 49,
+      "quorum": 26,
+      "majority_available": true
+    },
+    {
+      "id": 20,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 3.572701944038272,
+      "started_at_utc": "2026-10-20T14:22:01.867228+00:00",
+      "end_offset_seconds": 3.5739430068060756,
+      "ended_at_utc": "2026-10-20T14:22:01.868469+00:00",
+      "remaining_nodes": 48,
+      "quorum": 26,
+      "majority_available": true
+    }
+  ],
+  "kill_seconds": 0.004673547111451626,
+  "leader_observed_seconds": 3.2635905174538493,
+  "election_observed_seconds": 3.2635905174538493,
+  "fault_local_election_ms": 28.207,
+  "service_restored_seconds": 3.28401686437428,
+  "local_election_ms": 28.207,
+  "restarted_nodes_caught_up": true,
+  "checkpoint_index": 2102,
+  "checkpoint_hash": "793e47def68e2ed8c5b0a9f90258807b3df3a6d48384454ddea358e5878709fd",
+  "checkpoint_x": 8,
+  "checkpoint_preserved": true,
+  "final_leader": 11,
+  "final_term": 2,
+  "committed_commands": 2102,
+  "commit_index": 2104,
+  "x": 8,
+  "committed_hash": "3257bcda6cb9e3139ac8de62914fa804ccba8e912495b37f81e76660f10d39d3",
+  "last_query_seconds": 0.02900894358754158,
+  "independent_reference": "PASS",
+  "query_timeouts": 0
+}

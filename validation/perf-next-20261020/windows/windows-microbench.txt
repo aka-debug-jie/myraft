@@ -1,0 +1,21 @@
+goos: windows
+goarch: amd64
+pkg: myraft/raft
+cpu: Intel(R) Xeon(R) Platinum 8336C CPU @ 2.30GHz
+BenchmarkEntryHashEncoding/value         	      50	   7137269 ns/op	 1008667 B/op	   21011 allocs/op
+BenchmarkEntryHashEncoding/value         	      55	   7669531 ns/op	 1008667 B/op	   21011 allocs/op
+BenchmarkEntryHashEncoding/value         	      55	   7147812 ns/op	 1008667 B/op	   21011 allocs/op
+BenchmarkEntryHashEncoding/pointer       	      61	   5895418 ns/op	     130 B/op	       1 allocs/op
+BenchmarkEntryHashEncoding/pointer       	      61	   6818956 ns/op	     130 B/op	       1 allocs/op
+BenchmarkEntryHashEncoding/pointer       	      61	   5848043 ns/op	     130 B/op	       1 allocs/op
+BenchmarkPersistenceStages/wal-json      	   18266	     19108 ns/op	    8224 B/op	       2 allocs/op
+BenchmarkPersistenceStages/wal-json      	   18360	     19136 ns/op	    8224 B/op	       2 allocs/op
+BenchmarkPersistenceStages/wal-json      	   18904	     19104 ns/op	    8224 B/op	       2 allocs/op
+BenchmarkPersistenceStages/wal-write-sync         	     100	   3758701 ns/op	   3514672 sync-ns/op	    231578 write-ns/op	       1 B/op	       0 allocs/op
+BenchmarkPersistenceStages/wal-write-sync         	      85	   3754416 ns/op	   3266116 sync-ns/op	    455013 write-ns/op	       1 B/op	       0 allocs/op
+BenchmarkPersistenceStages/wal-write-sync         	      79	   3913927 ns/op	   3615561 sync-ns/op	    285247 write-ns/op	       1 B/op	       0 allocs/op
+BenchmarkPersistenceStages/metadata-save          	      34	  10560459 ns/op	    1607 B/op	      13 allocs/op
+BenchmarkPersistenceStages/metadata-save          	      28	  11267259 ns/op	    1608 B/op	      13 allocs/op
+BenchmarkPersistenceStages/metadata-save          	      34	  10241115 ns/op	    1608 B/op	      13 allocs/op
+PASS
+ok  	myraft/raft	9.001s

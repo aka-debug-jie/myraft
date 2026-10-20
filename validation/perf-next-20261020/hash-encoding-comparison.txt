@@ -1,0 +1,12 @@
+goos: linux
+goarch: amd64
+pkg: myraft/raft
+cpu: Intel(R) Xeon(R) Platinum 8336C CPU @ 2.30GHz
+BenchmarkEntryHashEncoding/value         	      27	  12684137 ns/op	 2017208 B/op	   42022 allocs/op
+BenchmarkEntryHashEncoding/value         	      34	  12908058 ns/op	 2017208 B/op	   42022 allocs/op
+BenchmarkEntryHashEncoding/value         	      34	  12898486 ns/op	 2017208 B/op	   42022 allocs/op
+BenchmarkEntryHashEncoding/pointer       	      43	   8228143 ns/op	     131 B/op	       1 allocs/op
+BenchmarkEntryHashEncoding/pointer       	      43	   8344213 ns/op	     131 B/op	       1 allocs/op
+BenchmarkEntryHashEncoding/pointer       	      42	   8160843 ns/op	     131 B/op	       1 allocs/op
+PASS
+ok  	myraft/raft	2.629s

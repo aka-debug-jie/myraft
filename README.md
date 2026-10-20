@@ -1,6 +1,11 @@
 # MyRaft：固定成员 Raft 日志复制状态机
 
-本轮最终验收见 [a～g 验收清单](docs/acceptance-a-g.md)、[Windows 中文快速开始](docs/quick-start-zh.md) 与 [新实验记录](validation/acceptance-20261020/README.md)。Linux 四规模五场景各三轮已完成，旧记录保留。按使用者选择，可见桌面/人工关窗暂记 NOT RUN，不宣称 a～g 全部通过。
+当前阶段增加了全屏拓扑舞台、隐藏导航、真实事件动效和实验依赖提示，并对诊断锁占用与哈希编码做了有限优化。新结果见 [性能与界面说明](docs/performance-next.md)、[新版本验收](docs/acceptance-next.md) 和 [新证据](validation/perf-next-20261020/README.md)。旧报告保留当时状态；用户随后提供的桌面验收记录单列来源，不回写历史文件。
+
+首页鼠标靠近左侧展开导航，触屏点击菜单，键盘用 Tab 或 Ctrl+K。点击节点查看索引、Term、x 与受控操作；拖动空白平移、滚轮/双指缩放。切页不挤压拓扑，Leader 换届不重新排列节点。普通展示保持简洁；断线、过期、错误和观测缺口仍会显示。
+
+
+上一阶段的本地课程验收见 [a～g 验收清单](docs/acceptance-a-g.md)、[Windows 中文快速开始](docs/quick-start-zh.md) 与 [新实验记录](validation/acceptance-20261020/README.md)。Linux 四规模五场景各三轮已完成，旧记录保留。按使用者选择，可见桌面/人工关窗暂记 NOT RUN，不宣称 a～g 全部通过。
 
 绿色包直接运行 `Start-Terminals.cmd` 或 `Start-Console.cmd`。源码版 `start.bat` 仍默认编译；已有预编译程序可用 `scripts/start.ps1 -UsePrebuilt`。新版本 peer RPC 明确绑定目标 ID 和回复成员身份，旧二进制须全部停机后一起升级；WAL v2 不变，保留原 ID、cluster_id、成员集合与数据目录。
 
@@ -10,7 +15,7 @@
 
 [课程报告](docs/report.md) · [RPC 调用图](docs/rpc-flow.svg) · [实验记录与版本边界](validation/README.md) · [收尾修复说明](docs/closure.md) · [终端演示与性能测量](docs/ux.md) · [存储与测试结果修复](docs/storage-safety.md)
 
-新增 [本机 Web Console：启动、修复、验收与真实截图](docs/console.md)。本轮结果单独保存在 [console-20261019](validation/console-20261019/README.md)，不替换以前的实验数据。
+新增 [本机 Web Console：启动、修复、验收与真实截图](docs/console.md)。该阶段结果单独保存在 [console-20261019](validation/console-20261019/README.md)，不替换以前的实验数据。
 
 ## 环境与构建
 
