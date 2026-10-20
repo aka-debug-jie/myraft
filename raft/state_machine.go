@@ -70,8 +70,8 @@ func logHash(entries []wire.LogEntry) string {
 
 func appendLogHash(h hash.Hash, entries []wire.LogEntry) {
 	enc := json.NewEncoder(h)
-	for _, e := range entries {
-		_ = enc.Encode(e)
+	for i := range entries {
+		_ = enc.Encode(&entries[i])
 	}
 }
 

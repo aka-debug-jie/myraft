@@ -499,19 +499,11 @@ func (n *Node) Status(args *wire.StatusArgs, reply *wire.StatusReply) error {
 		return errors.New("summary status cannot verify a historical prefix")
 	}
 	n.mu.Lock()
-	defer n.mu.Unlock()
 	last := n.log[n.lastIndexLocked()]
-	fullHash := n.committedHash
-	if !args.Summary && n.commitIndex != last.Index {
-		fullHash = logHash(n.log[1:])
-	}
-	if args.Summary {
-		fullHash = ""
-	}
 	*reply = wire.StatusReply{RPCRequests: n.rpcCalls.Load(), ProcessID: os.Getpid(), EventSeq: n.eventSeq, DroppedEvents: n.logDropped.Load(), ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, InstanceID: n.instanceID, Revision: n.revision, ID: n.id, State: string(n.state), Term: n.term, LeaderID: n.leaderID, VotedFor: n.votedFor,
 		LastLogIndex: last.Index, LastLogTerm: last.Term, CommitIndex: n.commitIndex, LastApplied: n.lastApplied,
 		CommittedCommands: n.appliedCommands, AppliedCommands: n.appliedCommands, X: n.x,
-		LogHash: fullHash, CommittedHash: n.committedHash, ElectionMS: n.electionMS}
+		CommittedHash: n.committedHash, ElectionMS: n.electionMS}
 	if n.state == Leader {
 		reply.LeaderAgeMS = float64(time.Since(n.electedAt).Microseconds()) / 1000
 	}
@@ -519,23 +511,41 @@ func (n *Node) Status(args *wire.StatusArgs, reply *wire.StatusReply) error {
 		reply.Error = n.fatalErr.Error()
 	}
 	if args.Summary {
+		n.mu.Unlock()
 		return nil
 	}
+	reply.LogHash = n.committedHash
 	target := args.TargetIndex
 	if target == 0 {
 		target = n.commitIndex
 	}
 	reply.TargetIndex = target
-	if target >= 0 && target <= n.commitIndex {
-		reply.TargetAvailable = true
-		if target == n.commitIndex {
-			reply.TargetHash = n.committedHash
-			reply.TargetX = n.x
-		} else {
-			reply.TargetHash = logHash(n.log[1 : target+1])
-			for _, entry := range n.log[1 : target+1] {
-				reply.TargetX = applyCommand(reply.TargetX, entry.Command)
-			}
+	reply.TargetAvailable = target >= 0 && target <= n.commitIndex
+	if reply.TargetAvailable && target == n.commitIndex {
+		reply.TargetHash, reply.TargetX = n.committedHash, n.x
+	}
+	pending := n.commitIndex != last.Index
+	history := reply.TargetAvailable && target != n.commitIndex
+	copyTo := 0
+	if pending {
+		copyTo = last.Index
+	} else if history {
+		copyTo = target
+	}
+	// The uncommitted backing array may be overwritten by conflict repair.
+	// Copy one revision under the lock; expensive diagnostic hashing runs outside it.
+	var entries []wire.LogEntry
+	if copyTo > 0 {
+		entries = append([]wire.LogEntry(nil), n.log[1:copyTo+1]...)
+	}
+	n.mu.Unlock()
+	if pending {
+		reply.LogHash = logHash(entries)
+	}
+	if history {
+		reply.TargetHash = logHash(entries[:target])
+		for _, entry := range entries[:target] {
+			reply.TargetX = applyCommand(reply.TargetX, entry.Command)
 		}
 	}
 	return nil

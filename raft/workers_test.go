@@ -118,3 +118,38 @@ func TestStartAfterLocalLeaderSetup(t *testing.T) {
 		t.Fatal("leader Start omitted workers")
 	}
 }
+
+func TestLiveLeaderRotationsKeepWorkersBounded(t *testing.T) {
+	peers, dir := testPeers(t, 3), t.TempDir()
+	nodes := map[int]*Node{}
+	for id := 1; id <= 3; id++ {
+		n := testNode(t, id, peers, dir)
+		n.options.ElectionMin, n.options.ElectionJitter = time.Hour, time.Hour
+		nodes[id] = n
+		if err := n.Start(); err != nil {
+			t.Fatal(err)
+		}
+	}
+	for round := 0; round < 30; round++ {
+		// Trigger a candidate's election; votes still traverse real TCP. All former
+		// leaders remain alive so this exercises demotion rather than Stop cleanup.
+		id := round%3 + 1
+		n := nodes[id]
+		n.mu.Lock()
+		n.startElectionLocked()
+		n.mu.Unlock()
+		if leader, _ := awaitLeader(t, nodes); leader != id {
+			t.Fatalf("round %d: unexpected leader %d", round, leader)
+		}
+		var reply wire.GenerateReply
+		if err := n.Generate(&wire.GenerateArgs{ClusterID: "test-cluster", Count: 3, Seed: 42, TimeoutMS: 3000}, &reply); err != nil || !reply.Committed {
+			t.Fatalf("round %d: write %+v %v", round, reply, err)
+		}
+		awaitLogs(t, nodes, (round+1)*3)
+		stack := make([]byte, 1<<20)
+		workers := strings.Count(string(stack[:runtime.Stack(stack, true)]), "myraft/raft.(*Node).heartbeatLoop(")
+		if workers != min(round+1, 3)*2 {
+			t.Fatalf("round %d: duplicate/missing workers: %d", round, workers)
+		}
+	}
+}
