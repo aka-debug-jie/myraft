@@ -2,11 +2,15 @@ package raft
 
 import (
 	"crypto/sha256"
+	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
+	"hash/crc32"
 	"math"
+	"os"
 	"sync"
 	"testing"
+	"time"
 
 	wire "myraft/rpc"
 )
@@ -148,4 +152,62 @@ func BenchmarkEntryHashEncoding(b *testing.B) {
 			}
 		})
 	}
+}
+
+// Stage measurements, not a replacement Raft implementation. The raw-frame
+// case isolates actual file Write/Sync; metadata includes atomic replacement.
+func BenchmarkPersistenceStages(b *testing.B) {
+	record := logRecord{From: 1, Entries: benchmarkEntries(128)}
+	payload, err := json.Marshal(record)
+	if err != nil {
+		b.Fatal(err)
+	}
+	b.Run("wal-json", func(b *testing.B) {
+		b.ReportAllocs()
+		for range b.N {
+			if _, err := json.Marshal(record); err != nil {
+				b.Fatal(err)
+			}
+		}
+	})
+	b.Run("wal-write-sync", func(b *testing.B) {
+		f, err := os.CreateTemp(b.TempDir(), "frames-")
+		if err != nil {
+			b.Fatal(err)
+		}
+		defer f.Close()
+		frame := make([]byte, 12+len(payload))
+		binary.LittleEndian.PutUint32(frame, uint32(len(payload)))
+		binary.LittleEndian.PutUint32(frame[4:], crc32.ChecksumIEEE(payload))
+		binary.LittleEndian.PutUint32(frame[8:], crc32.ChecksumIEEE(frame[:8]))
+		copy(frame[12:], payload)
+		var writeTime, syncTime time.Duration
+		b.ReportAllocs()
+		b.ResetTimer()
+		for range b.N {
+			begin := time.Now()
+			if _, err := f.Write(frame); err != nil {
+				b.Fatal(err)
+			}
+			writeTime += time.Since(begin)
+			begin = time.Now()
+			if err := f.Sync(); err != nil {
+				b.Fatal(err)
+			}
+			syncTime += time.Since(begin)
+		}
+		b.ReportMetric(float64(writeTime.Nanoseconds())/float64(b.N), "write-ns/op")
+		b.ReportMetric(float64(syncTime.Nanoseconds())/float64(b.N), "sync-ns/op")
+	})
+	b.Run("metadata-save", func(b *testing.B) {
+		n := testNode(b, 1, map[int]string{1: "127.0.0.1:1"}, b.TempDir())
+		state := n.diskState(n.term, n.votedFor, n.commitIndex, n.committedHash)
+		b.ReportAllocs()
+		b.ResetTimer()
+		for range b.N {
+			if err := n.saveState(state); err != nil {
+				b.Fatal(err)
+			}
+		}
+	})
 }
