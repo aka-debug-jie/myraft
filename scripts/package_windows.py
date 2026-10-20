@@ -30,10 +30,10 @@ def package(node, console, build_receipt, output):
     if receipt.get('source_production_sha256') != production:
         raise ValueError('native build production source set/digests differ')
     for name, path in [('raft-node.exe', node), ('raft-console.exe', console)]:
-        if receipt.get('binary_sha256', {}).get(name) != sha(path.read_bytes()):
+        data = path.read_bytes()
+        if receipt.get('binary_sha256', {}).get(name) != sha(data):
             raise ValueError(f'untested executable differs from native build receipt: {name}')
-    files['project/raft-node.exe'] = node.read_bytes()
-    files['project/raft-console.exe'] = console.read_bytes()
+        files[f'project/{name}'] = data
     files['Start-Terminals.cmd'] = b'@echo off\r\nsetlocal\r\nset "runDir=%~1"\r\nif not defined runDir set "runDir=%~dp0runs\\classroom"\r\npowershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0project\\scripts\\start.ps1" -UsePrebuilt -RunDir "%runDir%"\r\nset "result=%errorlevel%"\r\npause\r\nexit /b %result%\r\n'
     files['Start-Console.cmd'] = b'@echo off\r\ncd /d "%~dp0project" || exit /b 1\r\nraft-console.exe -node-bin ".\\raft-node.exe" -source-dir "." -data-root "..\\runs\\console" -allow-control\r\npause\r\n'
     files['Run-Experiments.cmd'] = b'@echo off\r\ncall "%~dp0project\\Run-Experiments.cmd"\r\n'
