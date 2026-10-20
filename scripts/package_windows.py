@@ -20,6 +20,8 @@ def package(node, console, build_receipt, output):
     if output.exists():
         raise FileExistsError('use a new package path; existing deliveries are retained')
     names = subprocess.check_output(['git', 'ls-files', '-z'], cwd=ROOT).decode().split('\0')
+    if any('\\' in name for name in names):
+        raise ValueError('non-portable source path contains a backslash; normalize evidence paths first')
     files = {f'project/{name}': (ROOT / name).read_bytes() for name in names if name}
     receipt = json.loads(build_receipt.read_text(encoding='utf-8-sig'))
     production = {name.removeprefix('project/'): sha(data) for name, data in files.items()
