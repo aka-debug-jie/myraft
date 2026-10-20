@@ -86,7 +86,7 @@ func TestFirstLeadershipRacingStop(t *testing.T) {
 			n.mu.Lock()
 			if !n.stopped {
 				n.startElectionLocked()
-				n.handleVoteReplyLocked(2, n.term, wire.VoteReply{Term: n.term, VoteGranted: true})
+				n.handleVoteReplyLocked(2, n.term, wire.VoteReply{NodeID: 2, ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: n.term, VoteGranted: true})
 			}
 			n.mu.Unlock()
 			close(done)
@@ -103,7 +103,7 @@ func TestStartAfterLocalLeaderSetup(t *testing.T) {
 	n := testNode(t, 1, testPeers(t, 3), t.TempDir())
 	n.mu.Lock()
 	n.startElectionLocked()
-	n.handleVoteReplyLocked(2, n.term, wire.VoteReply{Term: n.term, VoteGranted: true})
+	n.handleVoteReplyLocked(2, n.term, wire.VoteReply{NodeID: 2, ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: n.term, VoteGranted: true})
 	if n.replicationStarted {
 		n.mu.Unlock()
 		t.Fatal("workers started before listener")

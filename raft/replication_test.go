@@ -63,7 +63,7 @@ func TestVoteLogFreshness(t *testing.T) {
 			n := testNode(t, 1, testPeers(t, 3), t.TempDir())
 			seedNode(t, n, 3, []wire.LogEntry{entry(1, 1, "add", 2), entry(2, 2, "add", 3)}, 0)
 			var r wire.VoteReply
-			err := n.RequestVote(&wire.VoteArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 4, CandidateID: 2, LastLogIndex: c.index, LastLogTerm: c.term}, &r)
+			err := n.RequestVote(&wire.VoteArgs{TargetID: n.id, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 4, CandidateID: 2, LastLogIndex: c.index, LastLogTerm: c.term}, &r)
 			if err != nil || r.VoteGranted != c.want {
 				t.Fatalf("vote %+v %v", r, err)
 			}
@@ -82,7 +82,7 @@ func TestAppendBoundsAndDuplicates(t *testing.T) {
 			n := testNode(t, 1, testPeers(t, 3), t.TempDir())
 			seedNode(t, n, 3, []wire.LogEntry{entry(1, 1, "add", 2), entry(2, 2, "mul", 3), entry(3, 2, "add", 4)}, 0)
 			before := snapshot(n)
-			args := wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 3, LeaderID: 2, PrevLogIndex: c.prev, PrevLogTerm: c.term, Entries: c.entries, LeaderCommit: 3}
+			args := wire.AppendEntriesArgs{TargetID: n.id, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 3, LeaderID: 2, PrevLogIndex: c.prev, PrevLogTerm: c.term, Entries: c.entries, LeaderCommit: 3}
 			for repeat := 0; repeat < 2; repeat++ {
 				var r wire.AppendEntriesReply
 				if err := n.AppendEntries(&args, &r); err != nil {
@@ -103,7 +103,7 @@ func TestConflictRepairAndCommittedProtection(t *testing.T) {
 	peers, dir := testPeers(t, 3), t.TempDir()
 	n := testNode(t, 1, peers, dir)
 	seedNode(t, n, 3, []wire.LogEntry{entry(1, 1, "add", 2), entry(2, 2, "mul", 3), entry(3, 2, "add", 4)}, 1)
-	args := wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 3, LeaderID: 2, PrevLogIndex: 1, PrevLogTerm: 1, Entries: []wire.LogEntry{entry(2, 3, "add", 8)}, LeaderCommit: 1}
+	args := wire.AppendEntriesArgs{TargetID: n.id, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 3, LeaderID: 2, PrevLogIndex: 1, PrevLogTerm: 1, Entries: []wire.LogEntry{entry(2, 3, "add", 8)}, LeaderCommit: 1}
 	var r wire.AppendEntriesReply
 	if err := n.AppendEntries(&args, &r); err != nil || !r.Success {
 		t.Fatalf("%+v %v", r, err)
@@ -144,7 +144,7 @@ func TestCurrentTermCommitAndStaleReply(t *testing.T) {
 	if n.commitIndex != 0 {
 		t.Fatal("no majority")
 	}
-	n.handleAppendReplyLocked(2, wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 2, PrevLogIndex: 2}, wire.AppendEntriesReply{Term: 2, Success: true})
+	n.handleAppendReplyLocked(2, wire.AppendEntriesArgs{TargetID: 2, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 2, PrevLogIndex: 2}, wire.AppendEntriesReply{NodeID: 2, ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: 2, Success: true})
 	if n.matchIndex[2] != 1 || n.commitIndex != 0 {
 		t.Fatal("stale response counted")
 	}
@@ -155,7 +155,7 @@ func TestCurrentTermCommitAndStaleReply(t *testing.T) {
 	}
 	n.state = Follower
 	n.matchIndex[3] = 0
-	n.handleAppendReplyLocked(3, wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 3, PrevLogIndex: 2}, wire.AppendEntriesReply{Term: 3, Success: true})
+	n.handleAppendReplyLocked(3, wire.AppendEntriesArgs{TargetID: 3, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 3, PrevLogIndex: 2}, wire.AppendEntriesReply{NodeID: 3, ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: 3, Success: true})
 	if n.matchIndex[3] != 0 {
 		t.Fatal("follower used delayed reply")
 	}

@@ -242,7 +242,7 @@ func TestOversizedAppendRejectedBeforeWALWrite(t *testing.T) {
 		entries[i] = entry(i+2, 1, "add", 1)
 	}
 	var reply wire.AppendEntriesReply
-	err = n.AppendEntries(&wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 1, LeaderID: 2, PrevLogIndex: 1, PrevLogTerm: 1, Entries: entries, LeaderCommit: len(entries) + 1}, &reply)
+	err = n.AppendEntries(&wire.AppendEntriesArgs{TargetID: n.id, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 1, LeaderID: 2, PrevLogIndex: 1, PrevLogTerm: 1, Entries: entries, LeaderCommit: len(entries) + 1}, &reply)
 	if err == nil || reply.Success {
 		t.Fatalf("oversized frame acknowledged: %+v %v", reply, err)
 	}
@@ -254,7 +254,7 @@ func TestOversizedAppendRejectedBeforeWALWrite(t *testing.T) {
 		t.Fatalf("rejected frame changed state: %+v", s)
 	}
 	// An input limit error must leave the node usable and its WAL recoverable.
-	err = n.AppendEntries(&wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 1, LeaderID: 2, PrevLogIndex: 1, PrevLogTerm: 1, Entries: []wire.LogEntry{entry(2, 1, "add", 2)}, LeaderCommit: 2}, &reply)
+	err = n.AppendEntries(&wire.AppendEntriesArgs{TargetID: n.id, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 1, LeaderID: 2, PrevLogIndex: 1, PrevLogTerm: 1, Entries: []wire.LogEntry{entry(2, 1, "add", 2)}, LeaderCommit: 2}, &reply)
 	if err != nil || !reply.Success {
 		t.Fatalf("valid append: %+v %v", reply, err)
 	}

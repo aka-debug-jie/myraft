@@ -22,7 +22,7 @@ func TestElectionDeadlineEvents(t *testing.T) {
 					lastTerm, reset = 2, true
 				}
 				var reply wire.VoteReply
-				if err := n.RequestVote(&wire.VoteArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 3, CandidateID: 2, LastLogIndex: 1, LastLogTerm: lastTerm}, &reply); err != nil {
+				if err := n.RequestVote(&wire.VoteArgs{TargetID: n.id, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 3, CandidateID: 2, LastLogIndex: 1, LastLogTerm: lastTerm}, &reply); err != nil {
 					t.Fatal(err)
 				}
 				if reply.Term != 3 || reply.VoteGranted != reset || n.state != Follower {
@@ -34,23 +34,23 @@ func TestElectionDeadlineEvents(t *testing.T) {
 					term, reset = 3, true
 				}
 				var reply wire.AppendEntriesReply
-				if err := n.AppendEntries(&wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: term, LeaderID: 2, PrevLogIndex: 8, PrevLogTerm: 2}, &reply); err != nil {
+				if err := n.AppendEntries(&wire.AppendEntriesArgs{TargetID: n.id, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: term, LeaderID: 2, PrevLogIndex: 8, PrevLogTerm: 2}, &reply); err != nil {
 					t.Fatal(err)
 				}
 				if reply.Success {
 					t.Fatal("unexpected matching prefix")
 				}
 			case "higher-vote-reply":
-				n.handleVoteReplyLocked(2, 2, wire.VoteReply{Term: 3})
+				n.handleVoteReplyLocked(2, 2, wire.VoteReply{NodeID: 2, ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: 3})
 			case "higher-append-reply":
-				n.handleAppendReplyLocked(2, wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 2}, wire.AppendEntriesReply{Term: 3})
+				n.handleAppendReplyLocked(2, wire.AppendEntriesArgs{TargetID: 2, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 2}, wire.AppendEntriesReply{NodeID: 2, ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: 3})
 			case "expired-heartbeat", "valid-heartbeat":
 				term := 1
 				if name == "valid-heartbeat" {
 					term, reset = 3, true
 				}
 				var reply wire.HeartbeatReply
-				if err := n.Heartbeat(&wire.HeartbeatArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: term, LeaderID: 2}, &reply); err != nil {
+				if err := n.Heartbeat(&wire.HeartbeatArgs{TargetID: n.id, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: term, LeaderID: 2}, &reply); err != nil {
 					t.Fatal(err)
 				}
 				if reply.Accepted != reset {

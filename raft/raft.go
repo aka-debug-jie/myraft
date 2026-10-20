@@ -309,8 +309,10 @@ func (n *Node) startElectionLocked() {
 		n.wg.Add(1)
 		go func(peerID int, address string) {
 			defer n.wg.Done()
+			request := args
+			request.TargetID = peerID
 			var reply wire.VoteReply
-			err := wire.Call(address, "RaftNode.RequestVote", &args, &reply, n.options.RPCTimeout)
+			err := wire.Call(address, "RaftNode.RequestVote", &request, &reply, n.options.RPCTimeout)
 			n.mu.Lock()
 			defer n.mu.Unlock()
 			delete(n.votePending, peerID)
@@ -322,7 +324,7 @@ func (n *Node) startElectionLocked() {
 }
 
 func (n *Node) handleVoteReplyLocked(peerID, requestTerm int, reply wire.VoteReply) {
-	if n.stopped || n.fatalErr != nil {
+	if n.stopped || n.fatalErr != nil || !n.matchesReply(peerID, reply.NodeID, reply.ClusterID, reply.MembershipHash) {
 		return
 	}
 	if reply.Term > n.term {
@@ -386,7 +388,8 @@ func (n *Node) RequestVote(args *wire.VoteArgs, reply *wire.VoteReply) error {
 	n.rpcCalls.Add(1)
 	n.mu.Lock()
 	defer n.mu.Unlock()
-	if err := n.checkIdentity(args.ClusterID, args.MembershipHash); err != nil {
+	*reply = wire.VoteReply{NodeID: n.id, ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: n.term}
+	if err := n.checkTarget(args.TargetID, args.ClusterID, args.MembershipHash); err != nil {
 		return err
 	}
 	if err := n.availableLocked(); err != nil {
@@ -438,7 +441,7 @@ func (n *Node) heartbeatLoop(peerID int, kick <-chan struct{}) {
 			}
 			next := n.nextIndex[peerID]
 			end := min(next+n.options.BatchSize, len(n.log))
-			args := wire.AppendEntriesArgs{ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: n.term, LeaderID: n.id, PrevLogIndex: next - 1, PrevLogTerm: n.log[next-1].Term, LeaderCommit: n.commitIndex,
+			args := wire.AppendEntriesArgs{TargetID: peerID, ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: n.term, LeaderID: n.id, PrevLogIndex: next - 1, PrevLogTerm: n.log[next-1].Term, LeaderCommit: n.commitIndex,
 				Entries: append([]wire.LogEntry(nil), n.log[next:end]...)}
 			n.mu.Unlock()
 			var reply wire.AppendEntriesReply
@@ -459,7 +462,8 @@ func (n *Node) Heartbeat(args *wire.HeartbeatArgs, reply *wire.HeartbeatReply) e
 	n.rpcCalls.Add(1)
 	n.mu.Lock()
 	defer n.mu.Unlock()
-	if err := n.checkIdentity(args.ClusterID, args.MembershipHash); err != nil {
+	*reply = wire.HeartbeatReply{NodeID: n.id, ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: n.term}
+	if err := n.checkTarget(args.TargetID, args.ClusterID, args.MembershipHash); err != nil {
 		return err
 	}
 	if err := n.availableLocked(); err != nil {
@@ -542,6 +546,19 @@ func (n *Node) checkIdentity(cluster, members string) error {
 		return errors.New("cluster/member identity mismatch")
 	}
 	return nil
+}
+
+func (n *Node) checkTarget(target int, cluster, members string) error {
+	if target != n.id {
+		return fmt.Errorf("RPC targets node %d; reached node %d", target, n.id)
+	}
+	return n.checkIdentity(cluster, members)
+}
+
+// Routing addresses are not identities. A reply counts only for its real member,
+// and an unverified response cannot advance the local term either.
+func (n *Node) matchesReply(expected, actual int, cluster, members string) bool {
+	return expected != n.id && n.peers[expected] != "" && actual == expected && n.checkIdentity(cluster, members) == nil
 }
 
 func (n *Node) availableLocked() error {

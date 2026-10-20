@@ -98,7 +98,7 @@ func TestStorageFailuresDoNotAcknowledgeOrApply(t *testing.T) {
 				n.statePath = dir
 			}
 			var r wire.AppendEntriesReply
-			err := n.AppendEntries(&wire.AppendEntriesArgs{ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 3, LeaderID: 2, Entries: []wire.LogEntry{entry(1, 3, "add", 9)}, LeaderCommit: 1}, &r)
+			err := n.AppendEntries(&wire.AppendEntriesArgs{TargetID: n.id, ClusterID: "test-cluster", MembershipHash: n.membershipHash, Term: 3, LeaderID: 2, Entries: []wire.LogEntry{entry(1, 3, "add", 9)}, LeaderCommit: 1}, &r)
 			s := snapshot(n)
 			if err == nil || r.Success || s.Error == "" || s.CommitIndex != 0 || s.LastApplied != 0 || s.X != 0 {
 				t.Fatalf("failure acknowledged %+v %+v %v", r, s, err)

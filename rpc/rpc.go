@@ -18,33 +18,42 @@ type LogEntry struct {
 	Command Command `json:"command"`
 }
 type VoteArgs struct {
+	TargetID                                     int
 	Term, CandidateID, LastLogIndex, LastLogTerm int
 	ClusterID, MembershipHash                    string
 }
 type VoteReply struct {
-	Term        int
-	VoteGranted bool
+	NodeID                    int
+	ClusterID, MembershipHash string
+	Term                      int
+	VoteGranted               bool
 }
 type AppendEntriesArgs struct {
+	TargetID                                  int
 	ClusterID, MembershipHash                 string
 	Term, LeaderID, PrevLogIndex, PrevLogTerm int
 	Entries                                   []LogEntry
 	LeaderCommit                              int
 }
 type AppendEntriesReply struct {
-	Term          int
-	Success       bool
-	ConflictIndex int
+	NodeID                    int
+	ClusterID, MembershipHash string
+	Term                      int
+	Success                   bool
+	ConflictIndex             int
 }
 
 // Kept for old clients; this RPC never acknowledges or commits log entries.
 type HeartbeatArgs struct {
+	TargetID                  int
 	Term, LeaderID            int
 	ClusterID, MembershipHash string
 }
 type HeartbeatReply struct {
-	Term     int
-	Accepted bool
+	NodeID                    int
+	ClusterID, MembershipHash string
+	Term                      int
+	Accepted                  bool
 }
 
 type GenerateArgs struct {

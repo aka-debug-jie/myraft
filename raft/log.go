@@ -24,7 +24,8 @@ func (n *Node) AppendEntries(args *wire.AppendEntriesArgs, reply *wire.AppendEnt
 	n.rpcCalls.Add(1)
 	n.mu.Lock()
 	defer n.mu.Unlock()
-	if err := n.checkIdentity(args.ClusterID, args.MembershipHash); err != nil {
+	*reply = wire.AppendEntriesReply{NodeID: n.id, ClusterID: n.identity.ClusterID, MembershipHash: n.membershipHash, Term: n.term, ConflictIndex: n.lastIndexLocked() + 1}
+	if err := n.checkTarget(args.TargetID, args.ClusterID, args.MembershipHash); err != nil {
 		return err
 	}
 	if err := n.availableLocked(); err != nil {
@@ -38,7 +39,7 @@ func (n *Node) AppendEntries(args *wire.AppendEntriesArgs, reply *wire.AppendEnt
 			return err
 		}
 	}
-	*reply = wire.AppendEntriesReply{Term: n.term, ConflictIndex: n.lastIndexLocked() + 1}
+	reply.Term = n.term
 	if args.Term < n.term {
 		return nil
 	}
@@ -96,7 +97,7 @@ func (n *Node) AppendEntries(args *wire.AppendEntriesArgs, reply *wire.AppendEnt
 }
 
 func (n *Node) handleAppendReplyLocked(peerID int, args wire.AppendEntriesArgs, reply wire.AppendEntriesReply) bool {
-	if n.stopped || n.fatalErr != nil {
+	if n.stopped || n.fatalErr != nil || !n.matchesReply(peerID, reply.NodeID, reply.ClusterID, reply.MembershipHash) {
 		return false
 	}
 	if reply.Term > n.term {

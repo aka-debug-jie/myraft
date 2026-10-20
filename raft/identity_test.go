@@ -133,7 +133,7 @@ func TestLegacyClaimIsExplicitBackedUpAndReadOnly(t *testing.T) {
 		t.Fatalf("recovered %+v", s)
 	}
 	var vote wire.VoteReply
-	if err := restored.RequestVote(&wire.VoteArgs{ClusterID: "wrong", MembershipHash: restored.membershipHash, Term: 100, CandidateID: 2}, &vote); err == nil || restored.term != 3 {
+	if err := restored.RequestVote(&wire.VoteArgs{TargetID: restored.id, ClusterID: "wrong", MembershipHash: restored.membershipHash, Term: 100, CandidateID: 2}, &vote); err == nil || restored.term != 3 {
 		t.Fatal("foreign cluster changed term/vote")
 	}
 }
