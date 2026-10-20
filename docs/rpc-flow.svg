@@ -101,16 +101,15 @@
   <path d="M655 804 H688" class="arrow"/>
   <path d="M870 804 H903" class="arrow"/>
   <path d="M1095 804 H1128" class="arrow"/>
-  <text x="800" y="875" class="small">The API reports Accepted after the leader WAL append; Committed follows durable commit metadata, apply and notification.</text>
+  <text x="800" y="894" class="small">Next AppendEntries carries LeaderCommit; follower commitLocked persists the matching prefix before applying it.</text>
+  <text x="800" y="875" class="small">Accepted is set after WAL Sync; the single RPC reply returns after commitment or an explicit unconfirmed outcome.</text>
 
   <rect x="28" y="923" width="1544" height="168" rx="18" class="panel"/>
   <text x="52" y="956" class="section">3. Monitoring and verification are separate reads</text>
   <rect x="70" y="980" width="420" height="78" class="node"/>
-  <text x="280" y="1009" class="label"><tspan x="280">Status(Summary) + EventRange</tspan><tspan x="280" dy="21">shared monitoring poll; summary omits log/history checks</tspan></text>
+  <text x="280" y="1009" class="label"><tspan x="280">Status(Summary) + EventRange</tspan><tspan x="280" dy="21">shared poll; no full-log or historical verification</tspan></text>
   <rect x="590" y="980" width="390" height="78" class="rpc"/>
   <text x="785" y="1009" class="label"><tspan x="785">LogRange</tspan><tspan x="785" dy="21">on demand; each range is bounded to 256 entries</tspan></text>
   <rect x="1080" y="980" width="450" height="78" class="guard"/>
   <text x="1305" y="1009" class="label"><tspan x="1305">Full Status + historical target check</tspan><tspan x="1305" dy="21">separate complete-state / prefix verification path</tspan></text>
-  <path d="M490 1019 H588" class="arrow"/>
-  <path d="M980 1019 H1078" class="arrow"/>
 </svg>
