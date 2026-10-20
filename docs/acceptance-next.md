@@ -8,7 +8,7 @@
 
 |项目|状态|实际操作与证据|
 |---|---|---|
-|Go 格式、vet、构建|PASS|最终源码检查；`final-vet.txt`，构建回执|
+|Go 格式、vet、构建|PASS|最终源码检查；`release-vet.txt`，构建回执|
 |Linux Go / race|PASS|各 82 个顶层测试、46 个子用例；长测在常规套件中跳过，另行执行；`release-go-tests.jsonl`、`release-race-tests.jsonl`|
 |Python 回归|PASS|44 项；`release-python.txt`|
 |Win11 原生 Go/Python|PASS|Go 同为 82 顶层、46 子用例；Python 44 项，其中 1 个 Linux 专用项跳过；`delivery-go-tests.jsonl`、`windows-delivery-build.log`|
@@ -21,10 +21,12 @@
 |换届与长时间资源检查|PASS（列明范围）|11 节点 30 次停止恢复；100 节点在 30 分钟运行内完成 20 次停止恢复，基线和候选均通过；三个存活节点真实投票轮换 30 次；相应 soak 日志和 Go 回归|
 |前端状态、布局、输入与动效|PASS|9 个合成测试通过，1 个未提供 live URL 的用例跳过；100 节点更新耗时单列；`ui-acceptance/`|
 |六页真实操作|PASS|创建、2101 条提交、双击抑制、停止确认、重选、恢复、历史校验、实验运行/取消、导出、主题与投影；`real-console-4173d24/`|
-|新绿色 ZIP 精确归档复验|NOT RUN|待对最终归档在新 Win11 中文/空格目录复验，不能由源码测试替代|
+|新绿色包启动、提交、恢复与 Web 入口|PASS（候选归档）|候选 ZIP SHA `2e706b27…6090cf`，新 Win11 中文/空格目录，隔离 Go/Python PATH；3330 个摘要、11 节点、2101 条命令、重选/原盘/全体重启历史检查、Web 当前/历史验证与导出通过，清理无残留；`portable-candidate/`。最终归档精确结果由包旁 `.acceptance.json` 绑定|
 |新版本可见终端与真人关窗|NOT RUN|虚拟机没有已登录桌面；原用户提供记录不自动覆盖新版本|
 |Windows race / 老师统一电脑|NOT RUN|未配置 C 工具链；没有目标电脑访问|
 |无开发工具环境的规模实验|NOT RUN|规模实验仍需 Go/Python，页面明确报告缺失；普通演示另按绿色包验证|
+
+最终 ZIP 与候选使用完全相同的节点/控制台字节，差异为补充验收文档和证据。包内文档记录封装时的已执行结果；最终归档在新目录重新执行后，包旁 `.acceptance.json` 记录完整 ZIP SHA 和结果，避免将一个 ZIP 自身摘要写回该 ZIP 的循环依赖。没有该回执时，不应把候选结果当作最终精确归档验收。
 
 ## 性能结论
 

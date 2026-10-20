@@ -14166,6 +14166,48 @@
       "file": "real-console-4173d24/settings.png",
       "raw_sha256": "23d7380e3264243de565570730027253563340b9285d480cb3e34800190b46a0",
       "delivered_sha256": "23d7380e3264243de565570730027253563340b9285d480cb3e34800190b46a0"
+    },
+    {
+      "source": "portable-candidate-initial-verify.json",
+      "file": "portable-candidate/portable-candidate-initial-verify.json",
+      "raw_sha256": "1016142d71bf8e17872469b528790d602b7c7d3101d9d4ac6c8b6ffdfad95a59",
+      "delivered_sha256": "eb1fcce7b2ae55df0722e1687df7dcba9ae7cd0a3adf74cdef8a19b027123af4"
+    },
+    {
+      "source": "portable-candidate-final-verify.json",
+      "file": "portable-candidate/portable-candidate-final-verify.json",
+      "raw_sha256": "03fd99883bfa30eb645e64c26d757d11379ae51e011a1618ce5bffc99861a38c",
+      "delivered_sha256": "c52484974aac2644b788fdaae04b1af54c425269397b9836f3a95f32dc8bcbe4"
+    },
+    {
+      "source": "portable-candidate-portable-check.json",
+      "file": "portable-candidate/portable-candidate-portable-check.json",
+      "raw_sha256": "e7b97d04ddda3c50265277ef5772d4f212f35c7dcde3cd2b8ddd2a624913e17e",
+      "delivered_sha256": "b10443d221bd0e87af0b1480ef77ca5ff371436ed377828490d1ebc53bc7e425"
+    },
+    {
+      "source": "portable-candidate-native-console-final-result.json",
+      "file": "portable-candidate/portable-candidate-native-console-final-result.json",
+      "raw_sha256": "c36678466dfdb1018375d5dfb15289088f52188e6bf23b9c9d760273df0beb47",
+      "delivered_sha256": "e7c0dc333d47b1d293c259e184d0a568f3a7b77859545b09ffb1feb7217cad5a"
+    },
+    {
+      "source": "portable-candidate-native-console-operations.json",
+      "file": "portable-candidate/portable-candidate-native-console-operations.json",
+      "raw_sha256": "2463d9c29e198bacfb6054103196981c4aa9dd5f1864c581036813ea2454a01e",
+      "delivered_sha256": "03654461de9f3096c2beee75392df0247d95d8a3539162aa1aecb21c0877bd81"
+    },
+    {
+      "source": "windows-portable-candidate.log",
+      "file": "portable-candidate/windows-portable-candidate.log",
+      "raw_sha256": "9475362cac7fa29214561b789bbc65039e2dc81a46183b51624fc603de323d73",
+      "delivered_sha256": "9475362cac7fa29214561b789bbc65039e2dc81a46183b51624fc603de323d73"
+    },
+    {
+      "source": "windows-console-candidate.log",
+      "file": "portable-candidate/windows-console-candidate.log",
+      "raw_sha256": "e020353ece453ada5a005662fb5cc7462db80c5a6f4506e651b91b8f27e0d135",
+      "delivered_sha256": "e020353ece453ada5a005662fb5cc7462db80c5a6f4506e651b91b8f27e0d135"
     }
   ]
 }

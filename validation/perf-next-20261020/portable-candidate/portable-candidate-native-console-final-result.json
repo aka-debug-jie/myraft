@@ -1,0 +1,34 @@
+{
+  "nodes": 11,
+  "python_on_path": false,
+  "result": "PASS",
+  "entrypoint": "Start-Console.cmd",
+  "go_on_path": false,
+  "commands": 2101,
+  "export_sha256": "884d68eb637fe4aebba5ac26340ee8bf06a87a6949f9e21f68431614bd6f6dea",
+  "browser": "not used in this native smoke",
+  "dependency_report": {
+    "ready": false,
+    "source": {
+      "ready": true
+    },
+    "go": {
+      "ready": false,
+      "reason": "go executable not found in PATH"
+    },
+    "python": {
+      "ready": false,
+      "reason": "configured Python executable is unavailable"
+    },
+    "reason": "go executable not found in PATH; configured Python executable is unavailable"
+  },
+  "platform": "Windows 11",
+  "protocol": "real HTTP + real net/rpc",
+  "history": "stale",
+  "checkpoint": {
+    "index": 2102,
+    "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+    "x": 0,
+    "saved_at": "2026-10-20T16:16:51.7426603Z"
+  }
+}
