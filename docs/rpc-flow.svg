@@ -1,80 +1,116 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="790" viewBox="0 0 1200 790" role="img" aria-labelledby="title desc">
-  <title id="title">Raft RPC and persistence flows</title>
-  <desc id="desc">Election and client write replication flows, including durable storage points and network RPC outside locks.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120" role="img" aria-labelledby="title desc">
+  <title id="title">Raft lifecycle, RPC identity checks and write commitment</title>
+  <desc id="desc">Current source flow from Start and election through lazy per-peer replication workers, bounded append batches, durable commit, and separate monitoring reads.</desc>
   <defs>
     <marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
       <path d="M0,0 L10,4 L0,8 Z" fill="#425466"/>
     </marker>
     <style>
       text { font-family: Arial, Helvetica, sans-serif; fill: #172b4d; }
-      .title { font-size: 25px; font-weight: 700; }
-      .section { font-size: 18px; font-weight: 700; }
-      .node { fill: #ffffff; stroke: #7890a8; stroke-width: 1.5; rx: 10; }
-      .durable { fill: #eaf3ff; stroke: #3973ac; stroke-width: 1.7; rx: 10; }
-      .rpc { fill: #fff4db; stroke: #c28a20; stroke-width: 1.7; rx: 10; }
-      .apply { fill: #e8f6ee; stroke: #3c8c5a; stroke-width: 1.7; rx: 10; }
-      .label { font-size: 14px; font-weight: 600; text-anchor: middle; }
-      .small { font-size: 12px; fill: #526579; text-anchor: middle; }
+      .title { font-size: 28px; font-weight: 700; }
+      .section { font-size: 20px; font-weight: 700; }
+      .node { fill: #ffffff; stroke: #7890a8; stroke-width: 1.6; rx: 11; }
+      .durable { fill: #eaf3ff; stroke: #3973ac; stroke-width: 1.7; rx: 11; }
+      .rpc { fill: #fff4db; stroke: #c28a20; stroke-width: 1.7; rx: 11; }
+      .apply { fill: #e8f6ee; stroke: #3c8c5a; stroke-width: 1.7; rx: 11; }
+      .guard { fill: #f4edff; stroke: #8662ad; stroke-width: 1.7; rx: 11; }
+      .label { font-size: 15px; font-weight: 700; text-anchor: middle; }
+      .small { font-size: 13px; fill: #526579; text-anchor: middle; }
       .arrow { fill: none; stroke: #425466; stroke-width: 2; marker-end: url(#arrow); }
-      .note { font-size: 13px; fill: #7a5713; font-weight: 700; }
+      .note { font-size: 14px; fill: #6b4a12; font-weight: 700; }
+      .panel { fill: #eef4fa; stroke: #d4dfeb; stroke-width: 1.4; }
     </style>
   </defs>
-  <rect width="1200" height="790" fill="#f7f9fc"/>
-  <text x="40" y="42" class="title">Raft RPC and Durable State Flows</text>
+  <rect width="1600" height="1120" fill="#f7f9fc"/>
+  <text x="42" y="46" class="title">Raft lifecycle, identity checks and durable writes</text>
 
-  <rect x="28" y="62" width="1144" height="240" rx="16" fill="#eef4fa" stroke="#d4dfeb"/>
-  <text x="50" y="92" class="section">1. Leader Election</text>
-  <text x="530" y="128" class="note" text-anchor="middle">Network RPC runs outside locks</text>
+  <rect x="28" y="68" width="1544" height="424" rx="18" class="panel"/>
+  <text x="52" y="101" class="section">1. Start, election and replication-worker lifecycle</text>
 
-  <rect x="50" y="154" width="150" height="66" class="node"/>
-  <text x="125" y="180" class="label"><tspan x="125">Election</tspan><tspan x="125" dy="18">timeout</tspan></text>
-  <rect x="230" y="154" width="150" height="66" class="durable"/>
-  <text x="305" y="180" class="label"><tspan x="305">Persist term</tspan><tspan x="305" dy="18">and vote</tspan></text>
-  <rect x="415" y="154" width="135" height="66" class="rpc"/>
-  <text x="482" y="181" class="label"><tspan x="482">RequestVote</tspan><tspan x="482" dy="18">RPC</tspan></text>
-  <rect x="585" y="154" width="150" height="66" class="node"/>
-  <text x="660" y="176" class="label"><tspan x="660">Follower freshness</tspan><tspan x="660" dy="17">check + durable</tspan><tspan x="660" dy="17">vote</tspan></text>
-  <rect x="790" y="154" width="135" height="66" class="node"/>
-  <text x="857" y="180" class="label"><tspan x="857">Majority</tspan><tspan x="857" dy="18">votes</tspan></text>
-  <rect x="980" y="154" width="160" height="66" class="apply"/>
-  <text x="1060" y="176" class="label"><tspan x="1060">Append current-term</tspan><tspan x="1060" dy="18">no-op</tspan></text>
-  <path d="M200 187 H228" class="arrow"/><path d="M380 187 H413" class="arrow"/>
-  <path d="M550 187 H583" class="arrow"/><path d="M735 187 H788" class="arrow"/>
-  <path d="M925 187 H978" class="arrow"/>
-  <text x="600" y="283" class="small">Current-term no-op is committed only after majority replication.</text>
+  <rect x="55" y="140" width="190" height="68" class="node"/>
+  <text x="150" y="168" class="label"><tspan x="150">Start()</tspan><tspan x="150" dy="20">launches two loops</tspan></text>
+  <rect x="300" y="125" width="205" height="66" class="node"/>
+  <text x="402" y="153" class="label"><tspan x="402">acceptLoop</tspan><tspan x="402" dy="19">accept RPC connections</tspan></text>
+  <rect x="300" y="220" width="230" height="112" class="node"/>
+  <text x="415" y="247" class="label"><tspan x="415">electionLoop</tspan><tspan x="415" dy="21">20 ms election poll</tspan><tspan x="415" dy="19">one heartbeat ticker</tspan><tspan x="415" dy="19">only Leader kicks peers</tspan></text>
+  <path d="M245 174 H272 V158 H298" class="arrow"/>
+  <path d="M245 174 H272 V276 H298" class="arrow"/>
 
-  <rect x="28" y="320" width="1144" height="440" rx="16" fill="#eef4fa" stroke="#d4dfeb"/>
-  <text x="50" y="350" class="section">2. Client Write and Replication</text>
-  <text x="513" y="390" class="note" text-anchor="middle">Network RPC runs outside locks</text>
+  <rect x="575" y="220" width="190" height="92" class="durable"/>
+  <text x="670" y="250" class="label"><tspan x="670">startElectionLocked</tspan><tspan x="670" dy="21">persist term + self vote</tspan><tspan x="670" dy="19">then RequestVote</tspan></text>
+  <rect x="805" y="220" width="205" height="92" class="rpc"/>
+  <text x="907" y="249" class="label"><tspan x="907">RequestVote</tspan><tspan x="907" dy="21">checkTarget before term</tspan><tspan x="907" dy="19">freshness + durable vote</tspan></text>
+  <rect x="1050" y="220" width="220" height="92" class="guard"/>
+  <text x="1160" y="249" class="label"><tspan x="1160">handleVoteReplyLocked</tspan><tspan x="1160" dy="21">matchesReply first</tspan><tspan x="1160" dy="19">then term / vote count</tspan></text>
+  <path d="M530 276 H573" class="arrow"/>
+  <path d="M765 266 H803" class="arrow"/>
+  <path d="M1010 266 H1048" class="arrow"/>
 
-  <rect x="50" y="410" width="135" height="72" class="node"/>
-  <text x="117" y="438" class="label"><tspan x="117">CLI</tspan><tspan x="117" dy="19">Generate</tspan></text>
-  <rect x="225" y="410" width="145" height="72" class="durable"/>
-  <text x="297" y="438" class="label"><tspan x="297">Leader WAL</tspan><tspan x="297" dy="19">Sync</tspan></text>
-  <rect x="410" y="410" width="170" height="72" class="rpc"/>
-  <text x="495" y="435" class="label"><tspan x="495">AppendEntries</tspan><tspan x="495" dy="18">128-entry batches</tspan></text>
-  <rect x="620" y="410" width="180" height="72" class="durable"/>
-  <text x="710" y="430" class="label"><tspan x="710">Follower prefix check</tspan><tspan x="710" dy="17">then log WAL Sync</tspan></text>
-  <path d="M185 446 H223" class="arrow"/><path d="M370 446 H408" class="arrow"/><path d="M580 446 H618" class="arrow"/>
+  <rect x="1300" y="220" width="235" height="92" class="apply"/>
+  <text x="1417" y="249" class="label"><tspan x="1417">becomeLeaderLocked</tspan><tspan x="1417" dy="21">append current-term noop</tspan><tspan x="1417" dy="19">then set state = Leader</tspan></text>
+  <path d="M1270 266 H1298" class="arrow"/>
 
-  <rect x="850" y="410" width="120" height="72" class="rpc"/>
-  <text x="910" y="450" class="label">Reply</text>
-  <rect x="1000" y="410" width="145" height="72" class="node"/>
-  <text x="1072" y="435" class="label"><tspan x="1072">Leader current-</tspan><tspan x="1072" dy="18">term majority</tspan></text>
-  <path d="M800 446 H848" class="arrow"/><path d="M970 446 H998" class="arrow"/>
+  <rect x="525" y="367" width="275" height="76" class="durable"/>
+  <text x="662" y="395" class="label"><tspan x="662">startReplicationLocked</tspan><tspan x="662" dy="21">lazy-started at first leadership</tspan></text>
+  <rect x="850" y="367" width="300" height="76" class="node"/>
+  <text x="1000" y="393" class="label"><tspan x="1000">heartbeatLoop(peer)</tspan><tspan x="1000" dy="21">one serial worker per peer</tspan></text>
+  <rect x="1200" y="367" width="300" height="76" class="node"/>
+  <text x="1350" y="393" class="label"><tspan x="1350">Later terms reuse workers</tspan><tspan x="1350" dy="21">Stop waits for worker exit</tspan></text>
+  <path d="M1417 312 V344 H662 V365" class="arrow"/>
+  <path d="M800 405 H848" class="arrow"/>
+  <path d="M1150 405 H1198" class="arrow"/>
+  <text x="800" y="473" class="small">RequestVote / AppendEntries / Heartbeat: checkTarget(TargetID + ClusterID + membership hash) runs before term handling.</text>
 
-  <rect x="850" y="565" width="150" height="76" class="durable"/>
-  <text x="925" y="590" class="label"><tspan x="925">Save commit</tspan><tspan x="925" dy="18">index</tspan></text>
-  <rect x="1030" y="565" width="115" height="76" class="apply"/>
-  <text x="1087" y="609" class="label">Apply x</text>
-  <path d="M1072 482 V535 H925 V563" class="arrow"/><path d="M1000 603 H1028" class="arrow"/>
+  <rect x="28" y="510" width="1544" height="395" rx="18" class="panel"/>
+  <text x="52" y="543" class="section">2. Generate, replication and commit</text>
+  <text x="800" y="572" class="note" text-anchor="middle">Batch size comes from Options.BatchSize: default 128, configurable 1..4096</text>
 
-  <rect x="440" y="565" width="300" height="76" class="rpc"/>
-  <text x="590" y="591" class="label"><tspan x="590">Next AppendEntries carries</tspan><tspan x="590" dy="19">LeaderCommit</tspan></text>
-  <path d="M1087 641 V665 H790 V603 H742" class="arrow"/>
-  <rect x="70" y="565" width="310" height="76" class="durable"/>
-  <text x="225" y="589" class="label"><tspan x="225">Follower saves commit index</tspan><tspan x="225" dy="19">and applies x</tspan></text>
-  <path d="M440 603 H382" class="arrow"/>
-  <text x="600" y="700" class="small">Runtime logs are written to both the terminal and a file.</text>
-  <text x="600" y="726" class="small">Blue: durable state  ·  Amber: RPC  ·  Green: apply / leadership action</text>
+  <rect x="48" y="600" width="150" height="82" class="node"/>
+  <text x="123" y="635" class="label"><tspan x="123">Generate</tspan><tspan x="123" dy="21">client command</tspan></text>
+  <rect x="220" y="600" width="190" height="82" class="durable"/>
+  <text x="315" y="629" class="label"><tspan x="315">appendEntriesLocked</tspan><tspan x="315" dy="21">leader WAL Sync</tspan></text>
+  <rect x="432" y="600" width="145" height="82" class="apply"/>
+  <text x="504" y="635" class="label"><tspan x="504">Accepted</tspan><tspan x="504" dy="21">true</tspan></text>
+  <rect x="600" y="600" width="175" height="82" class="rpc"/>
+  <text x="687" y="629" class="label"><tspan x="687">AppendEntries</tspan><tspan x="687" dy="21">configured batch</tspan></text>
+  <rect x="798" y="600" width="215" height="82" class="durable"/>
+  <text x="905" y="621" class="label"><tspan x="905">Follower checkTarget</tspan><tspan x="905" dy="19">prefix check + WAL Sync</tspan><tspan x="905" dy="19">bounded suffix replace</tspan></text>
+  <rect x="1036" y="600" width="190" height="82" class="rpc"/>
+  <text x="1131" y="629" class="label"><tspan x="1131">Append reply</tspan><tspan x="1131" dy="21">NodeID + identities</tspan></text>
+  <rect x="1249" y="600" width="285" height="82" class="guard"/>
+  <text x="1391" y="621" class="label"><tspan x="1391">matchesReply before term</tspan><tspan x="1391" dy="19">then match index / majority</tspan><tspan x="1391" dy="19">commit only current-term N</tspan></text>
+  <path d="M198 641 H218" class="arrow"/>
+  <path d="M410 641 H430" class="arrow"/>
+  <path d="M577 641 H598" class="arrow"/>
+  <path d="M775 641 H796" class="arrow"/>
+  <path d="M1013 641 H1034" class="arrow"/>
+  <path d="M1226 641 H1247" class="arrow"/>
+
+  <rect x="210" y="765" width="210" height="78" class="durable"/>
+  <text x="315" y="796" class="label"><tspan x="315">commitLocked</tspan><tspan x="315" dy="21">saveState + Sync</tspan></text>
+  <rect x="455" y="765" width="200" height="78" class="durable"/>
+  <text x="555" y="795" class="label"><tspan x="555">advance commitIndex</tspan><tspan x="555" dy="21">publish committed hash</tspan></text>
+  <rect x="690" y="765" width="180" height="78" class="apply"/>
+  <text x="780" y="808" class="label">applyLocked</text>
+  <rect x="905" y="765" width="190" height="78" class="apply"/>
+  <text x="1000" y="795" class="label"><tspan x="1000">notifyLocked</tspan><tspan x="1000" dy="21">wake Generate</tspan></text>
+  <rect x="1130" y="765" width="200" height="78" class="apply"/>
+  <text x="1230" y="808" class="label">Committed = true</text>
+  <path d="M1391 682 V731 H315 V763" class="arrow"/>
+  <path d="M420 804 H453" class="arrow"/>
+  <path d="M655 804 H688" class="arrow"/>
+  <path d="M870 804 H903" class="arrow"/>
+  <path d="M1095 804 H1128" class="arrow"/>
+  <text x="800" y="875" class="small">The API reports Accepted after the leader WAL append; Committed follows durable commit metadata, apply and notification.</text>
+
+  <rect x="28" y="923" width="1544" height="168" rx="18" class="panel"/>
+  <text x="52" y="956" class="section">3. Monitoring and verification are separate reads</text>
+  <rect x="70" y="980" width="420" height="78" class="node"/>
+  <text x="280" y="1009" class="label"><tspan x="280">Status(Summary) + EventRange</tspan><tspan x="280" dy="21">shared monitoring poll; summary omits log/history checks</tspan></text>
+  <rect x="590" y="980" width="390" height="78" class="rpc"/>
+  <text x="785" y="1009" class="label"><tspan x="785">LogRange</tspan><tspan x="785" dy="21">on demand; each range is bounded to 256 entries</tspan></text>
+  <rect x="1080" y="980" width="450" height="78" class="guard"/>
+  <text x="1305" y="1009" class="label"><tspan x="1305">Full Status + historical target check</tspan><tspan x="1305" dy="21">separate complete-state / prefix verification path</tspan></text>
+  <path d="M490 1019 H588" class="arrow"/>
+  <path d="M980 1019 H1078" class="arrow"/>
 </svg>
