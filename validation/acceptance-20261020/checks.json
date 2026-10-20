@@ -1,0 +1,29 @@
+{
+  "source_commit": "61ed114",
+  "checks": {
+    "Linux go fmt / vet / build": "PASS",
+    "Linux go test -count=1": "77 top-level tests PASS; 42 subcases PASS",
+    "Linux go test -race -count=1": "77 top-level tests PASS; 42 subcases PASS",
+    "Python unittest": "34 PASS (includes package artifact binding regression)",
+    "Linux 3/11 node smoke": "2/2 PASS",
+    "Windows Go vet/test/build": "PASS (Go 1.26.3)",
+    "Windows Python unittest": "32 PASS; 1 Linux-only SKIP",
+    "Windows 3/11 smoke": "2/2 PASS",
+    "Windows prebuilt startup/demo": "PASS after test-fixture path repair",
+    "Linux 10/20/50/100 five scenarios three rounds": "60/60 PASS; 60/60 independent WAL references",
+    "Linux 11 node 2101 four-scenario pilot": "4/4 PASS; independent reference",
+    "Real Chromium six-page operations": "PASS after cancel-test contract correction",
+    "Real Chromium 100-node grid": "PASS (100 reachable, 100 rendered)",
+    "Synthetic UI regression": "8 PASS; 1 live-check SKIP",
+    "Windows native HTTP console 11-node recovery/history/export": "PASS",
+    "Manual visible terminal closing": "NOT RUN - explicitly deferred by user",
+    "Windows race": "NOT RUN - C compiler not configured",
+    "Fresh portable ZIP": "NOT RUN - pending this round",
+    "Windows initial scale": "23/24 PASS; 100-node divergence r1 runtime startup OOM retained",
+    "Windows capacity retest": "6/6 PASS (100 nodes, election/divergence three rounds, P pagefile added); separate environment"
+  },
+  "limitations": [
+    "single-host processes; local TCP; three rounds are not reliable tail-latency estimates",
+    "Windows guest 8 vCPU/8GiB; host Linux and native Windows measurements kept separate"
+  ]
+}

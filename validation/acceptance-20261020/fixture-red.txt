@@ -1,0 +1,12 @@
+--- FAIL: TestDivergenceInitialManifest (0.57s)
+    --- FAIL: TestDivergenceInitialManifest/10 (0.04s)
+        fixture_manifest_test.go:19: need 10 initial node records, got 0
+    --- FAIL: TestDivergenceInitialManifest/20 (0.06s)
+        fixture_manifest_test.go:19: need 20 initial node records, got 0
+    --- FAIL: TestDivergenceInitialManifest/50 (0.16s)
+        fixture_manifest_test.go:19: need 50 initial node records, got 0
+    --- FAIL: TestDivergenceInitialManifest/100 (0.31s)
+        fixture_manifest_test.go:19: need 100 initial node records, got 0
+FAIL
+FAIL	myraft/raft	0.591s
+FAIL

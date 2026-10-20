@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1450" viewBox="0 0 900 1450">
+<rect width="100%" height="100%" fill="white"/>
+<text x="450.0" y="28" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="19" text-anchor="middle" fill="#243447" font-weight="bold">Benchmark performance · successful elapsed time only</text>
+<text x="90" y="48" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="start" fill="#536273" font-weight="normal">Environment: Linux-7.0.0-28-generic-x86_64-with-glibc2.39, go version go1.27.2 linux/amd64, 3.12.7</text>
+<text x="90" y="75" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="15" text-anchor="start" fill="#243447" font-weight="bold">catchup</text>
+<line x1="90" y1="254" x2="865" y2="254" stroke="#526273"/>
+<line x1="90" y1="89" x2="90" y2="254" stroke="#526273"/>
+<line x1="90" y1="254.0" x2="865" y2="254.0" stroke="#e3e8ed"/>
+<text x="81" y="258.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0</text>
+<line x1="90" y1="199.0" x2="865" y2="199.0" stroke="#e3e8ed"/>
+<text x="81" y="203.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0.161</text>
+<line x1="90" y1="144.0" x2="865" y2="144.0" stroke="#e3e8ed"/>
+<text x="81" y="148.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0.322</text>
+<line x1="90" y1="89.0" x2="865" y2="89.0" stroke="#e3e8ed"/>
+<text x="81" y="93.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0.483</text>
+<text x="18" y="171.5" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="middle" fill="#536273" font-weight="normal">seconds</text>
+<rect x="134.6" y="121.2" width="104.6" height="132.8" fill="#337ab7"/>
+<text x="186.875" y="114.15695160076538" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.389s</text>
+<line x1="186.9" y1="120.9" x2="186.9" y2="121.6" stroke="#202b36" stroke-width="2"/><line x1="182.9" y1="120.9" x2="190.9" y2="120.9" stroke="#202b36"/><line x1="182.9" y1="121.6" x2="190.9" y2="121.6" stroke="#202b36"/>
+<text x="186.875" y="271" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">10 nodes</text>
+<text x="186.875" y="285" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="328.3" y="160.9" width="104.6" height="93.1" fill="#337ab7"/>
+<text x="380.625" y="153.92097023982086" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.273s</text>
+<line x1="380.6" y1="160.4" x2="380.6" y2="161.4" stroke="#202b36" stroke-width="2"/><line x1="376.6" y1="160.4" x2="384.6" y2="160.4" stroke="#202b36"/><line x1="376.6" y1="161.4" x2="384.6" y2="161.4" stroke="#202b36"/>
+<text x="380.625" y="271" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">20 nodes</text>
+<text x="380.625" y="285" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="522.1" y="142.7" width="104.6" height="111.3" fill="#337ab7"/>
+<text x="574.375" y="135.71995378788267" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.326s</text>
+<line x1="574.4" y1="113.1" x2="574.4" y2="157.9" stroke="#202b36" stroke-width="2"/><line x1="570.4" y1="113.1" x2="578.4" y2="113.1" stroke="#202b36"/><line x1="570.4" y1="157.9" x2="578.4" y2="157.9" stroke="#202b36"/>
+<text x="574.375" y="271" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">50 nodes</text>
+<text x="574.375" y="285" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="715.8" y="138.0" width="104.6" height="116.0" fill="#337ab7"/>
+<text x="768.125" y="131.0295356078272" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.340s</text>
+<line x1="768.1" y1="110.5" x2="768.1" y2="152.2" stroke="#202b36" stroke-width="2"/><line x1="764.1" y1="110.5" x2="772.1" y2="110.5" stroke="#202b36"/><line x1="764.1" y1="152.2" x2="772.1" y2="152.2" stroke="#202b36"/>
+<text x="768.125" y="271" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">100 nodes</text>
+<text x="768.125" y="285" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<text x="865" y="75" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">bar = mean; whisker = min–max; n = pass/attempts</text>
+<text x="90" y="345" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="15" text-anchor="start" fill="#243447" font-weight="bold">divergence</text>
+<line x1="90" y1="524" x2="865" y2="524" stroke="#526273"/>
+<line x1="90" y1="359" x2="90" y2="524" stroke="#526273"/>
+<line x1="90" y1="524.0" x2="865" y2="524.0" stroke="#e3e8ed"/>
+<text x="81" y="528.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0</text>
+<line x1="90" y1="469.0" x2="865" y2="469.0" stroke="#e3e8ed"/>
+<text x="81" y="473.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0.216</text>
+<line x1="90" y1="414.0" x2="865" y2="414.0" stroke="#e3e8ed"/>
+<text x="81" y="418.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0.431</text>
+<line x1="90" y1="359.0" x2="865" y2="359.0" stroke="#e3e8ed"/>
+<text x="81" y="363.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0.647</text>
+<text x="18" y="441.5" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="middle" fill="#536273" font-weight="normal">seconds</text>
+<rect x="134.6" y="423.4" width="104.6" height="100.6" fill="#337ab7"/>
+<text x="186.875" y="416.3933535698324" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.394s</text>
+<line x1="186.9" y1="415.4" x2="186.9" y2="431.1" stroke="#202b36" stroke-width="2"/><line x1="182.9" y1="415.4" x2="190.9" y2="415.4" stroke="#202b36"/><line x1="182.9" y1="431.1" x2="190.9" y2="431.1" stroke="#202b36"/>
+<text x="186.875" y="541" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">10 nodes</text>
+<text x="186.875" y="555" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="328.3" y="429.3" width="104.6" height="94.7" fill="#337ab7"/>
+<text x="380.625" y="422.2520188100298" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.371s</text>
+<line x1="380.6" y1="427.2" x2="380.6" y2="432.0" stroke="#202b36" stroke-width="2"/><line x1="376.6" y1="427.2" x2="384.6" y2="427.2" stroke="#202b36"/><line x1="376.6" y1="432.0" x2="384.6" y2="432.0" stroke="#202b36"/>
+<text x="380.625" y="541" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">20 nodes</text>
+<text x="380.625" y="555" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="522.1" y="411.6" width="104.6" height="112.4" fill="#337ab7"/>
+<text x="574.375" y="404.5720694242203" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.441s</text>
+<line x1="574.4" y1="402.8" x2="574.4" y2="421.5" stroke="#202b36" stroke-width="2"/><line x1="570.4" y1="402.8" x2="578.4" y2="402.8" stroke="#202b36"/><line x1="570.4" y1="421.5" x2="578.4" y2="421.5" stroke="#202b36"/>
+<text x="574.375" y="541" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">50 nodes</text>
+<text x="574.375" y="555" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="715.8" y="407.5" width="104.6" height="116.5" fill="#337ab7"/>
+<text x="768.125" y="400.53956893952335" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.456s</text>
+<line x1="768.1" y1="380.5" x2="768.1" y2="429.0" stroke="#202b36" stroke-width="2"/><line x1="764.1" y1="380.5" x2="772.1" y2="380.5" stroke="#202b36"/><line x1="764.1" y1="429.0" x2="772.1" y2="429.0" stroke="#202b36"/>
+<text x="768.125" y="541" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">100 nodes</text>
+<text x="768.125" y="555" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<text x="865" y="345" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">bar = mean; whisker = min–max; n = pass/attempts</text>
+<text x="90" y="615" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="15" text-anchor="start" fill="#243447" font-weight="bold">election</text>
+<line x1="90" y1="794" x2="865" y2="794" stroke="#526273"/>
+<line x1="90" y1="629" x2="90" y2="794" stroke="#526273"/>
+<line x1="90" y1="794.0" x2="865" y2="794.0" stroke="#e3e8ed"/>
+<text x="81" y="798.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0</text>
+<line x1="90" y1="739.0" x2="865" y2="739.0" stroke="#e3e8ed"/>
+<text x="81" y="743.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">1.41</text>
+<line x1="90" y1="684.0" x2="865" y2="684.0" stroke="#e3e8ed"/>
+<text x="81" y="688.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">2.82</text>
+<line x1="90" y1="629.0" x2="865" y2="629.0" stroke="#e3e8ed"/>
+<text x="81" y="633.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">4.23</text>
+<text x="18" y="711.5" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="middle" fill="#536273" font-weight="normal">seconds</text>
+<rect x="134.6" y="658.7" width="104.6" height="135.3" fill="#337ab7"/>
+<text x="186.875" y="651.7323215620777" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">3.466s</text>
+<line x1="186.9" y1="655.3" x2="186.9" y2="661.3" stroke="#202b36" stroke-width="2"/><line x1="182.9" y1="655.3" x2="190.9" y2="655.3" stroke="#202b36"/><line x1="182.9" y1="661.3" x2="190.9" y2="661.3" stroke="#202b36"/>
+<text x="186.875" y="811" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">10 nodes</text>
+<text x="186.875" y="825" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="328.3" y="663.2" width="104.6" height="130.8" fill="#337ab7"/>
+<text x="380.625" y="656.2073495978964" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">3.351s</text>
+<line x1="380.6" y1="660.5" x2="380.6" y2="664.6" stroke="#202b36" stroke-width="2"/><line x1="376.6" y1="660.5" x2="384.6" y2="660.5" stroke="#202b36"/><line x1="376.6" y1="664.6" x2="384.6" y2="664.6" stroke="#202b36"/>
+<text x="380.625" y="811" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">20 nodes</text>
+<text x="380.625" y="825" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="522.1" y="653.9" width="104.6" height="140.1" fill="#337ab7"/>
+<text x="574.375" y="646.9423584287722" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">3.588s</text>
+<line x1="574.4" y1="650.5" x2="574.4" y2="658.2" stroke="#202b36" stroke-width="2"/><line x1="570.4" y1="650.5" x2="578.4" y2="650.5" stroke="#202b36"/><line x1="570.4" y1="658.2" x2="578.4" y2="658.2" stroke="#202b36"/>
+<text x="574.375" y="811" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">50 nodes</text>
+<text x="574.375" y="825" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="715.8" y="655.2" width="104.6" height="138.8" fill="#337ab7"/>
+<text x="768.125" y="648.2090836205707" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">3.556s</text>
+<line x1="768.1" y1="654.1" x2="768.1" y2="656.2" stroke="#202b36" stroke-width="2"/><line x1="764.1" y1="654.1" x2="772.1" y2="654.1" stroke="#202b36"/><line x1="764.1" y1="656.2" x2="772.1" y2="656.2" stroke="#202b36"/>
+<text x="768.125" y="811" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">100 nodes</text>
+<text x="768.125" y="825" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<text x="865" y="615" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">bar = mean; whisker = min–max; n = pass/attempts</text>
+<text x="90" y="885" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="15" text-anchor="start" fill="#243447" font-weight="bold">failover</text>
+<line x1="90" y1="1064" x2="865" y2="1064" stroke="#526273"/>
+<line x1="90" y1="899" x2="90" y2="1064" stroke="#526273"/>
+<line x1="90" y1="1064.0" x2="865" y2="1064.0" stroke="#e3e8ed"/>
+<text x="81" y="1068.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0</text>
+<line x1="90" y1="1009.0" x2="865" y2="1009.0" stroke="#e3e8ed"/>
+<text x="81" y="1013.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">2.43</text>
+<line x1="90" y1="954.0" x2="865" y2="954.0" stroke="#e3e8ed"/>
+<text x="81" y="958.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">4.87</text>
+<line x1="90" y1="899.0" x2="865" y2="899.0" stroke="#e3e8ed"/>
+<text x="81" y="903.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">7.3</text>
+<text x="18" y="981.5" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="middle" fill="#536273" font-weight="normal">seconds</text>
+<rect x="134.6" y="992.3" width="104.6" height="71.7" fill="#337ab7"/>
+<text x="186.875" y="985.2681779927877" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">3.175s</text>
+<line x1="186.9" y1="992.0" x2="186.9" y2="992.4" stroke="#202b36" stroke-width="2"/><line x1="182.9" y1="992.0" x2="190.9" y2="992.0" stroke="#202b36"/><line x1="182.9" y1="992.4" x2="190.9" y2="992.4" stroke="#202b36"/>
+<text x="186.875" y="1081" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">10 nodes</text>
+<text x="186.875" y="1095" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="328.3" y="968.9" width="104.6" height="95.1" fill="#337ab7"/>
+<text x="380.625" y="961.8744394017607" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">4.210s</text>
+<line x1="380.6" y1="923.1" x2="380.6" y2="992.3" stroke="#202b36" stroke-width="2"/><line x1="376.6" y1="923.1" x2="384.6" y2="923.1" stroke="#202b36"/><line x1="376.6" y1="992.3" x2="384.6" y2="992.3" stroke="#202b36"/>
+<text x="380.625" y="1081" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">20 nodes</text>
+<text x="380.625" y="1095" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="522.1" y="989.3" width="104.6" height="74.7" fill="#337ab7"/>
+<text x="574.375" y="982.3455452679641" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">3.304s</text>
+<line x1="574.4" y1="986.5" x2="574.4" y2="991.0" stroke="#202b36" stroke-width="2"/><line x1="570.4" y1="986.5" x2="578.4" y2="986.5" stroke="#202b36"/><line x1="570.4" y1="991.0" x2="578.4" y2="991.0" stroke="#202b36"/>
+<text x="574.375" y="1081" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">50 nodes</text>
+<text x="574.375" y="1095" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="715.8" y="967.7" width="104.6" height="96.3" fill="#337ab7"/>
+<text x="768.125" y="960.7175013807329" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">4.261s</text>
+<line x1="768.1" y1="920.5" x2="768.1" y2="991.5" stroke="#202b36" stroke-width="2"/><line x1="764.1" y1="920.5" x2="772.1" y2="920.5" stroke="#202b36"/><line x1="764.1" y1="991.5" x2="772.1" y2="991.5" stroke="#202b36"/>
+<text x="768.125" y="1081" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">100 nodes</text>
+<text x="768.125" y="1095" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<text x="865" y="885" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">bar = mean; whisker = min–max; n = pass/attempts</text>
+<text x="90" y="1155" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="15" text-anchor="start" fill="#243447" font-weight="bold">replication</text>
+<line x1="90" y1="1334" x2="865" y2="1334" stroke="#526273"/>
+<line x1="90" y1="1169" x2="90" y2="1334" stroke="#526273"/>
+<line x1="90" y1="1334.0" x2="865" y2="1334.0" stroke="#e3e8ed"/>
+<text x="81" y="1338.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0</text>
+<line x1="90" y1="1279.0" x2="865" y2="1279.0" stroke="#e3e8ed"/>
+<text x="81" y="1283.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0.089</text>
+<line x1="90" y1="1224.0" x2="865" y2="1224.0" stroke="#e3e8ed"/>
+<text x="81" y="1228.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0.178</text>
+<line x1="90" y1="1169.0" x2="865" y2="1169.0" stroke="#e3e8ed"/>
+<text x="81" y="1173.0" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">0.267</text>
+<text x="18" y="1251.5" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="11" text-anchor="middle" fill="#536273" font-weight="normal">seconds</text>
+<rect x="134.6" y="1290.3" width="104.6" height="43.7" fill="#337ab7"/>
+<text x="186.875" y="1283.2532059525277" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.071s</text>
+<line x1="186.9" y1="1288.3" x2="186.9" y2="1294.2" stroke="#202b36" stroke-width="2"/><line x1="182.9" y1="1288.3" x2="190.9" y2="1288.3" stroke="#202b36"/><line x1="182.9" y1="1294.2" x2="190.9" y2="1294.2" stroke="#202b36"/>
+<text x="186.875" y="1351" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">10 nodes</text>
+<text x="186.875" y="1365" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="328.3" y="1273.8" width="104.6" height="60.2" fill="#337ab7"/>
+<text x="380.625" y="1266.7622578922403" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.098s</text>
+<line x1="380.6" y1="1268.5" x2="380.6" y2="1282.3" stroke="#202b36" stroke-width="2"/><line x1="376.6" y1="1268.5" x2="384.6" y2="1268.5" stroke="#202b36"/><line x1="376.6" y1="1282.3" x2="384.6" y2="1282.3" stroke="#202b36"/>
+<text x="380.625" y="1351" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">20 nodes</text>
+<text x="380.625" y="1365" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="522.1" y="1254.5" width="104.6" height="79.5" fill="#337ab7"/>
+<text x="574.375" y="1247.5109719236323" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.129s</text>
+<line x1="574.4" y1="1245.5" x2="574.4" y2="1261.1" stroke="#202b36" stroke-width="2"/><line x1="570.4" y1="1245.5" x2="578.4" y2="1245.5" stroke="#202b36"/><line x1="570.4" y1="1261.1" x2="578.4" y2="1261.1" stroke="#202b36"/>
+<text x="574.375" y="1351" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">50 nodes</text>
+<text x="574.375" y="1365" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<rect x="715.8" y="1205.3" width="104.6" height="128.7" fill="#337ab7"/>
+<text x="768.125" y="1198.2699837595328" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">0.208s</text>
+<line x1="768.1" y1="1190.5" x2="768.1" y2="1224.1" stroke="#202b36" stroke-width="2"/><line x1="764.1" y1="1190.5" x2="772.1" y2="1190.5" stroke="#202b36"/><line x1="764.1" y1="1224.1" x2="772.1" y2="1224.1" stroke="#202b36"/>
+<text x="768.125" y="1351" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="middle" fill="#243447" font-weight="normal">100 nodes</text>
+<text x="768.125" y="1365" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="9" text-anchor="middle" fill="#536273" font-weight="normal">3/3 pass b128</text>
+<text x="865" y="1155" font-family="Arial, Noto Sans CJK SC, sans-serif" font-size="10" text-anchor="end" fill="#536273" font-weight="normal">bar = mean; whisker = min–max; n = pass/attempts</text>
+</svg>

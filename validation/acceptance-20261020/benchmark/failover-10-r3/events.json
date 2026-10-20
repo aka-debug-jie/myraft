@@ -1,0 +1,102 @@
+[
+  {
+    "event": "processes_started",
+    "offset_seconds": 0.007635036483407021
+  },
+  {
+    "event": "leader_observed",
+    "offset_seconds": 3.4341491498053074
+  },
+  {
+    "event": "commands_committed",
+    "offset_seconds": 3.515673380345106
+  },
+  {
+    "event": "fault_started",
+    "offset_seconds": 3.6506622582674026
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.650703568942845,
+    "id": 2,
+    "role": "Leader",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.6523170564323664,
+    "id": 2,
+    "role": "Leader",
+    "term": 1,
+    "remaining_nodes": 9,
+    "quorum": 6,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.65233345143497,
+    "id": 10,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.655902755446732,
+    "id": 10,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 8,
+    "quorum": 6,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.6559257321059704,
+    "id": 3,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.6597131276503205,
+    "id": 3,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 7,
+    "quorum": 6,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.6597372982650995,
+    "id": 9,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.663651284761727,
+    "id": 9,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 6,
+    "quorum": 6,
+    "majority_available": true
+  },
+  {
+    "event": "replacement_observed",
+    "offset_seconds": 6.797210757620633
+  },
+  {
+    "event": "replacement_write_committed",
+    "offset_seconds": 6.819737798534334
+  },
+  {
+    "event": "nodes_restarted",
+    "offset_seconds": 6.973097520880401
+  },
+  {
+    "event": "converged",
+    "offset_seconds": 7.259880802594125
+  }
+]

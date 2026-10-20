@@ -1,0 +1,51 @@
+[
+  {
+    "event": "processes_started",
+    "offset_seconds": 0.01696885470300913
+  },
+  {
+    "event": "leader_observed",
+    "offset_seconds": 3.425075251609087
+  },
+  {
+    "event": "commands_committed",
+    "offset_seconds": 3.517387254163623
+  },
+  {
+    "event": "fault_started",
+    "offset_seconds": 3.661232111044228
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.6612732196226716,
+    "id": 15,
+    "role": "Leader",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.6649643192067742,
+    "id": 15,
+    "role": "Leader",
+    "term": 1,
+    "remaining_nodes": 19,
+    "quorum": 11,
+    "majority_available": true
+  },
+  {
+    "event": "replacement_observed",
+    "offset_seconds": 6.866456448100507
+  },
+  {
+    "event": "replacement_write_committed",
+    "offset_seconds": 6.8857143195346
+  },
+  {
+    "event": "nodes_restarted",
+    "offset_seconds": 7.036711644381285
+  },
+  {
+    "event": "converged",
+    "offset_seconds": 7.310722513124347
+  }
+]

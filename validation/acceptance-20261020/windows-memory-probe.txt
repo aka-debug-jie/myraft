@@ -1,0 +1,29 @@
+Guest PID: 2752
+divergence n=100 batch=128 round=1: PASS 1.713889 
+Results: P:\Xinbao\acceptance-20261020-native\benchmark-memory-probe
+
+[
+    {
+        "committed_bytes":  8113328128,
+        "available_mb":  4643,
+        "commit_limit":  9354829824,
+        "at":  "2026-10-20T07:00:02.2280436Z"
+    },
+    {
+        "committed_bytes":  8088887296,
+        "available_mb":  4644,
+        "commit_limit":  9354829824,
+        "at":  "2026-10-20T07:00:02.8010540Z"
+    },
+    {
+        "committed_bytes":  8050376704,
+        "available_mb":  4688,
+        "commit_limit":  9354829824,
+        "at":  "2026-10-20T07:00:01.6880049Z"
+    }
+]
+{
+    "AutomaticManagedPagefile":  true
+}
+
+Guest result: {"exitcode": 0, "exited": true}

@@ -1,0 +1,18 @@
+.tools/acceptance-20261020/raft-node.exe: go1.26.3
+	path	myraft
+	mod	myraft	(devel)	
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	CGO_ENABLED=0
+	build	GOARCH=amd64
+	build	GOOS=windows
+	build	GOAMD64=v1
+.tools/acceptance-20261020/raft-console.exe: go1.26.3
+	path	myraft/cmd/dashboard
+	mod	myraft	(devel)	
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	CGO_ENABLED=0
+	build	GOARCH=amd64
+	build	GOOS=windows
+	build	GOAMD64=v1

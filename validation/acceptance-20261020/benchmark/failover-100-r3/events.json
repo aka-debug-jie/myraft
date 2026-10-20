@@ -1,0 +1,493 @@
+[
+  {
+    "event": "processes_started",
+    "offset_seconds": 0.07663623243570328
+  },
+  {
+    "event": "leader_observed",
+    "offset_seconds": 3.584560805000365
+  },
+  {
+    "event": "commands_committed",
+    "offset_seconds": 3.8017938286066055
+  },
+  {
+    "event": "fault_started",
+    "offset_seconds": 3.961630071513355
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.9616497522220016,
+    "id": 77,
+    "role": "Leader",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.9691714830696583,
+    "id": 77,
+    "role": "Leader",
+    "term": 1,
+    "remaining_nodes": 99,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.9691767869517207,
+    "id": 67,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.9726970680058002,
+    "id": 67,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 98,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.9727016305550933,
+    "id": 70,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.976078468374908,
+    "id": 70,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 97,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.9760824777185917,
+    "id": 91,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.979476914741099,
+    "id": 91,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 96,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.979481146670878,
+    "id": 15,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.982793990522623,
+    "id": 15,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 95,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.9827977446839213,
+    "id": 23,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.9861146537587047,
+    "id": 23,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 94,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.9861187152564526,
+    "id": 49,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.9894529627636075,
+    "id": 49,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 93,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.989457500167191,
+    "id": 29,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.9928699284791946,
+    "id": 29,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 92,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.9928746465593576,
+    "id": 38,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.996200234629214,
+    "id": 38,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 91,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.9962041284888983,
+    "id": 4,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.997450944967568,
+    "id": 4,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 90,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.997455056756735,
+    "id": 94,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.00080179143697,
+    "id": 94,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 89,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.000805703923106,
+    "id": 97,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.004191008396447,
+    "id": 97,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 88,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.004194856621325,
+    "id": 73,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.0054755341261625,
+    "id": 73,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 87,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.005479481071234,
+    "id": 2,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.008854975923896,
+    "id": 2,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 86,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.008858981542289,
+    "id": 13,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.012158250436187,
+    "id": 13,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 85,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.012162680737674,
+    "id": 21,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.015462183393538,
+    "id": 21,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 84,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.015466306358576,
+    "id": 66,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.018785173073411,
+    "id": 66,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 83,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.018789537250996,
+    "id": 39,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.022112307138741,
+    "id": 39,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 82,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.022116764448583,
+    "id": 83,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.025468021631241,
+    "id": 83,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 81,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.025471742264926,
+    "id": 95,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.026729937642813,
+    "id": 95,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 80,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.026734356768429,
+    "id": 76,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.030074045993388,
+    "id": 76,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 79,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.030078141950071,
+    "id": 52,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.031344382092357,
+    "id": 52,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 78,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.03134822845459,
+    "id": 42,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.034692111425102,
+    "id": 42,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 77,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.034696803428233,
+    "id": 46,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.038008427247405,
+    "id": 46,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 76,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.0380126954987645,
+    "id": 10,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.041292571462691,
+    "id": 10,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 75,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.0412964299321175,
+    "id": 44,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.044619368389249,
+    "id": 44,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 74,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 4.044623243622482,
+    "id": 37,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 4.0479474272578955,
+    "id": 37,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 73,
+    "quorum": 51,
+    "majority_available": true
+  },
+  {
+    "event": "replacement_observed",
+    "offset_seconds": 7.160562492907047
+  },
+  {
+    "event": "replacement_write_committed",
+    "offset_seconds": 7.18714289739728
+  },
+  {
+    "event": "nodes_restarted",
+    "offset_seconds": 7.4085877519100904
+  },
+  {
+    "event": "converged",
+    "offset_seconds": 7.915233333595097
+  }
+]

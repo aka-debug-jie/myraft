@@ -1,0 +1,56 @@
+Guest PID: 6808
+election n=100 batch=128 round=1: PASS 5.913911819999996 
+election n=100 batch=128 round=2: PASS 4.744013350000017 
+election n=100 batch=128 round=3: PASS 4.6482346900000096 
+divergence n=100 batch=128 round=1: PASS 1.4541549999999999 
+divergence n=100 batch=128 round=2: PASS 1.3998119999999998 
+divergence n=100 batch=128 round=3: PASS 14.626575 
+Results: P:\Xinbao\acceptance-20261020-native\benchmark-capacity-retest
+
+[
+    {
+        "committed_bytes":  7669420032,
+        "available_mb":  5071,
+        "commit_limit":  13294530560,
+        "at":  "2026-10-20T07:07:38.5694346Z"
+    },
+    {
+        "committed_bytes":  7660363776,
+        "available_mb":  5069,
+        "commit_limit":  13294530560,
+        "at":  "2026-10-20T07:07:47.0387672Z"
+    },
+    {
+        "committed_bytes":  7660113920,
+        "available_mb":  5069,
+        "commit_limit":  13294530560,
+        "at":  "2026-10-20T07:07:48.2394341Z"
+    }
+]
+[
+    {
+        "Name":  "C:\\pagefile.sys",
+        "AllocatedBaseSize":  429
+    },
+    {
+        "Name":  "P:\\pagefile.sys",
+        "AllocatedBaseSize":  4096
+    }
+]
+{
+    "AutomaticManagedPagefile":  false
+}
+[
+    {
+        "Name":  "C:\\pagefile.sys",
+        "InitialSize":  0,
+        "MaximumSize":  0
+    },
+    {
+        "Name":  "P:\\pagefile.sys",
+        "InitialSize":  4096,
+        "MaximumSize":  4096
+    }
+]
+
+Guest result: {"exitcode": 0, "exited": true}

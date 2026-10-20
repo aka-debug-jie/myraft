@@ -1,0 +1,272 @@
+[
+  {
+    "event": "processes_started",
+    "offset_seconds": 0.04065611120313406
+  },
+  {
+    "event": "leader_observed",
+    "offset_seconds": 3.5456345407292247
+  },
+  {
+    "event": "commands_committed",
+    "offset_seconds": 3.651294401846826
+  },
+  {
+    "event": "fault_started",
+    "offset_seconds": 3.800310358405113
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8003475703299046,
+    "id": 36,
+    "role": "Leader",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.803752572275698,
+    "id": 36,
+    "role": "Leader",
+    "term": 1,
+    "remaining_nodes": 49,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8037587897852063,
+    "id": 34,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.8080226788297296,
+    "id": 34,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 48,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8080283142626286,
+    "id": 35,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.809265522286296,
+    "id": 35,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 47,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.809269340708852,
+    "id": 46,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.8105002818629146,
+    "id": 46,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 46,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.810504392720759,
+    "id": 8,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.811747604981065,
+    "id": 8,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 45,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8117512008175254,
+    "id": 12,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.8129493091255426,
+    "id": 12,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 44,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8129527075216174,
+    "id": 25,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.814160923473537,
+    "id": 25,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 43,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.814164588227868,
+    "id": 15,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.815361687913537,
+    "id": 15,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 42,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8153652800247073,
+    "id": 19,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.816607667133212,
+    "id": 19,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 41,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8166125984862447,
+    "id": 2,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.8178022550418973,
+    "id": 2,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 40,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8178058080375195,
+    "id": 44,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.8190258713439107,
+    "id": 44,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 39,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.819029713049531,
+    "id": 47,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.820259217172861,
+    "id": 47,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 38,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8202630151063204,
+    "id": 38,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.821490607224405,
+    "id": 38,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 37,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "stop_started",
+    "offset_seconds": 3.8214941434562206,
+    "id": 1,
+    "role": "Follower",
+    "term": 1
+  },
+  {
+    "event": "stop_finished",
+    "offset_seconds": 3.824708431959152,
+    "id": 1,
+    "role": "Follower",
+    "term": 1,
+    "remaining_nodes": 36,
+    "quorum": 26,
+    "majority_available": true
+  },
+  {
+    "event": "replacement_observed",
+    "offset_seconds": 7.2085133055225015
+  },
+  {
+    "event": "replacement_write_committed",
+    "offset_seconds": 7.231503263115883
+  },
+  {
+    "event": "nodes_restarted",
+    "offset_seconds": 7.425215863622725
+  },
+  {
+    "event": "converged",
+    "offset_seconds": 7.754121946170926
+  }
+]

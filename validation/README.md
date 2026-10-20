@@ -1,5 +1,7 @@
 # 实测结果与公开范围
 
+最新课程验收见 [acceptance-20261020](acceptance-20261020/README.md)。下文均为历史记录；当前 report.md 使用新输入，旧报告另存 report-cc7c185.md 与 report-81723b8.md。
+
 **Web Console 与身份/观测修复的新记录见 [console-20261019](console-20261019/README.md)**：Linux 16 轮规模回归、真实浏览器和 Win11 原生验收分别标明来源；本目录下面的旧测量描述不适用于新记录。
 
 本目录原有结果均属于 81723b8，未覆盖或重算。本轮修复和独立测量见 [closure-20261019](closure-20261019/README.md)，当前报告使用新结果。

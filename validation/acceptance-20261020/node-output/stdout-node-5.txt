@@ -1,0 +1,59 @@
+2026/10/20 14:34:29.160099 node=5 term=0 role=Follower | node_recovered index=0 commit=0 applied=0 x=0
+2026/10/20 14:34:29.160952 node=5 term=0 role=Follower | started addr=127.0.0.1:51851 members=11 quorum=6
+2026/10/20 14:34:32.455748 node=5 term=1 role=Follower | higher_term_observed
+2026/10/20 14:34:32.456843 node=5 term=1 role=Follower | vote_granted candidate=3
+2026/10/20 14:34:32.459507 node=5 term=1 role=Follower | leader_observed leader=3
+2026/10/20 14:34:32.460413 node=5 term=1 role=Follower | log_replicated from=1 index=1
+2026/10/20 14:34:32.463835 node=5 term=1 role=Follower | log_committed index=1
+2026/10/20 14:34:32.463844 node=5 term=1 role=Follower | state_applied from=1 index=1 commands=0 x=0
+2026/10/20 14:34:32.685609 node=5 term=1 role=Follower | log_replicated from=2 index=129
+2026/10/20 14:34:32.688735 node=5 term=1 role=Follower | log_replicated from=130 index=257
+2026/10/20 14:34:32.689727 node=5 term=1 role=Follower | log_committed index=129
+2026/10/20 14:34:32.689736 node=5 term=1 role=Follower | state_applied from=2 index=129 commands=128 x=8
+2026/10/20 14:34:32.692877 node=5 term=1 role=Follower | log_replicated from=258 index=385
+2026/10/20 14:34:32.693820 node=5 term=1 role=Follower | log_committed index=257
+2026/10/20 14:34:32.693831 node=5 term=1 role=Follower | state_applied from=130 index=257 commands=256 x=-10
+2026/10/20 14:34:32.695770 node=5 term=1 role=Follower | log_replicated from=386 index=513
+2026/10/20 14:34:32.696687 node=5 term=1 role=Follower | log_committed index=385
+2026/10/20 14:34:32.696694 node=5 term=1 role=Follower | state_applied from=258 index=385 commands=384 x=0
+2026/10/20 14:34:32.698496 node=5 term=1 role=Follower | log_replicated from=514 index=641
+2026/10/20 14:34:32.699322 node=5 term=1 role=Follower | log_committed index=513
+2026/10/20 14:34:32.699327 node=5 term=1 role=Follower | state_applied from=386 index=513 commands=512 x=0
+2026/10/20 14:34:32.701540 node=5 term=1 role=Follower | log_replicated from=642 index=769
+2026/10/20 14:34:32.702242 node=5 term=1 role=Follower | log_committed index=641
+2026/10/20 14:34:32.702250 node=5 term=1 role=Follower | state_applied from=514 index=641 commands=640 x=0
+2026/10/20 14:34:32.704157 node=5 term=1 role=Follower | log_replicated from=770 index=897
+2026/10/20 14:34:32.705044 node=5 term=1 role=Follower | log_committed index=769
+2026/10/20 14:34:32.705055 node=5 term=1 role=Follower | state_applied from=642 index=769 commands=768 x=-21
+2026/10/20 14:34:32.707213 node=5 term=1 role=Follower | log_replicated from=898 index=1025
+2026/10/20 14:34:32.708253 node=5 term=1 role=Follower | log_committed index=897
+2026/10/20 14:34:32.708276 node=5 term=1 role=Follower | state_applied from=770 index=897 commands=896 x=-4
+2026/10/20 14:34:32.710063 node=5 term=1 role=Follower | log_replicated from=1026 index=1153
+2026/10/20 14:34:32.710849 node=5 term=1 role=Follower | log_committed index=1025
+2026/10/20 14:34:32.710858 node=5 term=1 role=Follower | state_applied from=898 index=1025 commands=1024 x=-4
+2026/10/20 14:34:32.714294 node=5 term=1 role=Follower | log_replicated from=1154 index=1281
+2026/10/20 14:34:32.715379 node=5 term=1 role=Follower | log_committed index=1153
+2026/10/20 14:34:32.715398 node=5 term=1 role=Follower | state_applied from=1026 index=1153 commands=1152 x=-3
+2026/10/20 14:34:32.717546 node=5 term=1 role=Follower | log_replicated from=1282 index=1409
+2026/10/20 14:34:32.718288 node=5 term=1 role=Follower | log_committed index=1281
+2026/10/20 14:34:32.718295 node=5 term=1 role=Follower | state_applied from=1154 index=1281 commands=1280 x=-5
+2026/10/20 14:34:32.720370 node=5 term=1 role=Follower | log_replicated from=1410 index=1537
+2026/10/20 14:34:32.721085 node=5 term=1 role=Follower | log_committed index=1409
+2026/10/20 14:34:32.721091 node=5 term=1 role=Follower | state_applied from=1282 index=1409 commands=1408 x=-7
+2026/10/20 14:34:32.722717 node=5 term=1 role=Follower | log_replicated from=1538 index=1665
+2026/10/20 14:34:32.723881 node=5 term=1 role=Follower | log_committed index=1537
+2026/10/20 14:34:32.723893 node=5 term=1 role=Follower | state_applied from=1410 index=1537 commands=1536 x=16
+2026/10/20 14:34:32.725370 node=5 term=1 role=Follower | log_replicated from=1666 index=1793
+2026/10/20 14:34:32.726515 node=5 term=1 role=Follower | log_committed index=1665
+2026/10/20 14:34:32.726524 node=5 term=1 role=Follower | state_applied from=1538 index=1665 commands=1664 x=0
+2026/10/20 14:34:32.728435 node=5 term=1 role=Follower | log_replicated from=1794 index=1921
+2026/10/20 14:34:32.729499 node=5 term=1 role=Follower | log_committed index=1793
+2026/10/20 14:34:32.729506 node=5 term=1 role=Follower | state_applied from=1666 index=1793 commands=1792 x=0
+2026/10/20 14:34:32.731410 node=5 term=1 role=Follower | log_replicated from=1922 index=2049
+2026/10/20 14:34:32.732252 node=5 term=1 role=Follower | log_committed index=1921
+2026/10/20 14:34:32.732261 node=5 term=1 role=Follower | state_applied from=1794 index=1921 commands=1920 x=6
+2026/10/20 14:34:32.733732 node=5 term=1 role=Follower | log_replicated from=2050 index=2102
+2026/10/20 14:34:32.734508 node=5 term=1 role=Follower | log_committed index=2049
+2026/10/20 14:34:32.734519 node=5 term=1 role=Follower | state_applied from=1922 index=2049 commands=2048 x=0
+2026/10/20 14:34:32.736682 node=5 term=1 role=Follower | log_committed index=2102
+2026/10/20 14:34:32.736697 node=5 term=1 role=Follower | state_applied from=2050 index=2102 commands=2101 x=0

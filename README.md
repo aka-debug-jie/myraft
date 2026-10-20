@@ -1,5 +1,9 @@
 # MyRaft：固定成员 Raft 日志复制状态机
 
+本轮最终验收见 [a～g 验收清单](docs/acceptance-a-g.md)、[Windows 中文快速开始](docs/quick-start-zh.md) 与 [新实验记录](validation/acceptance-20261020/README.md)。Linux 四规模五场景各三轮已完成，旧记录保留。按使用者选择，可见桌面/人工关窗暂记 NOT RUN，不宣称 a～g 全部通过。
+
+绿色包直接运行 `Start-Terminals.cmd` 或 `Start-Console.cmd`。源码版 `start.bat` 仍默认编译；已有预编译程序可用 `scripts/start.ps1 -UsePrebuilt`。新版本 peer RPC 明确绑定目标 ID 和回复成员身份，旧二进制须全部停机后一起升级；WAL v2 不变，保留原 ID、cluster_id、成员集合与数据目录。
+
 在原有 Go 选举项目上扩展，保留 `config / raft / rpc` 结构、JSON 配置、TCP `net/rpc`、选举重试、终端/文件双输出。新增持久化日志复制、当前任期多数派提交、算术状态机、冲突修复、节点恢复和规模实验。只依赖 Go/Python 标准库。
 
 默认配置只监听 `127.0.0.1`。RPC 没有认证、TLS 或不可信客户端防护；仅在本机或受信任的隔离网络运行，不要将端口映射或开放至公网。详见 [安全说明](SECURITY.md)。

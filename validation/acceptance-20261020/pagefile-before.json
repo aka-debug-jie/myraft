@@ -1,0 +1,13 @@
+{
+    "paging_files":  [
+                         "?:\\pagefile.sys"
+                     ],
+    "automatic":  true,
+    "usage":  [
+                  {
+                      "Name":  "C:\\pagefile.sys",
+                      "AllocatedBaseSize":  768
+                  }
+              ],
+    "reason":  "100-node Go runtime startup allocation failed; additive P-drive commit capacity for course testing"
+}

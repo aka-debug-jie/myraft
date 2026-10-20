@@ -1,0 +1,77 @@
+{
+  "nodes": 20,
+  "scenario": "failover",
+  "requested_commands": 2101,
+  "seed": 42,
+  "result": "PASS",
+  "elapsed_seconds": 3.1712657883763313,
+  "error": null,
+  "batch_size": 128,
+  "round": 1,
+  "launch_seconds": 0.024865607731044292,
+  "initial_leader": 5,
+  "initial_local_election_ms": 8.138,
+  "initial_election_observed_seconds": 3.4120756927877665,
+  "failure_plan": [
+    {
+      "id": 5,
+      "role": "Leader",
+      "term": 1
+    },
+    {
+      "id": 1,
+      "role": "Follower",
+      "term": 1
+    }
+  ],
+  "killed_ids": [
+    5,
+    1
+  ],
+  "stop_records": [
+    {
+      "id": 5,
+      "role": "Leader",
+      "term": 1,
+      "start_offset_seconds": 3.642442297190428,
+      "started_at_utc": "2026-10-20T06:46:32.993366+00:00",
+      "end_offset_seconds": 3.646088169887662,
+      "ended_at_utc": "2026-10-20T06:46:32.997012+00:00",
+      "remaining_nodes": 19,
+      "quorum": 11,
+      "majority_available": true
+    },
+    {
+      "id": 1,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 3.646126525476575,
+      "started_at_utc": "2026-10-20T06:46:32.997048+00:00",
+      "end_offset_seconds": 3.649668103083968,
+      "ended_at_utc": "2026-10-20T06:46:33.000590+00:00",
+      "remaining_nodes": 18,
+      "quorum": 11,
+      "majority_available": true
+    }
+  ],
+  "kill_seconds": 0.007258303463459015,
+  "leader_observed_seconds": 3.1474030166864395,
+  "election_observed_seconds": 3.1474030166864395,
+  "fault_local_election_ms": 8.278,
+  "service_restored_seconds": 3.1712657883763313,
+  "local_election_ms": 8.278,
+  "restarted_nodes_caught_up": true,
+  "checkpoint_index": 2102,
+  "checkpoint_hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+  "checkpoint_x": 0,
+  "checkpoint_preserved": true,
+  "final_leader": 16,
+  "final_term": 2,
+  "committed_commands": 2102,
+  "commit_index": 2104,
+  "x": 0,
+  "committed_hash": "a1202c287cd4d46cee12b19abc154a6fa87f9ead0ed150f6736b6d343d775dae",
+  "last_query_seconds": 0.027379879727959633,
+  "independent_reference": "PASS",
+  "query_timeouts": 0
+}

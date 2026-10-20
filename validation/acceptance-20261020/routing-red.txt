@@ -1,0 +1,9 @@
+=== RUN   TestAliasedVoterCannotAuthorizeLeader
+    routing_test.go:41: two actual members authorized a five-member leader: state=Leader votes=3
+--- FAIL: TestAliasedVoterCannotAuthorizeLeader (0.01s)
+=== RUN   TestAliasedReplicaCannotCommitMinorityWrite
+    routing_test.go:73: one replica counted twice: reply={Accepted:true Committed:true LeaderID:1 Term:1 FirstIndex:3 LastIndex:3 Commands:1 Error:} state={RPCRequests:9 ProcessID:358 EventSeq:12 ClusterID:test-cluster MembershipHash:f5baf0e4336fd53b4c82b453ece859868475160d36f22e9551a0e9b10ac9cc00 InstanceID:271b73bad9bccfb1e03c15d9b027de06 Revision:7 DroppedEvents:0 ID:1 State:Leader Term:1 LeaderID:1 VotedFor:1 LastLogIndex:3 LastLogTerm:1 CommitIndex:3 LastApplied:3 CommittedCommands:2 AppliedCommands:2 X:0 LogHash:7898b0779276d6081ec55e82ed0cb9c20c9d1a36fd2cd3d879c812ed5c974ac5 CommittedHash:7898b0779276d6081ec55e82ed0cb9c20c9d1a36fd2cd3d879c812ed5c974ac5 TargetIndex:3 TargetAvailable:true TargetHash:7898b0779276d6081ec55e82ed0cb9c20c9d1a36fd2cd3d879c812ed5c974ac5 TargetX:0 ElectionMS:2.996 LeaderAgeMS:42.292 Error:}
+--- FAIL: TestAliasedReplicaCannotCommitMinorityWrite (0.05s)
+FAIL
+FAIL	myraft/raft	0.084s
+FAIL

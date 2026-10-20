@@ -1,0 +1,10 @@
+Guest PID: 6688
+go version go1.26.3 windows/amd64
+ok  	myraft	1.392s
+ok  	myraft/cmd/dashboard	6.202s
+?   	myraft/config	[no test files]
+ok  	myraft/raft	22.047s
+ok  	myraft/rpc	1.078s
+BASELINE_WINDOWS_GO_PASS
+
+Guest result: {"exitcode": 0, "exited": true}

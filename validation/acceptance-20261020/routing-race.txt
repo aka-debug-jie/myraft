@@ -1,0 +1,56 @@
+=== RUN   TestPartitionRepairsUncommittedLeaderTail
+--- PASS: TestPartitionRepairsUncommittedLeaderTail (0.92s)
+=== RUN   TestAliasedVoterCannotAuthorizeLeader
+--- PASS: TestAliasedVoterCannotAuthorizeLeader (0.02s)
+=== RUN   TestAliasedReplicaCannotCommitMinorityWrite
+--- PASS: TestAliasedReplicaCannotCommitMinorityWrite (0.36s)
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/node
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/cluster
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/members
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/missing
+--- PASS: TestPeerReplyIdentityPrecedesTermAndProgress (0.02s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/node (0.01s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/cluster (0.00s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/members (0.00s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/missing (0.00s)
+=== RUN   TestWrongTargetRejectedBeforePersistentChanges
+--- PASS: TestWrongTargetRejectedBeforePersistentChanges (0.01s)
+=== RUN   TestPartitionRepairsUncommittedLeaderTail
+--- PASS: TestPartitionRepairsUncommittedLeaderTail (0.98s)
+=== RUN   TestAliasedVoterCannotAuthorizeLeader
+--- PASS: TestAliasedVoterCannotAuthorizeLeader (0.01s)
+=== RUN   TestAliasedReplicaCannotCommitMinorityWrite
+--- PASS: TestAliasedReplicaCannotCommitMinorityWrite (0.36s)
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/node
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/cluster
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/members
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/missing
+--- PASS: TestPeerReplyIdentityPrecedesTermAndProgress (0.02s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/node (0.01s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/cluster (0.00s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/members (0.00s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/missing (0.00s)
+=== RUN   TestWrongTargetRejectedBeforePersistentChanges
+--- PASS: TestWrongTargetRejectedBeforePersistentChanges (0.00s)
+=== RUN   TestPartitionRepairsUncommittedLeaderTail
+--- PASS: TestPartitionRepairsUncommittedLeaderTail (1.03s)
+=== RUN   TestAliasedVoterCannotAuthorizeLeader
+--- PASS: TestAliasedVoterCannotAuthorizeLeader (0.01s)
+=== RUN   TestAliasedReplicaCannotCommitMinorityWrite
+--- PASS: TestAliasedReplicaCannotCommitMinorityWrite (0.36s)
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/node
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/cluster
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/members
+=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/missing
+--- PASS: TestPeerReplyIdentityPrecedesTermAndProgress (0.02s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/node (0.01s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/cluster (0.00s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/members (0.00s)
+    --- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/missing (0.00s)
+=== RUN   TestWrongTargetRejectedBeforePersistentChanges
+--- PASS: TestWrongTargetRejectedBeforePersistentChanges (0.00s)
+PASS
+ok  	myraft/raft	5.202s

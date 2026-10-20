@@ -1,0 +1,113 @@
+{
+  "nodes": 10,
+  "scenario": "failover",
+  "requested_commands": 2101,
+  "seed": 44,
+  "result": "PASS",
+  "elapsed_seconds": 3.16907814797014,
+  "error": null,
+  "batch_size": 128,
+  "round": 3,
+  "launch_seconds": 0.007636004127562046,
+  "initial_leader": 2,
+  "initial_local_election_ms": 5.905,
+  "initial_election_observed_seconds": 3.434155304916203,
+  "failure_plan": [
+    {
+      "id": 2,
+      "role": "Leader",
+      "term": 1
+    },
+    {
+      "id": 10,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 3,
+      "role": "Follower",
+      "term": 1
+    },
+    {
+      "id": 9,
+      "role": "Follower",
+      "term": 1
+    }
+  ],
+  "killed_ids": [
+    2,
+    10,
+    3,
+    9
+  ],
+  "stop_records": [
+    {
+      "id": 2,
+      "role": "Leader",
+      "term": 1,
+      "start_offset_seconds": 3.650665787048638,
+      "started_at_utc": "2026-10-20T06:45:37.211790+00:00",
+      "end_offset_seconds": 3.6522804759442806,
+      "ended_at_utc": "2026-10-20T06:45:37.213404+00:00",
+      "remaining_nodes": 9,
+      "quorum": 6,
+      "majority_available": true
+    },
+    {
+      "id": 10,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 3.652322482317686,
+      "started_at_utc": "2026-10-20T06:45:37.213443+00:00",
+      "end_offset_seconds": 3.6558703389018774,
+      "ended_at_utc": "2026-10-20T06:45:37.216993+00:00",
+      "remaining_nodes": 8,
+      "quorum": 6,
+      "majority_available": true
+    },
+    {
+      "id": 3,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 3.6559089170768857,
+      "started_at_utc": "2026-10-20T06:45:37.217030+00:00",
+      "end_offset_seconds": 3.6596681140363216,
+      "ended_at_utc": "2026-10-20T06:45:37.220792+00:00",
+      "remaining_nodes": 7,
+      "quorum": 6,
+      "majority_available": true
+    },
+    {
+      "id": 9,
+      "role": "Follower",
+      "term": 1,
+      "start_offset_seconds": 3.6597196590155363,
+      "started_at_utc": "2026-10-20T06:45:37.220841+00:00",
+      "end_offset_seconds": 3.663603464141488,
+      "ended_at_utc": "2026-10-20T06:45:37.224727+00:00",
+      "remaining_nodes": 6,
+      "quorum": 6,
+      "majority_available": true
+    }
+  ],
+  "kill_seconds": 0.01299609337002039,
+  "leader_observed_seconds": 3.1465532584115863,
+  "election_observed_seconds": 3.1465532584115863,
+  "fault_local_election_ms": 6.656,
+  "service_restored_seconds": 3.16907814797014,
+  "local_election_ms": 6.656,
+  "restarted_nodes_caught_up": true,
+  "checkpoint_index": 2102,
+  "checkpoint_hash": "8c02da0f37882bfdf75b86e0aedf2d2c5366dafdde6458edcfc428159ff6e7c8",
+  "checkpoint_x": -1,
+  "checkpoint_preserved": true,
+  "final_leader": 7,
+  "final_term": 2,
+  "committed_commands": 2102,
+  "commit_index": 2104,
+  "x": -1,
+  "committed_hash": "a1fd24ba496d4a99ed738382ff456f2cecea9e42a5fa6acd7333982537f457df",
+  "last_query_seconds": 0.021799535490572453,
+  "independent_reference": "PASS",
+  "query_timeouts": 0
+}
