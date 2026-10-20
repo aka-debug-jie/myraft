@@ -1,6 +1,7 @@
-param(
+﻿param(
     [Parameter(Mandatory=$true)][string]$WorkRoot,
-    [switch]$BaselineOnly
+    [switch]$BaselineOnly,
+    [switch]$UsePrebuilt
 )
 $ErrorActionPreference = 'Stop'
 $scriptPath = Join-Path $PSScriptRoot 'start.ps1'
@@ -12,7 +13,9 @@ function Invoke-Start([string[]]$Arguments, [bool]$ExpectSuccess = $true) {
     $previousPreference = $ErrorActionPreference
     $ErrorActionPreference = 'Continue'
     try {
-        $output = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $scriptPath @Arguments 2>&1
+        $launchArguments=@($Arguments)
+        if ($UsePrebuilt) { $launchArguments += '-UsePrebuilt' }
+        $output = & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $scriptPath @launchArguments 2>&1
         $code = $LASTEXITCODE
     } finally { $ErrorActionPreference = $previousPreference }
     if ($ExpectSuccess -and $code -ne 0) { throw "start.ps1 failed ($code): $($output -join "`n")" }
@@ -40,6 +43,8 @@ function Read-Members([string]$ConfigPath) {
 
 if (Test-Path $work) { throw 'WorkRoot must be a new directory.' }
 New-Item -ItemType Directory $work | Out-Null
+$work=Join-Path $work '中文 空格验收'
+New-Item -ItemType Directory $work | Out-Null
 if ($BaselineOnly) {
     $run = Join-Path $work 'baseline three nodes'
     try {
@@ -61,8 +66,8 @@ if ($BaselineOnly) {
 
 # Every test uses a newly created work root. The harness only stops PIDs recorded
 # by starts it invoked; it never removes the root or any data/configuration.
-$externalRun = Join-Path $work 'external config run'
-$externalConfig = Join-Path $work 'external configs with spaces\members.json'
+$externalRun = Join-Path $work '外部配置 运行'
+$externalConfig = Join-Path $work '外部配置 中文 空格\members.json'
 New-Item -ItemType Directory -Force (Split-Path $externalConfig -Parent) | Out-Null
 $external = @{ cluster_id = 'test-start-external-cluster'; nodes = @(
     @{ id = 7; addr = '127.0.0.1:18007' },
@@ -98,7 +103,7 @@ try {
     foreach ($node in $verified.nodes) { if ($node.applied_commands -ne 2101) { throw 'Restart lost commands.' } }
 
     Stop-Run $externalRun
-    $conflictingConfig = Join-Path $work 'external configs with spaces\conflicting-members.json'
+    $conflictingConfig = Join-Path (Split-Path $externalConfig -Parent) 'conflicting-members.json'
     $external.nodes[2].addr = '127.0.0.1:18043'
     [IO.File]::WriteAllText($conflictingConfig, ($external | ConvertTo-Json -Depth 5), (New-Object Text.UTF8Encoding($false)))
     Invoke-Start @('-Config',$conflictingConfig,'-RunDir',$externalRun) $false | Out-Null

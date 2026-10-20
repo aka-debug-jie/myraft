@@ -198,6 +198,7 @@ func run() error {
 		return err
 	}
 	defer output.Close()
+	setNodeTitle(*id)
 	logger := log.New(io.MultiWriter(os.Stdout, output), "", log.Ldate|log.Ltime|log.Lmicroseconds)
 	node, err := raft.NewNode(raft.Options{ClusterID: c.ClusterID, ID: *id, Peers: peers, DataDir: *dataDir, Logger: logger, ElectionMin: *electionMin, ElectionJitter: *electionJitter, RPCTimeout: *rpcTimeout, HeartbeatInterval: *heartbeat, BatchSize: *batchSize})
 	if err != nil {

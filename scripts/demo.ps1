@@ -60,7 +60,7 @@ function Invoke-DemoAction([string]$Operation,[int]$Id) {
             $process=$null
             $ok=$false
             try {
-                $process=Start-Process -FilePath $exe -ArgumentList (Get-NodeArguments $Id $RunDir) -PassThru
+                $process=Start-Process -FilePath $exe -ArgumentList (Get-NodeArguments $Id $RunDir) -WindowStyle Normal -PassThru
                 $new=New-NodeRecord $process $Id $RunDir
                 $deadline=[DateTime]::UtcNow.AddSeconds(10)
                 while ([DateTime]::UtcNow -lt $deadline) {

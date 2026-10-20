@@ -74,10 +74,14 @@ export function topology(nodes, selected, target) {
 }
 
 const groupKey = (row) => JSON.stringify([
-  row.platform ?? '', row.source_sha256 ?? '', row.nodes ?? '', row.scenario ?? '', row.batch_size ?? '',
+  row.platform ?? '', row.source_sha256 ?? '', row.nodes ?? '', row.scenario ?? '', row.batch_size ?? '', row.requested_commands ?? '',
 ]);
 
-const groupLabel = (row) => `${escapeHTML(row.platform ?? '未知平台')} · ${escapeHTML(row.nodes ?? '—')} 节点 · ${escapeHTML(row.scenario ?? '未知场景')} · batch ${escapeHTML(row.batch_size ?? '—')}`;
+const groupLabel = (row) => {
+  const commands = Number(row.requested_commands);
+  const workload = Number.isFinite(commands) ? commands.toLocaleString('zh-CN') : escapeHTML(row.requested_commands ?? '—');
+  return `${escapeHTML(row.platform ?? '未知平台')} · ${escapeHTML(row.nodes ?? '—')} 节点 · ${escapeHTML(row.scenario ?? '未知场景')} · 工作量 ${workload} 条命令 · batch ${escapeHTML(row.batch_size ?? '—')}`;
+};
 
 const renderGroup = (group) => {
   const { row, passes, failed, interrupted } = group;

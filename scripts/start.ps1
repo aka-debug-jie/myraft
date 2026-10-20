@@ -1,7 +1,10 @@
-param([int]$Nodes=11, [string]$Config='', [string]$RunDir='')
+param([int]$Nodes=11, [string]$Config='', [string]$RunDir='', [switch]$UsePrebuilt)
 $ErrorActionPreference='Stop'
 $nodesWasSpecified=$PSBoundParameters.ContainsKey('Nodes')
 $project=Split-Path $PSScriptRoot -Parent
+if ($UsePrebuilt -and -not (Test-Path -LiteralPath "$project\raft-node.exe" -PathType Leaf)) {
+    throw "-UsePrebuilt requires the prebuilt executable: $project\raft-node.exe"
+}
 . (Join-Path $PSScriptRoot 'session.ps1')
 if ($Config) { $Config=(Resolve-Path $Config).Path }
 if ($RunDir) { $RunDir=[IO.Path]::GetFullPath($RunDir) }
@@ -22,8 +25,10 @@ function Get-MemberSignature([object[]]$Members) {
     return (($Members | Sort-Object { [int]$_.id } | ForEach-Object { '{0}|{1}' -f ([int]$_.id),([string]$_.addr) }) -join "`n")
 }
 
-& go build -o raft-node.exe .
-if ($LASTEXITCODE -ne 0) { throw 'Build failed. Close old nodes and check that Go is on PATH.' }
+if (-not $UsePrebuilt) {
+    & go build -o raft-node.exe .
+    if ($LASTEXITCODE -ne 0) { throw 'Build failed. Close old nodes and check that Go is on PATH.' }
+}
 
 if ($configExists) {
     & .\raft-node.exe -config $persistedConfig -check-config
@@ -78,7 +83,7 @@ $lastStatus='No status received'
 try {
     foreach ($node in $members) {
         $arguments=Get-NodeArguments $node.id $RunDir
-        $started += Start-Process -FilePath "$project\raft-node.exe" -ArgumentList $arguments -PassThru
+        $started += Start-Process -FilePath "$project\raft-node.exe" -ArgumentList $arguments -WindowStyle Normal -PassThru
     }
     $started.Id | ConvertTo-Json | Set-Content "$RunDir\pids.json"
     $records=@(for ($i=0;$i -lt $members.Count;$i++) { New-NodeRecord $started[$i] $members[$i].id $RunDir })

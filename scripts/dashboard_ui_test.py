@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import unittest
 from datetime import datetime, timezone
@@ -22,12 +23,14 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--url", required=True, help="base URL of an already-running console")
     parser.add_argument("--output", required=True, type=Path, help="directory for browser screenshots")
+    parser.add_argument("--synthetic-only", action="store_true", help="skip the live-console GET-only smoke test")
     return parser.parse_args()
 
 
 ARGS = parse_args()
 BASE_URL = ARGS.url.rstrip("/")
 OUTPUT = ARGS.output.resolve()
+SYNTHETIC_ONLY = ARGS.synthetic_only
 
 
 def utc_stamp(age_seconds: int = 0) -> str:
@@ -89,7 +92,8 @@ class DashboardBrowserTests(unittest.TestCase):
     def setUpClass(cls) -> None:
         OUTPUT.mkdir(parents=True, exist_ok=True)
         cls.playwright = sync_playwright().start()
-        cls.browser: Browser = cls.playwright.chromium.launch(headless=True)
+        executable = os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH")
+        cls.browser: Browser = cls.playwright.chromium.launch(headless=True, executable_path=executable)
 
     @classmethod
     def tearDownClass(cls) -> None:
@@ -101,21 +105,49 @@ class DashboardBrowserTests(unittest.TestCase):
         return context, context.new_page()
 
     def intercept_synthetic_api(self, page: Page, *, with_session: bool = True, age_seconds: int = 0,
-                                connection_error: bool = False) -> None:
+                                connection_error: bool = False, control_enabled: bool = False,
+                                hold_logs: bool = False) -> None:
         """Install stable synthetic bootstrap and EventSource responses for UI only."""
 
-        def route_session(route: Route) -> None:
-            route.fulfill(status=200, content_type="application/json",
-                          body=json.dumps(session_fixture(with_session), ensure_ascii=False))
-
-        frame = json.dumps(frame_fixture(with_session=with_session, age_seconds=age_seconds), ensure_ascii=False)
+        fixture = frame_fixture(with_session=with_session, age_seconds=age_seconds)
+        fixture["control_enabled"] = control_enabled
+        frame = json.dumps(fixture, ensure_ascii=False)
+        bootstrap = session_fixture(with_session)
+        bootstrap["control_allowed"] = control_enabled
         page.add_init_script(script=f"""(() => {{
           const frame = {json.dumps(frame)};
+          window.__lastSyntheticFrame = frame;
+          window.__emitSyntheticFrame = (next) => {{
+            window.__lastSyntheticFrame = next;
+            for (const source of window.__syntheticSources || []) {{
+              if (!source.closed) for (const handler of source.handlers.get('frame') || []) handler({{data: JSON.stringify(next)}});
+            }}
+          }};
+          window.__emitSyntheticRawFrame = (raw) => {{
+            for (const source of window.__syntheticSources || []) {{
+              if (!source.closed) for (const handler of source.handlers.get('frame') || []) handler({{data: raw}});
+            }}
+          }};
           const fail = {json.dumps(connection_error)};
+          if ({json.dumps(hold_logs)}) {{
+            const originalFetch = window.fetch.bind(window);
+            window.__syntheticLogResolvers = [];
+            window.__resolveSyntheticLogs = (status=200) => {{
+              const resolvers = window.__syntheticLogResolvers.splice(0);
+              for (const resolve of resolvers) {{
+                const body = status === 200 ? {{session_id:'SYNTHETIC-SESSION', generation:1, range:{{entries:[]}}}} : {{error:'synthetic log error'}};
+                resolve(new Response(JSON.stringify(body), {{status, headers:{{'Content-Type':'application/json'}}}}));
+              }}
+            }};
+            window.fetch = (input, init) => String(input).includes('/api/nodes/') && String(input).includes('/logs?')
+              ? new Promise(resolve => window.__syntheticLogResolvers.push(resolve))
+              : originalFetch(input, init);
+          }}
           window.EventSource = class SyntheticEventSource {{
             constructor() {{
               this.handlers = new Map();
               this.closed = false;
+              (window.__syntheticSources ||= []).push(this);
               queueMicrotask(() => {{
                 if (this.closed) return;
                 if (fail) {{ this.onerror?.(new Event('error')); return; }}
@@ -130,10 +162,13 @@ class DashboardBrowserTests(unittest.TestCase):
             close() {{ this.closed = true; }}
           }};
         }})();""")
-        page.route("**/api/session", route_session)
+        page.route("**/api/session", lambda route: route.fulfill(
+            status=200, content_type="application/json", body=json.dumps(bootstrap, ensure_ascii=False)))
 
     def test_live_console_read_only_tabs_and_screenshots(self) -> None:
         """Capture the supplied live target; only GET traffic is allowed."""
+        if SYNTHETIC_ONLY:
+            self.skipTest("--synthetic-only: no live console target was supplied")
         context, page = self.new_page()
         methods: list[str] = []
         page.on("request", lambda request: methods.append(request.method))
@@ -239,6 +274,133 @@ class DashboardBrowserTests(unittest.TestCase):
             self.assertIn("present", page.locator("body").get_attribute("class"))
             self.assertTrue(all(method == "GET" for method in methods),
                             f"synthetic interaction issued non-GET requests: {methods}")
+        finally:
+            context.close()
+
+    def test_log_request_in_flight_then_session_generation_switch(self) -> None:
+        """A stale synthetic LogRange response must not leave the read button disabled."""
+        context, page = self.new_page()
+        try:
+            self.intercept_synthetic_api(page, hold_logs=True)
+            page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            page.locator('[data-page="logs"]').click()
+            page.get_by_role("button", name="读取实际日志").click()
+            self.assertEqual(page.locator("#logs-form button").inner_text(), "读取中…")
+            page.wait_for_function("() => window.__syntheticLogResolvers.length === 2")
+            switched = frame_fixture()
+            switched["session"]["id"] = "SYNTHETIC-SESSION-2"
+            switched["session"]["name"] = "切换后的合成会话"
+            switched["generation"] = 2
+            switched["snapshot"]["session_id"] = "SYNTHETIC-SESSION-2"
+            switched["snapshot"]["generation"] = 2
+            page.evaluate("frame => window.__emitSyntheticFrame(frame)", switched)
+            self.assertTrue(page.locator("#logs-form button").is_enabled())
+            self.assertEqual(page.locator("#main [role=alert]").count(), 0)
+            page.evaluate("() => window.__resolveSyntheticLogs()")
+            page.wait_for_timeout(50)
+            self.assertTrue(page.locator("#logs-form button").is_enabled())
+            self.assertEqual(page.locator("#main [role=alert]").count(), 0)
+
+            page.get_by_role("button", name="读取实际日志").click()
+            page.wait_for_function("() => window.__syntheticLogResolvers.length === 2")
+            page.evaluate("() => window.__resolveSyntheticLogs(503)")
+            page.get_by_role("alert").filter(has_text="synthetic log error").wait_for(state="visible")
+            switched["session"]["id"] = "SYNTHETIC-SESSION-3"
+            switched["session"]["name"] = "第三个合成会话"
+            switched["generation"] = 3
+            switched["snapshot"]["session_id"] = "SYNTHETIC-SESSION-3"
+            switched["snapshot"]["generation"] = 3
+            page.evaluate("frame => window.__emitSyntheticFrame(frame)", switched)
+            self.assertEqual(page.locator("#main [role=alert]").count(), 0)
+        finally:
+            context.close()
+
+    def test_create_and_experiment_form_drafts_survive_blur_and_sse(self) -> None:
+        """Synthetic typing, blur, and SSE renders preserve both form drafts."""
+        context, page = self.new_page()
+        try:
+            self.intercept_synthetic_api(page, control_enabled=True)
+            page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            page.locator('[data-page="settings"]').click()
+            page.locator('#create-form [name="name"]').fill("draft-session")
+            page.locator('#create-form [name="nodes"]').fill("17")
+            page.locator('#create-form [name="batch"]').fill("256")
+            page.evaluate("() => document.activeElement.blur()")
+            page.evaluate("() => window.__emitSyntheticFrame({ ...window.__lastSyntheticFrame, snapshot: { ...window.__lastSyntheticFrame.snapshot, seq: 2 } })")
+            self.assertEqual(page.locator('#create-form [name="name"]').input_value(), "draft-session")
+            self.assertEqual(page.locator('#create-form [name="nodes"]').input_value(), "17")
+            self.assertEqual(page.locator('#create-form [name="batch"]').input_value(), "256")
+
+            page.locator('[data-page="experiments"]').click()
+            page.locator('#experiment-form [name="entries"]').fill("4096")
+            page.locator('#experiment-form [name="rounds"]').fill("3")
+            page.locator('#experiment-form [name="seed"]').fill("77")
+            page.locator('#experiment-form [name="batch"]').fill("512")
+            page.locator('#experiment-form [name="nodes"]').select_option(["3", "11"])
+            page.locator('#experiment-form [name="scenarios"]').select_option(["election", "replication"])
+            page.evaluate("() => document.activeElement.blur()")
+            frame = frame_fixture()
+            frame["snapshot"]["seq"] = 3
+            page.evaluate("frame => window.__emitSyntheticFrame(frame)", frame)
+            self.assertEqual(page.locator('#experiment-form [name="entries"]').input_value(), "4096")
+            self.assertEqual(page.locator('#experiment-form [name="rounds"]').input_value(), "3")
+            self.assertEqual(page.locator('#experiment-form [name="seed"]').input_value(), "77")
+            self.assertEqual(page.locator('#experiment-form [name="batch"]').input_value(), "512")
+            self.assertEqual(page.locator('#experiment-form [name="nodes"]').evaluate("e => [...e.selectedOptions].map(o => o.value)"), ["3", "11"])
+            self.assertEqual(page.locator('#experiment-form [name="scenarios"]').evaluate("e => [...e.selectedOptions].map(o => o.value)"), ["election", "replication"])
+        finally:
+            context.close()
+
+    def test_experiment_chart_separates_requested_workloads(self) -> None:
+        """Rows with distinct requested command counts have separate chart groups."""
+        context, page = self.new_page()
+        try:
+            page.route("**/app.js", lambda route: route.abort())
+            page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            result = page.evaluate("""async () => {
+              const {experimentChart} = await import('./charts.js');
+              const base = {platform:'linux', source_sha256:'abc', nodes:3, scenario:'replication', batch_size:128, result:'PASS'};
+              document.querySelector('#main').innerHTML = experimentChart([
+                {...base, requested_commands:256, elapsed_seconds:1},
+                {...base, requested_commands:100000, elapsed_seconds:20},
+              ]);
+              return {groups:document.querySelectorAll('.experiment-chart article').length, text:document.querySelector('#main').textContent};
+            }""")
+            self.assertEqual(result["groups"], 2)
+            self.assertIn("256 条命令", result["text"])
+            self.assertIn("100,000 条命令", result["text"])
+        finally:
+            context.close()
+
+    def test_unsafe_integer_api_and_sse_values_remain_exact(self) -> None:
+        """Raw JSON fixtures preserve unsafe integers in API responses and displayed SSE data."""
+        context, page = self.new_page()
+        try:
+            self.intercept_synthetic_api(page)
+            raw_api = '{"x":9007199254740993}'
+            self.assertIn('"x":9007199254740993', raw_api)
+            page.route("**/api/raw-integer-fixture", lambda route: route.fulfill(
+                status=200, content_type="application/json", body=raw_api))
+            page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            api_data = page.evaluate("async () => (await import('./api.js')).request('/api/raw-integer-fixture')")
+
+            frame = frame_fixture()
+            frame["snapshot"]["nodes"] = [{
+                "id": 1, "reachable": True, "identity_ok": True,
+                "status": {"state": "Follower", "term": 1, "last_log_index": 1,
+                           "commit_index": 1, "last_applied": 1, "x": 9007199254740993,
+                           "dropped_events": 0},
+            }]
+            raw_frame = json.dumps(frame, separators=(",", ":"))
+            self.assertIn('"x":9007199254740993', raw_frame)
+            page.evaluate("raw => window.__emitSyntheticRawFrame(raw)", raw_frame)
+            displayed = page.locator("#main").inner_text()
+            self.assertEqual(
+                {"api": api_data["x"], "ui": "9007199254740993" in displayed,
+                 "rounded_ui": "9007199254740992" in displayed},
+                {"api": "9007199254740993", "ui": True, "rounded_ui": False},
+            )
+            page.screenshot(path=str(OUTPUT / "synthetic-large-integer-display.png"), full_page=True)
         finally:
             context.close()
 

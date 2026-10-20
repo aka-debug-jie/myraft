@@ -293,7 +293,7 @@ func TestStaleGenerationCannotMutateAndOldLogResponseIsDiscarded(t *testing.T) {
 	if code := <-done; code != 409 {
 		t.Fatalf("old log response accepted: %d", code)
 	}
-	body := fmt.Sprintf(`{"kind":"generate","count":1,"session_id":%q,"generation":%d}`, sessionID, gen)
+	body := fmt.Sprintf(`{"kind":"generate","count":1,"controller_id":%q,"session_id":%q,"generation":%d}`, d.controllerID, sessionID, gen)
 	req, _ := http.NewRequest("POST", s.URL+"/api/operations", strings.NewReader(body))
 	req.Header.Set("Origin", "http://"+d.opts.Host)
 	req.Header.Set("X-CSRF-Token", d.csrf)

@@ -2,7 +2,8 @@ import * as api from './api.js';
 import {pages, esc, icon, age, fresh, overview, logView, faults, experiments, evidence, settings} from './views.js';
 
 const state = {page:'overview', selected:1, filter:'', bootstrap:null, frame:null, connected:false,
-  pending:false, logNodes:[], logFrom:1, logLimit:32, logData:{}, logLoading:false, logError:'', events:[], gap:false, streamLoss:0, lastStreamDrop:0};
+  pending:false, logNodes:[], logFrom:1, logLimit:32, logData:{}, logLoading:false, logError:'', events:[], gap:false, streamLoss:0, lastStreamDrop:0,
+  drafts:{}};
 const views = {overview,logs:logView,faults,experiments,evidence,settings};
 let stream, logRequest=0, toastTimer;
 const $ = id => document.getElementById(id);
@@ -29,7 +30,20 @@ function render() {
   const alert=!state.connected?'<div class="notice warn" role="alert">后端连接中断。当前状态未知；不会切换为演示数据或自动重发写入。</div>':
     state.frame?.session&&!fresh(state)?'<div class="notice warn">等待新样本；过期观测不作为在线证明。</div>':'';
   $('main').innerHTML=alert+views[state.page](state);
+  for(const form of $('main').querySelectorAll('#create-form,#experiment-form')) {
+    for(const field of form.elements) {
+      const value=state.drafts[form.id]?.[field.name];
+      if(value===undefined)continue;
+      if(field instanceof HTMLSelectElement&&field.multiple)for(const option of field.options)option.selected=value.includes(option.value);
+      else field.value=value;
+    }
+  }
   if(key)document.querySelector(key)?.focus({preventScroll:true});
+}
+function rememberDraft(e){
+  const form=e.target.form;if(!['create-form','experiment-form'].includes(form?.id))return;
+  const draft=state.drafts[form.id]||={};
+  draft[e.target.name]=e.target instanceof HTMLSelectElement&&e.target.multiple?[...e.target.selectedOptions].map(option=>option.value):e.target.value;
 }
 function toast(message){$('toast').textContent=message;$('toast').classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),6000);}
 function closeDialog(){const d=$('action-dialog');d?.close();$('overlay').replaceChildren();}
@@ -49,7 +63,7 @@ function receive(frame){
   if(frame.mode!=='REAL')return;
   if(state.frame && frame.controller_id===state.frame.controller_id && frame.generation<state.frame.generation)return;
   const changed=frame.controller_id!==state.frame?.controller_id||frame.session?.id!==state.frame?.session?.id||frame.generation!==state.frame?.generation;
-  if(changed){logRequest++;state.logData={};state.logNodes=[];state.events=[];state.gap=false;state.streamLoss=0;state.lastStreamDrop=0;state.selected=frame.session?.config.nodes[0]?.id||1;refreshBootstrap().catch(()=>{});}
+  if(changed){logRequest++;state.logLoading=false;state.logError='';state.logData={};state.logNodes=[];state.events=[];state.gap=false;state.streamLoss=0;state.lastStreamDrop=0;state.selected=frame.session?.config.nodes[0]?.id||1;refreshBootstrap().catch(()=>{});}
   state.connected=true;
   state.gap ||= Boolean(frame.gap);const dropped=frame.stream_dropped||0;state.streamLoss+=dropped>=state.lastStreamDrop?dropped-state.lastStreamDrop:dropped;state.lastStreamDrop=dropped;frame.gap=state.gap;frame.stream_dropped=state.streamLoss;
   for(const e of frame.events||[])if(!state.events.some(old=>old.seq===e.seq))state.events.push(e);
@@ -106,6 +120,8 @@ document.addEventListener('submit',async e=>{
   }catch(err){toast(err.message);}
 });
 document.addEventListener('change',e=>{if(e.target.matches('[data-log-node]')){state.logNodes=[...document.querySelectorAll('[data-log-node]:checked')].map(x=>Number(x.dataset.logNode));if(state.logNodes.length>8){e.target.checked=false;state.logNodes=state.logNodes.filter(id=>id!==Number(e.target.dataset.logNode));toast('最多选择 8 个节点。');}}});
+document.addEventListener('input',rememberDraft);
+document.addEventListener('change',rememberDraft);
 $('search').addEventListener('input',e=>{state.filter=e.target.value.trim();state.page='overview';render();$('search').focus();});
 document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('search').focus();}if(e.key==='Escape'){$('sidebar').classList.remove('open');syncSidebar();}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)render();});
@@ -114,7 +130,7 @@ setInterval(()=>{chrome();if(!fresh(state)&&state.frame&&!document.hidden&&!$('a
 async function connect(){
   try{
     await refreshBootstrap();stream?.close();stream=new EventSource('/api/events');
-    stream.addEventListener('frame',e=>{try{receive(JSON.parse(e.data));}catch(error){state.connected=false;toast('快照解析失败：'+error.message);render();}});
+    stream.addEventListener('frame',e=>{try{receive(api.parseJSON(e.data));}catch(error){state.connected=false;toast('快照解析失败：'+error.message);render();}});
     stream.onerror=()=>{state.connected=false;render();};
   }catch(error){state.connected=false;render();toast(error.message);setTimeout(connect,3000);}
 }
