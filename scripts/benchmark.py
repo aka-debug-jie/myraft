@@ -1,6 +1,7 @@
 """Real-process Raft experiments; Python standard library only, one cluster at a time."""
 import argparse
 import csv
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -13,6 +14,8 @@ import statistics
 import subprocess
 import time
 import uuid
+
+from arithmetic_reference import verify_files
 
 ROOT = Path(__file__).resolve().parents[1]
 EXE = ROOT / ('raft-node.exe' if os.name == 'nt' else 'raft-node')
@@ -279,8 +282,8 @@ def experiment(count, scenario, entries, seed, folder, timeout, batch_size=128, 
            'result': 'FAIL', 'elapsed_seconds': None, 'error': None, 'batch_size': batch_size, 'round': round_number}
     begin = time.perf_counter()
     origin, events = begin, []
-    def observe(event):
-        events.append({'event': event, 'offset_seconds': time.perf_counter() - origin})
+    def observe(event, **details):
+        events.append({'event': event, 'offset_seconds': time.perf_counter() - origin, **details})
     try:
         check_cancelled()
         if scenario == 'divergence':
@@ -295,9 +298,12 @@ def experiment(count, scenario, entries, seed, folder, timeout, batch_size=128, 
         leader, _, _ = c.wait()
         observe('leader_observed')
         row['initial_leader'] = leader['id']
+        row['initial_local_election_ms'] = leader['election_ms']
+        row['initial_election_observed_seconds'] = time.perf_counter() - begin
         if scenario == 'election':
             row['elapsed_seconds'] = time.perf_counter() - begin
             row['local_election_ms'] = leader['election_ms']
+            row['election_observed_seconds'] = row['elapsed_seconds']
             leader, states, query_seconds = c.wait(logs=True)
         elif scenario == 'replication':
             begin = time.perf_counter()
@@ -311,26 +317,47 @@ def experiment(count, scenario, entries, seed, folder, timeout, batch_size=128, 
             observe('commands_committed')
             leader, initial, _ = c.wait(logs=True, target=reply['last_index'], commands=entries)
             checkpoint = save_checkpoint(c.folder, initial[0])
+            role_by_id = {state['id']: {'role': state['state'], 'term': state['term']} for state in initial}
             rng = random.Random(seed)
             killed = [leader['id']]
             max_faults = (count - 1) // 2
             killed += rng.sample([i for i in c.processes if i != leader['id']], rng.randrange(max_faults))
+            row['failure_plan'] = [{'id': node_id, **role_by_id[node_id]} for node_id in killed]
+            row['killed_ids'] = list(killed)
+            row['stop_records'] = []
             old_term = leader['term']
             begin = time.perf_counter()
             observe('fault_started')
             for node_id in killed:
-                c.stop(node_id)
+                record = {'id': node_id, **role_by_id[node_id],
+                          'start_offset_seconds': time.perf_counter() - origin,
+                          'started_at_utc': datetime.now(timezone.utc).isoformat()}
+                row['stop_records'].append(record)
+                observe('stop_started', id=node_id, role=record['role'], term=record['term'])
+                try:
+                    c.stop(node_id)
+                finally:
+                    record.update(end_offset_seconds=time.perf_counter() - origin,
+                                  ended_at_utc=datetime.now(timezone.utc).isoformat(),
+                                  remaining_nodes=len(c.processes),
+                                  quorum=count // 2 + 1,
+                                  majority_available=(len(c.processes) >= count // 2 + 1))
+                    observe('stop_finished', id=node_id, role=record['role'], term=record['term'],
+                            remaining_nodes=record['remaining_nodes'], quorum=record['quorum'],
+                            majority_available=record['majority_available'])
             row['kill_seconds'] = time.perf_counter() - begin
             replacement, _, _ = c.wait()
             observe('replacement_observed')
             row['leader_observed_seconds'] = time.perf_counter() - begin
+            row['election_observed_seconds'] = row['leader_observed_seconds']
+            row['fault_local_election_ms'] = replacement['election_ms']
             if replacement['term'] <= old_term:
                 raise AssertionError('leader term did not advance')
             reply = c.generate(1, seed + 1)
             observe('replacement_write_committed')
             row['elapsed_seconds'] = time.perf_counter() - begin
+            row['service_restored_seconds'] = row['elapsed_seconds']
             row['local_election_ms'] = replacement['election_ms']
-            row['killed_ids'] = killed
             leader, states, query_seconds = c.wait(logs=True, target=checkpoint['index'],
                                                     commands=entries + 1, checkpoint=checkpoint)
             # Restart original disks and verify catch-up without changing membership.
@@ -346,12 +373,33 @@ def experiment(count, scenario, entries, seed, folder, timeout, batch_size=128, 
             _, initial, _ = c.wait(logs=True, target=reply['last_index'], commands=entries)
             checkpoint = save_checkpoint(c.folder, initial[0])
             begin = time.perf_counter()
+            data_dir = folder / 'data'
+            node_state = data_dir / f'node-{count}-state.json'
+            node_wal = data_dir / f'node-{count}-log.wal'
+            if node_state.exists() or node_wal.exists():
+                raise RuntimeError(f'catch-up node {count} is not empty: {node_state if node_state.exists() else node_wal}')
+            row.update(catchup_before_index=0,
+                       catchup_before_hash=hashlib.sha256(b'').hexdigest(), catchup_before_x=0)
+            row['catchup_start_offset_seconds'] = time.perf_counter() - origin
+            row['catchup_started_at_utc'] = datetime.now(timezone.utc).isoformat()
             c.start(count)
             observe('empty_node_started')
             leader, states, query_seconds = c.wait(logs=True, target=checkpoint['index'],
                                                     commands=entries, checkpoint=checkpoint)
             row['elapsed_seconds'] = time.perf_counter() - begin
             row['target_index'] = reply['last_index']
+            row['catchup_end_offset_seconds'] = time.perf_counter() - origin
+            row['catchup_ended_at_utc'] = datetime.now(timezone.utc).isoformat()
+            caught_up = next(s for s in states if s['id'] == count)
+            row['caught_up_entries'] = caught_up['last_log_index']
+            row['catchup_after_index'] = caught_up['last_log_index']
+            row['catchup_after_hash'] = caught_up['log_hash']
+            row['catchup_after_x'] = caught_up['x']
+            row['catchup_after_committed_hash'] = caught_up['committed_hash']
+            row['catchup_history_checkpoint_preserved'] = all(
+                s.get('target_available') and s.get('target_index') == checkpoint['index'] and
+                s.get('target_hash') == checkpoint['hash'] and s.get('target_x') == checkpoint['x']
+                for s in states)
         else:
             leader, states, query_seconds = c.wait(logs=True, target=129)
             fixture = json.loads((folder / 'data' / 'fixture.json').read_text(encoding='utf-8'))
@@ -386,6 +434,13 @@ def experiment(count, scenario, entries, seed, folder, timeout, batch_size=128, 
         except Exception as exc:
             row['result'], row['error'] = 'FAIL', f'{row.get("error")}; {exc}'
             row['cleanup_failed'] = True
+        if row['result'] == 'PASS':
+            try:
+                reference = verify_files(folder / 'data', states)
+                (folder / 'arithmetic-reference.json').write_text(json.dumps(reference, indent=2), encoding='utf-8')
+                row['independent_reference'] = 'PASS'
+            except Exception as exc:
+                row['result'], row['error'] = 'FAIL', f'independent reference: {exc}'
         row['query_timeouts'] = c.query_timeouts
         (folder / 'events.json').write_text(json.dumps(events, indent=2), encoding='utf-8')
         (folder / 'result.json').write_text(json.dumps(row, indent=2), encoding='utf-8')
@@ -398,6 +453,8 @@ def summarize(rows):
         selected = [r for r in rows if (r['nodes'], r['scenario'], r.get('batch_size', 128)) == key]
         values = [r['elapsed_seconds'] for r in selected if r['result'] == 'PASS']
         local = [r['local_election_ms'] for r in selected if r['result'] == 'PASS' and 'local_election_ms' in r]
+        startup_sync = [r['startup_to_sync_seconds'] for r in selected
+                        if r['result'] == 'PASS' and 'startup_to_sync_seconds' in r]
         groups.append({'nodes': key[0], 'scenario': key[1], 'attempts': len(selected),
                        'passed': len(values), 'failed': sum(r['result'] == 'FAIL' for r in selected),
                        'interrupted': sum(r['result'] == 'INTERRUPTED' for r in selected),
@@ -405,7 +462,18 @@ def summarize(rows):
                        'median_seconds': statistics.median(values) if values else None,
                        'min_seconds': min(values) if values else None,
                        'max_seconds': max(values) if values else None,
-                       'mean_local_election_ms': statistics.mean(local) if local else None})
+                       'mean_local_election_ms': statistics.mean(local) if local else None,
+                       'median_local_election_ms': statistics.median(local) if local else None,
+                       'min_local_election_ms': min(local) if local else None,
+                       'max_local_election_ms': max(local) if local else None,
+                       'mean_startup_to_sync_seconds': statistics.mean(startup_sync) if startup_sync else None,
+                       'median_startup_to_sync_seconds': statistics.median(startup_sync) if startup_sync else None,
+                       'min_startup_to_sync_seconds': min(startup_sync) if startup_sync else None,
+                       'max_startup_to_sync_seconds': max(startup_sync) if startup_sync else None})
+        for metric in ('election_observed_seconds', 'initial_election_observed_seconds', 'initial_local_election_ms', 'service_restored_seconds'):
+            measured = [r[metric] for r in selected if r['result'] == 'PASS' and metric in r]
+            for name, aggregate in [('mean', statistics.mean), ('median', statistics.median), ('min', min), ('max', max)]:
+                groups[-1][name + '_' + metric] = aggregate(measured) if measured else None
         if any('batch_size' in r for r in rows):
             groups[-1]['batch_size'] = key[2]
     return groups

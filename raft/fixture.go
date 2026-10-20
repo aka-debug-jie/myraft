@@ -37,6 +37,7 @@ func PrepareDivergence(peers map[int]string, dir string, count int, seed int64, 
 	// term-3 election its extra vote but never received that leader's suffix.
 	commonHash := ""
 	var commonX int64
+	initial := make([]map[string]any, 0, len(ids))
 	for rank, id := range ids {
 		n, err := NewNode(Options{ClusterID: clusterID[0], ID: id, Peers: peers, DataDir: dir, Logger: log.New(io.Discard, "", 0)})
 		if err != nil {
@@ -86,12 +87,16 @@ func PrepareDivergence(peers map[int]string, dir string, count int, seed int64, 
 		}
 		commonHash = logHash(n.log[1:130])
 		commonX = n.x
+		initial = append(initial, map[string]any{"id": id, "last_log_index": n.lastIndexLocked(),
+			"last_log_term": n.log[n.lastIndexLocked()].Term, "log_hash": logHash(n.log[1:]),
+			"commit_index": n.commitIndex, "committed_hash": commonHash, "x": n.x})
 		n.Stop()
 		if err != nil {
 			return err
 		}
 	}
 	manifest := map[string]any{"common_commit_index": 129, "common_hash": commonHash, "common_x": commonX, "common_arithmetic_commands": 128, "neutral": ids[0], "term2_branch": ids[1:split], "term3_branch": ids[split:], "latest_node": ids[len(ids)-1], "commands": count, "seed": seed, "history": "term 1 noop and 128 commands committed everywhere; each later branch has less than quorum copies; neutral voted for term 3 but received no suffix"}
+	manifest["nodes"] = initial
 	b, err := json.MarshalIndent(manifest, "", "  ")
 	if err != nil {
 		return err

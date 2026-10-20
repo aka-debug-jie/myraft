@@ -34,6 +34,69 @@ class FakeProcess:
 
 
 class BenchmarkTests(unittest.TestCase):
+    def _states(self):
+        leader = dict(id=1, state='Leader', term=2, leader_id=1, election_ms=150,
+                      target_index=4, target_hash='checkpoint', target_x=9, target_available=True)
+        follower = dict(leader, id=2, state='Follower')
+        other = dict(leader, id=3, state='Follower')
+        return [leader, follower, other]
+
+    def test_failed_failover_retains_planned_and_executed_stops(self):
+        states = self._states()
+        class FakeCluster:
+            def __init__(self, count, folder, timeout, batch_size):
+                self.folder, self.timeout = folder, timeout
+                self.folder.mkdir(parents=True)
+                self.processes = {1: object(), 2: object(), 3: object()}
+                self.query_timeouts, self.wait_calls = 0, 0
+            def wait(self, **kwargs):
+                self.wait_calls += 1
+                if self.wait_calls == 1:
+                    return states[0], states, 0.01
+                if self.wait_calls == 2:
+                    return states[0], states, 0.01
+                raise RuntimeError('replacement never observed')
+            def generate(self, count, seed):
+                return {'accepted': True, 'committed': True, 'commands': count, 'last_index': 4}
+            def start(self, node_id):
+                pass
+            def stop(self, node_id):
+                self.processes.pop(node_id)
+            def close(self):
+                self.processes.clear()
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(benchmark, 'Cluster', FakeCluster):
+            row = benchmark.experiment(3, 'failover', 256, 7, Path(directory) / 'trial', 5)
+        self.assertEqual(row['result'], 'FAIL')
+        self.assertEqual(row.get('killed_ids'), [1], row)
+        self.assertEqual(row['failure_plan'], [{'id': 1, 'role': 'Leader', 'term': 2}])
+        self.assertEqual(row['stop_records'][0]['remaining_nodes'], 2)
+        self.assertEqual(row['stop_records'][0]['quorum'], 2)
+        self.assertTrue(row['stop_records'][0]['majority_available'])
+
+    def test_catchup_rejects_existing_node_disk_before_start(self):
+        states = self._states()
+        class FakeCluster:
+            started_ids = []
+            def __init__(self, count, folder, timeout, batch_size):
+                self.folder, self.timeout = folder, timeout
+                self.processes, self.query_timeouts = {1: object(), 2: object()}, 0
+            def wait(self, **kwargs):
+                return states[0], states, 0.01
+            def generate(self, count, seed):
+                return {'accepted': True, 'committed': True, 'commands': count, 'last_index': 4}
+            def start(self, node_id):
+                self.started_ids.append(node_id)
+            def close(self):
+                self.processes.clear()
+        with tempfile.TemporaryDirectory() as directory, mock.patch.object(benchmark, 'Cluster', FakeCluster):
+            folder = Path(directory) / 'trial'
+            (folder / 'data').mkdir(parents=True)
+            (folder / 'data' / 'node-3-state.json').write_text('{}')
+            row = benchmark.experiment(3, 'catchup', 256, 7, folder, 5)
+        self.assertEqual(row['result'], 'FAIL')
+        self.assertIn('not empty', row['error'])
+        self.assertEqual(FakeCluster.started_ids, [1, 2])
+
     def test_failed_stop_keeps_handle_for_final_cleanup(self):
         node = FakeProcess()
         c = Cluster.__new__(Cluster)
@@ -101,6 +164,17 @@ class BenchmarkTests(unittest.TestCase):
         stats = summarize(rows)
         self.assertEqual([s['batch_size'] for s in stats], [64, 128, 256])
         self.assertEqual([s['mean_seconds'] for s in stats], [2.0, 8.0, 4.0])
+
+    def test_summary_separates_election_and_startup_sync_timings(self):
+        rows = [dict(nodes=3, scenario='catchup', result='PASS', elapsed_seconds=4,
+                     local_election_ms=120, startup_to_sync_seconds=8),
+                dict(nodes=3, scenario='catchup', result='PASS', elapsed_seconds=6,
+                     local_election_ms=180, startup_to_sync_seconds=10)]
+        result = summarize(rows)[0]
+        self.assertEqual((result['median_local_election_ms'], result['min_local_election_ms'],
+                          result['max_local_election_ms']), (150, 120, 180))
+        self.assertEqual((result['median_startup_to_sync_seconds'], result['min_startup_to_sync_seconds'],
+                          result['max_startup_to_sync_seconds']), (9, 8, 10))
 
 
 if __name__ == '__main__':

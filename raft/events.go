@@ -26,6 +26,7 @@ func (n *Node) eventLocked(format string, args ...any) {
 func (n *Node) startEventOutput() {
 	go func() {
 		defer close(n.logDone)
+		var reported uint64
 		for {
 			select {
 			case <-n.logStop:
@@ -36,6 +37,10 @@ func (n *Node) startEventOutput() {
 					n.logDropped.Add(1)
 					return
 				default:
+				}
+				if dropped := n.logDropped.Load(); dropped != reported {
+					n.logger.Printf("node=%d | output_dropped total=%d delta=%d", n.id, dropped, dropped-reported)
+					reported = dropped
 				}
 				n.logger.Print(message)
 			}

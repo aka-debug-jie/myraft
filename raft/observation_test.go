@@ -3,6 +3,7 @@ package raft
 import (
 	"errors"
 	"log"
+	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -101,5 +102,33 @@ func TestLogRangeCopiesBoundedRevision(t *testing.T) {
 	}
 	if err := n.LogRange(&wire.LogRangeArgs{From: 999}, &r); err != nil || len(r.Entries) != 0 {
 		t.Fatal("missing range fabricated")
+	}
+}
+
+type eventRecords chan string
+
+func (w eventRecords) Write(b []byte) (int, error) { w <- string(b); return len(b), nil }
+
+func TestOrdinaryOutputReportsDroppedEvents(t *testing.T) {
+	records := make(eventRecords, 512)
+	n, err := NewNode(Options{ClusterID: "test-cluster", ID: 1, Peers: testPeers(t, 1), DataDir: t.TempDir(), Logger: log.New(records, "", 0)})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer n.Stop()
+	n.logDropped.Add(7)
+	n.mu.Lock()
+	n.eventLocked("test_after_drop")
+	n.mu.Unlock()
+	deadline := time.After(time.Second)
+	for {
+		select {
+		case line := <-records:
+			if strings.Contains(line, "output_dropped total=7") {
+				return
+			}
+		case <-deadline:
+			t.Fatal("terminal/file output omitted drop notice")
+		}
 	}
 }
