@@ -1,0 +1,498 @@
+{"Time":"2026-10-20T14:32:15.7446278+08:00","Action":"start","Package":"myraft"}
+{"Time":"2026-10-20T14:32:15.770483957+08:00","Action":"run","Package":"myraft","Test":"TestSlowFollowerDoesNotDelaySubmission"}
+{"Time":"2026-10-20T14:32:15.770535233+08:00","Action":"output","Package":"myraft","Test":"TestSlowFollowerDoesNotDelaySubmission","Output":"=== RUN   TestSlowFollowerDoesNotDelaySubmission\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.781641941+08:00","Action":"output","Package":"myraft","Test":"TestSlowFollowerDoesNotDelaySubmission","Output":"--- PASS: TestSlowFollowerDoesNotDelaySubmission (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.781657103+08:00","Action":"pass","Package":"myraft","Test":"TestSlowFollowerDoesNotDelaySubmission","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:15.781672759+08:00","Action":"run","Package":"myraft","Test":"TestWriteStatusTable"}
+{"Time":"2026-10-20T14:32:15.781675465+08:00","Action":"output","Package":"myraft","Test":"TestWriteStatusTable","Output":"=== RUN   TestWriteStatusTable\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.781901949+08:00","Action":"output","Package":"myraft","Test":"TestWriteStatusTable","Output":"--- PASS: TestWriteStatusTable (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.781912507+08:00","Action":"pass","Package":"myraft","Test":"TestWriteStatusTable","Elapsed":0}
+{"Time":"2026-10-20T14:32:15.781941488+08:00","Action":"run","Package":"myraft","Test":"TestWriteStatusTablePropagatesWriterError"}
+{"Time":"2026-10-20T14:32:15.781944347+08:00","Action":"output","Package":"myraft","Test":"TestWriteStatusTablePropagatesWriterError","Output":"=== RUN   TestWriteStatusTablePropagatesWriterError\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.78203484+08:00","Action":"output","Package":"myraft","Test":"TestWriteStatusTablePropagatesWriterError","Output":"--- PASS: TestWriteStatusTablePropagatesWriterError (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.782040826+08:00","Action":"pass","Package":"myraft","Test":"TestWriteStatusTablePropagatesWriterError","Elapsed":0}
+{"Time":"2026-10-20T14:32:15.782054488+08:00","Action":"run","Package":"myraft","Test":"TestWatchStopsAndPreservesJSON"}
+{"Time":"2026-10-20T14:32:15.782056921+08:00","Action":"output","Package":"myraft","Test":"TestWatchStopsAndPreservesJSON","Output":"=== RUN   TestWatchStopsAndPreservesJSON\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.78431072+08:00","Action":"output","Package":"myraft","Test":"TestWatchStopsAndPreservesJSON","Output":"--- PASS: TestWatchStopsAndPreservesJSON (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.784332448+08:00","Action":"pass","Package":"myraft","Test":"TestWatchStopsAndPreservesJSON","Elapsed":0}
+{"Time":"2026-10-20T14:32:15.784351706+08:00","Action":"run","Package":"myraft","Test":"TestStatusBindsConfiguredIdentity"}
+{"Time":"2026-10-20T14:32:15.784354361+08:00","Action":"output","Package":"myraft","Test":"TestStatusBindsConfiguredIdentity","Output":"=== RUN   TestStatusBindsConfiguredIdentity\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.785855877+08:00","Action":"output","Package":"myraft","Test":"TestStatusBindsConfiguredIdentity","Output":"--- PASS: TestStatusBindsConfiguredIdentity (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.785867346+08:00","Action":"pass","Package":"myraft","Test":"TestStatusBindsConfiguredIdentity","Elapsed":0}
+{"Time":"2026-10-20T14:32:15.785891454+08:00","Action":"run","Package":"myraft","Test":"TestUncertainSubmissionNotRetried"}
+{"Time":"2026-10-20T14:32:15.785894343+08:00","Action":"output","Package":"myraft","Test":"TestUncertainSubmissionNotRetried","Output":"=== RUN   TestUncertainSubmissionNotRetried\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.925321123+08:00","Action":"start","Package":"myraft/cmd/dashboard"}
+{"Time":"2026-10-20T14:32:15.925509667+08:00","Action":"start","Package":"myraft/config"}
+{"Time":"2026-10-20T14:32:15.925617386+08:00","Action":"output","Package":"myraft/config","Output":"?   \tmyraft/config\t[no test files]\n"}
+{"Time":"2026-10-20T14:32:15.925664509+08:00","Action":"skip","Package":"myraft/config","Elapsed":0}
+{"Time":"2026-10-20T14:32:15.950575906+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestExportContainsEvidenceWithoutPathsOrCredentials"}
+{"Time":"2026-10-20T14:32:15.950672898+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestExportContainsEvidenceWithoutPathsOrCredentials","Output":"=== RUN   TestExportContainsEvidenceWithoutPathsOrCredentials\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.988746503+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestExportContainsEvidenceWithoutPathsOrCredentials","Output":"--- PASS: TestExportContainsEvidenceWithoutPathsOrCredentials (0.04s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:15.988796903+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestExportContainsEvidenceWithoutPathsOrCredentials","Elapsed":0.04}
+{"Time":"2026-10-20T14:32:15.988813282+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestCancellationOnlyTargetsRegisteredActiveExperiment"}
+{"Time":"2026-10-20T14:32:15.988823226+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestCancellationOnlyTargetsRegisteredActiveExperiment","Output":"=== RUN   TestCancellationOnlyTargetsRegisteredActiveExperiment\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.003827623+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestCancellationOnlyTargetsRegisteredActiveExperiment","Output":"--- PASS: TestCancellationOnlyTargetsRegisteredActiveExperiment (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.003881578+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestCancellationOnlyTargetsRegisteredActiveExperiment","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:16.003894552+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestExperimentReadingKeepsSourceGroupsAndPartialStates"}
+{"Time":"2026-10-20T14:32:16.003901479+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestExperimentReadingKeepsSourceGroupsAndPartialStates","Output":"=== RUN   TestExperimentReadingKeepsSourceGroupsAndPartialStates\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.007807507+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestExperimentReadingKeepsSourceGroupsAndPartialStates","Output":"--- PASS: TestExperimentReadingKeepsSourceGroupsAndPartialStates (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.00782986+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestExperimentReadingKeepsSourceGroupsAndPartialStates","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.0078658+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestExperimentIntegerPrecisionSurvivesJournalAndExport"}
+{"Time":"2026-10-20T14:32:16.007874509+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestExperimentIntegerPrecisionSurvivesJournalAndExport","Output":"=== RUN   TestExperimentIntegerPrecisionSurvivesJournalAndExport\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.011861236+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestExperimentIntegerPrecisionSurvivesJournalAndExport","Output":"--- PASS: TestExperimentIntegerPrecisionSurvivesJournalAndExport (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.011880247+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestExperimentIntegerPrecisionSurvivesJournalAndExport","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.011915034+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestHistoryCheckRejectsEqualCurrentStateWithChangedPrefix"}
+{"Time":"2026-10-20T14:32:16.011923408+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestHistoryCheckRejectsEqualCurrentStateWithChangedPrefix","Output":"=== RUN   TestHistoryCheckRejectsEqualCurrentStateWithChangedPrefix\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.023090734+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestHistoryCheckRejectsEqualCurrentStateWithChangedPrefix","Output":"--- PASS: TestHistoryCheckRejectsEqualCurrentStateWithChangedPrefix (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.023152052+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestHistoryCheckRejectsEqualCurrentStateWithChangedPrefix","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:16.023173989+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestExperimentCancellationFinishesAndRetainsStatus"}
+{"Time":"2026-10-20T14:32:16.023184285+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestExperimentCancellationFinishesAndRetainsStatus","Output":"=== RUN   TestExperimentCancellationFinishesAndRetainsStatus\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.02804544+08:00","Action":"output","Package":"myraft","Test":"TestUncertainSubmissionNotRetried","Output":"--- PASS: TestUncertainSubmissionNotRetried (0.24s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.028096106+08:00","Action":"pass","Package":"myraft","Test":"TestUncertainSubmissionNotRetried","Elapsed":0.24}
+{"Time":"2026-10-20T14:32:16.028180794+08:00","Action":"run","Package":"myraft","Test":"TestSubmissionRequiresExplicitClusterIdentity"}
+{"Time":"2026-10-20T14:32:16.028204938+08:00","Action":"output","Package":"myraft","Test":"TestSubmissionRequiresExplicitClusterIdentity","Output":"=== RUN   TestSubmissionRequiresExplicitClusterIdentity\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.028858985+08:00","Action":"output","Package":"myraft","Test":"TestSubmissionRequiresExplicitClusterIdentity","Output":"--- PASS: TestSubmissionRequiresExplicitClusterIdentity (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.028926332+08:00","Action":"pass","Package":"myraft","Test":"TestSubmissionRequiresExplicitClusterIdentity","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.029015459+08:00","Action":"output","Package":"myraft","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.088986644+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestExperimentCancellationFinishesAndRetainsStatus","Output":"--- PASS: TestExperimentCancellationFinishesAndRetainsStatus (0.07s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.089047762+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestExperimentCancellationFinishesAndRetainsStatus","Elapsed":0.07}
+{"Time":"2026-10-20T14:32:16.089063307+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestOwnershipChild"}
+{"Time":"2026-10-20T14:32:16.089072295+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestOwnershipChild","Output":"=== RUN   TestOwnershipChild\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.089098165+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestOwnershipChild","Output":"--- PASS: TestOwnershipChild (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.089113355+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestOwnershipChild","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.089157079+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestRestartRunningNodeNeverKillsExistingProcess"}
+{"Time":"2026-10-20T14:32:16.089166043+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestRestartRunningNodeNeverKillsExistingProcess","Output":"=== RUN   TestRestartRunningNodeNeverKillsExistingProcess\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.10701787+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestRestartRunningNodeNeverKillsExistingProcess","Output":"--- PASS: TestRestartRunningNodeNeverKillsExistingProcess (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.107069233+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestRestartRunningNodeNeverKillsExistingProcess","Elapsed":0.02}
+{"Time":"2026-10-20T14:32:16.107084833+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestCheckpointSurvivesControllerRestart"}
+{"Time":"2026-10-20T14:32:16.107093693+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestCheckpointSurvivesControllerRestart","Output":"=== RUN   TestCheckpointSurvivesControllerRestart\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.119110224+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestCheckpointSurvivesControllerRestart","Output":"--- PASS: TestCheckpointSurvivesControllerRestart (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.119157337+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestCheckpointSurvivesControllerRestart","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:16.119171532+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestFailedEventReadDoesNotAdvanceCursor"}
+{"Time":"2026-10-20T14:32:16.119180117+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestFailedEventReadDoesNotAdvanceCursor","Output":"=== RUN   TestFailedEventReadDoesNotAdvanceCursor\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.144054178+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestFailedEventReadDoesNotAdvanceCursor","Output":"--- PASS: TestFailedEventReadDoesNotAdvanceCursor (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.144079771+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestFailedEventReadDoesNotAdvanceCursor","Elapsed":0.02}
+{"Time":"2026-10-20T14:32:16.144088496+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestOldVerificationCannotOverwriteNewObservation"}
+{"Time":"2026-10-20T14:32:16.144092065+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestOldVerificationCannotOverwriteNewObservation","Output":"=== RUN   TestOldVerificationCannotOverwriteNewObservation\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.164235242+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestOldVerificationCannotOverwriteNewObservation","Output":"--- PASS: TestOldVerificationCannotOverwriteNewObservation (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.16426437+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestOldVerificationCannotOverwriteNewObservation","Elapsed":0.02}
+{"Time":"2026-10-20T14:32:16.164275878+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestReadOnlyControlAndClosedInputs"}
+{"Time":"2026-10-20T14:32:16.164280857+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestReadOnlyControlAndClosedInputs","Output":"=== RUN   TestReadOnlyControlAndClosedInputs\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.216843136+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestReadOnlyControlAndClosedInputs","Output":"--- PASS: TestReadOnlyControlAndClosedInputs (0.05s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.216879059+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestReadOnlyControlAndClosedInputs","Elapsed":0.05}
+{"Time":"2026-10-20T14:32:16.216919955+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestUnknownWriteAndConcurrentClicksAreNotResent"}
+{"Time":"2026-10-20T14:32:16.216925747+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestUnknownWriteAndConcurrentClicksAreNotResent","Output":"=== RUN   TestUnknownWriteAndConcurrentClicksAreNotResent\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.242819323+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestUnknownWriteAndConcurrentClicksAreNotResent","Output":"--- PASS: TestUnknownWriteAndConcurrentClicksAreNotResent (0.03s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.242869777+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestUnknownWriteAndConcurrentClicksAreNotResent","Elapsed":0.03}
+{"Time":"2026-10-20T14:32:16.242883907+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestOperationJournalNeverReplaysUncertainWrites"}
+{"Time":"2026-10-20T14:32:16.242897266+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestOperationJournalNeverReplaysUncertainWrites","Output":"=== RUN   TestOperationJournalNeverReplaysUncertainWrites\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.255089716+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestOperationJournalNeverReplaysUncertainWrites","Output":"--- PASS: TestOperationJournalNeverReplaysUncertainWrites (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.255138904+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestOperationJournalNeverReplaysUncertainWrites","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:16.255156117+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestStaleGenerationCannotMutateAndOldLogResponseIsDiscarded"}
+{"Time":"2026-10-20T14:32:16.255165113+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestStaleGenerationCannotMutateAndOldLogResponseIsDiscarded","Output":"=== RUN   TestStaleGenerationCannotMutateAndOldLogResponseIsDiscarded\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.27149384+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestStaleGenerationCannotMutateAndOldLogResponseIsDiscarded","Output":"--- PASS: TestStaleGenerationCannotMutateAndOldLogResponseIsDiscarded (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.2715586+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestStaleGenerationCannotMutateAndOldLogResponseIsDiscarded","Elapsed":0.02}
+{"Time":"2026-10-20T14:32:16.271610283+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestHTTPHostOriginAndMethodBoundary"}
+{"Time":"2026-10-20T14:32:16.271617856+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestHTTPHostOriginAndMethodBoundary","Output":"=== RUN   TestHTTPHostOriginAndMethodBoundary\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.288355505+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestHTTPHostOriginAndMethodBoundary","Output":"--- PASS: TestHTTPHostOriginAndMethodBoundary (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.288404547+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestHTTPHostOriginAndMethodBoundary","Elapsed":0.02}
+{"Time":"2026-10-20T14:32:16.288466393+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestSharedCollectorDoesNotMultiplyRPCWithBrowsers"}
+{"Time":"2026-10-20T14:32:16.28847602+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestSharedCollectorDoesNotMultiplyRPCWithBrowsers","Output":"=== RUN   TestSharedCollectorDoesNotMultiplyRPCWithBrowsers\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.319509334+08:00","Action":"start","Package":"myraft/raft"}
+{"Time":"2026-10-20T14:32:16.319644976+08:00","Action":"start","Package":"myraft/rpc"}
+{"Time":"2026-10-20T14:32:16.349770659+08:00","Action":"run","Package":"myraft/raft","Test":"TestElectionDeadlineEvents"}
+{"Time":"2026-10-20T14:32:16.349857579+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents","Output":"=== RUN   TestElectionDeadlineEvents\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.34987608+08:00","Action":"run","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/stale-log-vote"}
+{"Time":"2026-10-20T14:32:16.34988522+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/stale-log-vote","Output":"=== RUN   TestElectionDeadlineEvents/stale-log-vote\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.351281073+08:00","Action":"run","Package":"myraft/rpc","Test":"TestPeerClientSurvivesIdleDeadline"}
+{"Time":"2026-10-20T14:32:16.351351179+08:00","Action":"output","Package":"myraft/rpc","Test":"TestPeerClientSurvivesIdleDeadline","Output":"=== RUN   TestPeerClientSurvivesIdleDeadline\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.354445814+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/stale-log-vote","Output":"--- PASS: TestElectionDeadlineEvents/stale-log-vote (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.354471173+08:00","Action":"pass","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/stale-log-vote","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.354552645+08:00","Action":"run","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/grant-vote"}
+{"Time":"2026-10-20T14:32:16.354583787+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/grant-vote","Output":"=== RUN   TestElectionDeadlineEvents/grant-vote\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.35904308+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/grant-vote","Output":"--- PASS: TestElectionDeadlineEvents/grant-vote (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.359064434+08:00","Action":"pass","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/grant-vote","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.359075394+08:00","Action":"run","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/expired-append"}
+{"Time":"2026-10-20T14:32:16.359083273+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/expired-append","Output":"=== RUN   TestElectionDeadlineEvents/expired-append\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.362013987+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/expired-append","Output":"--- PASS: TestElectionDeadlineEvents/expired-append (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.362032397+08:00","Action":"pass","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/expired-append","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.362043349+08:00","Action":"run","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/mismatched-append"}
+{"Time":"2026-10-20T14:32:16.362051331+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/mismatched-append","Output":"=== RUN   TestElectionDeadlineEvents/mismatched-append\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.365212177+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/mismatched-append","Output":"--- PASS: TestElectionDeadlineEvents/mismatched-append (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.365228568+08:00","Action":"pass","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/mismatched-append","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.365240052+08:00","Action":"run","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/higher-vote-reply"}
+{"Time":"2026-10-20T14:32:16.365248062+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/higher-vote-reply","Output":"=== RUN   TestElectionDeadlineEvents/higher-vote-reply\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.368240806+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/higher-vote-reply","Output":"--- PASS: TestElectionDeadlineEvents/higher-vote-reply (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.368255606+08:00","Action":"pass","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/higher-vote-reply","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.368271385+08:00","Action":"run","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/higher-append-reply"}
+{"Time":"2026-10-20T14:32:16.36827949+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/higher-append-reply","Output":"=== RUN   TestElectionDeadlineEvents/higher-append-reply\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.371342491+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/higher-append-reply","Output":"--- PASS: TestElectionDeadlineEvents/higher-append-reply (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.371358007+08:00","Action":"pass","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/higher-append-reply","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.371368895+08:00","Action":"run","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/expired-heartbeat"}
+{"Time":"2026-10-20T14:32:16.371376791+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/expired-heartbeat","Output":"=== RUN   TestElectionDeadlineEvents/expired-heartbeat\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.373921723+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/expired-heartbeat","Output":"--- PASS: TestElectionDeadlineEvents/expired-heartbeat (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.373938264+08:00","Action":"pass","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/expired-heartbeat","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.373948978+08:00","Action":"run","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/valid-heartbeat"}
+{"Time":"2026-10-20T14:32:16.373956642+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/valid-heartbeat","Output":"=== RUN   TestElectionDeadlineEvents/valid-heartbeat\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.377381835+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/valid-heartbeat","Output":"--- PASS: TestElectionDeadlineEvents/valid-heartbeat (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.377399304+08:00","Action":"pass","Package":"myraft/raft","Test":"TestElectionDeadlineEvents/valid-heartbeat","Elapsed":0}
+{"Time":"2026-10-20T14:32:16.377456061+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionDeadlineEvents","Output":"--- PASS: TestElectionDeadlineEvents (0.03s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.377492188+08:00","Action":"pass","Package":"myraft/raft","Test":"TestElectionDeadlineEvents","Elapsed":0.03}
+{"Time":"2026-10-20T14:32:16.377585471+08:00","Action":"run","Package":"myraft/raft","Test":"TestGenerateReplyReuse"}
+{"Time":"2026-10-20T14:32:16.377595251+08:00","Action":"output","Package":"myraft/raft","Test":"TestGenerateReplyReuse","Output":"=== RUN   TestGenerateReplyReuse\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.391991389+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestSharedCollectorDoesNotMultiplyRPCWithBrowsers","Output":"--- PASS: TestSharedCollectorDoesNotMultiplyRPCWithBrowsers (0.10s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.392050876+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestSharedCollectorDoesNotMultiplyRPCWithBrowsers","Elapsed":0.1}
+{"Time":"2026-10-20T14:32:16.392076005+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestEventBoundsAndGapAreVisible"}
+{"Time":"2026-10-20T14:32:16.392085063+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestEventBoundsAndGapAreVisible","Output":"=== RUN   TestEventBoundsAndGapAreVisible\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.408943118+08:00","Action":"output","Package":"myraft/raft","Test":"TestGenerateReplyReuse","Output":"--- PASS: TestGenerateReplyReuse (0.03s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.408992156+08:00","Action":"pass","Package":"myraft/raft","Test":"TestGenerateReplyReuse","Elapsed":0.03}
+{"Time":"2026-10-20T14:32:16.409006521+08:00","Action":"run","Package":"myraft/raft","Test":"TestIncrementalCommittedHashRecoveryAndFailure"}
+{"Time":"2026-10-20T14:32:16.409015436+08:00","Action":"output","Package":"myraft/raft","Test":"TestIncrementalCommittedHashRecoveryAndFailure","Output":"=== RUN   TestIncrementalCommittedHashRecoveryAndFailure\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.469313654+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestEventBoundsAndGapAreVisible","Output":"--- PASS: TestEventBoundsAndGapAreVisible (0.08s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.469368901+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestEventBoundsAndGapAreVisible","Elapsed":0.08}
+{"Time":"2026-10-20T14:32:16.46938848+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestLogsRejectStaleSessionAndUnregisteredNode"}
+{"Time":"2026-10-20T14:32:16.469397455+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestLogsRejectStaleSessionAndUnregisteredNode","Output":"=== RUN   TestLogsRejectStaleSessionAndUnregisteredNode\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.48433068+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestLogsRejectStaleSessionAndUnregisteredNode","Output":"--- PASS: TestLogsRejectStaleSessionAndUnregisteredNode (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.484405746+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestLogsRejectStaleSessionAndUnregisteredNode","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:16.484428074+08:00","Action":"run","Package":"myraft/cmd/dashboard","Test":"TestSlowSSEWriteDoesNotBlockCollectorAndExpires"}
+{"Time":"2026-10-20T14:32:16.484437261+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestSlowSSEWriteDoesNotBlockCollectorAndExpires","Output":"=== RUN   TestSlowSSEWriteDoesNotBlockCollectorAndExpires\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.555389872+08:00","Action":"output","Package":"myraft/rpc","Test":"TestPeerClientSurvivesIdleDeadline","Output":"--- PASS: TestPeerClientSurvivesIdleDeadline (0.20s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.555441968+08:00","Action":"pass","Package":"myraft/rpc","Test":"TestPeerClientSurvivesIdleDeadline","Elapsed":0.2}
+{"Time":"2026-10-20T14:32:16.555474732+08:00","Action":"run","Package":"myraft/rpc","Test":"TestPeerTimeoutReconnectsWithoutLateReply"}
+{"Time":"2026-10-20T14:32:16.555483968+08:00","Action":"output","Package":"myraft/rpc","Test":"TestPeerTimeoutReconnectsWithoutLateReply","Output":"=== RUN   TestPeerTimeoutReconnectsWithoutLateReply\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.618940434+08:00","Action":"output","Package":"myraft/rpc","Test":"TestPeerTimeoutReconnectsWithoutLateReply","Output":"--- PASS: TestPeerTimeoutReconnectsWithoutLateReply (0.06s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.618989252+08:00","Action":"pass","Package":"myraft/rpc","Test":"TestPeerTimeoutReconnectsWithoutLateReply","Elapsed":0.06}
+{"Time":"2026-10-20T14:32:16.619002949+08:00","Action":"output","Package":"myraft/rpc","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.80650949+08:00","Action":"output","Package":"myraft/raft","Test":"TestIncrementalCommittedHashRecoveryAndFailure","Output":"--- PASS: TestIncrementalCommittedHashRecoveryAndFailure (0.40s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.806567938+08:00","Action":"pass","Package":"myraft/raft","Test":"TestIncrementalCommittedHashRecoveryAndFailure","Elapsed":0.4}
+{"Time":"2026-10-20T14:32:16.806584471+08:00","Action":"run","Package":"myraft/raft","Test":"TestDivergenceInitialManifest"}
+{"Time":"2026-10-20T14:32:16.806593232+08:00","Action":"output","Package":"myraft/raft","Test":"TestDivergenceInitialManifest","Output":"=== RUN   TestDivergenceInitialManifest\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:16.806604362+08:00","Action":"run","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/10"}
+{"Time":"2026-10-20T14:32:16.806612575+08:00","Action":"output","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/10","Output":"=== RUN   TestDivergenceInitialManifest/10\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:17.033749462+08:00","Action":"output","Package":"myraft","Output":"ok  \tmyraft\t1.288s\n"}
+{"Time":"2026-10-20T14:32:17.03380341+08:00","Action":"pass","Package":"myraft","Elapsed":1.289}
+{"Time":"2026-10-20T14:32:17.244037887+08:00","Action":"output","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/10","Output":"--- PASS: TestDivergenceInitialManifest/10 (0.44s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:17.24409647+08:00","Action":"pass","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/10","Elapsed":0.44}
+{"Time":"2026-10-20T14:32:17.244115244+08:00","Action":"run","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/20"}
+{"Time":"2026-10-20T14:32:17.244124113+08:00","Action":"output","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/20","Output":"=== RUN   TestDivergenceInitialManifest/20\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:17.62284604+08:00","Action":"output","Package":"myraft/rpc","Output":"ok  \tmyraft/rpc\t1.303s\n"}
+{"Time":"2026-10-20T14:32:17.622930072+08:00","Action":"pass","Package":"myraft/rpc","Elapsed":1.303}
+{"Time":"2026-10-20T14:32:18.049656361+08:00","Action":"output","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/20","Output":"--- PASS: TestDivergenceInitialManifest/20 (0.81s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:18.049723184+08:00","Action":"pass","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/20","Elapsed":0.81}
+{"Time":"2026-10-20T14:32:18.049739198+08:00","Action":"run","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/50"}
+{"Time":"2026-10-20T14:32:18.049748063+08:00","Action":"output","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/50","Output":"=== RUN   TestDivergenceInitialManifest/50\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:18.497629526+08:00","Action":"output","Package":"myraft/cmd/dashboard","Test":"TestSlowSSEWriteDoesNotBlockCollectorAndExpires","Output":"--- PASS: TestSlowSSEWriteDoesNotBlockCollectorAndExpires (2.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:18.497696713+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Test":"TestSlowSSEWriteDoesNotBlockCollectorAndExpires","Elapsed":2.01}
+{"Time":"2026-10-20T14:32:18.497710952+08:00","Action":"output","Package":"myraft/cmd/dashboard","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:19.511082093+08:00","Action":"output","Package":"myraft/cmd/dashboard","Output":"ok  \tmyraft/cmd/dashboard\t3.586s\n"}
+{"Time":"2026-10-20T14:32:19.511164543+08:00","Action":"pass","Package":"myraft/cmd/dashboard","Elapsed":3.586}
+{"Time":"2026-10-20T14:32:20.065834461+08:00","Action":"output","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/50","Output":"--- PASS: TestDivergenceInitialManifest/50 (2.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:20.065906288+08:00","Action":"pass","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/50","Elapsed":2.02}
+{"Time":"2026-10-20T14:32:20.065921952+08:00","Action":"run","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/100"}
+{"Time":"2026-10-20T14:32:20.065931547+08:00","Action":"output","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/100","Output":"=== RUN   TestDivergenceInitialManifest/100\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:23.537049986+08:00","Action":"output","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/100","Output":"--- PASS: TestDivergenceInitialManifest/100 (3.47s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:23.537124343+08:00","Action":"pass","Package":"myraft/raft","Test":"TestDivergenceInitialManifest/100","Elapsed":3.47}
+{"Time":"2026-10-20T14:32:23.537150197+08:00","Action":"output","Package":"myraft/raft","Test":"TestDivergenceInitialManifest","Output":"--- PASS: TestDivergenceInitialManifest (6.73s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:23.537162345+08:00","Action":"pass","Package":"myraft/raft","Test":"TestDivergenceInitialManifest","Elapsed":6.73}
+{"Time":"2026-10-20T14:32:23.537172976+08:00","Action":"run","Package":"myraft/raft","Test":"TestFixedMembershipRestartCannotSplitHistory"}
+{"Time":"2026-10-20T14:32:23.537187515+08:00","Action":"output","Package":"myraft/raft","Test":"TestFixedMembershipRestartCannotSplitHistory","Output":"=== RUN   TestFixedMembershipRestartCannotSplitHistory\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.457710323+08:00","Action":"output","Package":"myraft/raft","Test":"TestFixedMembershipRestartCannotSplitHistory","Output":"--- PASS: TestFixedMembershipRestartCannotSplitHistory (0.92s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.457779706+08:00","Action":"pass","Package":"myraft/raft","Test":"TestFixedMembershipRestartCannotSplitHistory","Elapsed":0.92}
+{"Time":"2026-10-20T14:32:24.45779623+08:00","Action":"run","Package":"myraft/raft","Test":"TestLegacyClaimIsExplicitBackedUpAndReadOnly"}
+{"Time":"2026-10-20T14:32:24.457805225+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimIsExplicitBackedUpAndReadOnly","Output":"=== RUN   TestLegacyClaimIsExplicitBackedUpAndReadOnly\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.476702734+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimIsExplicitBackedUpAndReadOnly","Output":"2026/10/20 14:32:24 node=1 term=3 role=Follower | state_applied from=1 index=1 commands=1 x=7\n"}
+{"Time":"2026-10-20T14:32:24.477594505+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimIsExplicitBackedUpAndReadOnly","Output":"--- PASS: TestLegacyClaimIsExplicitBackedUpAndReadOnly (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.477677404+08:00","Action":"pass","Package":"myraft/raft","Test":"TestLegacyClaimIsExplicitBackedUpAndReadOnly","Elapsed":0.02}
+{"Time":"2026-10-20T14:32:24.477718506+08:00","Action":"run","Package":"myraft/raft","Test":"TestLegacyClaimRejectsCorruptionWithoutPublishingIdentity"}
+{"Time":"2026-10-20T14:32:24.477727686+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimRejectsCorruptionWithoutPublishingIdentity","Output":"=== RUN   TestLegacyClaimRejectsCorruptionWithoutPublishingIdentity\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.483444054+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimRejectsCorruptionWithoutPublishingIdentity","Output":"--- PASS: TestLegacyClaimRejectsCorruptionWithoutPublishingIdentity (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.483465808+08:00","Action":"pass","Package":"myraft/raft","Test":"TestLegacyClaimRejectsCorruptionWithoutPublishingIdentity","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:24.483478383+08:00","Action":"run","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL"}
+{"Time":"2026-10-20T14:32:24.483486849+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL","Output":"=== RUN   TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.483521853+08:00","Action":"run","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/false"}
+{"Time":"2026-10-20T14:32:24.483530058+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/false","Output":"=== RUN   TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/false\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.487371013+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/false","Output":"2026/10/20 14:32:24 node=1 term=0 role=Follower | node_recovered index=0 commit=0 applied=0 x=0\n"}
+{"Time":"2026-10-20T14:32:24.488248416+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/false","Output":"--- PASS: TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/false (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.488304338+08:00","Action":"pass","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/false","Elapsed":0}
+{"Time":"2026-10-20T14:32:24.488354785+08:00","Action":"run","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/true"}
+{"Time":"2026-10-20T14:32:24.488366732+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/true","Output":"=== RUN   TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/true\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.494096165+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/true","Output":"--- PASS: TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/true (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.494157063+08:00","Action":"pass","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/true","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:24.494295606+08:00","Action":"output","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL","Output":"--- PASS: TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.49435391+08:00","Action":"pass","Package":"myraft/raft","Test":"TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:24.494405892+08:00","Action":"run","Package":"myraft/raft","Test":"TestSummaryIsNotLogVerification"}
+{"Time":"2026-10-20T14:32:24.494414777+08:00","Action":"output","Package":"myraft/raft","Test":"TestSummaryIsNotLogVerification","Output":"=== RUN   TestSummaryIsNotLogVerification\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.500016307+08:00","Action":"output","Package":"myraft/raft","Test":"TestSummaryIsNotLogVerification","Output":"--- PASS: TestSummaryIsNotLogVerification (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.5000743+08:00","Action":"pass","Package":"myraft/raft","Test":"TestSummaryIsNotLogVerification","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:24.500136251+08:00","Action":"run","Package":"myraft/raft","Test":"TestReplicationBatchSizes"}
+{"Time":"2026-10-20T14:32:24.500145741+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplicationBatchSizes","Output":"=== RUN   TestReplicationBatchSizes\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:24.500305644+08:00","Action":"run","Package":"myraft/raft","Test":"TestReplicationBatchSizes/64"}
+{"Time":"2026-10-20T14:32:24.500318295+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplicationBatchSizes/64","Output":"=== RUN   TestReplicationBatchSizes/64\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:25.063003444+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplicationBatchSizes/64","Output":"--- PASS: TestReplicationBatchSizes/64 (0.56s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:25.063069921+08:00","Action":"pass","Package":"myraft/raft","Test":"TestReplicationBatchSizes/64","Elapsed":0.56}
+{"Time":"2026-10-20T14:32:25.063090075+08:00","Action":"run","Package":"myraft/raft","Test":"TestReplicationBatchSizes/128"}
+{"Time":"2026-10-20T14:32:25.063103396+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplicationBatchSizes/128","Output":"=== RUN   TestReplicationBatchSizes/128\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:25.567474362+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplicationBatchSizes/128","Output":"--- PASS: TestReplicationBatchSizes/128 (0.50s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:25.567538407+08:00","Action":"pass","Package":"myraft/raft","Test":"TestReplicationBatchSizes/128","Elapsed":0.5}
+{"Time":"2026-10-20T14:32:25.567558675+08:00","Action":"run","Package":"myraft/raft","Test":"TestReplicationBatchSizes/256"}
+{"Time":"2026-10-20T14:32:25.567567495+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplicationBatchSizes/256","Output":"=== RUN   TestReplicationBatchSizes/256\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:26.122896965+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplicationBatchSizes/256","Output":"--- PASS: TestReplicationBatchSizes/256 (0.56s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:26.122964814+08:00","Action":"pass","Package":"myraft/raft","Test":"TestReplicationBatchSizes/256","Elapsed":0.56}
+{"Time":"2026-10-20T14:32:26.123807992+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplicationBatchSizes","Output":"--- PASS: TestReplicationBatchSizes (1.62s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:26.123852219+08:00","Action":"pass","Package":"myraft/raft","Test":"TestReplicationBatchSizes","Elapsed":1.62}
+{"Time":"2026-10-20T14:32:26.123919861+08:00","Action":"run","Package":"myraft/raft","Test":"TestBlockedOrdinaryOutputDoesNotBlockProtocolOrStop"}
+{"Time":"2026-10-20T14:32:26.123930781+08:00","Action":"output","Package":"myraft/raft","Test":"TestBlockedOrdinaryOutputDoesNotBlockProtocolOrStop","Output":"=== RUN   TestBlockedOrdinaryOutputDoesNotBlockProtocolOrStop\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:26.345029444+08:00","Action":"output","Package":"myraft/raft","Test":"TestBlockedOrdinaryOutputDoesNotBlockProtocolOrStop","Output":"--- PASS: TestBlockedOrdinaryOutputDoesNotBlockProtocolOrStop (0.22s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:26.345093204+08:00","Action":"pass","Package":"myraft/raft","Test":"TestBlockedOrdinaryOutputDoesNotBlockProtocolOrStop","Elapsed":0.22}
+{"Time":"2026-10-20T14:32:26.345115295+08:00","Action":"run","Package":"myraft/raft","Test":"TestLogRangeCopiesBoundedRevision"}
+{"Time":"2026-10-20T14:32:26.345118092+08:00","Action":"output","Package":"myraft/raft","Test":"TestLogRangeCopiesBoundedRevision","Output":"=== RUN   TestLogRangeCopiesBoundedRevision\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:26.371278945+08:00","Action":"output","Package":"myraft/raft","Test":"TestLogRangeCopiesBoundedRevision","Output":"--- PASS: TestLogRangeCopiesBoundedRevision (0.03s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:26.371325854+08:00","Action":"pass","Package":"myraft/raft","Test":"TestLogRangeCopiesBoundedRevision","Elapsed":0.03}
+{"Time":"2026-10-20T14:32:26.371344362+08:00","Action":"run","Package":"myraft/raft","Test":"TestOrdinaryOutputReportsDroppedEvents"}
+{"Time":"2026-10-20T14:32:26.371353068+08:00","Action":"output","Package":"myraft/raft","Test":"TestOrdinaryOutputReportsDroppedEvents","Output":"=== RUN   TestOrdinaryOutputReportsDroppedEvents\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:26.375077021+08:00","Action":"output","Package":"myraft/raft","Test":"TestOrdinaryOutputReportsDroppedEvents","Output":"--- PASS: TestOrdinaryOutputReportsDroppedEvents (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:26.375150819+08:00","Action":"pass","Package":"myraft/raft","Test":"TestOrdinaryOutputReportsDroppedEvents","Elapsed":0}
+{"Time":"2026-10-20T14:32:26.375241916+08:00","Action":"run","Package":"myraft/raft","Test":"TestPartitionRepairsUncommittedLeaderTail"}
+{"Time":"2026-10-20T14:32:26.375255535+08:00","Action":"output","Package":"myraft/raft","Test":"TestPartitionRepairsUncommittedLeaderTail","Output":"=== RUN   TestPartitionRepairsUncommittedLeaderTail\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:27.7495177+08:00","Action":"output","Package":"myraft/raft","Test":"TestPartitionRepairsUncommittedLeaderTail","Output":"--- PASS: TestPartitionRepairsUncommittedLeaderTail (1.37s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:27.749591047+08:00","Action":"pass","Package":"myraft/raft","Test":"TestPartitionRepairsUncommittedLeaderTail","Elapsed":1.37}
+{"Time":"2026-10-20T14:32:27.74961102+08:00","Action":"run","Package":"myraft/raft","Test":"TestElectionFailoverRestartAndMinority"}
+{"Time":"2026-10-20T14:32:27.749622556+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionFailoverRestartAndMinority","Output":"=== RUN   TestElectionFailoverRestartAndMinority\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.372147223+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionFailoverRestartAndMinority","Output":"--- PASS: TestElectionFailoverRestartAndMinority (3.62s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.372241165+08:00","Action":"pass","Package":"myraft/raft","Test":"TestElectionFailoverRestartAndMinority","Elapsed":3.62}
+{"Time":"2026-10-20T14:32:31.372261719+08:00","Action":"run","Package":"myraft/raft","Test":"TestVoteSurvivesRestart"}
+{"Time":"2026-10-20T14:32:31.372270704+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteSurvivesRestart","Output":"=== RUN   TestVoteSurvivesRestart\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.394815192+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteSurvivesRestart","Output":"--- PASS: TestVoteSurvivesRestart (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.39485748+08:00","Action":"pass","Package":"myraft/raft","Test":"TestVoteSurvivesRestart","Elapsed":0.02}
+{"Time":"2026-10-20T14:32:31.394928666+08:00","Action":"run","Package":"myraft/raft","Test":"TestStaleVoteResponsesIgnored"}
+{"Time":"2026-10-20T14:32:31.394939088+08:00","Action":"output","Package":"myraft/raft","Test":"TestStaleVoteResponsesIgnored","Output":"=== RUN   TestStaleVoteResponsesIgnored\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.398569421+08:00","Action":"output","Package":"myraft/raft","Test":"TestStaleVoteResponsesIgnored","Output":"--- PASS: TestStaleVoteResponsesIgnored (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.398621234+08:00","Action":"pass","Package":"myraft/raft","Test":"TestStaleVoteResponsesIgnored","Elapsed":0}
+{"Time":"2026-10-20T14:32:31.398633465+08:00","Action":"run","Package":"myraft/raft","Test":"TestSingleNodeAndIdempotentStop"}
+{"Time":"2026-10-20T14:32:31.3986421+08:00","Action":"output","Package":"myraft/raft","Test":"TestSingleNodeAndIdempotentStop","Output":"=== RUN   TestSingleNodeAndIdempotentStop\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.750868991+08:00","Action":"output","Package":"myraft/raft","Test":"TestSingleNodeAndIdempotentStop","Output":"--- PASS: TestSingleNodeAndIdempotentStop (0.35s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.750932206+08:00","Action":"pass","Package":"myraft/raft","Test":"TestSingleNodeAndIdempotentStop","Elapsed":0.35}
+{"Time":"2026-10-20T14:32:31.75094838+08:00","Action":"run","Package":"myraft/raft","Test":"TestCorruptStateRejected"}
+{"Time":"2026-10-20T14:32:31.750957354+08:00","Action":"output","Package":"myraft/raft","Test":"TestCorruptStateRejected","Output":"=== RUN   TestCorruptStateRejected\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.752617155+08:00","Action":"output","Package":"myraft/raft","Test":"TestCorruptStateRejected","Output":"--- PASS: TestCorruptStateRejected (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.752661273+08:00","Action":"pass","Package":"myraft/raft","Test":"TestCorruptStateRejected","Elapsed":0}
+{"Time":"2026-10-20T14:32:31.752694872+08:00","Action":"run","Package":"myraft/raft","Test":"TestPersistenceFailureDoesNotGrantVote"}
+{"Time":"2026-10-20T14:32:31.752703591+08:00","Action":"output","Package":"myraft/raft","Test":"TestPersistenceFailureDoesNotGrantVote","Output":"=== RUN   TestPersistenceFailureDoesNotGrantVote\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.757456266+08:00","Action":"output","Package":"myraft/raft","Test":"TestPersistenceFailureDoesNotGrantVote","Output":"--- PASS: TestPersistenceFailureDoesNotGrantVote (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.757517964+08:00","Action":"pass","Package":"myraft/raft","Test":"TestPersistenceFailureDoesNotGrantVote","Elapsed":0}
+{"Time":"2026-10-20T14:32:31.757565646+08:00","Action":"run","Package":"myraft/raft","Test":"TestVoteLogFreshness"}
+{"Time":"2026-10-20T14:32:31.757574262+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness","Output":"=== RUN   TestVoteLogFreshness\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.757653939+08:00","Action":"run","Package":"myraft/raft","Test":"TestVoteLogFreshness/older"}
+{"Time":"2026-10-20T14:32:31.757663517+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness/older","Output":"=== RUN   TestVoteLogFreshness/older\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.765159814+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness/older","Output":"--- PASS: TestVoteLogFreshness/older (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.765207374+08:00","Action":"pass","Package":"myraft/raft","Test":"TestVoteLogFreshness/older","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:31.765311905+08:00","Action":"run","Package":"myraft/raft","Test":"TestVoteLogFreshness/shorter"}
+{"Time":"2026-10-20T14:32:31.76532267+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness/shorter","Output":"=== RUN   TestVoteLogFreshness/shorter\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.769812718+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness/shorter","Output":"--- PASS: TestVoteLogFreshness/shorter (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.769835868+08:00","Action":"pass","Package":"myraft/raft","Test":"TestVoteLogFreshness/shorter","Elapsed":0}
+{"Time":"2026-10-20T14:32:31.769884366+08:00","Action":"run","Package":"myraft/raft","Test":"TestVoteLogFreshness/equal"}
+{"Time":"2026-10-20T14:32:31.769893134+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness/equal","Output":"=== RUN   TestVoteLogFreshness/equal\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.775769788+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness/equal","Output":"--- PASS: TestVoteLogFreshness/equal (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.775813562+08:00","Action":"pass","Package":"myraft/raft","Test":"TestVoteLogFreshness/equal","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:31.775904994+08:00","Action":"run","Package":"myraft/raft","Test":"TestVoteLogFreshness/longer"}
+{"Time":"2026-10-20T14:32:31.775915065+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness/longer","Output":"=== RUN   TestVoteLogFreshness/longer\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.782263606+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness/longer","Output":"--- PASS: TestVoteLogFreshness/longer (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.782290885+08:00","Action":"pass","Package":"myraft/raft","Test":"TestVoteLogFreshness/longer","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:31.782300951+08:00","Action":"run","Package":"myraft/raft","Test":"TestVoteLogFreshness/newer"}
+{"Time":"2026-10-20T14:32:31.782308961+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness/newer","Output":"=== RUN   TestVoteLogFreshness/newer\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.786268694+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness/newer","Output":"--- PASS: TestVoteLogFreshness/newer (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.786294933+08:00","Action":"pass","Package":"myraft/raft","Test":"TestVoteLogFreshness/newer","Elapsed":0}
+{"Time":"2026-10-20T14:32:31.786332605+08:00","Action":"output","Package":"myraft/raft","Test":"TestVoteLogFreshness","Output":"--- PASS: TestVoteLogFreshness (0.03s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.786344886+08:00","Action":"pass","Package":"myraft/raft","Test":"TestVoteLogFreshness","Elapsed":0.03}
+{"Time":"2026-10-20T14:32:31.78635667+08:00","Action":"run","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates"}
+{"Time":"2026-10-20T14:32:31.786364661+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates","Output":"=== RUN   TestAppendBoundsAndDuplicates\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.786411334+08:00","Action":"run","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/missing"}
+{"Time":"2026-10-20T14:32:31.786420179+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/missing","Output":"=== RUN   TestAppendBoundsAndDuplicates/missing\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.789418266+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/missing","Output":"--- PASS: TestAppendBoundsAndDuplicates/missing (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.789439715+08:00","Action":"pass","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/missing","Elapsed":0}
+{"Time":"2026-10-20T14:32:31.789451325+08:00","Action":"run","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/wrong_term"}
+{"Time":"2026-10-20T14:32:31.789459474+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/wrong_term","Output":"=== RUN   TestAppendBoundsAndDuplicates/wrong_term\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.792721726+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/wrong_term","Output":"--- PASS: TestAppendBoundsAndDuplicates/wrong_term (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.792783818+08:00","Action":"pass","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/wrong_term","Elapsed":0}
+{"Time":"2026-10-20T14:32:31.792817667+08:00","Action":"run","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/empty"}
+{"Time":"2026-10-20T14:32:31.792827097+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/empty","Output":"=== RUN   TestAppendBoundsAndDuplicates/empty\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.796411448+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/empty","Output":"--- PASS: TestAppendBoundsAndDuplicates/empty (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.796441469+08:00","Action":"pass","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/empty","Elapsed":0}
+{"Time":"2026-10-20T14:32:31.796453119+08:00","Action":"run","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/sentinel"}
+{"Time":"2026-10-20T14:32:31.796461017+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/sentinel","Output":"=== RUN   TestAppendBoundsAndDuplicates/sentinel\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.799668342+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/sentinel","Output":"--- PASS: TestAppendBoundsAndDuplicates/sentinel (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.799688623+08:00","Action":"pass","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/sentinel","Elapsed":0}
+{"Time":"2026-10-20T14:32:31.799700102+08:00","Action":"run","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/duplicate"}
+{"Time":"2026-10-20T14:32:31.799708257+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/duplicate","Output":"=== RUN   TestAppendBoundsAndDuplicates/duplicate\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.803586867+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/duplicate","Output":"--- PASS: TestAppendBoundsAndDuplicates/duplicate (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.803606237+08:00","Action":"pass","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates/duplicate","Elapsed":0}
+{"Time":"2026-10-20T14:32:31.803642771+08:00","Action":"output","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates","Output":"--- PASS: TestAppendBoundsAndDuplicates (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.80365601+08:00","Action":"pass","Package":"myraft/raft","Test":"TestAppendBoundsAndDuplicates","Elapsed":0.02}
+{"Time":"2026-10-20T14:32:31.803669035+08:00","Action":"run","Package":"myraft/raft","Test":"TestConflictRepairAndCommittedProtection"}
+{"Time":"2026-10-20T14:32:31.803676949+08:00","Action":"output","Package":"myraft/raft","Test":"TestConflictRepairAndCommittedProtection","Output":"=== RUN   TestConflictRepairAndCommittedProtection\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.809437917+08:00","Action":"output","Package":"myraft/raft","Test":"TestConflictRepairAndCommittedProtection","Output":"--- PASS: TestConflictRepairAndCommittedProtection (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.809459313+08:00","Action":"pass","Package":"myraft/raft","Test":"TestConflictRepairAndCommittedProtection","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:31.80947111+08:00","Action":"run","Package":"myraft/raft","Test":"TestCurrentTermCommitAndStaleReply"}
+{"Time":"2026-10-20T14:32:31.809482167+08:00","Action":"output","Package":"myraft/raft","Test":"TestCurrentTermCommitAndStaleReply","Output":"=== RUN   TestCurrentTermCommitAndStaleReply\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.81324271+08:00","Action":"output","Package":"myraft/raft","Test":"TestCurrentTermCommitAndStaleReply","Output":"--- PASS: TestCurrentTermCommitAndStaleReply (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:31.813265689+08:00","Action":"pass","Package":"myraft/raft","Test":"TestCurrentTermCommitAndStaleReply","Elapsed":0}
+{"Time":"2026-10-20T14:32:31.813275225+08:00","Action":"run","Package":"myraft/raft","Test":"TestReplication2101EmptyNodeFailoverRestart"}
+{"Time":"2026-10-20T14:32:31.81329401+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplication2101EmptyNodeFailoverRestart","Output":"=== RUN   TestReplication2101EmptyNodeFailoverRestart\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:33.727181245+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplication2101EmptyNodeFailoverRestart","Output":"--- PASS: TestReplication2101EmptyNodeFailoverRestart (1.91s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:33.727285201+08:00","Action":"pass","Package":"myraft/raft","Test":"TestReplication2101EmptyNodeFailoverRestart","Elapsed":1.91}
+{"Time":"2026-10-20T14:32:33.727304411+08:00","Action":"run","Package":"myraft/raft","Test":"TestSingleNodeCommandsAndConcurrentSubmit"}
+{"Time":"2026-10-20T14:32:33.727313319+08:00","Action":"output","Package":"myraft/raft","Test":"TestSingleNodeCommandsAndConcurrentSubmit","Output":"=== RUN   TestSingleNodeCommandsAndConcurrentSubmit\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:34.136028948+08:00","Action":"output","Package":"myraft/raft","Test":"TestSingleNodeCommandsAndConcurrentSubmit","Output":"--- PASS: TestSingleNodeCommandsAndConcurrentSubmit (0.41s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:34.13610546+08:00","Action":"pass","Package":"myraft/raft","Test":"TestSingleNodeCommandsAndConcurrentSubmit","Elapsed":0.41}
+{"Time":"2026-10-20T14:32:34.136121935+08:00","Action":"run","Package":"myraft/raft","Test":"TestMinorityCannotCommitAndStopWakesRequest"}
+{"Time":"2026-10-20T14:32:34.136131458+08:00","Action":"output","Package":"myraft/raft","Test":"TestMinorityCannotCommitAndStopWakesRequest","Output":"=== RUN   TestMinorityCannotCommitAndStopWakesRequest\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:34.694388474+08:00","Action":"output","Package":"myraft/raft","Test":"TestMinorityCannotCommitAndStopWakesRequest","Output":"--- PASS: TestMinorityCannotCommitAndStopWakesRequest (0.56s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:34.694459806+08:00","Action":"pass","Package":"myraft/raft","Test":"TestMinorityCannotCommitAndStopWakesRequest","Elapsed":0.56}
+{"Time":"2026-10-20T14:32:34.69447686+08:00","Action":"run","Package":"myraft/raft","Test":"TestElectionRequestsBoundedAcrossTerms"}
+{"Time":"2026-10-20T14:32:34.694486141+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionRequestsBoundedAcrossTerms","Output":"=== RUN   TestElectionRequestsBoundedAcrossTerms\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.26599494+08:00","Action":"output","Package":"myraft/raft","Test":"TestElectionRequestsBoundedAcrossTerms","Output":"--- PASS: TestElectionRequestsBoundedAcrossTerms (0.57s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.266079474+08:00","Action":"pass","Package":"myraft/raft","Test":"TestElectionRequestsBoundedAcrossTerms","Elapsed":0.57}
+{"Time":"2026-10-20T14:32:35.266096624+08:00","Action":"run","Package":"myraft/raft","Test":"TestAliasedVoterCannotAuthorizeLeader"}
+{"Time":"2026-10-20T14:32:35.266105998+08:00","Action":"output","Package":"myraft/raft","Test":"TestAliasedVoterCannotAuthorizeLeader","Output":"=== RUN   TestAliasedVoterCannotAuthorizeLeader\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.281719796+08:00","Action":"output","Package":"myraft/raft","Test":"TestAliasedVoterCannotAuthorizeLeader","Output":"--- PASS: TestAliasedVoterCannotAuthorizeLeader (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.281756424+08:00","Action":"pass","Package":"myraft/raft","Test":"TestAliasedVoterCannotAuthorizeLeader","Elapsed":0.02}
+{"Time":"2026-10-20T14:32:35.281801228+08:00","Action":"run","Package":"myraft/raft","Test":"TestAliasedReplicaCannotCommitMinorityWrite"}
+{"Time":"2026-10-20T14:32:35.281810153+08:00","Action":"output","Package":"myraft/raft","Test":"TestAliasedReplicaCannotCommitMinorityWrite","Output":"=== RUN   TestAliasedReplicaCannotCommitMinorityWrite\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.639797145+08:00","Action":"output","Package":"myraft/raft","Test":"TestAliasedReplicaCannotCommitMinorityWrite","Output":"--- PASS: TestAliasedReplicaCannotCommitMinorityWrite (0.36s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.63989431+08:00","Action":"pass","Package":"myraft/raft","Test":"TestAliasedReplicaCannotCommitMinorityWrite","Elapsed":0.36}
+{"Time":"2026-10-20T14:32:35.639911561+08:00","Action":"run","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress"}
+{"Time":"2026-10-20T14:32:35.639920935+08:00","Action":"output","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress","Output":"=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.639988798+08:00","Action":"run","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/node"}
+{"Time":"2026-10-20T14:32:35.639999267+08:00","Action":"output","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/node","Output":"=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/node\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.645674599+08:00","Action":"output","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/node","Output":"--- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/node (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.645695148+08:00","Action":"pass","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/node","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:35.645730706+08:00","Action":"run","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/cluster"}
+{"Time":"2026-10-20T14:32:35.645739701+08:00","Action":"output","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/cluster","Output":"=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/cluster\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.649227295+08:00","Action":"output","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/cluster","Output":"--- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/cluster (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.649244164+08:00","Action":"pass","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/cluster","Elapsed":0}
+{"Time":"2026-10-20T14:32:35.649256325+08:00","Action":"run","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/members"}
+{"Time":"2026-10-20T14:32:35.649264785+08:00","Action":"output","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/members","Output":"=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/members\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.653332659+08:00","Action":"output","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/members","Output":"--- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/members (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.653373798+08:00","Action":"pass","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/members","Elapsed":0}
+{"Time":"2026-10-20T14:32:35.653446006+08:00","Action":"run","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/missing"}
+{"Time":"2026-10-20T14:32:35.653456109+08:00","Action":"output","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/missing","Output":"=== RUN   TestPeerReplyIdentityPrecedesTermAndProgress/missing\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.659622212+08:00","Action":"output","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/missing","Output":"--- PASS: TestPeerReplyIdentityPrecedesTermAndProgress/missing (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.659663033+08:00","Action":"pass","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress/missing","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:35.659773969+08:00","Action":"output","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress","Output":"--- PASS: TestPeerReplyIdentityPrecedesTermAndProgress (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.659799432+08:00","Action":"pass","Package":"myraft/raft","Test":"TestPeerReplyIdentityPrecedesTermAndProgress","Elapsed":0.02}
+{"Time":"2026-10-20T14:32:35.659854581+08:00","Action":"run","Package":"myraft/raft","Test":"TestWrongTargetRejectedBeforePersistentChanges"}
+{"Time":"2026-10-20T14:32:35.659864291+08:00","Action":"output","Package":"myraft/raft","Test":"TestWrongTargetRejectedBeforePersistentChanges","Output":"=== RUN   TestWrongTargetRejectedBeforePersistentChanges\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.66336274+08:00","Action":"output","Package":"myraft/raft","Test":"TestWrongTargetRejectedBeforePersistentChanges","Output":"--- PASS: TestWrongTargetRejectedBeforePersistentChanges (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.663430458+08:00","Action":"pass","Package":"myraft/raft","Test":"TestWrongTargetRejectedBeforePersistentChanges","Elapsed":0}
+{"Time":"2026-10-20T14:32:35.663509366+08:00","Action":"run","Package":"myraft/raft","Test":"TestNodeStorageExclusive"}
+{"Time":"2026-10-20T14:32:35.66352096+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageExclusive","Output":"=== RUN   TestNodeStorageExclusive\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.672697214+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageExclusive","Output":"--- PASS: TestNodeStorageExclusive (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.672738293+08:00","Action":"pass","Package":"myraft/raft","Test":"TestNodeStorageExclusive","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:35.672825164+08:00","Action":"run","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError"}
+{"Time":"2026-10-20T14:32:35.67283536+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError","Output":"=== RUN   TestNodeStorageLockReleasedAfterLoadError\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.672904246+08:00","Action":"run","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError/state"}
+{"Time":"2026-10-20T14:32:35.672914516+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError/state","Output":"=== RUN   TestNodeStorageLockReleasedAfterLoadError/state\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.681241881+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError/state","Output":"--- PASS: TestNodeStorageLockReleasedAfterLoadError/state (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.68125987+08:00","Action":"pass","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError/state","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:35.681293729+08:00","Action":"run","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError/wal"}
+{"Time":"2026-10-20T14:32:35.681301732+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError/wal","Output":"=== RUN   TestNodeStorageLockReleasedAfterLoadError/wal\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.691401875+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError/wal","Output":"--- PASS: TestNodeStorageLockReleasedAfterLoadError/wal (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.691458803+08:00","Action":"pass","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError/wal","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:35.691576581+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError","Output":"--- PASS: TestNodeStorageLockReleasedAfterLoadError (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.691613978+08:00","Action":"pass","Package":"myraft/raft","Test":"TestNodeStorageLockReleasedAfterLoadError","Elapsed":0.02}
+{"Time":"2026-10-20T14:32:35.691677636+08:00","Action":"run","Package":"myraft/raft","Test":"TestNodeStorageLockLifetime"}
+{"Time":"2026-10-20T14:32:35.691687877+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockLifetime","Output":"=== RUN   TestNodeStorageLockLifetime\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.700758695+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockLifetime","Output":"--- PASS: TestNodeStorageLockLifetime (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.700817618+08:00","Action":"pass","Package":"myraft/raft","Test":"TestNodeStorageLockLifetime","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:35.700832103+08:00","Action":"run","Package":"myraft/raft","Test":"TestConcurrentStopWaitsForStorageRelease"}
+{"Time":"2026-10-20T14:32:35.700841181+08:00","Action":"output","Package":"myraft/raft","Test":"TestConcurrentStopWaitsForStorageRelease","Output":"=== RUN   TestConcurrentStopWaitsForStorageRelease\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.756244843+08:00","Action":"output","Package":"myraft/raft","Test":"TestConcurrentStopWaitsForStorageRelease","Output":"--- PASS: TestConcurrentStopWaitsForStorageRelease (0.06s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.75630159+08:00","Action":"pass","Package":"myraft/raft","Test":"TestConcurrentStopWaitsForStorageRelease","Elapsed":0.06}
+{"Time":"2026-10-20T14:32:35.756370038+08:00","Action":"run","Package":"myraft/raft","Test":"TestNodeStorageLockDirectoryAlias"}
+{"Time":"2026-10-20T14:32:35.756381418+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockDirectoryAlias","Output":"=== RUN   TestNodeStorageLockDirectoryAlias\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.761044297+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockDirectoryAlias","Output":"--- PASS: TestNodeStorageLockDirectoryAlias (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.761076972+08:00","Action":"pass","Package":"myraft/raft","Test":"TestNodeStorageLockDirectoryAlias","Elapsed":0}
+{"Time":"2026-10-20T14:32:35.761162288+08:00","Action":"run","Package":"myraft/raft","Test":"TestNodeStorageLockProcess"}
+{"Time":"2026-10-20T14:32:35.761172467+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockProcess","Output":"=== RUN   TestNodeStorageLockProcess\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.798761369+08:00","Action":"output","Package":"myraft/raft","Test":"TestNodeStorageLockProcess","Output":"--- PASS: TestNodeStorageLockProcess (0.04s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:35.798810579+08:00","Action":"pass","Package":"myraft/raft","Test":"TestNodeStorageLockProcess","Elapsed":0.04}
+{"Time":"2026-10-20T14:32:35.798865918+08:00","Action":"run","Package":"myraft/raft","Test":"TestOversizedAppendRejectedBeforeWALWrite"}
+{"Time":"2026-10-20T14:32:35.798869734+08:00","Action":"output","Package":"myraft/raft","Test":"TestOversizedAppendRejectedBeforeWALWrite","Output":"=== RUN   TestOversizedAppendRejectedBeforeWALWrite\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.697070923+08:00","Action":"output","Package":"myraft/raft","Test":"TestOversizedAppendRejectedBeforeWALWrite","Output":"--- PASS: TestOversizedAppendRejectedBeforeWALWrite (2.90s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.697226851+08:00","Action":"pass","Package":"myraft/raft","Test":"TestOversizedAppendRejectedBeforeWALWrite","Elapsed":2.9}
+{"Time":"2026-10-20T14:32:38.697370547+08:00","Action":"run","Package":"myraft/raft","Test":"TestRecoveryOnlyAppliesCommittedPrefix"}
+{"Time":"2026-10-20T14:32:38.697382518+08:00","Action":"output","Package":"myraft/raft","Test":"TestRecoveryOnlyAppliesCommittedPrefix","Output":"=== RUN   TestRecoveryOnlyAppliesCommittedPrefix\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.70780526+08:00","Action":"output","Package":"myraft/raft","Test":"TestRecoveryOnlyAppliesCommittedPrefix","Output":"--- PASS: TestRecoveryOnlyAppliesCommittedPrefix (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.707848009+08:00","Action":"pass","Package":"myraft/raft","Test":"TestRecoveryOnlyAppliesCommittedPrefix","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:38.707913962+08:00","Action":"run","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption"}
+{"Time":"2026-10-20T14:32:38.707942556+08:00","Action":"output","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption","Output":"=== RUN   TestWALIncompleteTailAndCorruption\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.708062335+08:00","Action":"run","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/header"}
+{"Time":"2026-10-20T14:32:38.708073676+08:00","Action":"output","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/header","Output":"=== RUN   TestWALIncompleteTailAndCorruption/header\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.721067389+08:00","Action":"output","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/header","Output":"--- PASS: TestWALIncompleteTailAndCorruption/header (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.721140981+08:00","Action":"pass","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/header","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:38.721245247+08:00","Action":"run","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/payload"}
+{"Time":"2026-10-20T14:32:38.721257741+08:00","Action":"output","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/payload","Output":"=== RUN   TestWALIncompleteTailAndCorruption/payload\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.733282017+08:00","Action":"output","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/payload","Output":"--- PASS: TestWALIncompleteTailAndCorruption/payload (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.73333401+08:00","Action":"pass","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/payload","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:38.733368629+08:00","Action":"run","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/corrupt"}
+{"Time":"2026-10-20T14:32:38.733376779+08:00","Action":"output","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/corrupt","Output":"=== RUN   TestWALIncompleteTailAndCorruption/corrupt\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.739597062+08:00","Action":"output","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/corrupt","Output":"--- PASS: TestWALIncompleteTailAndCorruption/corrupt (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.739621341+08:00","Action":"pass","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption/corrupt","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:38.739772466+08:00","Action":"output","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption","Output":"--- PASS: TestWALIncompleteTailAndCorruption (0.03s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.73979838+08:00","Action":"pass","Package":"myraft/raft","Test":"TestWALIncompleteTailAndCorruption","Elapsed":0.03}
+{"Time":"2026-10-20T14:32:38.739852267+08:00","Action":"run","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply"}
+{"Time":"2026-10-20T14:32:38.739867703+08:00","Action":"output","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply","Output":"=== RUN   TestStorageFailuresDoNotAcknowledgeOrApply\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.739942819+08:00","Action":"run","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply/append"}
+{"Time":"2026-10-20T14:32:38.739958335+08:00","Action":"output","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply/append","Output":"=== RUN   TestStorageFailuresDoNotAcknowledgeOrApply/append\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.745023521+08:00","Action":"output","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply/append","Output":"--- PASS: TestStorageFailuresDoNotAcknowledgeOrApply/append (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.745077313+08:00","Action":"pass","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply/append","Elapsed":0}
+{"Time":"2026-10-20T14:32:38.745120447+08:00","Action":"run","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply/commit"}
+{"Time":"2026-10-20T14:32:38.745136201+08:00","Action":"output","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply/commit","Output":"=== RUN   TestStorageFailuresDoNotAcknowledgeOrApply/commit\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.751859464+08:00","Action":"output","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply/commit","Output":"--- PASS: TestStorageFailuresDoNotAcknowledgeOrApply/commit (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.751887261+08:00","Action":"pass","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply/commit","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:38.751981583+08:00","Action":"output","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply","Output":"--- PASS: TestStorageFailuresDoNotAcknowledgeOrApply (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.752020228+08:00","Action":"pass","Package":"myraft/raft","Test":"TestStorageFailuresDoNotAcknowledgeOrApply","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:38.752082464+08:00","Action":"run","Package":"myraft/raft","Test":"TestStateMachineArithmetic"}
+{"Time":"2026-10-20T14:32:38.752092926+08:00","Action":"output","Package":"myraft/raft","Test":"TestStateMachineArithmetic","Output":"=== RUN   TestStateMachineArithmetic\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.752292894+08:00","Action":"output","Package":"myraft/raft","Test":"TestStateMachineArithmetic","Output":"--- PASS: TestStateMachineArithmetic (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.752315564+08:00","Action":"pass","Package":"myraft/raft","Test":"TestStateMachineArithmetic","Elapsed":0}
+{"Time":"2026-10-20T14:32:38.752377096+08:00","Action":"run","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail"}
+{"Time":"2026-10-20T14:32:38.752387716+08:00","Action":"output","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail","Output":"=== RUN   TestCommittedReplacementCannotResurrectOldTail\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.752502552+08:00","Action":"run","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/length"}
+{"Time":"2026-10-20T14:32:38.752512926+08:00","Action":"output","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/length","Output":"=== RUN   TestCommittedReplacementCannotResurrectOldTail/length\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.76079218+08:00","Action":"output","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/length","Output":"--- PASS: TestCommittedReplacementCannotResurrectOldTail/length (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.76082844+08:00","Action":"pass","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/length","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:38.760888257+08:00","Action":"run","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/missing_record"}
+{"Time":"2026-10-20T14:32:38.760907773+08:00","Action":"output","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/missing_record","Output":"=== RUN   TestCommittedReplacementCannotResurrectOldTail/missing_record\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.769449699+08:00","Action":"output","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/missing_record","Output":"--- PASS: TestCommittedReplacementCannotResurrectOldTail/missing_record (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.769495135+08:00","Action":"pass","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/missing_record","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:38.769531876+08:00","Action":"run","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/torn_payload"}
+{"Time":"2026-10-20T14:32:38.769540969+08:00","Action":"output","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/torn_payload","Output":"=== RUN   TestCommittedReplacementCannotResurrectOldTail/torn_payload\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.779252882+08:00","Action":"output","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/torn_payload","Output":"--- PASS: TestCommittedReplacementCannotResurrectOldTail/torn_payload (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.779302494+08:00","Action":"pass","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/torn_payload","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:38.77945578+08:00","Action":"run","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/empty_wal"}
+{"Time":"2026-10-20T14:32:38.779465563+08:00","Action":"output","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/empty_wal","Output":"=== RUN   TestCommittedReplacementCannotResurrectOldTail/empty_wal\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.787476493+08:00","Action":"output","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/empty_wal","Output":"--- PASS: TestCommittedReplacementCannotResurrectOldTail/empty_wal (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.787501301+08:00","Action":"pass","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail/empty_wal","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:38.787520327+08:00","Action":"output","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail","Output":"--- PASS: TestCommittedReplacementCannotResurrectOldTail (0.04s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:38.787532157+08:00","Action":"pass","Package":"myraft/raft","Test":"TestCommittedReplacementCannotResurrectOldTail","Elapsed":0.04}
+{"Time":"2026-10-20T14:32:38.78756616+08:00","Action":"run","Package":"myraft/raft","Test":"TestFollowersDoNotStartPeerWorkers"}
+{"Time":"2026-10-20T14:32:38.787574963+08:00","Action":"output","Package":"myraft/raft","Test":"TestFollowersDoNotStartPeerWorkers","Output":"=== RUN   TestFollowersDoNotStartPeerWorkers\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:39.067880223+08:00","Action":"output","Package":"myraft/raft","Test":"TestFollowersDoNotStartPeerWorkers","Output":"    workers_test.go:33: 100 pre-election nodes: additional goroutines=300 startup=280.07514ms\n"}
+{"Time":"2026-10-20T14:32:39.098341515+08:00","Action":"output","Package":"myraft/raft","Test":"TestFollowersDoNotStartPeerWorkers","Output":"--- PASS: TestFollowersDoNotStartPeerWorkers (0.31s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:39.098406287+08:00","Action":"pass","Package":"myraft/raft","Test":"TestFollowersDoNotStartPeerWorkers","Elapsed":0.31}
+{"Time":"2026-10-20T14:32:39.098438562+08:00","Action":"run","Package":"myraft/raft","Test":"TestReplicationWorkersReusedAcrossTerms"}
+{"Time":"2026-10-20T14:32:39.09845065+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplicationWorkersReusedAcrossTerms","Output":"=== RUN   TestReplicationWorkersReusedAcrossTerms\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:39.199142209+08:00","Action":"output","Package":"myraft/raft","Test":"TestReplicationWorkersReusedAcrossTerms","Output":"--- PASS: TestReplicationWorkersReusedAcrossTerms (0.10s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:39.199267171+08:00","Action":"pass","Package":"myraft/raft","Test":"TestReplicationWorkersReusedAcrossTerms","Elapsed":0.1}
+{"Time":"2026-10-20T14:32:39.199300554+08:00","Action":"run","Package":"myraft/raft","Test":"TestFirstLeadershipRacingStop"}
+{"Time":"2026-10-20T14:32:39.19931564+08:00","Action":"output","Package":"myraft/raft","Test":"TestFirstLeadershipRacingStop","Output":"=== RUN   TestFirstLeadershipRacingStop\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:39.272451796+08:00","Action":"output","Package":"myraft/raft","Test":"TestFirstLeadershipRacingStop","Output":"--- PASS: TestFirstLeadershipRacingStop (0.07s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:39.272541787+08:00","Action":"pass","Package":"myraft/raft","Test":"TestFirstLeadershipRacingStop","Elapsed":0.07}
+{"Time":"2026-10-20T14:32:39.272562558+08:00","Action":"run","Package":"myraft/raft","Test":"TestStartAfterLocalLeaderSetup"}
+{"Time":"2026-10-20T14:32:39.272571697+08:00","Action":"output","Package":"myraft/raft","Test":"TestStartAfterLocalLeaderSetup","Output":"=== RUN   TestStartAfterLocalLeaderSetup\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:39.280051831+08:00","Action":"output","Package":"myraft/raft","Test":"TestStartAfterLocalLeaderSetup","Output":"--- PASS: TestStartAfterLocalLeaderSetup (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:39.280170887+08:00","Action":"pass","Package":"myraft/raft","Test":"TestStartAfterLocalLeaderSetup","Elapsed":0.01}
+{"Time":"2026-10-20T14:32:39.280398023+08:00","Action":"output","Package":"myraft/raft","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-10-20T14:32:40.361330903+08:00","Action":"output","Package":"myraft/raft","Output":"ok  \tmyraft/raft\t24.042s\n"}
+{"Time":"2026-10-20T14:32:40.361408055+08:00","Action":"pass","Package":"myraft/raft","Elapsed":24.042}

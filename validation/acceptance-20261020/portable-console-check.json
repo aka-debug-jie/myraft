@@ -1,0 +1,19 @@
+{
+    "protocol":  "real HTTP + real net/rpc",
+    "go_on_path":  false,
+    "platform":  "Windows 11",
+    "python_on_path":  false,
+    "browser":  "not used in this native smoke",
+    "export_sha256":  "f2a4c2b2b38c3be0c6d59c515d83ab57386dab1982d5555716e63b254f875805",
+    "commands":  2101,
+    "entrypoint":  "Start-Console.cmd",
+    "checkpoint":  {
+                       "index":  2102,
+                       "hash":  "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+                       "x":  0,
+                       "saved_at":  "2026-10-20T07:24:40.7768863Z"
+                   },
+    "nodes":  11,
+    "result":  "PASS",
+    "history":  "passed"
+}

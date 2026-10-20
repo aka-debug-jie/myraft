@@ -1,0 +1,26 @@
+Guest PID: 9380
+Stopped node 6. Configuration and data retained.
+Restarted node 6 using its original directory; use verify after catch-up.
+Stopped only the processes owned by this session. Data was retained.
+Stopped only the processes owned by this session. Data was retained.
+{
+    "owned_nodes_remaining":  0,
+    "checksums":  944,
+    "python_on_path":  false,
+    "final_commands":  2102,
+    "result":  "PASS",
+    "checkpoint_x":  0,
+    "go_on_path":  false,
+    "commands":  2101,
+    "checkpoint_hash":  "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+    "manual_visible_windows":  "NOT RUN",
+    "initial_processes":  11,
+    "package_sha256":  "5195e067dc827802ba8517abc48d77e12cbe0bfc5f8b6fab998c93e664649e46",
+    "restart_verified":  true,
+    "checkpoint_index":  2102,
+    "closed_leader":  6,
+    "source":  "fresh portable ZIP, original prebuilt EXEs"
+}
+PORTABLE_TERMINALS_AUTOMATED_PASS manual_visibility_not_run
+
+Guest result: {"exitcode": 0, "exited": true}

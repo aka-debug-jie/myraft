@@ -96,6 +96,6 @@
 
 ## 回归与绿色包补充
 
-Linux：fmt/vet/build PASS；Go test和race各77顶级测试、42子用例PASS；关键身份/计时器/分区race再重复3次PASS；Python34 PASS；3/11节点smoke PASS。合成UI8 PASS、1 live项SKIP，真实浏览器由独立E2E通过。Win11 Go vet/test/build、32项Python（1个Linux专用SKIP）、3/11 smoke、启动/菜单/HTTP恢复通过；包辅助脚本新增测试在Linux通过。Windows race缺C工具链NOT RUN。
+Linux：fmt/vet/build PASS；Go test和race各77顶级测试、42子用例PASS；关键身份/计时器/分区race再重复3次PASS；Python34 PASS；3/11节点smoke PASS。合成UI8 PASS、1 live项SKIP，真实浏览器由独立E2E通过。Win11 Go vet/test/build、最新包内33项Python（另1个Linux专用SKIP）、3/11 smoke、启动/菜单/HTTP恢复通过；包辅助脚本新增测试在Linux通过。Windows race缺C工具链NOT RUN。
 
-绿色包将在独立的新Win11目录解压后执行校验、免Go/Python PATH演示及原目录恢复；具体收据见 `portable-check.json`。**本文件生成时该包级测试尚待执行；在收据产生前不将包级项目标PASS。** 不影响上文已经实测的协议条目。另一台老师统一Win11系统尚未实测。
+绿色包可运行载荷已在全新中文/空格Win11目录中通过：944文件SHA核对、两个根入口、无Go/Python PATH的11节点2101条演示、Leader及全体原盘恢复、当前/历史核查和导出、自有节点清零。另显式配置开发工具后从包内源码构建的3节点2101实验通过。收据为 `portable-check.json`、`portable-console-check.json`、`windows-portable-experiments.txt`，对应受测候选2摘要；最终ZIP仅更新报告/证据及校验清单，可运行文件保持相同。最终归档的精确SHA和解压复验收据随包单独提供，避免将ZIP自身SHA写入ZIP造成循环。**包级自动化PASS；人工可见窗口仍NOT RUN。** 另一台老师统一Win11系统尚未实测。

@@ -16,6 +16,16 @@ Follower 超时后增加任期、持久化对自己的投票并转为 Candidate�
 
 `Start` 启动 `acceptLoop` 与 `electionLoop`。每节点的 `electionLoop` 有一个选举轮询 ticker 和一个心跳 ticker；心跳 ticker 仅在节点为 Leader 时调用 `kickPeersLocked`，不是每个 peer 各自使用 ticker。首次执行 `becomeLeaderLocked` 时，先追加当前任期 noop，再切换为 Leader 并调用 `startReplicationLocked`；该函数按 peer 懒启动一个串行 `heartbeatLoop`，后续任期复用同一批 worker。`Stop` 关闭连接并等待这些 worker 退出后再关闭 WAL。另有在途投票调用上限，避免跨任期重复堆积。所有网络请求在锁外执行，发出前复制消息所需日志切片。状态和存储顺序由节点锁保护，磁盘 Sync 仍在锁内。
 
+| 结构体 | 关键字段与用途 |
+|---|---|
+| Node | term/votedFor/role/deadline、log/commitIndex/lastApplied/x、nextIndex/matchIndex；mu协调磁盘顺序与状态，changed唤醒提交等待，kicks合并复制任务 |
+| Identity | cluster_id及排序MemberIDs持久绑定；MembershipHash用于RPC，网络地址不属于身份 |
+| LogEntry / Command | Index、Term、Op、int64 Value；noop内部使用且不计算术命令 |
+| VoteArgs / VoteReply | TargetID/CandidateID、Term、LastLogIndex/Term及集群身份；回复NodeID、身份、Term、VoteGranted |
+| AppendEntriesArgs / Reply | 目标及Leader身份、PrevLogIndex/Term、批量Entries、LeaderCommit；回复实际成员、Term、Success、ConflictIndex |
+| GenerateArgs / Reply | Count、Seed、TimeoutMS；Accepted、Committed、First/LastIndex、Commands、Error分别表达受理与提交 |
+| StatusArgs / Reply | Summary用于轻量观测，TargetIndex用于历史；返回角色/term、三个索引、命令数、x、摘要、错误及输出丢弃计数 |
+
 ## 3. RPC 调用与关键算法
 
 ![RPC 调用关系](rpc-flow.svg)
@@ -199,7 +209,7 @@ x 初值为 0，按已提交日志顺序执行 add/sub/mul/div/mod；除数和�
 | Windows native HTTP console 11-node recovery/history/export | PASS |
 | Manual visible terminal closing | NOT RUN - explicitly deferred by user |
 | Windows race | NOT RUN - C compiler not configured |
-| Fresh portable ZIP | NOT RUN - pending this round |
+| Fresh portable ZIP | PASS：两个根入口、无Go/Python PATH、11节点2101及恢复/导出；人工关窗仍NOT RUN |
 
 ## 历史开发记录（不属于本轮输入结论）
 
@@ -255,3 +265,9 @@ Diego Ongaro and John Ousterhout. *In Search of an Understandable Consensus Algo
 | 初始页面文件 | 100 | election | 3/3 | 4.884 | 4.862 | 4.835 | 4.956 |
 | P盘新增4GiB | 100 | divergence | 3/3 | 5.827 | 1.454 | 1.400 | 14.627 |
 | P盘新增4GiB | 100 | election | 3/3 | 5.102 | 4.744 | 4.648 | 5.914 |
+
+## Windows 绿色交付复验
+
+全新中文/空格目录内，944份候选包文件的SHA检查通过；隔离Go/Python PATH后实际执行根Start-Terminals.cmd，11节点2101条命令验证、停止Leader后新写入、恢复原节点、全体停止后同目录重启、同一历史前缀检查全部通过，结束自有节点为0。根Start-Console.cmd也实际启动并完成11节点HTTP/真实net/rpc提交、恢复、历史核查及ZIP导出。Windows浏览器桌面与人工关窗没有执行，不能将HTTP测试当作这两项证据。
+
+明确配置Go/Python后，从包内源码新构建的3节点2101条replication实验通过，证明实验代码未依赖开发目录的现存节点数据。普通演示不需要这些工具，重跑规模实验需要。包内Python共34项，33通过、1个Linux专用用例跳过。两种依赖口径不混淆。原生构建收据同时绑定33个生产文件和两个受测EXE；打包器拒绝源码集合或EXE摘要不符，全部载荷另有SHA清单。

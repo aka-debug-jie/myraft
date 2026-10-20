@@ -65,3 +65,5 @@ python scripts/benchmark.py --nodes 10 20 50 100 --rounds 3 --entries 2101 --see
 空节点是原配置中预留但延迟启动的成员；分歧实验在启动前建立合法共同提交前缀及不同未提交尾部。同步计时均以实际完整状态检查为结束，不以当选代替收敛。独立 Python 参考在停止后只读重放 WAL 核对算术结果，不计入协议耗时。
 
 正式报告为 `project/docs/report.md`，调用图为 `rpc-flow.svg`，每项验收与证据路径在 `acceptance-a-g.md`。`validation` 保留历次来源，新旧结果不可混合；原 80 轮记录未改动。包内 `SHA256SUMS.txt` 可用 PowerShell `Get-FileHash -Algorithm SHA256` 对照。老师另一台统一 Win11 主机尚须按本说明复验。
+
+100节点是多进程压力实验，需要足够的系统提交内存与磁盘空间。本测试VM曾在8GiB RAM、C盘仅约90MiB空闲时出现一次runtime启动分配失败；P盘增加页面文件后单独重测通过。该环境改动记录在报告中，交付程序不会替你修改系统页面文件；不要忽略失败记录或在缺资源时宣称通过。

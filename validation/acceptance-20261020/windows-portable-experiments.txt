@@ -1,0 +1,20 @@
+Guest PID: 12204
+{"file": "P:\\Xinbao\\public-build-temp\\tmpv0zmr97u\\good.zip", "sha256": "1191478260b49e98a092c4632625f742ad8020afd428492db77b00bf56fe96da", "entries": 11, "bytes": 2882}
+replication n=3 batch=128 round=1: PASS 0.3828046999999515
+Results: P:\Xinbao\��ɫ�ƽ����� with spaces 20261020\reproduction-check
+{
+  "status": "COMPLETE",
+  "planned": 1,
+  "completed": 1,
+  "passed": 1,
+  "failed": 0,
+  "interrupted": 0
+}
+PORTABLE_EXPERIMENT_PASS explicit_Go_Python_dependencies
+.............s....................
+----------------------------------------------------------------------
+Ran 34 tests in 3.891s
+
+OK (skipped=1)
+
+Guest result: {"exitcode": 0, "exited": true}

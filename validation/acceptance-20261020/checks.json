@@ -18,9 +18,11 @@
     "Windows native HTTP console 11-node recovery/history/export": "PASS",
     "Manual visible terminal closing": "NOT RUN - explicitly deferred by user",
     "Windows race": "NOT RUN - C compiler not configured",
-    "Fresh portable ZIP": "NOT RUN - pending this round",
+    "Fresh portable ZIP": "PASS: candidate2 checksum944 files; both root entrypoints; 11 nodes,2101,failover/restart/history/export,zero owned nodes; no Go/Python PATH",
     "Windows initial scale": "23/24 PASS; 100-node divergence r1 runtime startup OOM retained",
-    "Windows capacity retest": "6/6 PASS (100 nodes, election/divergence three rounds, P pagefile added); separate environment"
+    "Windows capacity retest": "6/6 PASS (100 nodes, election/divergence three rounds, P pagefile added); separate environment",
+    "Packaged Python regression": "33 PASS; 1 Linux-only SKIP (34 tests)",
+    "Packaged real experiment": "PASS: 3 nodes/2101, explicit Go/Python, rebuilt packaged source"
   },
   "limitations": [
     "single-host processes; local TCP; three rounds are not reliable tail-latency estimates",
