@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
 import sys
 import unittest
 from datetime import datetime, timezone
@@ -87,22 +86,74 @@ def frame_fixture(*, with_session: bool = True, age_seconds: int = 0) -> dict:
     }
 
 
+def stage_fixture(node_count: int, *, leader_id: int = 1, term: int = 1) -> dict:
+    """Return clearly synthetic Stage input; it is never Raft evidence."""
+    fixture = frame_fixture()
+    fixture["session"]["config"]["nodes"] = [{"id": node_id} for node_id in range(1, node_count + 1)]
+    fixture["snapshot"]["nodes"] = [{
+        "id": node_id,
+        "reachable": True,
+        "identity_ok": True,
+        "status": {
+            "state": "Leader" if node_id == leader_id else "Follower",
+            "term": term,
+            "leader_id": leader_id,
+            "last_log_index": 1,
+            "commit_index": 1,
+            "last_applied": 1,
+        },
+    } for node_id in range(1, node_count + 1)]
+    return fixture
+
+
 class DashboardBrowserTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         OUTPUT.mkdir(parents=True, exist_ok=True)
         cls.playwright = sync_playwright().start()
-        executable = os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH")
-        cls.browser: Browser = cls.playwright.chromium.launch(headless=True, executable_path=executable)
+        cls.browser: Browser = cls.playwright.chromium.launch(headless=True)
 
     @classmethod
     def tearDownClass(cls) -> None:
         cls.browser.close()
         cls.playwright.stop()
 
-    def new_page(self, *, width: int = 1365, height: int = 900) -> tuple[BrowserContext, Page]:
-        context = self.browser.new_context(viewport={"width": width, "height": height})
-        return context, context.new_page()
+    def setUp(self) -> None:
+        self.browser_diagnostics: list[str] = []
+
+    def tearDown(self) -> None:
+        result = self._outcome.result
+        if result and any(test is self for test, _ in result.failures + result.errors):
+            for item in self.browser_diagnostics:
+                print(f"BROWSER DIAGNOSTIC: {item}", file=sys.stderr)
+
+    def new_page(self, *, width: int = 1365, height: int = 900, touch: bool = False) -> tuple[BrowserContext, Page]:
+        context = self.browser.new_context(viewport={"width": width, "height": height}, has_touch=touch)
+        page = context.new_page()
+        page.on("pageerror", lambda error: self.browser_diagnostics.append(f"pageerror: {error}"))
+        page.on("console", lambda message: self.browser_diagnostics.append(f"console error: {message.text}")
+                 if message.type == "error" else None)
+        return context, page
+
+    def navigate(self, page: Page, name: str) -> None:
+        """Open hidden navigation when needed, navigate, then expect it closed."""
+        sidebar = page.locator("#sidebar")
+        if not sidebar.evaluate("element => element.classList.contains('open') || element.classList.contains('pinned')"):
+            page.locator("#nav-trigger").click()
+            page.wait_for_function("() => document.querySelector('#nav-trigger')?.getAttribute('aria-expanded') === 'true'")
+        page.locator(f'#nav button[data-page="{name}"]').click()
+        self.assertFalse(sidebar.evaluate("element => element.classList.contains('open')"),
+                         "navigation selection did not close the drawer")
+
+    def open_sidebar(self, page: Page) -> None:
+        if not page.locator("#sidebar").evaluate(
+            "element => element.classList.contains('open') || element.classList.contains('pinned')"
+        ):
+            page.locator("#nav-trigger").click()
+            page.wait_for_function("() => document.querySelector('#nav-trigger')?.getAttribute('aria-expanded') === 'true'")
+
+    def wait_for_synthetic_stream(self, page: Page) -> None:
+        page.wait_for_function("() => (window.__syntheticSources || []).length > 0")
 
     def intercept_synthetic_api(self, page: Page, *, with_session: bool = True, age_seconds: int = 0,
                                 connection_error: bool = False, control_enabled: bool = False,
@@ -129,6 +180,7 @@ class DashboardBrowserTests(unittest.TestCase):
             }}
           }};
           const fail = {json.dumps(connection_error)};
+          window.__syntheticLogReadCount = 0;
           if ({json.dumps(hold_logs)}) {{
             const originalFetch = window.fetch.bind(window);
             window.__syntheticLogResolvers = [];
@@ -139,8 +191,8 @@ class DashboardBrowserTests(unittest.TestCase):
                 resolve(new Response(JSON.stringify(body), {{status, headers:{{'Content-Type':'application/json'}}}}));
               }}
             }};
-            window.fetch = (input, init) => String(input).includes('/api/nodes/') && String(input).includes('/logs?')
-              ? new Promise(resolve => window.__syntheticLogResolvers.push(resolve))
+          window.fetch = (input, init) => String(input).includes('/api/nodes/') && String(input).includes('/logs?')
+            ? (window.__syntheticLogReadCount++, new Promise(resolve => window.__syntheticLogResolvers.push(resolve)))
               : originalFetch(input, init);
           }}
           window.EventSource = class SyntheticEventSource {{
@@ -180,10 +232,13 @@ class DashboardBrowserTests(unittest.TestCase):
             page.screenshot(path=str(OUTPUT / "live-console-desktop.png"), full_page=True)
 
             tabs = page.locator("#nav button[data-page]")
+            page.wait_for_function("() => document.querySelectorAll('#nav button[data-page]').length === 6")
             self.assertEqual(tabs.count(), 6, "expected the six public console tabs")
-            for index in range(tabs.count()):
-                page.locator("#nav button[data-page]").nth(index).click()
-                self.assertTrue(page.locator("#main h1").is_visible(), "tab did not render a heading")
+            for name in ("overview", "logs", "faults", "experiments", "evidence", "settings"):
+                self.navigate(page, name)
+                self.assertEqual(page.locator("#main h1").count(), 1, "tab did not render a heading")
+                if name == "overview":
+                    self.assertLessEqual(page.locator("#main h1").bounding_box()["width"], 1, "overview heading should remain screen-reader only")
 
             page.set_viewport_size({"width": 390, "height": 844})
             page.screenshot(path=str(OUTPUT / "live-console-mobile.png"), full_page=True)
@@ -217,45 +272,113 @@ class DashboardBrowserTests(unittest.TestCase):
                     self.intercept_synthetic_api(page, **options)
                     page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
                     page.get_by_text(expected, exact=False).first.wait_for(state="visible", timeout=5000)
+                    if name in ("connection-error", "stale"):
+                        page.locator("#stage-alert").wait_for(state="visible", timeout=3000)
+                    if name == "empty":
+                        page.locator('#stage-alert button[data-page="settings"]').wait_for(state="visible")
                     page.screenshot(path=str(OUTPUT / f"synthetic-{name}-fixture.png"), full_page=True)
                 finally:
                     context.close()
 
-    def test_synthetic_100_node_topology_renderer(self) -> None:
-        """Feed 100 explicitly synthetic nodes to the public pure topology renderer."""
+    def test_synthetic_stage_layout_counts_and_leader_stability(self) -> None:
+        """Exercise the Stage DOM renderer with synthetic 11, 50, and 100 node fixtures."""
         context, page = self.new_page()
         try:
-            # Keep the pure renderer fixture isolated from app stream updates.
-            page.route("**/app.js", lambda route: route.abort())
+            self.intercept_synthetic_api(page)
             page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
-            rendered = page.evaluate("""async () => {
-              const {topology} = await import('./charts.js');
-              const nodes = Array.from({length: 100}, (_, i) => ({
-                id: i + 1, reachable: false, status: null,
-              }));
-              document.querySelector('#main').innerHTML = topology(nodes, 1, 200);
-              return {
-                count: document.querySelectorAll('.topology-view [data-node]').length,
-                listRole: document.querySelector('.node-grid')?.getAttribute('role'),
-                label: document.querySelector('.topology-view')?.textContent.includes('逻辑关系，非实测链路'),
-              };
+            self.wait_for_synthetic_stream(page)
+            for count in (11, 50, 100):
+                frame = stage_fixture(count)
+                page.evaluate("frame => window.__emitSyntheticFrame(frame)", frame)
+                nodes = page.locator("#stage-host .stage-node")
+                page.wait_for_function(
+                    "count => document.querySelectorAll('#stage-host .stage-node').length === count", arg=count
+                )
+                self.assertEqual(nodes.count(), count, f"synthetic Stage rendered the wrong number of nodes ({count})")
+                self.assertTrue(page.locator("#stage-host .stage-node.leader").count() == 1)
+                self.assertEqual(page.locator("#stage-host .stage-node.follower").count(), count - 1)
+                if count == 11:
+                    self.assertEqual(page.locator("#stage-host .stage-node.selected").count(), 0,
+                                     "overview selected a node before user interaction")
+                    nodes.nth(0).click()
+                    page.locator("#node-detail .detail-close").wait_for(state="visible")
+                    self.assertEqual(page.locator("#stage-host .stage-node.selected").count(), 1)
+                    page.locator("#node-detail .detail-close").click()
+                    page.locator("#node-detail").wait_for(state="hidden")
+                if count == 50:
+                    page.screenshot(path=str(OUTPUT / "synthetic-50-node-stage-fixture.png"), full_page=True)
+                if count == 100:
+                    boxes = [node.bounding_box() for node in nodes.all()]
+                    self.assertTrue(all(box is not None for box in boxes), "synthetic 100-node Stage has hidden nodes")
+                    for index, left in enumerate(boxes):
+                        for right in boxes[index + 1:]:
+                            self.assertTrue(left["x"] + left["width"] <= right["x"] or
+                                            right["x"] + right["width"] <= left["x"] or
+                                            left["y"] + left["height"] <= right["y"] or
+                                            right["y"] + right["height"] <= left["y"],
+                                            "synthetic 100-node Stage contains overlapping buttons")
+                    page.screenshot(path=str(OUTPUT / "synthetic-100-node-stage-fixture.png"), full_page=True)
+                if count == 11:
+                    before = nodes.nth(0).bounding_box()
+                    switched = stage_fixture(11, leader_id=2, term=2)
+                    page.evaluate("frame => window.__emitSyntheticFrame(frame)", switched)
+                    page.wait_for_function("() => document.querySelector('#stage-host .stage-node[data-node=\"2\"]')?.classList.contains('leader')")
+                    after = page.locator('#stage-host .stage-node[data-node="1"]').bounding_box()
+                    self.assertAlmostEqual(before["x"], after["x"], delta=0.5)
+                    self.assertAlmostEqual(before["y"], after["y"], delta=0.5)
+                    page.screenshot(path=str(OUTPUT / "synthetic-11-node-leader-switch-fixture.png"), full_page=True)
+        finally:
+            context.close()
+
+    def test_stage_event_budget_fit_and_update_cost(self) -> None:
+        """Synthetic rendering cost only; no claim about protocol or network timing."""
+        context, page = self.new_page()
+        try:
+            page.route("**/app.js", lambda route: route.abort())
+            page.goto(BASE_URL, wait_until="domcontentloaded")
+            result = page.evaluate("""async () => {
+              const {Stage}=await import('./stage.js');
+              document.querySelector('#main').innerHTML='<div id="fit-test" style="width:360px;height:473px"></div>';
+              const host=document.querySelector('#fit-test'), stage=new Stage(host);
+              const members=Array.from({length:100},(_,i)=>({id:i+1}));
+              const nodes=members.map(n=>({...n,reachable:true,identity_ok:true,status:{state:n.id===1?'Leader':'Follower',term:1,leader_id:1}}));
+              const frame={members,nodes,fresh:true,scope:'synthetic',events:[]};
+              stage.update(frame);stage.fit();
+              const h=host.getBoundingClientRect();
+              const fits=[...host.querySelectorAll('.stage-node')].every(n=>{const b=n.getBoundingClientRect();return b.left>=h.left-1&&b.right<=h.right+1&&b.top>=h.top-1&&b.bottom<=h.bottom+1});
+              const event=seq=>({seq,source:'node',node_id:1,name:'log_committed',node_event:{seq}});
+              stage.update({...frame,events:[event(1)]});const initial=stage.activeAnimations.size;
+              stage.update({...frame,events:[event(1)]});const duplicate=stage.activeAnimations.size;
+              const finished=[...stage.activeAnimations].map(a=>a.finished);
+              document.dispatchEvent(new Event('visibilitychange'));
+              await Promise.allSettled(finished);await Promise.resolve();
+              stage.update({...frame,events:[event(1),event(2)]});const replay=stage.activeAnimations.size;
+              const durations=[];
+              for(let i=0;i<25;i++){const start=performance.now();stage.update(frame);durations.push(performance.now()-start)}
+              stage.destroy();
+              return {fits,initial,duplicate,replay,durations,remaining:host.children.length};
             }""")
-            self.assertEqual(rendered["count"], 100)
-            self.assertEqual(rendered["listRole"], "list")
-            self.assertTrue(rendered["label"])
-            page.screenshot(path=str(OUTPUT / "synthetic-100-node-renderer-fixture.png"), full_page=True)
+            self.assertTrue(result["fits"], "fit clipped the 100-node mobile viewport")
+            self.assertEqual(result["initial"], 1)
+            self.assertEqual(result["duplicate"], 1)
+            self.assertEqual(result["replay"], 0, "visibility recovery replayed old events")
+            self.assertEqual(result["remaining"], 0)
+            durations = sorted(result["durations"][5:])
+            self.assertLess(durations[18], 50, "100-node update repeatedly exceeded 50ms")
+            (OUTPUT / "synthetic-render-cost.json").write_text(json.dumps(result, indent=2))
         finally:
             context.close()
 
     def test_mobile_menu_keyboard_focus_theme_and_projection(self) -> None:
         """Exercise mobile navigation and presentation controls without API writes."""
-        context, page = self.new_page(width=390, height=844)
+        context, page = self.new_page(width=390, height=844, touch=True)
         methods: list[str] = []
         page.on("request", lambda request: methods.append(request.method))
         try:
             self.intercept_synthetic_api(page)
             page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
-            menu = page.locator('[data-act="menu"]')
+            self.wait_for_synthetic_stream(page)
+            menu = page.locator("#nav-trigger")
             menu.focus()
             page.keyboard.press("Enter")
             self.assertEqual(menu.get_attribute("aria-expanded"), "true")
@@ -268,10 +391,41 @@ class DashboardBrowserTests(unittest.TestCase):
             focused_outline = page.evaluate("() => getComputedStyle(document.activeElement).outlineStyle")
             self.assertEqual(focused_outline, "solid", "keyboard focus indicator is not visible")
 
+            menu.focus()
+            page.keyboard.press("Enter")
+            page.locator('#nav button[data-page="logs"]').focus()
+            page.keyboard.press("Enter")
+            self.assertFalse(page.locator("#sidebar").evaluate("element => element.classList.contains('open')"),
+                             "keyboard navigation did not close the drawer")
+            self.navigate(page, "overview")
+
+            self.open_sidebar(page)
+            page.locator("#nav-pin").click()
+            self.assertEqual(page.locator("#nav-pin").get_attribute("aria-pressed"), "true")
+            self.assertTrue(page.locator("#sidebar").evaluate("element => element.classList.contains('pinned')"))
+            self.assertIsNone(page.locator("#sidebar").get_attribute("inert"),
+                              "a pinned drawer must remain interactive")
+            page.keyboard.press("Escape")
+            self.assertFalse(page.locator("#sidebar").evaluate("element => element.classList.contains('open')"))
+            self.assertFalse(page.locator("#sidebar").evaluate("element => element.classList.contains('pinned')"))
+            self.assertEqual(page.locator("#nav-pin").get_attribute("aria-pressed"), "false")
+            page.touchscreen.tap(20, 20)
+            self.assertTrue(page.locator("#sidebar").evaluate("element => element.classList.contains('open')"),
+                            "touch tap did not open navigation")
+            initial_theme = page.locator('html').get_attribute('data-theme')
             page.locator('[data-act="theme"]').click()
+            self.assertNotEqual(page.locator('html').get_attribute('data-theme'), initial_theme)
             self.assertIn(page.locator("html").get_attribute("data-theme"), ("dark", "light"))
+            self.open_sidebar(page)
             page.locator('[data-act="present"]').click()
             self.assertIn("present", page.locator("body").get_attribute("class"))
+            page.keyboard.press("Escape")
+            self.open_sidebar(page)
+            page.locator('[data-act="present"]').click()
+            self.assertNotIn("present", page.locator("body").get_attribute("class") or "")
+            page.emulate_media(reduced_motion="reduce")
+            duration = page.locator("#stage-host .stage-node").first.evaluate("e => getComputedStyle(e).transitionDuration")
+            self.assertIn(duration, ("0s", "0s, 0s"), "reduced-motion preference did not remove node transitions")
             self.assertTrue(all(method == "GET" for method in methods),
                             f"synthetic interaction issued non-GET requests: {methods}")
         finally:
@@ -283,7 +437,10 @@ class DashboardBrowserTests(unittest.TestCase):
         try:
             self.intercept_synthetic_api(page, hold_logs=True)
             page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
-            page.locator('[data-page="logs"]').click()
+            self.wait_for_synthetic_stream(page)
+            self.navigate(page, "logs")
+            self.assertEqual(page.evaluate("() => window.__syntheticLogReadCount"), 0,
+                             "opening logs issued an automatic history read")
             page.get_by_role("button", name="读取实际日志").click()
             self.assertEqual(page.locator("#logs-form button").inner_text(), "读取中…")
             page.wait_for_function("() => window.__syntheticLogResolvers.length === 2")
@@ -321,7 +478,8 @@ class DashboardBrowserTests(unittest.TestCase):
         try:
             self.intercept_synthetic_api(page, control_enabled=True)
             page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
-            page.locator('[data-page="settings"]').click()
+            self.wait_for_synthetic_stream(page)
+            self.navigate(page, "settings")
             page.locator('#create-form [name="name"]').fill("draft-session")
             page.locator('#create-form [name="nodes"]').fill("17")
             page.locator('#create-form [name="batch"]').fill("256")
@@ -331,7 +489,7 @@ class DashboardBrowserTests(unittest.TestCase):
             self.assertEqual(page.locator('#create-form [name="nodes"]').input_value(), "17")
             self.assertEqual(page.locator('#create-form [name="batch"]').input_value(), "256")
 
-            page.locator('[data-page="experiments"]').click()
+            self.navigate(page, "experiments")
             page.locator('#experiment-form [name="entries"]').fill("4096")
             page.locator('#experiment-form [name="rounds"]').fill("3")
             page.locator('#experiment-form [name="seed"]').fill("77")
@@ -382,6 +540,7 @@ class DashboardBrowserTests(unittest.TestCase):
             page.route("**/api/raw-integer-fixture", lambda route: route.fulfill(
                 status=200, content_type="application/json", body=raw_api))
             page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            self.wait_for_synthetic_stream(page)
             api_data = page.evaluate("async () => (await import('./api.js')).request('/api/raw-integer-fixture')")
 
             frame = frame_fixture()
@@ -394,12 +553,21 @@ class DashboardBrowserTests(unittest.TestCase):
             raw_frame = json.dumps(frame, separators=(",", ":"))
             self.assertIn('"x":9007199254740993', raw_frame)
             page.evaluate("raw => window.__emitSyntheticRawFrame(raw)", raw_frame)
+            node = page.locator('#stage-host .stage-node[data-node="1"]')
+            node.wait_for(state="visible")
+            page.wait_for_function(
+                "() => document.querySelector('#stage-host .stage-node[data-node=\"1\"]')?.classList.contains('follower')"
+            )
+            node.click()
+            page.locator("#node-detail").wait_for(state="visible")
             displayed = page.locator("#main").inner_text()
             self.assertEqual(
                 {"api": api_data["x"], "ui": "9007199254740993" in displayed,
                  "rounded_ui": "9007199254740992" in displayed},
                 {"api": "9007199254740993", "ui": True, "rounded_ui": False},
             )
+            page.locator("#node-detail .detail-close").click()
+            page.locator("#node-detail").wait_for(state="hidden")
             page.screenshot(path=str(OUTPUT / "synthetic-large-integer-display.png"), full_page=True)
         finally:
             context.close()

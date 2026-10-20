@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"maps"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -50,18 +51,27 @@ func readExperiment(dir string, previous experimentResult) experimentResult {
 		previous.Phase = "finished"
 	}
 	// Source/environment are explicit grouping keys, never inferred from old records.
-	for _, row := range previous.Rows {
+	// An incomplete file read retains the previously published rows. SSE may
+	// still encode those maps outside the controller lock.
+	previous.Rows = append([]map[string]any(nil), previous.Rows...)
+	for i, original := range previous.Rows {
+		row := maps.Clone(original)
 		row["platform"] = previous.Environment["platform"]
 		if source := previous.Environment["source_sha256"]; source != nil {
 			row["source_sha256"] = digestJSON(source)
 		} else {
 			row["source_sha256"] = "未记录"
 		}
+		previous.Rows[i] = row
 	}
 	return previous
 }
 
 func (d *dashboard) runExperiment(ctx context.Context, job operationJob) (any, error) {
+	dependencies := d.experimentDependencyReport()
+	if !dependencies.Ready {
+		return map[string]any{"category": "environment_unavailable", "experiment_dependencies": dependencies}, fmt.Errorf("experiment environment not ready: %s", dependencies.Reason)
+	}
 	r := job.request
 	parent := filepath.Join(d.opts.Root, "experiments")
 	if err := os.MkdirAll(parent, 0700); err != nil {
@@ -70,9 +80,6 @@ func (d *dashboard) runExperiment(ctx context.Context, job operationJob) (any, e
 	output := filepath.Join(parent, job.op.ID)
 	marker := filepath.Join(parent, job.op.ID+".cancel")
 	script := filepath.Join(d.opts.Source, "scripts", "benchmark.py")
-	if _, err := os.Stat(script); err != nil {
-		return nil, fmt.Errorf("configured source has no benchmark.py: %w", err)
-	}
 	args := []string{script, "--output", output, "--cancel-file", marker, "--entries", strconv.Itoa(r.Count), "--rounds", strconv.Itoa(r.Rounds), "--seed", strconv.FormatInt(r.Seed, 10), "--batch-sizes", strconv.Itoa(r.Batch), "--nodes"}
 	for _, n := range r.Nodes {
 		args = append(args, strconv.Itoa(n))

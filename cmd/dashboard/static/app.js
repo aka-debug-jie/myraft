@@ -1,15 +1,24 @@
 import * as api from './api.js';
-import {pages, esc, icon, age, fresh, overview, logView, faults, experiments, evidence, settings} from './views.js';
+import {Stage} from './stage.js';
+import {pages, esc, icon, age, fresh, overview, logView, faults, experiments, evidence, settings, nodeDetail, stageNodes, stageNotice, faultContent} from './views.js';
 
 const state = {page:'overview', selected:1, filter:'', bootstrap:null, frame:null, connected:false,
   pending:false, logNodes:[], logFrom:1, logLimit:32, logData:{}, logLoading:false, logError:'', events:[], gap:false, streamLoss:0, lastStreamDrop:0,
-  drafts:{}};
+  drafts:{}, detailOpen:false};
 const views = {overview,logs:logView,faults,experiments,evidence,settings};
 let stream, logRequest=0, toastTimer;
 const $ = id => document.getElementById(id);
-function syncSidebar(){const mobile=matchMedia('(max-width:680px)').matches;const open=$('sidebar').classList.contains('open');$('sidebar').inert=mobile&&!open;document.querySelector('[data-act=menu]')?.setAttribute('aria-expanded',String(open));}
-addEventListener('resize',syncSidebar);
-const storedTheme=localStorage.getItem('myraft-theme');if(storedTheme)document.documentElement.dataset.theme=storedTheme;
+let stage, stagePage, navTimer, pinned=false;
+function syncSidebar(){const open=$('sidebar').classList.contains('open')||pinned;$('sidebar').inert=!open;$('nav-trigger').setAttribute('aria-expanded',String(open));$('nav-pin').setAttribute('aria-pressed',String(pinned));}
+function openNav(){clearTimeout(navTimer);$('sidebar').classList.add('open');syncSidebar();}
+function closeNav(force=false){clearTimeout(navTimer);if(pinned&&!force)return;$('sidebar').classList.remove('open');if(force){pinned=false;$('sidebar').classList.remove('pinned');}syncSidebar();}
+function scheduleClose(){clearTimeout(navTimer);navTimer=setTimeout(()=>{if(!$('sidebar').matches(':hover')&&!$('sidebar').contains(document.activeElement))closeNav();},300);}
+$('sidebar').addEventListener('pointerenter',openNav);
+$('sidebar').addEventListener('pointerleave',scheduleClose);
+$('sidebar').addEventListener('focusin',openNav);
+$('sidebar').addEventListener('focusout',scheduleClose);
+document.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'&&e.clientX<=28)openNav();else if(e.clientX>220)scheduleClose();});
+document.documentElement.dataset.theme=localStorage.getItem('myraft-theme')||'dark';
 
 function chrome() {
   syncSidebar();
@@ -25,11 +34,26 @@ function render() {
   const focused=document.activeElement;
   const key=focused?.id?`#${CSS.escape(focused.id)}`:['data-page','data-node','data-act','data-session','data-stop','data-entry'].filter(a=>focused?.hasAttribute(a)).map(a=>`[${a}="${CSS.escape(focused.getAttribute(a))}"]`).join('');
   chrome();
-  $('nav').innerHTML=pages.map(([id,label,ic])=>`<button data-page="${id}" class="${state.page===id?'active':''}" ${state.page===id?'aria-current="page"':''}>${icon(ic)}${label}</button>`).join('');
+  document.body.dataset.page=state.page;
+  if(!$('nav').querySelector('[data-page]'))$('nav').innerHTML=pages.map(([id,label,ic])=>`<button data-page="${id}">${icon(ic)}${label}</button>`).join('');
+  for(const b of $('nav').querySelectorAll('[data-page]')){b.classList.toggle('active',b.dataset.page===state.page);if(b.dataset.page===state.page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');}
   $('crumb').textContent=pages.find(p=>p[0]===state.page)[1];
-  const alert=!state.connected?'<div class="notice warn" role="alert">后端连接中断。当前状态未知；不会切换为演示数据或自动重发写入。</div>':
-    state.frame?.session&&!fresh(state)?'<div class="notice warn">等待新样本；过期观测不作为在线证明。</div>':'';
-  $('main').innerHTML=alert+views[state.page](state);
+  const f=state.frame||{};
+  $('nav-actions').innerHTML=`<button class="btn primary" data-act="generate" ${!f.control_enabled||!fresh(state)||f.busy||state.pending?'disabled':''}>提交命令</button><button class="btn" data-act="verify" ${!fresh(state)||!f.session||f.busy?'disabled':''}>校验当前</button>`;
+  const withStage=state.page==='overview'||state.page==='faults';
+  if(!withStage||stagePage!==state.page||!$('stage-host')){
+    stage?.destroy();stage=null;stagePage=null;
+    const alert=!state.connected?'<div class="notice warn" role="alert">后端连接中断。当前状态未知；不会自动重发写入。</div>':state.frame?.session&&!fresh(state)?'<div class="notice warn">样本过期；等待新的节点观测。</div>':'';
+    $('main').innerHTML=(withStage?'':alert)+views[state.page](state);
+    if(withStage){stage=new Stage($('stage-host'));stagePage=state.page;}
+  }
+  if(withStage){
+    if($('stage-alert')){$('stage-alert').innerHTML=stageNotice(state);$('stage-alert').hidden=!$('stage-alert').textContent;}
+    if(state.page==='faults')$('fault-content').innerHTML=faultContent(state);
+    stage.update({nodes:stageNodes(state),members:f.session?.config.nodes||[],selected:state.detailOpen?state.selected:undefined,fresh:fresh(state),events:state.events,scope:[f.controller_id,f.session?.id,f.generation].join('/')});
+    $('node-detail').hidden=!state.detailOpen;
+    if(state.detailOpen)$('node-detail').innerHTML=nodeDetail(state);
+  }
   for(const form of $('main').querySelectorAll('#create-form,#experiment-form')) {
     for(const field of form.elements) {
       const value=state.drafts[form.id]?.[field.name];
@@ -38,8 +62,9 @@ function render() {
       else field.value=value;
     }
   }
-  if(key)document.querySelector(key)?.focus({preventScroll:true});
+  if(key&&focused!==document.body&&!focused?.isConnected){const next=document.querySelector(key);if(next&&!next.closest('[inert],[hidden]'))next.focus({preventScroll:true});}
 }
+function navigate(page){state.page=page;state.detailOpen=false;closeNav();if($('sidebar').contains(document.activeElement))$('main').focus({preventScroll:true});render();window.scrollTo(0,0);}
 function rememberDraft(e){
   const form=e.target.form;if(!['create-form','experiment-form'].includes(form?.id))return;
   const draft=state.drafts[form.id]||={};
@@ -63,7 +88,7 @@ function receive(frame){
   if(frame.mode!=='REAL')return;
   if(state.frame && frame.controller_id===state.frame.controller_id && frame.generation<state.frame.generation)return;
   const changed=frame.controller_id!==state.frame?.controller_id||frame.session?.id!==state.frame?.session?.id||frame.generation!==state.frame?.generation;
-  if(changed){logRequest++;state.logLoading=false;state.logError='';state.logData={};state.logNodes=[];state.events=[];state.gap=false;state.streamLoss=0;state.lastStreamDrop=0;state.selected=frame.session?.config.nodes[0]?.id||1;refreshBootstrap().catch(()=>{});}
+  if(changed){logRequest++;state.logLoading=false;state.logError='';state.logData={};state.logNodes=[];state.events=[];state.gap=false;state.streamLoss=0;state.lastStreamDrop=0;state.selected=frame.session?.config.nodes[0]?.id||1;state.detailOpen=false;stage?.destroy();stage=null;stagePage=null;refreshBootstrap().catch(()=>{});}
   state.connected=true;
   state.gap ||= Boolean(frame.gap);const dropped=frame.stream_dropped||0;state.streamLoss+=dropped>=state.lastStreamDrop?dropped-state.lastStreamDrop:dropped;state.lastStreamDrop=dropped;frame.gap=state.gap;frame.stream_dropped=state.streamLoss;
   for(const e of frame.events||[])if(!state.events.some(old=>old.seq===e.seq))state.events.push(e);
@@ -84,18 +109,22 @@ async function loadLogs(){
 }
 
 document.addEventListener('click',async e=>{
-  const nav=e.target.closest('[data-page]');if(nav){state.page=nav.dataset.page;$('sidebar').classList.remove('open');render();window.scrollTo(0,0);return;}
-  const node=e.target.closest('[data-node]');if(node){state.selected=Number(node.dataset.node);render();return;}
+  const nav=e.target.closest('button[data-page]');if(nav){navigate(nav.dataset.page);return;}
+  const node=e.target.closest('[data-node]');if(node){state.selected=Number(node.dataset.node);state.detailOpen=true;render();$('node-detail')?.querySelector('.detail-close')?.focus({preventScroll:true});return;}
   const entry=e.target.closest('[data-entry]');if(entry){const index=Number(entry.dataset.entry);const rows=Object.entries(state.logData).map(([id,data])=>({node:id,instance:data.range?.instance_id,revision:data.range?.revision,entry:data.range?.entries?.find(x=>x.index===index)||null}));dialog(`同索引比较 #${index}`,`<pre class="json-view">${esc(JSON.stringify(rows,null,2))}</pre>`,async()=>{},'关闭');return;}
   const session=e.target.closest('[data-session]');if(session){try{await action('select_session',{select_session:session.dataset.session});}catch(err){toast(err.message);}return;}
   const stop=e.target.closest('[data-stop]');if(stop)state.selected=Number(stop.dataset.stop);
   const element=stop||e.target.closest('[data-act]');if(!element||element.disabled)return;
   const act=stop?'stop':element.dataset.act;
+  if(element.closest('#nav-actions')){closeNav();$('main').focus({preventScroll:true});}
   try {
-    if(act==='menu'){$('sidebar').classList.toggle('open');syncSidebar();return;}
+    if(act==='menu'){openNav();return;}
+    if(act==='close-nav'){closeNav(true);$('nav-trigger').focus();return;}
+    if(act==='pin-nav'){pinned=!pinned;$('sidebar').classList.toggle('pinned',pinned);openNav();syncSidebar();return;}
+    if(act==='close-detail'){state.detailOpen=false;render();document.querySelector(`.stage-node[data-node="${state.selected}"]`)?.focus({preventScroll:true});return;}
     if(act==='theme'){const theme=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=theme;localStorage.setItem('myraft-theme',theme);return;}
     if(act==='present'){document.body.classList.toggle('present');return;}
-    if(act==='open-logs'){state.page='logs';render();return;}
+    if(act==='open-logs'){navigate('logs');return;}
     if(act==='generate'){dialog('提交确定性命令',`<p>实际发送给 Raft。受理不等于提交；未知结果不会自动重发。</p><label class="field">命令数<input name="count" type="number" min="1" max="100000" value="2101" required></label><label class="field">种子<input name="seed" type="number" min="-2147483648" max="2147483647" value="42" required></label>`,(v,scope)=>action('generate',{count:Number(v.get('count')),seed:Number(v.get('seed'))},scope),'发送一次');return;}
     if(act==='stop'||act==='stop-all'){
       const members=state.frame?.session?.config.nodes.length||0,reachable=state.frame?.snapshot.nodes.filter(n=>n.reachable).length||0;
@@ -122,8 +151,8 @@ document.addEventListener('submit',async e=>{
 document.addEventListener('change',e=>{if(e.target.matches('[data-log-node]')){state.logNodes=[...document.querySelectorAll('[data-log-node]:checked')].map(x=>Number(x.dataset.logNode));if(state.logNodes.length>8){e.target.checked=false;state.logNodes=state.logNodes.filter(id=>id!==Number(e.target.dataset.logNode));toast('最多选择 8 个节点。');}}});
 document.addEventListener('input',rememberDraft);
 document.addEventListener('change',rememberDraft);
-$('search').addEventListener('input',e=>{state.filter=e.target.value.trim();state.page='overview';render();$('search').focus();});
-document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('search').focus();}if(e.key==='Escape'){$('sidebar').classList.remove('open');syncSidebar();}});
+$('search').addEventListener('change',e=>{const id=Number(e.target.value.trim());if(state.frame?.session?.config.nodes.some(n=>n.id===id)){navigate('overview');state.selected=id;state.detailOpen=true;render();stage.focus(id);}});
+document.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();openNav();$('search').focus();}if(e.key==='Escape'){if($('action-dialog'))return;if(state.detailOpen){state.detailOpen=false;render();document.querySelector(`.stage-node[data-node="${state.selected}"]`)?.focus({preventScroll:true});}else{closeNav(true);$('nav-trigger').focus();}}});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)render();});
 setInterval(()=>{chrome();if(!fresh(state)&&state.frame&&!document.hidden&&!$('action-dialog')&&!document.activeElement?.matches('input,select'))render();},1000);
 

@@ -48,31 +48,42 @@ try:
   def wait_latest(kind,previous_ids,timeout=60):
    f=until(lambda f:any(o['kind']==kind and o['id'] not in previous_ids and o.get('ended_at') for o in f['operations']),timeout)
    return next(o for o in reversed(f['operations']) if o['kind']==kind and o['id'] not in previous_ids)
-  page.goto(url);page.locator('[data-page=settings]').click();page.locator('[data-act=enable-control]').click();page.locator('#confirm').click()
+  def open_nav(tab):
+   if not tab.locator('#sidebar').evaluate("e => e.classList.contains('open') || e.classList.contains('pinned')"):
+    tab.locator('#nav-trigger').click()
+  def navigate(tab,name):
+   open_nav(tab);tab.locator(f'#nav button[data-page="{name}"]').click()
+  def side_action(tab,name):
+   open_nav(tab);tab.locator(f'#nav-actions [data-act="{name}"]').click()
+  def close_menu(tab):
+   if tab.locator('#sidebar').evaluate("e => e.classList.contains('open')"):
+    tab.keyboard.press('Escape')
+  page.goto(url);navigate(page,'settings');page.locator('#main [data-act=enable-control]').click();page.locator('#confirm').click()
   expect(page.locator('#create-form button')).to_be_enabled();page.locator('#create-form button').click()
   until(lambda f: len(f['snapshot']['nodes'] or [])==11 and sum(n.get('status',{}).get('state')=='Leader' for n in f['snapshot']['nodes'] if n.get('status'))==1 and not f['busy'])
-  page.locator('[data-page=overview]').click();page.locator('[data-act=generate]').click();page.locator('#confirm').dblclick()
+  navigate(page,'overview');side_action(page,'generate');page.locator('#confirm').dblclick()
   f=until(lambda f:any(o['kind']=='generate' and o.get('committed') for o in f['operations']))
   assert len([o for o in f['operations'] if o['kind']=='generate'])==1
   target=f['target'];until(lambda f:all(n.get('status') and n['status']['last_applied']>=target for n in f['snapshot']['nodes']))
-  page.locator('[data-page=evidence]').click();before=operation_ids('checkpoint');page.locator('[data-act=checkpoint]').click()
+  navigate(page,'evidence');before=operation_ids('checkpoint');page.locator('#main [data-act=checkpoint]').click()
   assert wait_latest('checkpoint',before)['state']=='succeeded';saved=frame()['checkpoint']
-  page.locator('[data-page=overview]').click()
+  navigate(page,'overview')
   leader=next(n['id'] for n in frame()['snapshot']['nodes'] if n.get('status',{}).get('state')=='Leader')
-  page.locator(f'[data-node="{leader}"]').first.click();page.locator('[data-act=stop]').click();assert page.locator('#action-dialog').is_visible()
+  page.locator(f'#stage-host .stage-node[data-node="{leader}"]').click();page.locator('#node-detail [data-act=stop]').click();assert page.locator('#action-dialog').is_visible()
   # Cancel confirmation must perform no stop.
   page.locator('#action-dialog button[value=cancel]').click();assert all(n['reachable'] for n in frame()['snapshot']['nodes'])
-  page.locator('[data-act=stop]').click();page.locator('#confirm').click()
+  page.locator('#node-detail [data-act=stop]').click();page.locator('#confirm').click()
   until(lambda f:any(n.get('status') and n['status']['state']=='Leader' and n['id']!=leader for n in f['snapshot']['nodes']) and not f['busy'])
-  before=operation_ids('generate');page.locator('[data-page=overview]').click();page.locator('[data-act=generate]').click()
+  before=operation_ids('generate');navigate(page,'overview');side_action(page,'generate')
   page.locator('#action-dialog input[name=count]').fill('3');page.locator('#action-dialog input[name=seed]').fill('42');page.locator('#confirm').click()
   assert wait_latest('generate',before)['committed']
-  before=operation_ids('restart');page.locator('[data-act=restart]').click()
+  navigate(page,'overview');page.locator(f'#stage-host .stage-node[data-node="{leader}"]').click()
+  before=operation_ids('restart');page.locator('#node-detail [data-act=restart]').click()
   assert wait_latest('restart',before)['state']=='succeeded'
   until(lambda f:all(n.get('status') and n['status']['applied_commands']==2104 for n in f['snapshot']['nodes']))
-  page.locator('[data-page=evidence]').click();before=operation_ids('verify_history');page.locator('[data-act=verify-history]').click()
+  navigate(page,'evidence');before=operation_ids('verify_history');page.locator('#main [data-act=verify-history]').click()
   assert wait_latest('verify_history',before)['state']=='succeeded'
-  before=operation_ids('verify');page.locator('[data-act=verify]').click()
+  before=operation_ids('verify');side_action(page,'verify')
   assert wait_latest('verify',before)['state']=='succeeded';assert frame()['checkpoint']==saved
   # Actual browser counts all share the same collector; counters include node protocol RPCs.
   # Wait for event backlog from verification/recovery to be collected before idle measurements.
@@ -107,7 +118,7 @@ try:
   summary['latency_trials']=latencies
   page=browser.new_page(viewport={'width':1440,'height':1050},reduced_motion='reduce');page.on('pageerror',lambda e:errors.append(str(e)));page.goto(url)
   # Independent real experiment, then an interrupted run, both submitted from the actual form.
-  page.locator('[data-page=experiments]').click()
+  navigate(page,'experiments')
   form=page.locator('#experiment-form');form.locator('[name=nodes]').select_option('3');form.locator('[name=scenarios]').select_option('replication')
   form.locator('[name=entries]').fill('2101');form.locator('[name=rounds]').fill('1');form.locator('[name=seed]').fill('42');form.locator('[name=batch]').fill('128')
   page.evaluate('''() => {
@@ -130,15 +141,15 @@ try:
   running=until(lambda f:any(o['kind']=='experiment' and o['id'] not in before and o.get('result',{}).get('phase')=='running' for o in f['operations']),120)
   interrupted=next(o for o in running['operations'] if o['kind']=='experiment' and o['id'] not in before)
   with page.expect_response(lambda response: response.url.endswith('/api/operations') and response.request.post_data_json.get('kind')=='cancel_experiment') as cancel_response:
-   page.locator('[data-act=cancel-experiment]').click()
+   page.locator('#main [data-act=cancel-experiment]').click()
   assert cancel_response.value.ok and cancel_response.value.json()['id']==interrupted['id']
   canceled=completed(interrupted,30);assert canceled['state']=='canceled',canceled
   summary['experiment']={'result':op['result'],'interrupted':canceled['result']}
-  page.locator('[data-page=evidence]').click();before=operation_ids('verify_history');page.locator('[data-act=verify-history]').click()
+  navigate(page,'evidence');before=operation_ids('verify_history');page.locator('#main [data-act=verify-history]').click()
   assert wait_latest('verify_history',before)['state']=='succeeded'
-  before=operation_ids('verify');page.locator('[data-act=verify]').click()
+  before=operation_ids('verify');side_action(page,'verify')
   assert wait_latest('verify',before)['state']=='succeeded'
-  before=operation_ids('export');page.locator('[data-act=export]').click()
+  before=operation_ids('export');page.locator('#main [data-act=export]').click()
   exported=wait_latest('export',before);assert exported['state']=='succeeded'
   data=api.get('/api/exports/'+exported['id']).body();assert hashlib.sha256(data).hexdigest()==exported['result']['sha256']
   (root/'evidence.zip').write_bytes(data)
@@ -147,11 +158,15 @@ try:
    assert any(x.endswith('results.json') for x in z.namelist())
    assert any(x.endswith('run-status.json') for x in z.namelist())
   for tab in ['overview','logs','faults','experiments','evidence','settings']:
-   page.locator('[data-page='+tab+']').click()
-   if tab=='logs':page.locator('#logs-form button').click();expect(page.locator('[data-entry]').first).to_be_visible()
+   navigate(page,tab)
+   if tab=='logs':page.locator('#main #logs-form button').click();expect(page.locator('[data-entry]').first).to_be_visible()
+   close_menu(page)
    page.screenshot(path=str(root/(tab+'.png')),full_page=True)
-  page.locator('[data-page=overview]').click();page.locator('[data-act=theme]').first.click();page.screenshot(path=str(root/'dark.png'),full_page=True)
-  page.locator('[data-act=theme]').first.click();page.locator('[data-act=present]').first.click();page.screenshot(path=str(root/'projection.png'),full_page=True);page.locator('[data-act=present]').first.click()
+  navigate(page,'overview');open_nav(page)
+  if page.locator('html').get_attribute('data-theme')!='dark':page.locator('#sidebar [data-act=theme]').click()
+  close_menu(page);page.screenshot(path=str(root/'dark.png'),full_page=True)
+  open_nav(page);page.locator('#sidebar [data-act=theme]').click();page.locator('#sidebar [data-act=present]').click();close_menu(page)
+  page.screenshot(path=str(root/'projection.png'),full_page=True);open_nav(page);page.locator('#sidebar [data-act=present]').click();close_menu(page)
   page.set_viewport_size({'width':390,'height':844});page.screenshot(path=str(root/'mobile.png'),full_page=True)
   assert not errors,errors
   summary.update({'result':'PASS','original_checkpoint':saved,'final_checkpoint':frame()['checkpoint'],'page_errors':errors})

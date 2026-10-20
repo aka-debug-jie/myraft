@@ -9,14 +9,14 @@ const button = (act, label, disabled=false, cls='') => `<button class="btn ${cls
 export function age(state) {const at = state.frame?.snapshot?.completed_at;return at && !at.startsWith('0001') ? (Date.now()-Date.parse(at))/1000 : Infinity;}
 export function fresh(state) {return state.connected && age(state)<Math.max(5,(state.bootstrap?.poll_ms||1000)/1000*3);}
 const controlled = s => s.frame?.control_enabled && fresh(s) && !s.frame?.busy && !s.pending;
-const header = (title, subtitle, actions='') => `<div class="intro"><div><div class="eyebrow">CONSENSUS / REAL</div><h1>${title}</h1><p>${subtitle}</p></div><div class="actions">${actions}</div></div>`;
+const header = (title, subtitle, actions='') => `<div class="intro"><div><h1>${title}</h1><p>${subtitle}</p></div><div class="actions">${actions}</div></div>`;
 const empty = text => `<div class="empty-state muted">${esc(text)}</div>`;
 const footer = () => `<div class="footer"><span>REAL · 本机 net/rpc 观测</span><span>本地角色 ≠ 多数派授权 · 索引对齐 ≠ 日志校验</span></div>`;
 function receipt(op) {
   if (!op) return empty('尚未执行操作。请求受理、提交、全体应用和校验分别记录。');
   const accepted = op.accepted == null ? '未知 / 未返回' : op.accepted ? '已受理' : '未受理';
   const committed = op.committed == null ? '未确认' : op.committed ? '已提交' : '未确认提交';
-  return `<div class="job"><strong>${esc(op.kind)} · ${esc(op.state)}</strong><p class="mono small">${esc(op.id)}</p><p>${op.kind==='generate'?accepted+' → '+committed:'控制器任务回执；不代表 Raft 写入提交'}</p>${op.error?`<p class="error-text">${esc(op.error)}</p>`:''}<p class="small muted">operation_id 仅跟踪控制器任务，不提供 Raft exactly-once。</p></div>`;
+  return `<div class="job"><strong>${op.result?.category==='environment_unavailable'?'实验环境未就绪':esc(op.kind)+' · '+esc(op.state)}</strong><p class="mono small">${esc(op.id)}</p><p>${op.kind==='generate'?accepted+' → '+committed:'控制器任务回执；不代表 Raft 写入提交'}</p>${op.error?`<p class="error-text">${esc(op.error)}</p>`:''}<p class="small muted">operation_id 仅跟踪控制器任务，不提供 Raft exactly-once。</p></div>`;
 }
 function events(frame, limit=20) {
   const rows=(frame?.eventsHistory||frame?.events||[]).slice(-limit).reverse();
@@ -25,20 +25,36 @@ function events(frame, limit=20) {
 function samples(s) {return (s.frame?.snapshot?.nodes||[]).map(n=>fresh(s)?n:{...n,reachable:false,status:null,error:'样本过期，当前状态未知'});}
 
 export function overview(s) {
-  const f=s.frame||{}, nodes=samples(s), members=f.session?.config.nodes||[], reachable=nodes.filter(n=>n.reachable&&n.identity_ok).length;
-  const leaders=nodes.filter(n=>n.status?.state==='Leader'), selected=nodes.find(n=>n.id===s.selected), status=selected?.status;
-  const target=f.target||0, applied=nodes.filter(n=>target>0&&n.status?.last_applied>=target).length;
-  const actions=button('verify','校验当前',!fresh(s)||!f.session||f.busy)+button('generate','＋ 提交命令',!controlled(s),'primary');
-  return header('集群总览','让选举、复制与恢复可见，同时保留证据边界。',actions)+
-    `<div class="metrics">${[
-      ['节点可达',fresh(s)?`${reachable} <span>/ ${members.length}</span>`:'—','多数派门槛 '+(Math.floor(members.length/2)+1)+'；不等于写入授权'],
-      ['观察到的 Leader',leaders.length?leaders.map(n=>`#${n.id} <span>term ${n.status.term}</span>`).join('<br>'):'—','本地角色；不同任期多 Leader 不直接判为违规'],
-      ['固定目标索引',num(target||null),'仅由实际已提交回执或检查点设置'],
-      ['达到应用目标',target?`${applied} <span>/ ${members.length}</span>`:'—','未运行完整校验时，不显示一致性通过']
-    ].map(([label,value,note])=>`<div class="metric"><div class="metriclabel">${label}</div><div class="metricvalue mono">${value}</div><div class="metricfoot">${esc(note)}</div></div>`).join('')}</div>
-    <div class="mainrow"><section class="panel"><div class="panelhead"><div><h2>集群拓扑</h2><p>选择节点查看三索引与真实回执</p></div>${tag(f.session?'共享快照':'等待会话','teal')}</div><div class="graph">${nodes.length?topology(nodes,s.selected,target):empty(f.session?'正在采集已登记节点；尚无可用快照。':'在会话设置创建实验，或启动控制台时用 -config 登记已有集群。')}</div><div class="panefoot">逻辑关系，非实测链路 · 无心跳动画<span class="mono">snapshot #${f.snapshot?.seq||0}</span></div></section>
-    <aside class="panel pad"><h2>节点详情 ${selected?'#'+selected.id:''}</h2>${selected?`${tag(status?status.state+' · local':'未知',status?.state==='Leader'?'teal':'')}<div class="kv"><span>当前任期</span><b>${num(status?.term)}</b></div><div class="kv"><span>Last / Commit / Applied</span><span class="mono">${num(status?.last_log_index)} / ${num(status?.commit_index)} / ${num(status?.last_applied)}</span></div><div class="kv"><span>状态机 x</span><b class="mono">${esc(status?.x)}</b></div><div class="kv"><span>普通输出丢弃</span><b>${num(status?.dropped_events)}</b></div><p class="small muted">${esc(selected.error||'仅观察，不代表完整日志已验证。')}</p><div class="actions">${button('stop','停止节点',!controlled(s)||!selected.owned,'danger')}${button('restart','恢复原节点',!controlled(s)||!f.session?.managed||selected.reachable)}</div>`:empty('选择一个节点。')}</aside></div>
-    <div class="mainrow"><section class="panel"><div class="panelhead"><h2>日志复制进度</h2>${button('open-logs','查看日志 →')}</div><div class="table-scroll"><table><thead><tr><th>节点</th><th>可达 / 本地角色</th><th>Term</th><th>Last</th><th>Commit</th><th>Applied</th><th>x</th></tr></thead><tbody>${nodes.filter(n=>!s.filter||String(n.id).includes(s.filter)).sort((a,b)=>Number(a.reachable)-Number(b.reachable)||a.id-b.id).map(n=>`<tr><td><button class="node-link" data-node="${n.id}">#${n.id}</button></td><td>${esc(n.status?.state||'未知 / 不可达')}</td><td>${num(n.status?.term)}</td><td>${num(n.status?.last_log_index)}</td><td>${num(n.status?.commit_index)}</td><td>${num(n.status?.last_applied)}</td><td class="mono">${esc(n.status?.x)}</td></tr>`).join('')}</tbody></table></div></section><aside class="panel pad"><h2>操作与观测</h2>${receipt(f.operations?.at(-1))}${events(f,6)}</aside></div>`+footer();
+  return `<h1 class="sr-only">集群总览</h1><div id="stage-host" class="raft-stage" aria-label="固定成员逻辑拓扑"></div><div id="stage-alert" class="stage-alert"></div><aside id="node-detail" class="node-detail" aria-label="节点详情" hidden></aside>`;
+}
+
+export function nodeDetail(s) {
+  const f=s.frame||{}, selected=samples(s).find(n=>n.id===s.selected), status=selected?.status;
+  const sampleAge=selected?.sampled_at?(Date.now()-Date.parse(selected.sampled_at))/1000:age(s);
+  return `<button class="iconbtn detail-close" data-act="close-detail" aria-label="关闭节点详情">×</button><h2>Node ${esc(s.selected)}</h2>
+    ${tag(status?status.state+' · local':'未知',status?.state==='Leader'?'teal':'')}
+    <div class="kv"><span>Term</span><b class="mono">${num(status?.term)}</b></div>
+    ${[['LastLogIndex',status?.last_log_index],['CommitIndex',status?.commit_index],['LastApplied',status?.last_applied],['x',status?.x]].map(([k,v])=>`<div class="kv"><span>${k}</span><b class="mono">${esc(v)}</b></div>`).join('')}
+    <div class="kv"><span>可达性</span><b>${selected?.reachable?'可达':'未知 / 不可达'}</b></div>
+    <div class="kv"><span>样本年龄</span><b>${Number.isFinite(sampleAge)?sampleAge.toFixed(1)+'s':'未知'}</b></div>
+    <div class="kv"><span>展示日志丢弃</span><b>${num(status?.dropped_events)}</b></div>
+    ${selected?.error?`<p class="error-text">${esc(selected.error)}</p>`:''}
+    <div class="actions">${button('stop','停止节点',!controlled(s)||!selected?.owned,'danger')}${button('restart','恢复原节点',!controlled(s)||!f.session?.managed||selected?.reachable)}</div>
+    <details><summary>观测口径与最近回执</summary><p>连线表示节点报告的领导关系，不是实测链路。Leader 是本地角色；日志一致性需单独校验。</p>${receipt(f.operations?.at(-1))}</details>`;
+}
+
+export function stageNodes(s) {
+  const found=new Map(samples(s).map(n=>[n.id,n]));
+  return (s.frame?.session?.config.nodes||[]).map(n=>found.get(n.id)||{id:n.id,reachable:false,identity_ok:false,status:null});
+}
+
+export function stageNotice(s) {
+  if(!s.connected)return '<p role="alert">后端连接中断 · 当前状态未知</p>';
+  if(!s.frame?.session)return '<p>无活跃会话</p><button class="btn" data-page="settings">创建或恢复实验</button>';
+  if(!fresh(s))return '<p role="status">样本过期 · 等待新的节点观测</p>';
+  const errors=(s.frame?.snapshot?.nodes||[]).filter(n=>n.error&&n.reachable);
+  return errors.length?`<p role="alert">${errors.length} 个节点返回错误；选择节点查看</p>`:
+    s.frame?.gap||s.frame?.stream_dropped?`<p>事件有缺口 · 快照丢弃 ${s.frame.stream_dropped||0}</p>`:'';
 }
 
 export function logView(s) {
@@ -54,18 +70,19 @@ export function logView(s) {
     ${s.logError?`<div class="notice warn" role="alert">${esc(s.logError)}</div>`:''}<section class="panel" style="margin-top:18px"><div class="table-scroll log-matrix"><table><thead><tr><th>索引</th>${selected.map(id=>`<th>#${id}<small class="muted"> revision ${esc(ranges[id]?.range?.revision)}</small></th>`).join('')}</tr></thead><tbody>${Object.keys(ranges).length?cells:`<tr><td colspan="${selected.length+1}">尚未读取。请选择范围并点击读取，不自动执行完整历史扫描。</td></tr>`}</tbody></table></div></section>`+footer();
 }
 
-export function faults(s) {
+export function faultContent(s) {
   const f=s.frame||{}, nodes=samples(s);
-  return header('故障与时间线','进程故障与网络分区分别处理。事件按接收顺序排列，非跨节点精确墙钟顺序。')+
-    `<div class="cards3">${nodes.filter(n=>n.owned).map(n=>`<section class="panel pad"><h3>Node ${n.id} · ${esc(n.status?.state||'未知')}</h3><p>只操作当前控制器真正持有的进程句柄。</p><button class="btn danger" data-stop="${n.id}" ${controlled(s)?'':'disabled'}>停止节点 ${n.id}</button></section>`).join('')||empty('当前没有可停止的自有节点。只读登记不会认领外部 PID。')}</div>
-    <section class="panel pad" style="margin-top:18px"><div class="actions">${button('stop-all','停止本会话全部节点',!controlled(s)||!nodes.some(n=>n.owned),'danger')}${button('resume','恢复原会话',!controlled(s)||!f.session?.managed)}<button class="btn" disabled title="没有真实网络注入器">网络分区：不可用</button>${button('divergence','独立分歧实验',!controlled(s))}</div><p class="small muted">恢复保留原身份、成员和数据；网络分区不会被停止进程代替。分歧实验使用独立目录。</p></section>
-    <section class="panel pad" style="margin-top:18px"><h2>实际事件</h2><p class="small muted">保留最近 512 条接收事件，此处显示最近 100 条。按接收序号排列，不等同于跨节点精确因果顺序。</p>${f.gap||f.stream_dropped?`<div class="notice warn">事件/快照存在缺口，stream dropped=${f.stream_dropped||0}。不会补造缺失事件。</div>`:''}${events(f,100)}</section>`+footer();
+  return `<section class="panel pad"><div class="actions">${button('stop-all','停止全部自有节点',!controlled(s)||!nodes.some(n=>n.owned),'danger')}${button('resume','恢复原会话',!controlled(s)||!f.session?.managed)}${button('generate','提交命令',!controlled(s),'primary')}${button('divergence','独立分歧实验',!controlled(s))}<button class="btn" disabled title="没有真实网络注入器；停止进程不等于分区">网络分区：不可用</button></div><p class="small muted">点选节点进行停止或恢复。只操作本会话持有的进程；独立分歧实验另建目录。</p></section>
+    <section class="panel pad"><h2>实际事件</h2><details><summary>时间口径与丢弃</summary><p>按接收序号显示最近100条；不是跨节点精确时序。事件环有界，不补造缺失记录。</p></details>${f.gap||f.stream_dropped?`<div class="notice warn">事件存在缺口，stream dropped=${f.stream_dropped||0}</div>`:''}${events(f,100)}</section>`;
+}
+export function faults(s) {
+  return header('故障实验','选择节点，观察真实重选与恢复。')+`<div class="fault-layout"><section style="position:relative"><div id="stage-alert" class="stage-alert"></div><div id="stage-host" class="raft-stage fault-stage" aria-label="故障实验逻辑拓扑"></div></section><div id="fault-content">${faultContent(s)}</div></div><aside id="node-detail" class="node-detail" aria-label="节点详情" hidden></aside>`;
 }
 
 export function experiments(s) {
-  const ops=(s.frame?.operations||[]).filter(o=>o.kind==='experiment'), active=ops.find(o=>!o.ended_at), rows=ops.flatMap(o=>o.result?.rows||[]);
+  const ops=(s.frame?.operations||[]).filter(o=>o.kind==='experiment'), active=ops.find(o=>!o.ended_at), rows=ops.flatMap(o=>o.result?.rows||[]), deps=s.bootstrap?.experiment_dependencies;
   return header('性能实验','每次独立构建与数据目录。按源码、环境、规模、场景和批次分组，不使用静态样例。')+
-    `<section class="panel pad"><form id="experiment-form" class="experiment-fields"><label>节点规模<select name="nodes" multiple size="4">${[3,11,10,20,50,100].map(n=>`<option value="${n}" ${n===11?'selected':''}>${n}</option>`).join('')}</select></label><label>场景<select name="scenarios" multiple size="4">${['election','failover','catchup','divergence','replication'].map(n=>`<option ${n==='replication'?'selected':''}>${n}</option>`).join('')}</select></label><label>命令数<input name="entries" type="number" value="2101" min="256" max="100000"></label><label>轮数<input name="rounds" type="number" value="1" min="1" max="10"></label><label>种子<input name="seed" type="number" min="-2147483648" max="2147483647" value="42"></label><label>批次<input name="batch" type="number" value="128" min="1" max="4096"></label><button class="btn primary" ${controlled(s)?'':'disabled'}>运行实际实验</button></form>${active?`<p>任务 ${esc(active.id)} · ${esc(active.state)} · 完成 ${active.result?.rows?.length||0} 轮</p>${button('cancel-experiment','请求取消实验',!s.frame?.control_enabled)}`:''}<p class="small muted">取消会清理该实验自己的节点，保留已完成、失败、中断记录。少量样本不报告可靠 p99。</p></section>
+    `${deps?.ready?'':`<div class="notice warn" role="status"><strong>实验环境未就绪</strong><p>${esc(deps?.reason||'正在核查 Go、Python 与源码。')}</p><details><summary>如何运行规模实验</summary><p>普通集群与六页查看不需要开发工具。规模实验须配置 Go 与 Python，并保留完整源码目录。可将可信便携工具加入本次启动的 PATH，用 -python 指定 Python，重启控制台后再次核查；详见中文快速说明。此状态不是 Raft 协议失败。</p></details></div>`}<section class="panel pad"><form id="experiment-form" class="experiment-fields"><label>节点规模<select name="nodes" multiple size="4">${[3,11,10,20,50,100].map(n=>`<option value="${n}" ${n===11?'selected':''}>${n}</option>`).join('')}</select></label><label>场景<select name="scenarios" multiple size="4">${['election','failover','catchup','divergence','replication'].map(n=>`<option ${n==='replication'?'selected':''}>${n}</option>`).join('')}</select></label><label>命令数<input name="entries" type="number" value="2101" min="256" max="100000"></label><label>轮数<input name="rounds" type="number" value="1" min="1" max="10"></label><label>种子<input name="seed" type="number" min="-2147483648" max="2147483647" value="42"></label><label>批次<input name="batch" type="number" value="128" min="1" max="4096"></label><button class="btn primary" ${controlled(s)&&deps?.ready?'':'disabled'}>运行实际实验</button></form>${active?`<p>任务 ${esc(active.id)} · ${esc(active.state)} · 完成 ${active.result?.rows?.length||0} 轮</p>${button('cancel-experiment','请求取消实验',!s.frame?.control_enabled)}`:''}<p class="small muted">取消会清理该实验自己的节点，保留已完成、失败、中断记录。少量样本不报告可靠 p99。</p></section>
     <section class="panel pad" style="margin-top:18px">${experimentChart(rows)}</section>${ops.map(o=>`<section class="panel pad" style="margin-top:18px">${receipt(o)}</section>`).join('')}`+footer();
 }
 

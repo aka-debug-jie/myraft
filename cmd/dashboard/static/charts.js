@@ -84,7 +84,7 @@ const groupLabel = (row) => {
 };
 
 const renderGroup = (group) => {
-  const { row, passes, failed, interrupted } = group;
+  const { row, rows, passes, failed, interrupted } = group;
   const values = passes.filter((item) => item.elapsed_seconds != null && item.elapsed_seconds !== '')
     .map((item) => Number(item.elapsed_seconds)).filter(Number.isFinite);
   const n = values.length;
@@ -94,16 +94,36 @@ const renderGroup = (group) => {
   const dots = values.map((value, index) => `<circle cx="${x(value).toFixed(2)}" cy="${22 + (index % 5) * 8}" r="3.5" fill="var(--accent)"><title>PASS ${escapeHTML(value)} 秒</title></circle>`).join('');
   const meanMark = mean == null ? '' : `<line x1="${x(mean).toFixed(2)}" y1="12" x2="${x(mean).toFixed(2)}" y2="58" stroke="var(--amber)" stroke-width="2" stroke-dasharray="3 3"/><text x="${Math.min(395, x(mean) + 5).toFixed(2)}" y="11" fill="var(--muted)" font-size="8">mean ${mean.toFixed(3)} s</text>`;
   const plot = n ? `<svg viewBox="0 0 500 64" role="img" aria-label="PASS 原始耗时点与均值" style="width:100%;height:auto;min-height:64px"><line x1="28" y1="60" x2="478" y2="60" stroke="var(--line)"/>${dots}${meanMark}<text x="28" y="63" fill="var(--muted)" font-size="8">0 s</text><text x="430" y="63" fill="var(--muted)" font-size="8">${max.toFixed(3)} s</text></svg>` : '<p class="muted small">该组没有可绘制的 PASS 耗时。</p>';
+  const timeline = rows.map((item, index) => ({item, index, round:Number(item.round)}))
+    .filter((entry) => Number.isFinite(entry.round) && entry.round > 0)
+    .sort((a, b) => a.round - b.round || a.index - b.index);
+  const elapsed = timeline.filter(({item}) => item.result === 'PASS' && item.elapsed_seconds != null && item.elapsed_seconds !== '' && Number.isFinite(Number(item.elapsed_seconds)) && Number(item.elapsed_seconds) >= 0);
+  const timelineMax = Math.max(1, ...elapsed.map(({item}) => Number(item.elapsed_seconds)));
+  const firstRound = timeline.length ? timeline[0].round : 1;
+  const lastRound = timeline.length ? timeline[timeline.length - 1].round : firstRound;
+  const tx = (round) => 36 + (lastRound === firstRound ? 428 : (round - firstRound) / (lastRound - firstRound) * 428);
+  const ty = (seconds) => 76 - Number(seconds) / timelineMax * 56;
+  const timedPoints = new Map(elapsed.map((entry) => [entry, {round:entry.round, seconds:Number(entry.item.elapsed_seconds), x:tx(entry.round), y:ty(entry.item.elapsed_seconds)}]));
+  let previous = null;
+  const timelineLines = [];
+  for (const entry of timeline) {
+    const current = timedPoints.get(entry) ?? null;
+    if (current && previous && entry.round === previous.round + 1) timelineLines.push(`<line x1="${previous.x.toFixed(2)}" y1="${previous.y.toFixed(2)}" x2="${current.x.toFixed(2)}" y2="${current.y.toFixed(2)}" stroke="var(--accent)" stroke-width="1.5"/>`);
+    previous = current;
+  }
+  const timelineDots = [...timedPoints.values()].map((point) => `<circle cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="3" fill="var(--accent)"><title>第 ${escapeHTML(point.round)} 轮 · ${escapeHTML(point.seconds)} 秒</title></circle><text x="${point.x.toFixed(2)}" y="${Math.max(10, point.y - 6).toFixed(2)}" text-anchor="middle" fill="var(--muted)" font-size="8">r${escapeHTML(point.round)}</text>`).join('');
+  const timelinePlot = elapsed.length ? `<div class="small muted" style="margin-top:8px">逐轮实际耗时 · 秒</div><svg viewBox="0 0 500 88" role="img" aria-label="逐轮实际耗时，单位秒" style="width:100%;height:auto"><line x1="24" y1="78" x2="476" y2="78" stroke="var(--line)"/>${elapsed.length >= 2 ? timelineLines.join('') : ''}${timelineDots}</svg>` : '';
   const source = escapeHTML(row.source_sha256 ?? '未知');
-  return `<article class="panel" style="margin:12px 0;padding:14px 16px"><h3 style="margin:0 0 4px;font-size:12px">${groupLabel(row)}</h3><p class="evidence-hash" style="margin:0 0 8px">平台 ${escapeHTML(row.platform ?? '未知')} · 源码 SHA-256 ${source}</p><p class="small muted" style="margin:4px 0">PASS n=${n}${mean == null ? '' : ` · mean ${mean.toFixed(3)} s`} · FAIL ${failed} · INTERRUPTED ${interrupted}</p>${plot}</article>`;
+  return `<article class="panel" style="margin:12px 0;padding:14px 16px"><h3 style="margin:0 0 4px;font-size:12px">${groupLabel(row)}</h3><p class="evidence-hash" style="margin:0 0 8px">平台 ${escapeHTML(row.platform ?? '未知')} · 源码 SHA-256 ${source}</p><p class="small muted" style="margin:4px 0">PASS n=${n}${mean == null ? '' : ` · mean ${mean.toFixed(3)} s`} · FAIL ${failed} · INTERRUPTED ${interrupted}</p>${plot}${timelinePlot}</article>`;
 };
 
 export function experimentChart(rows) {
   const groups = new Map();
   for (const row of Array.isArray(rows) ? rows : []) {
     const key = groupKey(row);
-    if (!groups.has(key)) groups.set(key, { row, passes: [], failed: 0, interrupted: 0 });
+    if (!groups.has(key)) groups.set(key, { row, rows: [], passes: [], failed: 0, interrupted: 0 });
     const group = groups.get(key);
+    group.rows.push(row);
     if (row.result === 'PASS') group.passes.push(row);
     else if (row.result === 'FAIL') group.failed += 1;
     else if (row.result === 'INTERRUPTED') group.interrupted += 1;

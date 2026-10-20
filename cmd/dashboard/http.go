@@ -86,7 +86,7 @@ func (d *dashboard) sessionHTTP(w http.ResponseWriter, r *http.Request) {
 		list = append(list, *s)
 	}
 	sort.Slice(list, func(i, j int) bool { return list[i].CreatedAt.Before(list[j].CreatedAt) })
-	view := map[string]any{"controller_id": d.controllerID, "mode": "REAL", "csrf_token": d.csrf, "session": d.active, "sessions": list, "generation": d.generation, "control_allowed": d.opts.AllowControl, "control_enabled": d.control, "poll_ms": d.opts.Interval.Milliseconds(), "network_partition_supported": false}
+	view := map[string]any{"controller_id": d.controllerID, "mode": "REAL", "csrf_token": d.csrf, "session": d.active, "sessions": list, "generation": d.generation, "control_allowed": d.opts.AllowControl, "control_enabled": d.control, "poll_ms": d.opts.Interval.Milliseconds(), "network_partition_supported": false, "experiment_dependencies": d.experimentDependencyReport()}
 	d.mu.Unlock()
 	respond(w, 200, view)
 }
