@@ -165,6 +165,51 @@ class BenchmarkTests(unittest.TestCase):
         self.assertEqual([s['batch_size'] for s in stats], [64, 128, 256])
         self.assertEqual([s['mean_seconds'] for s in stats], [2.0, 8.0, 4.0])
 
+    def test_summary_all_applied_uses_only_successful_rows_with_measurements(self):
+        rows = [dict(nodes=3, scenario='replication', result='PASS', elapsed_seconds=1,
+                     all_applied_seconds=3),
+                dict(nodes=3, scenario='replication', result='PASS', elapsed_seconds=2,
+                     all_applied_seconds=5),
+                dict(nodes=3, scenario='replication', result='PASS', elapsed_seconds=4),
+                dict(nodes=3, scenario='replication', result='FAIL', elapsed_seconds=6,
+                     all_applied_seconds=100)]
+        result = summarize(rows)[0]
+        self.assertEqual((result['mean_all_applied_seconds'], result['median_all_applied_seconds'],
+                          result['min_all_applied_seconds'], result['max_all_applied_seconds']),
+                         (4, 4, 3, 5))
+
+    def test_batch_order_rotates_and_reverses_by_round(self):
+        batches = [64, 128, 256]
+        self.assertEqual(benchmark.batch_order_for_round(batches, 0), [64, 128, 256])
+        self.assertEqual(benchmark.batch_order_for_round(batches, 1), [64, 256, 128])
+        self.assertEqual(benchmark.batch_order_for_round(batches, 2), [256, 64, 128])
+
+    def test_main_runs_rounds_before_batches_and_records_batch_order(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'run'
+            calls = []
+            def fake_experiment(count, scenario, entries, seed, folder, timeout, batch, round_number):
+                calls.append((batch, seed, round_number, folder.name))
+                return dict(nodes=count, scenario=scenario, batch_size=batch, round=round_number,
+                            result='PASS', elapsed_seconds=1, error=None)
+            argv = ['benchmark.py', '--nodes', '3', '--rounds', '3', '--entries', '256',
+                    '--seed', '40', '--scenarios', 'election', '--batch-sizes', '64', '128', '256',
+                    '--output', str(output)]
+            with mock.patch.object(sys, 'argv', argv), mock.patch.object(benchmark, 'build_current', return_value={}), \
+                 mock.patch.object(benchmark, 'experiment', side_effect=fake_experiment), contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(benchmark.main(), 0)
+            self.assertEqual(calls, [
+                (64, 40, 1, 'election-3-b64-r1'), (128, 40, 1, 'election-3-b128-r1'), (256, 40, 1, 'election-3-b256-r1'),
+                (64, 41, 2, 'election-3-b64-r2'), (256, 41, 2, 'election-3-b256-r2'), (128, 41, 2, 'election-3-b128-r2'),
+                (256, 42, 3, 'election-3-b256-r3'), (64, 42, 3, 'election-3-b64-r3'), (128, 42, 3, 'election-3-b128-r3'),
+            ])
+            environment = json.loads((output / 'environment.json').read_text())
+            self.assertEqual(environment['batch_execution_order'], [
+                {'round': 1, 'batch_sizes': [64, 128, 256]},
+                {'round': 2, 'batch_sizes': [64, 256, 128]},
+                {'round': 3, 'batch_sizes': [256, 64, 128]},
+            ])
+
     def test_summary_separates_election_and_startup_sync_timings(self):
         rows = [dict(nodes=3, scenario='catchup', result='PASS', elapsed_seconds=4,
                      local_election_ms=120, startup_to_sync_seconds=8),

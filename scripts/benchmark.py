@@ -447,6 +447,12 @@ def experiment(count, scenario, entries, seed, folder, timeout, batch_size=128, 
     return row
 
 
+def batch_order_for_round(batch_sizes, round_index):
+    offset = round_index % len(batch_sizes)
+    ordered = list(batch_sizes[offset:]) + list(batch_sizes[:offset])
+    return list(reversed(ordered)) if round_index % 2 else ordered
+
+
 def summarize(rows):
     groups = []
     for key in sorted({(r['nodes'], r['scenario'], r.get('batch_size', 128)) for r in rows}):
@@ -470,7 +476,7 @@ def summarize(rows):
                        'median_startup_to_sync_seconds': statistics.median(startup_sync) if startup_sync else None,
                        'min_startup_to_sync_seconds': min(startup_sync) if startup_sync else None,
                        'max_startup_to_sync_seconds': max(startup_sync) if startup_sync else None})
-        for metric in ('election_observed_seconds', 'initial_election_observed_seconds', 'initial_local_election_ms', 'service_restored_seconds'):
+        for metric in ('election_observed_seconds', 'initial_election_observed_seconds', 'initial_local_election_ms', 'service_restored_seconds', 'all_applied_seconds'):
             measured = [r[metric] for r in selected if r['result'] == 'PASS' and metric in r]
             for name, aggregate in [('mean', statistics.mean), ('median', statistics.median), ('min', min), ('max', max)]:
                 groups[-1][name + '_' + metric] = aggregate(measured) if measured else None
@@ -503,6 +509,10 @@ def main():
     environment = {'platform': platform.platform(), 'python': platform.python_version(),
                    'logical_cpus': os.cpu_count(), 'node_gomaxprocs': 1, 'timings_ms': {'election_min': 3000, 'election_jitter': 3000, 'heartbeat': 150, 'rpc_timeout': 1000}, 'arguments': vars(args).copy(),
                    'measurement': 'monotonic polling observation; per wait/generate timeout, not total scenario budget; two consistent snapshots 100 ms apart; includes polling overhead'}
+    environment['batch_execution_order'] = [
+        {'round': iteration + 1, 'batch_sizes': batch_order_for_round(args.batch_sizes, iteration)}
+        for iteration in range(args.rounds)
+    ]
     environment['arguments']['output'] = str(output)
     environment['arguments']['cancel_file'] = str(CANCEL_FILE) if CANCEL_FILE is not None else None
     (output / 'environment.json').write_text(json.dumps(environment, indent=2), encoding='utf-8')
@@ -515,7 +525,8 @@ def main():
         raise
     (output / 'environment.json').write_text(json.dumps(environment, indent=2), encoding='utf-8')
     rows = []
-    cases = ((n, s, b, r) for n in args.nodes for s in args.scenarios for b in args.batch_sizes for r in range(args.rounds))
+    cases = ((n, s, b, r) for n in args.nodes for s in args.scenarios for r in range(args.rounds)
+             for b in batch_order_for_round(args.batch_sizes, r))
     for count, scenario, batch, iteration in cases:
         batch_part = f'-b{batch}' if len(args.batch_sizes) > 1 else ''
         folder = output / f'{scenario}-{count}{batch_part}-r{iteration+1}'
