@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"maps"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -51,18 +50,13 @@ func readExperiment(dir string, previous experimentResult) experimentResult {
 		previous.Phase = "finished"
 	}
 	// Source/environment are explicit grouping keys, never inferred from old records.
-	// An incomplete file read retains the previously published rows. SSE may
-	// still encode those maps outside the controller lock.
-	previous.Rows = append([]map[string]any(nil), previous.Rows...)
-	for i, original := range previous.Rows {
-		row := maps.Clone(original)
+	for _, row := range previous.Rows {
 		row["platform"] = previous.Environment["platform"]
 		if source := previous.Environment["source_sha256"]; source != nil {
 			row["source_sha256"] = digestJSON(source)
 		} else {
 			row["source_sha256"] = "未记录"
 		}
-		previous.Rows[i] = row
 	}
 	return previous
 }
