@@ -154,9 +154,17 @@ def main():
                 page.get_by_label('返回全景').click();page.get_by_label('搜索节点').fill('100');page.get_by_label('搜索节点').press('Enter')
                 page.get_by_label('节点 100 详情').wait_for();page.screenshot(path=str(a.output/f'synthetic-{renderer}-mobile-focus.png'))
                 page.get_by_label('关闭节点详情').click();page.keyboard.press('Escape');page.get_by_label('返回全景').click()
-                page.get_by_role('button',name='并排比较',exact=True).click();assert page.locator('[data-node]').count()==200
+                page.get_by_role('button',name='并排比较',exact=True).click()
+                page.wait_for_function('()=>document.querySelectorAll("[data-node]").length===200')
                 page.screenshot(path=str(a.output/f'synthetic-{renderer}-mobile-compare.png'))
                 result['interactions'].append({'renderer':renderer,'result':'PASS','mobile_navigation_pinch_focus_compare':True});context.close()
+            context,page=page_for(11,'svg',(1440,900))
+            context.route('**/FlowCanvas-*.js',lambda route:route.abort())
+            page.get_by_role('button',name='React Flow',exact=True).click()
+            page.get_by_role('button',name='重新加载页面').wait_for()
+            assert page.locator('.topbar').is_visible()
+            assert page.evaluate('()=>window.__streams.size')==1
+            result['interactions'].append({'result':'PASS','renderer_chunk_failure_contained':True});context.close()
             # Same sequence and viewport, each renderer alone; not a production throughput benchmark.
             for renderer in ['svg','flow']:
                 for trial in range(3):

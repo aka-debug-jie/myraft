@@ -82,6 +82,26 @@ export const FlowCanvas = memo(function FlowCanvas(p: CanvasProps) {
         position: { x: n.x - n.r, y: n.y - n.r },
         width: n.r * 2,
         height: n.r * 2,
+        // Fixed geometry supplies handles on every update. Without this metadata,
+        // React Flow clears its cached bounds before the DOM is remeasured.
+        handles: [
+          {
+            type: "source",
+            position: Position.Top,
+            x: n.r - 3,
+            y: -3,
+            width: 6,
+            height: 6,
+          },
+          {
+            type: "target",
+            position: Position.Bottom,
+            x: n.r - 3,
+            y: n.r * 2 - 3,
+            width: 6,
+            height: 6,
+          },
+        ],
         style: { width: n.r * 2, height: n.r * 2 },
         data: {
           node: n,
