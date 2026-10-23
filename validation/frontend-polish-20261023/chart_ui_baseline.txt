@@ -1,0 +1,13 @@
+PASS: failure count is explicit
+PASS: interruption count is explicit
+PASS: chart remains within a mobile viewport
+FAIL: single PASS is summarized without redundant charts: found 2 SVG charts
+FAIL: multiple PASS values use one clear chart: found 2 SVG charts
+FAIL: sample count is explicit: 'linux · 3 节点 · write · 工作量 100 条命令 · batch 10\n\n平台 linux · 源码 SHA-256 abc123\n\nPASS n=4 · mean 1.750 s · FAIL 1 · INTERRUPTED 1\n\nmean 1.750 s\n0 s\n8.000 s\n逐轮实际耗时 · 秒\nr1\nr2\nr7'
+FAIL: mean is explicit: 'linux · 3 节点 · write · 工作量 100 条命令 · batch 10\n\n平台 linux · 源码 SHA-256 abc123\n\nPASS n=4 · mean 1.750 s · FAIL 1 · INTERRUPTED 1\n\nmean 1.750 s\n0 s\n8.000 s\n逐轮实际耗时 · 秒\nr1\nr2\nr7'
+FAIL: median is explicit: 'linux · 3 节点 · write · 工作量 100 条命令 · batch 10\n\n平台 linux · 源码 SHA-256 abc123\n\nPASS n=4 · mean 1.750 s · FAIL 1 · INTERRUPTED 1\n\nmean 1.750 s\n0 s\n8.000 s\n逐轮实际耗时 · 秒\nr1\nr2\nr7'
+FAIL: range is explicit: 'linux · 3 节点 · write · 工作量 100 条命令 · batch 10\n\n平台 linux · 源码 SHA-256 abc123\n\nPASS n=4 · mean 1.750 s · FAIL 1 · INTERRUPTED 1\n\nmean 1.750 s\n0 s\n8.000 s\n逐轮实际耗时 · 秒\nr1\nr2\nr7'
+FAIL: invalid elapsed values are absent from the chart
+FAIL: timeline leaves missing rounds disconnected
+FAIL: SVG has an accessible label and seconds unit
+9 chart acceptance assertion(s) failed

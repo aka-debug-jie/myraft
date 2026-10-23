@@ -16,7 +16,7 @@ if os.name == 'nt':
 repo=Path(__file__).resolve().parents[1];root=args.output.resolve();root.mkdir(parents=True,exist_ok=False);output=(root/'controller.txt').open('wb')
 env=os.environ.copy()
 process=subprocess.Popen([str(args.dashboard.resolve()),'-listen','127.0.0.1:0','-data-root',str(root/'sessions'),'-node-bin',str(args.node.resolve()),'-source-dir',str(repo),'-python',sys.executable,'-allow-control'],stdout=output,stderr=subprocess.STDOUT,env=env)
-summary={'mode':'REAL','root':root.name,'measurements':[]}
+summary={'mode':'REAL','root':root.name,'measurements':[],'dashboard_sha256':hashlib.sha256(args.dashboard.read_bytes()).hexdigest(),'node_sha256':hashlib.sha256(args.node.read_bytes()).hexdigest()}
 try:
  url=None
  for _ in range(100):
@@ -65,7 +65,9 @@ try:
   f=until(lambda f:any(o['kind']=='generate' and o.get('committed') for o in f['operations']))
   assert len([o for o in f['operations'] if o['kind']=='generate'])==1
   target=f['target'];until(lambda f:all(n.get('status') and n['status']['last_applied']>=target for n in f['snapshot']['nodes']))
-  navigate(page,'evidence');before=operation_ids('checkpoint');page.locator('#main [data-act=checkpoint]').click()
+  navigate(page,'evidence');before=operation_ids('verify');side_action(page,'verify')
+  assert wait_latest('verify',before)['state']=='succeeded'
+  before=operation_ids('checkpoint');page.locator('#main [data-act=checkpoint]').click()
   assert wait_latest('checkpoint',before)['state']=='succeeded';saved=frame()['checkpoint']
   navigate(page,'overview')
   leader=next(n['id'] for n in frame()['snapshot']['nodes'] if n.get('status',{}).get('state')=='Leader')

@@ -1,4 +1,4 @@
-import {geometry, route} from './topology.js';
+import {geometry, route, pathSegments} from './topology.js';
 
 export class Stage {
   constructor(host) {
@@ -27,10 +27,13 @@ export class Stage {
     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     this.svg.classList.add('stage-edges');
     this.svg.setAttribute('aria-hidden', 'true');
+    this.hitLayer=document.createElementNS(this.svg.namespaceURI,'g');this.svg.append(this.hitLayer);
     this.svg.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;';
     this.nodeLayer = document.createElement('div');
-    this.nodeLayer.style.cssText = 'position:absolute;inset:0;';
+    this.nodeLayer.style.cssText = 'position:absolute;inset:0;pointer-events:none;';
     this.world.append(this.svg, this.nodeLayer);
+    this.svg.addEventListener('pointermove',e=>this.inspectEdge(e),{signal:this.abort.signal});
+    this.svg.addEventListener('pointerleave',()=>{this.hovered=null;this.paintRelations();},{signal:this.abort.signal});
 
     this.controls = document.createElement('div');
     this.controls.className = 'stage-controls';
@@ -54,7 +57,14 @@ export class Stage {
     this.host.setAttribute('role', 'group');
     this.host.style.position ||= 'relative';
     this.host.style.overflow = 'hidden';
-    this.host.append(this.world, this.controls);
+    this.relationNote=document.createElement('div');
+    this.relationNote.className='stage-relation-note';this.relationNote.hidden=true;
+    this.relationNote.setAttribute('role','status');
+    this.orientation=document.createElement('button');this.orientation.type='button';
+    this.orientation.className='stage-orientation';this.orientation.hidden=true;
+    this.orientation.setAttribute('aria-label','返回全景');
+    this.orientation.addEventListener('click',()=>this.fit(),{signal:this.abort.signal});
+    this.host.append(this.world,this.controls,this.relationNote,this.orientation);
 
     this.world.addEventListener('wheel', e => {
       e.preventDefault();
@@ -113,7 +123,7 @@ export class Stage {
     const scopeChanged = this.scope !== scope;
     if (!this.initialized || scopeChanged) {
       this.eventsSeen.clear();
-      this.centerId=null;this.slotOrder=[];this.pendingLeader=null;this.lastSnapshotSeq=null;this.layoutKey=null;this.pathKey=null;
+      this.centerId=null;this.displayCenter=null;this.hovered=null;this.focusedNode=null;this.slotOrder=[];this.pendingLeader=null;this.lastSnapshotSeq=null;this.layoutKey=null;this.pathKey=null;
       for (const event of events) if (Number.isFinite(event.seq)) this.eventsSeen.add(`${scope}:${event.seq}`);
       this.scale=1; this.tx=0; this.ty=0; this.autoFitPending = true; this.viewChangedByUser = false;
       this.showAllRelations = true;
@@ -143,10 +153,14 @@ export class Stage {
         button.type = 'button';
         button.className = 'stage-node';
         button.dataset.node = String(id);
-        button.style.cssText = 'position:absolute;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;';
+        button.style.cssText = 'position:absolute;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:auto;';
         const idLabel = document.createElement('span'); idLabel.className = 'stage-id'; idLabel.textContent = `#${id}`;
         const roleLabel = document.createElement('span'); roleLabel.className = 'stage-role';
         button.append(idLabel, roleLabel);
+        button.addEventListener('pointerenter',()=>{if(!this.pointers.size){this.hovered=id;this.paintRelations();}},{signal:this.abort.signal});
+        button.addEventListener('pointerleave',()=>{this.hovered=null;this.paintRelations();},{signal:this.abort.signal});
+        button.addEventListener('focus',()=>{this.focusedNode=id;this.paintRelations();},{signal:this.abort.signal});
+        button.addEventListener('blur',()=>{this.focusedNode=null;this.paintRelations();},{signal:this.abort.signal});
         this.nodeLayer.append(button);
         this.nodes.set(id, button);
       }
@@ -177,25 +191,29 @@ export class Stage {
 
   observeLeader(seq) {
     if(this.slotOrder.length!==this.members.length||this.members.some(id=>!this.slotOrder.includes(id))){
-      this.slotOrder=[...this.members];this.centerId=null;this.pendingLeader=null;
+      this.slotOrder=[...this.members];this.centerId=null;this.displayCenter=null;this.pendingLeader=null;this.autoFitPending=true;this.viewChangedByUser=false;
     }
     const leaders=this.fresh?this.members.map(id=>this.samples.get(id)).filter(n=>n?.reachable&&n.identity_ok&&!n.error&&n.status?.state==='Leader'):[];
     if(leaders.length!==1){this.pendingLeader=null;return;}
     const leader=leaders[0],key=JSON.stringify([leader.id,leader.status.instance_id,leader.status.term]);
     if(!Number.isFinite(seq)||!leader.status.instance_id){this.pendingLeader=null;return;}
+    // First placement is presentation only. Two distinct observations still confirm changes.
+    if(this.displayCenter==null)this.displayCenter=leader.id;
     if(this.pendingLeader?.key!==key){this.pendingLeader={key,seq};return;}
     if(seq<=this.pendingLeader.seq||leader.id===this.centerId)return;
-    const old=this.centerId;
+    const old=this.displayCenter;
     if(old!=null){const index=this.slotOrder.indexOf(leader.id);this.slotOrder[this.slotOrder.indexOf(old)]=leader.id;this.slotOrder[index]=old;}
-    this.centerId=leader.id;this.layoutKey=null;
-    this.animateLayout=old!=null&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.centerId=leader.id;this.displayCenter=leader.id;this.layoutKey=null;
+    this.animateLayout=old!=null&&old!==leader.id&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
   updateRelationControl() {
     this.relationControl.textContent=this.showAllRelations?'关系聚焦':'全部关系';
     this.relationControl.setAttribute('aria-label',this.showAllRelations?'聚焦选中节点关系':'显示全部已观测关系');
     this.relationControl.setAttribute('aria-pressed',String(!this.showAllRelations));
-    this.relationControl.disabled=this.selected==null&&this.showAllRelations;
+    const follower=this.edges.has(this.selected);
+    this.relationControl.disabled=!follower&&this.showAllRelations;
+    this.relationControl.title=follower?'单独查看此 Follower 报告的关系':'选择 Follower 或悬停一条关系线';
   }
 
   layout() {
@@ -203,17 +221,17 @@ export class Stage {
     const width=Math.max(1,this.host.clientWidth),height=Math.max(1,this.host.clientHeight);
     const resized=this.layoutSize&&(this.layoutSize[0]!==width||this.layoutSize[1]!==height);
     this.layoutSize=[width,height];
-    const key=[width,height,this.centerId,...(this.slotOrder||[])].join('/');
+    const key=[width,height,this.displayCenter,...(this.slotOrder||[])].join('/');
     if(this.layoutKey!==key){
       this.layoutKey=key;this.pathKey=null;
-      this.geom=geometry(this.members||[],this.slotOrder||[],this.centerId,width,height);
+      this.geom=geometry(this.members||[],this.slotOrder||[],this.displayCenter,width,height);
       const before=this.positions;this.positions=this.geom.positions;
-      this.host.classList.toggle('stage-dense',this.geom.dense);
+      this.host.classList.toggle('stage-dense',this.geom.dense);this.host.classList.toggle('stage-compact',this.geom.compact);
       for(const[id,button]of this.nodes){
         const p=this.positions.get(id);if(!p)continue;const size=this.geom.radii.get(id)*2;
         button.style.width=`${size}px`;button.style.height=`${size}px`;
         button.style.left=`${p[0]-size/2}px`;button.style.top=`${p[1]-size/2}px`;
-        button.classList.toggle('center-slot',id===this.centerId);
+        button.classList.toggle('center-slot',id===this.displayCenter);
         if(this.animateLayout&&before?.has(id)&&distanceMoved(before.get(id),p)>1){
           const prev=before.get(id),animation=button.animate([{translate:`${prev[0]-p[0]}px ${prev[1]-p[1]}px`},{translate:'0px 0px'}],{duration:280,easing:'cubic-bezier(.2,.8,.2,1)'});
           this.activeAnimations.add(animation);animation.finished.catch(()=>{}).finally(()=>this.activeAnimations.delete(animation));
@@ -239,19 +257,58 @@ export class Stage {
     }
     const key=this.layoutKey+'|'+[...wanted].map(([a,b])=>`${a}:${b}`).join(',');
     const changed=key!==this.pathKey;this.pathKey=key;
-    for(const[id,line]of this.edges)if(!wanted.has(id)){line.remove();this.edges.delete(id);}
+    for(const[id,line]of this.edges)if(!wanted.has(id)){line.hit.remove();line.remove();this.edges.delete(id);}
     for(const[from,to]of wanted){
       let line=this.edges.get(from);
-      if(!line){line=document.createElementNS('http://www.w3.org/2000/svg','path');line.setAttribute('class','stage-reported-edge');line.setAttribute('fill','none');line.setAttribute('vector-effect','non-scaling-stroke');const title=document.createElementNS('http://www.w3.org/2000/svg','title');line.append(title);this.svg.append(line);this.edges.set(from,line);}
+      if(!line){
+        line=document.createElementNS('http://www.w3.org/2000/svg','path');
+        line.setAttribute('class','stage-reported-edge');line.setAttribute('fill','none');line.setAttribute('vector-effect','non-scaling-stroke');
+        const title=document.createElementNS('http://www.w3.org/2000/svg','title');line.append(title);line.hit=document.createElementNS(this.svg.namespaceURI,'path');
+        line.hit.setAttribute('class','stage-edge-hit');line.hit.setAttribute('fill','none');line.hit.setAttribute('vector-effect','non-scaling-stroke');
+        line.hit.dataset.from=String(from);this.hitLayer.append(line.hit);this.svg.append(line);this.edges.set(from,line);
+      }
       line.dataset.from=String(from);line.dataset.to=String(to);
       line.firstElementChild.textContent=`节点 #${from} 报告 Leader #${to} · 任期 ${this.samples.get(from).status.term}；非实测链路`;
-      if(changed)line.setAttribute('d',route(this.geom,from,to));
-      const selected=from===this.selected||to===this.selected;
-      line.classList.toggle('selected',selected);line.classList.toggle('subdued',this.selected!=null&&!selected);
-      line.style.display=(!this.showAllRelations&&!selected)?'none':'';
+      if(changed){const d=route(this.geom,from,to);line.setAttribute('d',d);line.hit.setAttribute('d',d);line.segments=pathSegments(d);}
     }
     this.host.dataset.relations=String(wanted.size);
-    this.host.dataset.visibleRelations=String([...wanted].filter(([a,b])=>this.showAllRelations||a===this.selected||b===this.selected).length);
+    if(!wanted.has(this.selected))this.showAllRelations=true;
+    this.updateRelationControl();this.paintRelations();
+  }
+
+  inspectEdge(event) {
+    if(this.pointers.size)return;
+    const p=new DOMPoint(event.clientX,event.clientY).matrixTransform(this.svg.getScreenCTM().inverse());
+    let closest,limit=(6/this.scale)**2;
+    for(const[id,line]of this.edges){if(line.style.display==='none')continue;
+      for(const[a,b]of line.segments){
+        const dx=b[0]-a[0],dy=b[1]-a[1],length=dx*dx+dy*dy;
+        const t=length?Math.max(0,Math.min(1,((p.x-a[0])*dx+(p.y-a[1])*dy)/length)):0;
+        const squared=(p.x-a[0]-t*dx)**2+(p.y-a[1]-t*dy)**2;
+        if(squared<limit){limit=squared;closest=id;}
+      }
+    }
+    if(this.hovered!==closest){this.hovered=closest;this.paintRelations();}
+  }
+
+  paintRelations() {
+    // Selecting a Leader is not a request to emphasize every incident edge.
+    const from=[this.hovered,this.focusedNode,this.selected].find(id=>this.edges.has(id));
+    const active=this.edges.get(from),to=active?Number(active.dataset.to):null;
+    let visible=0;
+    for(const[id,line]of this.edges){
+      line.classList.toggle('selected',id===from);
+      line.classList.toggle('subdued',from!=null&&id!==from);
+      line.style.display=(!this.showAllRelations&&from!=null&&id!==from)?'none':'';
+      line.hit.style.display=line.style.display;if(line.style.display!=='none')visible++;
+    }
+    for(const[id,node]of this.nodes){
+      node.classList.toggle('related',id===from||id===to);
+      node.classList.toggle('unrelated',from!=null&&id!==from&&id!==to&&id!==this.selected);
+    }
+    this.host.dataset.visibleRelations=String(visible);
+    this.relationNote.hidden=!active;
+    if(active)this.relationNote.textContent=`#${from} 报告 Leader #${to} · Term ${this.samples.get(from)?.status?.term} · 非实测链路`;
   }
 
   pulse(id) {
@@ -305,7 +362,13 @@ export class Stage {
     this.tx = x - (x - this.tx) * next / this.scale; this.ty = y - (y - this.ty) * next / this.scale;
     this.scale = next; this.applyTransform();
   }
-  applyTransform() { this.world.style.transform = `translate(${this.tx}px,${this.ty}px) scale(${this.scale})`; }
+  applyTransform() {
+    this.world.style.transform=`translate(${this.tx}px,${this.ty}px) scale(${this.scale})`;
+    if(this.orientation){
+      this.orientation.hidden=!this.viewChangedByUser;
+      this.orientation.textContent=`${Math.round(this.scale*100)}% · 返回全景`;
+    }
+  }
 
   pointerDown(event) {
     if (event.target.closest('.stage-control')) return;

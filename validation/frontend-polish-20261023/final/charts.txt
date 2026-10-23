@@ -1,0 +1,14 @@
+PASS: single PASS is summarized without redundant charts
+PASS: multiple PASS values use one clear chart
+PASS: sample count is explicit
+PASS: mean is explicit
+PASS: median is explicit
+PASS: range is explicit
+PASS: failure count is explicit
+PASS: interruption count is explicit
+PASS: invalid elapsed values are absent from the chart
+PASS: timeline leaves missing rounds disconnected
+PASS: SVG has an accessible label and seconds unit
+PASS: grouping fields still separate distinct platform runs
+PASS: untrusted group labels are escaped
+PASS: chart remains within a mobile viewport with readable scroll width

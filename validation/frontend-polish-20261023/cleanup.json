@@ -1,0 +1,39 @@
+{
+  "result": "PASS",
+  "terminated_own_test_controllers": [
+    {
+      "pid": 457285,
+      "addr": "127.0.0.1:18090",
+      "exe": "raft-console"
+    },
+    {
+      "pid": 478526,
+      "addr": "127.0.0.1:18091",
+      "exe": "raft-console"
+    },
+    {
+      "pid": 486871,
+      "addr": "127.0.0.1:18092",
+      "exe": "raft-console-v2"
+    },
+    {
+      "pid": 494058,
+      "addr": "127.0.0.1:18093",
+      "exe": "raft-console-v3"
+    },
+    {
+      "pid": 523146,
+      "addr": "127.0.0.1:18094",
+      "exe": "raft-console-release"
+    },
+    {
+      "pid": 545791,
+      "addr": "127.0.0.1:18095",
+      "exe": "raft-console-picked"
+    }
+  ],
+  "owned_nodes_remaining": [],
+  "test_http_listeners_remaining": [],
+  "scope": "verified /proc/exe within this task plus exact known test listen addresses; existing preview untouched",
+  "cleanup_attempt_note": "first owner check used argv[0], which was relative; it matched no process and left test listeners. Final check resolves /proc/exe. No unrelated process was targeted."
+}

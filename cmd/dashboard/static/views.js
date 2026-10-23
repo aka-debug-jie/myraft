@@ -139,8 +139,7 @@ function lesson(s){
   const ops=f.operations||[],stopped=ops.findLastIndex(o=>['stop','stop_all'].includes(o.kind)&&o.state==='succeeded');
   const restoreIndex=ops.findLastIndex(o=>['restart','resume'].includes(o.kind)&&o.state==='succeeded');
   const restored=stopped>=0&&restoreIndex>stopped;
-  const generateIndex=ops.findLastIndex(o=>o.kind==='generate');
-  const inFault=stopped>=0&&(!restored||generateIndex<restoreIndex);
+  const inFault=stopped>=0;
   const ready=members>0&&fresh(s)&&nodes.length===members&&nodes.every(n=>n.reachable&&n.identity_ok&&!n.error);
   const waiting=generated&&generated.committed!==true&&(generated.accepted!==false||!generated.ended_at);
   const steps=[
@@ -151,12 +150,12 @@ function lesson(s){
     ['故障与恢复',restored?'进程已恢复；继续核查追赶和历史':'选择节点，确认停止，再用原数据恢复',restored,'<button class="btn lesson-next" data-page="faults">故障实验</button>'],
     ['验证恢复结果',`当前：${checks[current]||current} · 历史：${checks[history]||history}`,history==='passed'&&current==='passed'&&ready&&restored,button(s,'verify','校验当前','lesson-next')+button(s,'verify_history','校验历史','lesson-next')]
   ];
-  const next=inFault?(restored?5:4):!ready?0:!generated?.committed?1:!(target&&applied===members&&current==='passed')?2:!f.checkpoint?3:4;
-  return {steps,next,complete:inFault&&restored&&ready&&applied===members&&current==='passed'&&history==='passed'};
+  const next=waiting?1:inFault?(restored?5:4):!ready?0:!generated?.committed?1:!(target&&applied===members&&current==='passed')?2:!f.checkpoint?3:4;
+  return {steps,next,complete:generated?.committed===true&&inFault&&restored&&ready&&applied===members&&current==='passed'&&history==='passed'};
 }
 export function workflow(s){
   const{steps,next}=lesson(s);
-  return `<button class="iconbtn detail-close" data-act="close-demo" aria-label="关闭演示流程">×</button><p class="eyebrow">课堂演示</p><h2>从提交到恢复</h2><p class="muted">每一步明确执行，结果分别确认。</p><ol class="workflow-steps">${steps.map(([title,note,done,actions],i)=>`<li class="workflow-step ${done?'complete':i===next?'current':''}"><strong>${title}</strong><p>${esc(note)}</p><div class="actions">${actions}</div></li>`).join('')}</ol><p class="small muted">恢复进程不等于完成追赶。索引进度不代替完整日志校验。</p>`;
+  return `<button class="iconbtn detail-close" data-act="close-demo" aria-label="关闭演示流程">×</button><p class="eyebrow">课堂演示</p><h2>从提交到恢复</h2><p class="muted">每一步明确执行，结果分别确认。</p><ol class="workflow-steps">${steps.map(([title,note,done,actions],i)=>`<li data-step="${i}" class="workflow-step ${done?'complete':i===next?'current':''}"><strong>${title}</strong><p>${esc(note)}</p><div class="actions">${actions}</div></li>`).join('')}</ol><p class="small muted">恢复进程不等于完成追赶。索引进度不代替完整日志校验。</p>`;
 }
 export function lessonDock(s){
   const{steps,next,complete}=lesson(s),[title,note,,action]=steps[next];

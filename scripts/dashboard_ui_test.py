@@ -394,7 +394,7 @@ class DashboardBrowserTests(unittest.TestCase):
             new=frame_fixture();new['controller_id']='NEW-CONTROLLER';new['control_enabled']=True
             page.evaluate('f=>window.__emitSyntheticFrame(f)',new)
             page.evaluate('window.__resolveSyntheticOperation()')
-            page.wait_for_function("document.querySelector('#create-form button').disabled===false")
+            page.wait_for_function("() => document.querySelector('#create-form button').disabled===false")
             self.assertNotIn('SYNTHETIC-OP',page.locator('#task-body').inner_text())
         finally:context.close()
 
@@ -411,7 +411,7 @@ class DashboardBrowserTests(unittest.TestCase):
             page.route('**/api/session',recover)
             new=frame_fixture();new['controller_id']='RECOVERED-CONTROLLER';new['control_enabled']=True
             page.evaluate('f=>window.__emitSyntheticFrame(f)',new)
-            page.wait_for_function("document.querySelector('#create-form button').disabled===false",timeout=10000)
+            page.wait_for_function("() => document.querySelector('#create-form button').disabled===false",timeout=10000)
             self.assertEqual(failures,['first bootstrap failed'])
         finally:context.close()
 

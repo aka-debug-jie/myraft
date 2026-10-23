@@ -1,0 +1,218 @@
+{
+  "mode": "REAL",
+  "platform": "posix",
+  "dashboard_sha256": "d6b4b90e8db2a1972f8cf5911c2c748a7696dc8e8879cfe7bae9be8bd4d46d4a",
+  "node_sha256": "b735658d0b3e3003032ef745fbdc54e8205fe3bbbbcbba7124b24d5abd81c13d",
+  "runs": [
+    {
+      "nodes": 3,
+      "result": "PASS",
+      "checkpoint": {
+        "index": 2102,
+        "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+        "x": 0
+      },
+      "commands": 2104,
+      "views": [
+        {
+          "visible": 3,
+          "blocked": [],
+          "viewport": [
+            1440,
+            900
+          ]
+        },
+        {
+          "visible": 3,
+          "blocked": [],
+          "viewport": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "visible": 3,
+          "blocked": [],
+          "viewport": [
+            390,
+            844
+          ]
+        }
+      ],
+      "page_errors": [],
+      "initial_leader": 1,
+      "new_leader": 2,
+      "history_preserved": true,
+      "owned_nodes_remaining": 0,
+      "remaining_listeners": []
+    },
+    {
+      "nodes": 11,
+      "result": "PASS",
+      "checkpoint": {
+        "index": 2102,
+        "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+        "x": 0
+      },
+      "commands": 2104,
+      "views": [
+        {
+          "visible": 11,
+          "blocked": [],
+          "viewport": [
+            1440,
+            900
+          ]
+        },
+        {
+          "visible": 11,
+          "blocked": [],
+          "viewport": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "visible": 11,
+          "blocked": [],
+          "viewport": [
+            390,
+            844
+          ]
+        }
+      ],
+      "page_errors": [],
+      "initial_leader": 3,
+      "new_leader": 6,
+      "history_preserved": true,
+      "owned_nodes_remaining": 0,
+      "remaining_listeners": []
+    },
+    {
+      "nodes": 20,
+      "result": "PASS",
+      "checkpoint": {
+        "index": 2102,
+        "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+        "x": 0
+      },
+      "commands": 2104,
+      "views": [
+        {
+          "visible": 20,
+          "blocked": [],
+          "viewport": [
+            1440,
+            900
+          ]
+        },
+        {
+          "visible": 20,
+          "blocked": [],
+          "viewport": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "visible": 20,
+          "blocked": [],
+          "viewport": [
+            390,
+            844
+          ]
+        }
+      ],
+      "page_errors": [],
+      "initial_leader": 3,
+      "new_leader": 9,
+      "history_preserved": true,
+      "owned_nodes_remaining": 0,
+      "remaining_listeners": []
+    },
+    {
+      "nodes": 50,
+      "result": "PASS",
+      "checkpoint": {
+        "index": 2102,
+        "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+        "x": 0
+      },
+      "commands": 2104,
+      "views": [
+        {
+          "visible": 50,
+          "blocked": [],
+          "viewport": [
+            1440,
+            900
+          ]
+        },
+        {
+          "visible": 50,
+          "blocked": [],
+          "viewport": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "visible": 50,
+          "blocked": [],
+          "viewport": [
+            390,
+            844
+          ]
+        }
+      ],
+      "page_errors": [],
+      "initial_leader": 3,
+      "new_leader": 2,
+      "history_preserved": true,
+      "owned_nodes_remaining": 0,
+      "remaining_listeners": []
+    },
+    {
+      "nodes": 100,
+      "result": "PASS",
+      "checkpoint": {
+        "index": 2102,
+        "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+        "x": 0
+      },
+      "commands": 2104,
+      "views": [
+        {
+          "visible": 100,
+          "blocked": [],
+          "viewport": [
+            1440,
+            900
+          ]
+        },
+        {
+          "visible": 100,
+          "blocked": [],
+          "viewport": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "visible": 100,
+          "blocked": [],
+          "viewport": [
+            390,
+            844
+          ]
+        }
+      ],
+      "page_errors": [],
+      "initial_leader": 95,
+      "new_leader": 83,
+      "history_preserved": true,
+      "owned_nodes_remaining": 0,
+      "remaining_listeners": []
+    }
+  ]
+}

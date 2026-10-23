@@ -83,38 +83,59 @@ const groupLabel = (row) => {
   return `${escapeHTML(row.platform ?? '未知平台')} · ${escapeHTML(row.nodes ?? '—')} 节点 · ${escapeHTML(row.scenario ?? '未知场景')} · 工作量 ${workload} 条命令 · batch ${escapeHTML(row.batch_size ?? '—')}`;
 };
 
+const elapsedSeconds = (item) => {
+  if (item.elapsed_seconds == null || String(item.elapsed_seconds).trim() === '') return null;
+  const value = Number(item.elapsed_seconds);
+  return Number.isFinite(value) && value >= 0 ? value : null;
+};
+
+const secondsText = (value) => `${value.toFixed(3)} s`;
+
 const renderGroup = (group) => {
   const { row, rows, passes, failed, interrupted } = group;
-  const values = passes.filter((item) => item.elapsed_seconds != null && item.elapsed_seconds !== '')
-    .map((item) => Number(item.elapsed_seconds)).filter(Number.isFinite);
+  const values = passes.map(elapsedSeconds).filter((seconds) => seconds != null);
   const n = values.length;
-  const mean = n ? values.reduce((sum, value) => sum + value, 0) / n : null;
-  const max = Math.max(1, values.reduce((largest, value) => Math.max(largest, value), 0));
-  const x = (value) => 28 + (value / max) * 450;
-  const dots = values.map((value, index) => `<circle cx="${x(value).toFixed(2)}" cy="${22 + (index % 5) * 8}" r="3.5" fill="var(--accent)"><title>PASS ${escapeHTML(value)} 秒</title></circle>`).join('');
-  const meanMark = mean == null ? '' : `<line x1="${x(mean).toFixed(2)}" y1="12" x2="${x(mean).toFixed(2)}" y2="58" stroke="var(--amber)" stroke-width="2" stroke-dasharray="3 3"/><text x="${Math.min(395, x(mean) + 5).toFixed(2)}" y="11" fill="var(--muted)" font-size="8">mean ${mean.toFixed(3)} s</text>`;
-  const plot = n ? `<svg viewBox="0 0 500 64" role="img" aria-label="PASS 原始耗时点与均值" style="width:100%;height:auto;min-height:64px"><line x1="28" y1="60" x2="478" y2="60" stroke="var(--line)"/>${dots}${meanMark}<text x="28" y="63" fill="var(--muted)" font-size="8">0 s</text><text x="430" y="63" fill="var(--muted)" font-size="8">${max.toFixed(3)} s</text></svg>` : '<p class="muted small">该组没有可绘制的 PASS 耗时。</p>';
-  const timeline = rows.map((item, index) => ({item, index, round:Number(item.round)}))
-    .filter((entry) => Number.isFinite(entry.round) && entry.round > 0)
-    .sort((a, b) => a.round - b.round || a.index - b.index);
-  const elapsed = timeline.filter(({item}) => item.result === 'PASS' && item.elapsed_seconds != null && item.elapsed_seconds !== '' && Number.isFinite(Number(item.elapsed_seconds)) && Number(item.elapsed_seconds) >= 0);
-  const timelineMax = Math.max(1, ...elapsed.map(({item}) => Number(item.elapsed_seconds)));
-  const firstRound = timeline.length ? timeline[0].round : 1;
-  const lastRound = timeline.length ? timeline[timeline.length - 1].round : firstRound;
-  const tx = (round) => 36 + (lastRound === firstRound ? 428 : (round - firstRound) / (lastRound - firstRound) * 428);
-  const ty = (seconds) => 76 - Number(seconds) / timelineMax * 56;
-  const timedPoints = new Map(elapsed.map((entry) => [entry, {round:entry.round, seconds:Number(entry.item.elapsed_seconds), x:tx(entry.round), y:ty(entry.item.elapsed_seconds)}]));
-  let previous = null;
-  const timelineLines = [];
-  for (const entry of timeline) {
-    const current = timedPoints.get(entry) ?? null;
-    if (current && previous && entry.round === previous.round + 1) timelineLines.push(`<line x1="${previous.x.toFixed(2)}" y1="${previous.y.toFixed(2)}" x2="${current.x.toFixed(2)}" y2="${current.y.toFixed(2)}" stroke="var(--accent)" stroke-width="1.5"/>`);
-    previous = current;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mean = n ? values.reduce((sum, value) => sum + value / n, 0) : null;
+  const median = n ? (sorted.length % 2 ? sorted[(n - 1) / 2] : sorted[n / 2 - 1] / 2 + sorted[n / 2] / 2) : null;
+  const range = n ? `${sorted[0].toFixed(3)}–${secondsText(sorted[n - 1])}` : null;
+  let plot = '<p class="small muted perf-empty">没有可用的 PASS 耗时。</p>';
+
+  if (n === 1) {
+    plot = `<p class="perf-single" aria-label="单次 PASS 耗时 ${secondsText(values[0])}"><strong>${secondsText(values[0])}</strong><span>单次 PASS 耗时</span></p>`;
+  } else if (n > 1) {
+    const timeline = rows.map((item, index) => ({ item, index, round: Number(item.round), seconds: item.result === 'PASS' ? elapsedSeconds(item) : null }))
+      .filter((entry) => Number.isFinite(entry.round) && entry.round > 0)
+      .sort((a, b) => a.round - b.round || a.index - b.index);
+    const elapsed = timeline.filter((entry) => entry.seconds != null);
+    const timelineMax = Math.max(1, ...elapsed.map((entry) => entry.seconds));
+    const firstRound = timeline.length ? timeline[0].round : 1;
+    const lastRound = timeline.length ? timeline[timeline.length - 1].round : firstRound;
+    const tx = (round) => 42 + (lastRound === firstRound ? 516 : (round - firstRound) / (lastRound - firstRound) * 516);
+    const ty = (seconds) => 94 - (seconds / timelineMax) * 66;
+    let previous = null;
+    const lines = [];
+    for (const entry of timeline) {
+      const current = entry.seconds == null ? null : { round: entry.round, seconds: entry.seconds, x: tx(entry.round), y: ty(entry.seconds) };
+      if (current && previous && entry.round === previous.round + 1) {
+        lines.push(`<line class="perf-line-segment" x1="${previous.x.toFixed(2)}" y1="${previous.y.toFixed(2)}" x2="${current.x.toFixed(2)}" y2="${current.y.toFixed(2)}"/>`);
+      }
+      previous = current;
+    }
+    const dots = elapsed.map((entry) => {
+      const cx = tx(entry.round);
+      const cy = ty(entry.seconds);
+      return `<circle class="perf-point" cx="${cx.toFixed(2)}" cy="${cy.toFixed(2)}" r="4"><title>第 ${escapeHTML(entry.round)} 轮 · ${secondsText(entry.seconds)}</title></circle><text x="${cx.toFixed(2)}" y="${Math.max(12, cy - 8).toFixed(2)}" text-anchor="middle" class="perf-round-label">r${escapeHTML(entry.round)}</text>`;
+    }).join('');
+    const maxLabel = secondsText(timelineMax);
+    plot = `<div class="perf-chart-scroll"><svg class="perf-timeline" viewBox="0 0 600 132" role="img" aria-label="PASS 逐轮耗时，单位秒" preserveAspectRatio="xMidYMid meet"><line class="perf-axis" x1="42" y1="96" x2="558" y2="96"/><line class="perf-guide" x1="42" y1="28" x2="558" y2="28"/><text class="perf-axis-label" x="42" y="118">${escapeHTML(firstRound)} 轮</text><text class="perf-axis-label" x="558" y="118" text-anchor="end">${escapeHTML(lastRound)} 轮</text><text class="perf-axis-label" x="42" y="22">${escapeHTML(maxLabel)}</text>${lines.join('')}${dots}</svg></div>`;
   }
-  const timelineDots = [...timedPoints.values()].map((point) => `<circle cx="${point.x.toFixed(2)}" cy="${point.y.toFixed(2)}" r="3" fill="var(--accent)"><title>第 ${escapeHTML(point.round)} 轮 · ${escapeHTML(point.seconds)} 秒</title></circle><text x="${point.x.toFixed(2)}" y="${Math.max(10, point.y - 6).toFixed(2)}" text-anchor="middle" fill="var(--muted)" font-size="8">r${escapeHTML(point.round)}</text>`).join('');
-  const timelinePlot = elapsed.length ? `<div class="small muted" style="margin-top:8px">逐轮实际耗时 · 秒</div><svg viewBox="0 0 500 88" role="img" aria-label="逐轮实际耗时，单位秒" style="width:100%;height:auto"><line x1="24" y1="78" x2="476" y2="78" stroke="var(--line)"/>${elapsed.length >= 2 ? timelineLines.join('') : ''}${timelineDots}</svg>` : '';
+
+  const stats = n
+    ? `均值 ${secondsText(mean)} · 中位数 ${secondsText(median)} · 范围 ${range} · n=${n}`
+    : '有效耗时 n=0';
   const source = escapeHTML(row.source_sha256 ?? '未知');
-  return `<article class="panel" style="margin:12px 0;padding:14px 16px"><h3 style="margin:0 0 4px;font-size:12px">${groupLabel(row)}</h3><p class="evidence-hash" style="margin:0 0 8px">平台 ${escapeHTML(row.platform ?? '未知')} · 源码 SHA-256 ${source}</p><p class="small muted" style="margin:4px 0">PASS n=${n}${mean == null ? '' : ` · mean ${mean.toFixed(3)} s`} · FAIL ${failed} · INTERRUPTED ${interrupted}</p>${plot}${timelinePlot}</article>`;
+  return `<article class="panel perf-group"><h3 class="perf-title">${groupLabel(row)}</h3><p class="evidence-hash perf-source">平台 ${escapeHTML(row.platform ?? '未知')} · 源码 SHA-256 ${source}</p><p class="small muted perf-summary">PASS ${passes.length} · ${stats} · FAIL ${failed} · INTERRUPTED ${interrupted}</p>${plot}</article>`;
 };
 
 export function experimentChart(rows) {

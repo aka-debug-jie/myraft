@@ -1,24 +1,29 @@
 // Stable slots describe presentation only; they never choose a protocol leader.
 export function geometry(ids, order, center, width, height) {
-  const dense=ids.length>15, outer=order.filter(id=>id!==center), positions=new Map(), radii=new Map(), lanes=new Map();
-  let w=Math.max(width,dense?1180:680), h=Math.max(height,dense?650:620);
+  const dense=ids.length>15, compact=!dense&&width<600, outer=order.filter(id=>id!==center), positions=new Map(), radii=new Map(), lanes=new Map();
+  let w=Math.max(width,dense?1180:compact?360:680), h=Math.max(height,dense?650:620);
   const cols=dense?Math.min(5,Math.max(2,Math.ceil(Math.sqrt(outer.length/2)))):0;
   const rows=dense?Math.ceil(Math.ceil(outer.length/2)/cols):0;
   if(dense)h=Math.max(h,rows*82+180);
-  const cx=w/2,cy=(h-28)/2, radius=dense?56:60;
+  const cx=w/2,cy=(h-28)/2, radius=dense?68:compact?48:60;
   if(center!=null){positions.set(center,[cx,cy]);radii.set(center,radius);}
   if(!dense){
-    const rx=Math.min(w*.34,(w-132)/2),ry=Math.min((h-196)*.41,rx);
-    outer.forEach((id,i)=>{const a=-Math.PI/2+2*Math.PI*i/Math.max(1,outer.length);positions.set(id,[cx+rx*Math.cos(a),cy+ry*Math.sin(a)]);radii.set(id,outer.length>12?36:42);});
+    const rx=Math.min(w*.34,(w-132)/2),ry=Math.min((h-196)*.41,rx*(compact?1.75:1));
+    outer.forEach((id,i)=>{const a=-Math.PI/2+2*Math.PI*i/Math.max(1,outer.length);positions.set(id,[cx+rx*Math.cos(a),cy+ry*Math.sin(a)]);radii.set(id,compact?(outer.length>6?26:34):outer.length>12?36:42);});
   }else{
     const half=Math.ceil(outer.length/2),pitch=Math.min(102,(w/2-190)/cols),top=cy-(rows-1)*82/2;
     outer.forEach((id,i)=>{
       const side=i<half?-1:1,k=i<half?i:i-half,row=Math.floor(k/cols),col=k%cols;
       positions.set(id,[cx+side*(190+col*pitch),top+row*82]);radii.set(id,22);
-      lanes.set(id,{side,row,col,y:top+row*82-22-12-col*4});
+      lanes.set(id,{side,row,col,y:top+row*82-22-10-col*5});
     });
+    // Independent ports around each half-circle keep all logical relationships visible.
+    for(const side of [-1,1]){
+      const ordered=[...lanes.values()].filter(l=>l.side===side).sort((a,b)=>a.y-b.y);
+      ordered.forEach((lane,i)=>{lane.portY=radius*.94*(-1+2*i/Math.max(1,ordered.length-1));});
+    }
   }
-  return {positions,radii,lanes,width:w,height:h,center,cx,cy,dense};
+  return {positions,radii,lanes,width:w,height:h,center,cx,cy,dense,compact};
 }
 
 const distance=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
@@ -87,11 +92,32 @@ export function route(g,from,to){
   const a=g.positions.get(from),b=g.positions.get(to);if(!a||!b)return '';
   let points;
   if(g.dense&&to===g.center&&g.lanes.has(from)){
-    const lane=g.lanes.get(from),r=g.radii.get(to),dy=Math.max(-r*.84,Math.min(r*.84,(lane.y-g.cy)/(g.height/2)*r*.9));
-    const tip=[b[0]+lane.side*Math.sqrt(r*r-dy*dy),b[1]+dy];
-    points=[[a[0],a[1]-g.radii.get(from)],[a[0],lane.y],[g.cx+lane.side*128,lane.y],[g.cx+lane.side*(r+22),tip[1]],tip];
-    if(!clear(points,g,from,to))points=null;
+    const lane=g.lanes.get(from),r=g.radii.get(to),dy=lane.portY,dx=lane.side*Math.sqrt(r*r-dy*dy);
+    const tip=[b[0]+dx,b[1]+dy],entry=[g.cx+lane.side*150,lane.y];
+    points=[[a[0],a[1]-g.radii.get(from)],[a[0],lane.y],entry];
+    // Ordered fan controls avoid crossings; each relationship has its own circle port.
+    return rounded(simplify(points),8)+` C${g.cx+lane.side*120},${lane.y} ${g.cx+lane.side*105},${tip[1]} ${g.cx+lane.side*(r+20)},${tip[1]} L${tip.join(',')}`;
   }
   if(!points){const direct=[clip(a,b,g.radii.get(from)),clip(b,a,g.radii.get(to))];points=clear(direct,g,from,to)?direct:orthogonal(g,from,to);}
   return rounded(simplify(points));
+}
+
+// Flatten our M/L/Q/C paths once for precise pointer picking between dense strokes.
+export function pathSegments(d) {
+  const tokens=d.match(/[MLQC]|[-+]?(?:\d*\.?\d+)(?:e[-+]?\d+)?/g)||[],points=[];
+  let i=0,at;
+  const point=()=>[Number(tokens[i++]),Number(tokens[i++])];
+  const mid=(a,b)=>[(a[0]+b[0])/2,(a[1]+b[1])/2];
+  function curve(a,b,c,e,depth=0){
+    const deviation=p=>Math.abs((e[0]-a[0])*(a[1]-p[1])-(a[0]-p[0])*(e[1]-a[1]))/(distance(a,e)||1);
+    if(depth>=12||Math.max(deviation(b),deviation(c))<.02){points.push(e);return;}
+    const ab=mid(a,b),bc=mid(b,c),ce=mid(c,e),left=mid(ab,bc),right=mid(bc,ce),center=mid(left,right);
+    curve(a,ab,left,center,depth+1);curve(center,right,ce,e,depth+1);
+  }
+  while(i<tokens.length){const command=tokens[i++];
+    if(command==='M'||command==='L'){at=point();points.push(at);}
+    else if(command==='Q'){const b=point(),end=point();curve(at,at.map((v,j)=>v+(b[j]-v)*2/3),end.map((v,j)=>v+(b[j]-v)*2/3),end);at=end;}
+    else if(command==='C'){const b=point(),c=point(),end=point();curve(at,b,c,end);at=end;}
+  }
+  return points.slice(1).map((p,i)=>[points[i],p]);
 }

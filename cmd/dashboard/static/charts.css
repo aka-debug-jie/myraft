@@ -1,0 +1,103 @@
+.perf-group {
+  min-width: 0;
+  margin: 12px 0;
+  padding: 14px 16px;
+}
+
+.perf-title {
+  margin: 0 0 4px;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.perf-source {
+  margin: 0 0 8px;
+  overflow-wrap: anywhere;
+}
+
+.perf-summary {
+  margin: 4px 0 10px;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+
+.perf-single {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+  margin: 8px 0 2px;
+  color: var(--muted);
+}
+
+.perf-single strong {
+  color: var(--ink);
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.perf-empty {
+  margin: 8px 0 2px;
+}
+
+.perf-chart-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  margin-top: 6px;
+}
+
+.perf-timeline {
+  display: block;
+  width: 100%;
+  min-width: 520px;
+  height: auto;
+  overflow: visible;
+  font-family: inherit;
+}
+
+.perf-axis,
+.perf-guide {
+  vector-effect: non-scaling-stroke;
+}
+
+.perf-axis {
+  stroke: var(--line);
+}
+
+.perf-guide {
+  stroke: var(--line);
+  stroke-dasharray: 2 4;
+  opacity: 0.65;
+}
+
+.perf-line-segment {
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.perf-point {
+  fill: var(--accent);
+  stroke: var(--surface);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.perf-round-label,
+.perf-axis-label {
+  fill: var(--muted);
+  font-size: 10px;
+}
+
+@media (max-width: 480px) {
+  .perf-group {
+    padding: 12px;
+  }
+
+  .perf-summary {
+    font-size: 12px;
+  }
+}

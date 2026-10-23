@@ -28,15 +28,36 @@ document.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'&&e.client
 // Only live regions are replaced: forms and their focus/selection stay in the DOM.
 function setContent(element,html) {
   if(!element||element._markup===html)return;
-  const opened=[...element.querySelectorAll('details[open][data-disclosure]')].map(e=>e.dataset.disclosure);
-  const focused=document.activeElement;
-  const key=focused?.id?`#${CSS.escape(focused.id)}`:['data-act','data-node','data-session','data-entry','data-entry-node'].filter(a=>focused?.hasAttribute(a)).map(a=>`[${a}="${CSS.escape(focused.getAttribute(a))}"]`).join('');
-  const restore=element.contains(focused),scrollTop=element.scrollTop;
+  const selector=node=>node.id?`#${CSS.escape(node.id)}`:
+    ['data-disclosure','data-receipt','data-step','data-act','data-node','data-session','data-entry','data-entry-node']
+      .filter(a=>node.hasAttribute(a)).map(a=>`[${a}="${CSS.escape(node.getAttribute(a))}"]`).join('');
+  const focus=document.activeElement,restore=element.contains(focus);
+  const scope=restore?focus.closest('details[data-disclosure],details[data-receipt],[data-step]'):null;
+  const scopeKey=scope&&element.contains(scope)?selector(scope):'';
+  const focusKey=restore?(selector(focus)||(focus.tagName==='SUMMARY'?'summary':'')):'';
+  const focusIndex=focusKey?[...(scopeKey?scope:element).querySelectorAll(focusKey)].indexOf(focus):-1;
+  const opened=[...element.querySelectorAll('details[open][data-disclosure],details[open][data-receipt]')].map(selector);
+  const scrollSelector='.table-scroll,.json-view,.perf-chart-scroll';
+  const scrolls=[...element.querySelectorAll(scrollSelector)].map((node,index)=>{
+    const parent=node.closest('details[data-disclosure],details[data-receipt]');
+    return {parent:parent?selector(parent):'',index:parent?[...parent.querySelectorAll(scrollSelector)].indexOf(node):index,top:node.scrollTop,left:node.scrollLeft};
+  });
+  const top=element.scrollTop,left=element.scrollLeft;
   element.innerHTML=html;element._markup=html;
-  for(const id of opened){const d=element.querySelector(`[data-disclosure="${CSS.escape(id)}"]`);if(d)d.open=true;}
-  element.scrollTop=scrollTop;
-  if(restore&&key){const next=element.querySelector(key);if(next&&!next.closest('[hidden],[inert]'))next.focus({preventScroll:true});}
+  for(const key of opened){const d=element.querySelector(key);if(d)d.open=true;}
+  // Raw receipts are populated after rendering, so defer their scroll restoration.
+  queueMicrotask(()=>{if(element._markup!==html)return;for(const saved of scrolls){
+    const parent=saved.parent?element.querySelector(saved.parent):element;
+    const node=parent?.querySelectorAll(scrollSelector)[saved.index];
+    if(node){node.scrollTop=saved.top;node.scrollLeft=saved.left;}
+  }});
+  element.scrollTop=top;element.scrollLeft=left;
+  if(focusIndex>=0){const parent=scopeKey?element.querySelector(scopeKey):element;
+    const next=parent?.querySelectorAll(focusKey)[focusIndex];
+    if(next&&!next.closest('[hidden],[inert]'))next.focus({preventScroll:true});
+  }
 }
+
 function chrome() {
   syncSidebar();const session=state.frame?.session||state.bootstrap?.session,seconds=age(state);
   $('session-name').textContent=session?.name||'尚无活跃会话';

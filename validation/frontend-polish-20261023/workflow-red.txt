@@ -1,0 +1,35 @@
+test_live_detail_summary_keeps_keyboard_focus (__main__.PolishTests.test_live_detail_summary_keeps_keyboard_focus) ... ok
+test_initial_leader_slot_and_single_relation_focus (__main__.PolishTests.test_initial_leader_slot_and_single_relation_focus) ... ok
+test_workflow_button_focus_stays_on_same_step (__main__.PolishTests.test_workflow_button_focus_stays_on_same_step) ... ok
+test_expanded_receipt_scroll_survives_live_update (__main__.PolishTests.test_expanded_receipt_scroll_survives_live_update) ... ok
+test_disconnected_node_detail_clears_cached_sample (__main__.PolishTests.test_disconnected_node_detail_clears_cached_sample) ... ok
+test_new_commit_after_restore_does_not_erase_completed_fault_step (__main__.PolishTests.test_new_commit_after_restore_does_not_erase_completed_fault_step) ... FAIL
+
+======================================================================
+FAIL: test_new_commit_after_restore_does_not_erase_completed_fault_step (__main__.PolishTests.test_new_commit_after_restore_does_not_erase_completed_fault_step)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/public/myraft-polish/scripts/polish_ui_test.py", line 87, in test_new_commit_after_restore_does_not_erase_completed_fault_step
+    expect(page.locator('.lesson-step')).to_have_text('本轮课堂流程完成')
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 20676, in to_have_text
+    self._sync(
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 561, in to_have_text
+    await self._expect_impl(
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 85, in _expect_impl
+    raise AssertionError(
+AssertionError: Locator expected to have text '本轮课堂流程完成'
+Actual value: 故障与恢复 
+Call log:
+  - Expect "to_have_text" with timeout 5000ms
+  - waiting for locator(".lesson-step")
+    9 × locator resolved to <strong class="lesson-step">故障与恢复</strong>
+      - unexpected value "故障与恢复"
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 8.727s
+
+FAILED (failures=1)

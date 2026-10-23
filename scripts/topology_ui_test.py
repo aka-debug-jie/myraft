@@ -45,7 +45,7 @@ def main():
           }
           svg.remove();const host=document.querySelector('#host'),s=new Stage(host),ids=Array.from({length:11},(_,i)=>i+1);
           const frame=(leader,seq,term=1,instance='a')=>({members:ids,scope:'one',fresh:true,snapshotSeq:seq,nodes:ids.map(id=>({id,reachable:true,identity_ok:true,status:{state:id===leader?'Leader':'Follower',term,leader_id:leader,instance_id:instance+id}}))});
-          s.update(frame(1,1));check(s.centerId===null,'one snapshot centered leader');s.update(frame(1,1));check(s.centerId===null,'same seq counted twice');
+          s.update(frame(1,1));check(s.centerId===null,'one snapshot centered leader');check(s.geom.center===1,'initial display did not seed a center');s.update(frame(1,1));check(s.centerId===null,'same seq counted twice');
           s.update(frame(1,2));check(s.centerId===1,'two observations did not center');const initial=new Map(s.positions);
           s.update(frame(7,3,2));check(s.centerId===1,'new leader moved prematurely');s.update(frame(7,4,2));check(s.centerId===7,'new leader not centered');
           check(ids.every(id=>id===1||id===7||JSON.stringify(initial.get(id))===JSON.stringify(s.positions.get(id))),'unrelated node moved');
@@ -63,7 +63,9 @@ def main():
           s.update(frame(9,20,6));const absent=frame(9,21,6);delete absent.nodes[8].status.instance_id;s.update(absent);s.update(frame(9,22,6));check(s.centerId===4,'missing instance did not reset confirmation');s.update(frame(9,23,6));check(s.centerId===9,'recovered instance did not confirm');
           const denseIds=Array.from({length:100},(_,i)=>i+1),dense={scope:'dense',members:denseIds,fresh:true,snapshotSeq:1,nodes:denseIds.map(id=>({id,reachable:true,identity_ok:true,status:{state:id===1?'Leader':'Follower',term:1,leader_id:1,instance_id:'dense-'+id}}))};
           host.style.width='390px';host.style.height='473px';s.update(dense);s.update({...dense,snapshotSeq:2});s.fit();s.focus(1);const rect=s.nodes.get(1).getBoundingClientRect(),bounds=host.getBoundingClientRect();check(Math.abs(rect.x+rect.width/2-bounds.x-195)<1&&Math.abs(rect.y+rect.height/2-bounds.y-236.5)<1,'readable focus not centered');
-          s.update({...frame(2,1),scope:'two'});check(s.centerId===null,'scope retained center');check(s.eventsSeen.size===0,'scope retained events');s.destroy();check(!host.children.length,'destroy leaked DOM');
+          s.showAllRelations=false;s.selected=1;s.hovered=2;
+          s.update({...dense,snapshotSeq:3,selected:1});check(s.showAllRelations,'leader selection left an empty filter active');
+          s.hovered=3;s.update({...frame(2,1),scope:'two'});check(s.hovered===null,'scope retained hovered relation');check(s.centerId===null,'scope retained center');check(s.eventsSeen.size===0,'scope retained events');s.destroy();check(!host.children.length,'destroy leaked DOM');
           samples.sort((a,b)=>a-b);return {routes,failures,stable_update_samples:samples.length,stable_update_p95_ms:samples[Math.floor(samples.length*.95)]};
         }''', {'topology':topology,'stage':stage})
         browser.close()
