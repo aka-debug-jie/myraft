@@ -1,0 +1,27 @@
+{
+  "baseline": "54d92454adda25ed347673f6819fd98a3610a3c2",
+  "phase": 0,
+  "status": "IMPLEMENTED_PENDING_VISUAL_REVIEW",
+  "brief_sha256": "a1b1d4c2fad2be20e859fedae8624f83cab591628781c3fa3c300b871ffe51f6",
+  "source_css_sha256": {
+    "frontend/src/theme.css": "2b9ab866924d4494079e0ee5e1e3edb688cf95ca82865154ff5830821f42c0a4",
+    "frontend/src/app.css": "0d6ce871d7f4e3e88bb40ccfed021fa16815b86dbfb3ff30e7b372bbcd1c9458"
+  },
+  "binary_sha256": "dfc8a18d2753659dc255b21711ae5d58eb4fd723647e5fccc3772ae2e69815eb",
+  "protected_sources_checked": 77,
+  "protected_sources_unchanged": true,
+  "tests": {
+    "typescript": "PASS",
+    "unit": 17,
+    "geometry_cases": 30,
+    "interaction_groups": 7,
+    "page_errors": 0,
+    "node_edge_colors_unchanged": true
+  },
+  "not_run": [
+    "Windows native",
+    "performance comparison",
+    "new classroom write/failover experiment"
+  ],
+  "raw_evidence": ".tools/frontend-redesign-phase0-20261023"
+}
