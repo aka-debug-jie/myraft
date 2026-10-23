@@ -1,0 +1,43 @@
+{
+  "go_test": {
+    "pass": 142,
+    "fail": 0,
+    "skip": 1,
+    "top_level_pass": 90,
+    "subtest_pass": 52
+  },
+  "go_race": {
+    "pass": 142,
+    "fail": 0,
+    "skip": 1,
+    "top_level_pass": 90,
+    "subtest_pass": 52
+  },
+  "typescript_tests": {
+    "pass": 17,
+    "fail": 0
+  },
+  "python": {
+    "pass": 44,
+    "fail": 0
+  },
+  "legacy_ui": {
+    "pass": 24,
+    "skip": 1,
+    "fail": 0
+  },
+  "prototype_ui": {
+    "geometry_cases": 30,
+    "interaction_groups": 7,
+    "result": "PASS"
+  },
+  "real": {
+    "runs": 4,
+    "arithmetic_nodes": 222,
+    "result": "PASS"
+  },
+  "windows_native": "NOT RUN",
+  "safari_firefox": "NOT RUN",
+  "long_soak": "NOT RUN",
+  "windows_cross_build": "PASS"
+}

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<REPO>/scripts/prototype_ui_test.py", line 131, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "<REPO>/scripts/prototype_ui_test.py", line 91, in main
+    assert page.evaluate('()=>document.activeElement.dataset.node')=='100'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

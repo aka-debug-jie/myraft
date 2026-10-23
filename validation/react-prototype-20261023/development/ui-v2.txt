@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<REPO>/scripts/prototype_ui_test.py", line 131, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "<REPO>/scripts/prototype_ui_test.py", line 78, in main
+    assert stats['visible']==count and stats['hit']==count,record
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'nodes': 20, 'renderer': 'svg', 'viewport': (390, 844), 'members': 20, 'visible': 20, 'hit': 19, 'labels': 20, 'drawn': 19, 'relations': 19, 'overlap': [], 'outside': [], 'crossings': [], 'tab_stops': 1}

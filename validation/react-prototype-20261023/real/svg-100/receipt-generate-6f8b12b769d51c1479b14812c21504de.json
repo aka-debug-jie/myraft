@@ -1,0 +1,20 @@
+{
+  "id": "6f8b12b769d51c1479b14812c21504de",
+  "session_id": "44691db9aaa210113b42a11e41d05408",
+  "generation": 2,
+  "kind": "generate",
+  "state": "succeeded",
+  "created_at": "2026-10-23T11:17:47.759303854Z",
+  "ended_at": "2026-10-23T11:17:47.964098865Z",
+  "accepted": true,
+  "committed": true,
+  "result": {
+    "accepted": true,
+    "committed": true,
+    "leader_id": 32,
+    "term": 2,
+    "first_index": 2,
+    "last_index": 2102,
+    "commands": 2101
+  }
+}

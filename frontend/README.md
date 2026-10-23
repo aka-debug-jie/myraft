@@ -40,6 +40,8 @@ Vite 只输出到 `cmd/dashboard/static/prototype/`，不会清空原页面。�
 ```bash
 python scripts/prototype_ui_test.py --url http://127.0.0.1:8080 --output new-evidence/prototype-ui
 python scripts/prototype_acceptance.py --dashboard ./raft-console --node ./raft-node --output new-evidence/prototype-real
+python scripts/prototype_lifecycle.py --url http://127.0.0.1:8080 --output new-evidence/lifecycle
+python scripts/prototype_interaction_benchmark.py --url http://127.0.0.1:8080 --output new-evidence/interaction-performance
 ```
 
 第一条在 Playwright 中拦截合成数据，不发送真实写入；第二条在独立目录运行真实 11/100 节点并控制自己创建的进程。两者都需要测试用 Python 与 Playwright Chromium。真实脚本会保留配置、WAL、日志与证据，结束时关闭自己的进程。

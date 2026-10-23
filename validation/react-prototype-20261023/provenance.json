@@ -1,0 +1,1011 @@
+{
+  "files": [
+    {
+      "file": "README.md",
+      "delivered_sha256": "71b2663d03367025973437041adace385729cec4d2a888c61775bf2372e3ed74",
+      "transformation": "derived report or check; original records retained in task evidence directory"
+    },
+    {
+      "file": "build.json",
+      "delivered_sha256": "58ddf5e5e73e52964a016b6e55f00fa61700ae45ae7bcdbfe8c8f984a799ae4a",
+      "source": ".tools/react-prototype-20261023/build.json",
+      "original_sha256": "58ddf5e5e73e52964a016b6e55f00fa61700ae45ae7bcdbfe8c8f984a799ae4a",
+      "transformation": "none"
+    },
+    {
+      "file": "checks.json",
+      "delivered_sha256": "1b4261b5485ed52740b736294ecd1e01c4e233f44e85e7aae89b51d4780db828",
+      "transformation": "derived summary; input files retained in this evidence directory"
+    },
+    {
+      "file": "checks/go_race.json",
+      "delivered_sha256": "a886d1c1161f9136284dea89f43df7e11134c2dce359385cfd225a5bac625eaf",
+      "transformation": "derived summary; input files retained in this evidence directory"
+    },
+    {
+      "file": "checks/go_test.json",
+      "delivered_sha256": "71dc2eb91a69b3ee0dd996909bcf9b5fa1602eade36e502c86df630fa9ba7e3e",
+      "transformation": "derived summary; input files retained in this evidence directory"
+    },
+    {
+      "file": "checks/legacy-ui.txt",
+      "delivered_sha256": "12ecbd21a6fe8c146bc4eae8f30ba805fd4ff85708d0e15655e0b1f68d1e6a9b",
+      "source": ".tools/react-prototype-20261023/legacy-ui.txt",
+      "original_sha256": "12ecbd21a6fe8c146bc4eae8f30ba805fd4ff85708d0e15655e0b1f68d1e6a9b",
+      "transformation": "none"
+    },
+    {
+      "file": "checks/npm-audit.json",
+      "delivered_sha256": "6d0918d99fbe4443a3a55cbb8cd07a97d98d0a14dd5f4be3abe25436a97019ed",
+      "transformation": "derived report or check; original records retained in task evidence directory"
+    },
+    {
+      "file": "checks/python.txt",
+      "delivered_sha256": "5762c67e571879a7277c3e5143f040bdf9017f48a743078fc69de47f73713973",
+      "source": ".tools/react-prototype-20261023/python-regression.txt",
+      "original_sha256": "5762c67e571879a7277c3e5143f040bdf9017f48a743078fc69de47f73713973",
+      "transformation": "none"
+    },
+    {
+      "file": "checks/smoke.txt",
+      "delivered_sha256": "de72d0ff635a4045fc1772378bea11f5e78440c41600c6ccc11a289cb00ad094",
+      "source": ".tools/react-prototype-20261023/smoke-final.txt",
+      "original_sha256": "87a23d48eb7748876cc98437638a536a3b1a5ad63c3afd2c596cd32d0ed08aa9",
+      "transformation": "machine path redaction"
+    },
+    {
+      "file": "checks/typescript-tests.txt",
+      "delivered_sha256": "e9da6bc03cf0ca96aa4b8fcfa1302a8906c6ac826dd99924767d863a9a87c7fe",
+      "source": ".tools/react-prototype-20261023/unit-certified.txt",
+      "original_sha256": "63fa47723343a511f8005f90874f4b0f4d656ac16118a466468ebd2f7e3b7137",
+      "transformation": "machine path redaction; trailing blank lines normalized; raw output retained"
+    },
+    {
+      "file": "checks/vite-build.txt",
+      "delivered_sha256": "d99d2c9a72bb3ecd263d7fd15bd172b37461f5d9d484a7f128b8cea8f36c8cf6",
+      "source": ".tools/react-prototype-20261023/build-release.txt",
+      "original_sha256": "d99d2c9a72bb3ecd263d7fd15bd172b37461f5d9d484a7f128b8cea8f36c8cf6",
+      "transformation": "none"
+    },
+    {
+      "file": "cleanup.json",
+      "delivered_sha256": "c566b459d39fb3a548a7175e014a8a45d48e19283dc8a3754c277a643975ba8e",
+      "transformation": "derived report or check; original records retained in task evidence directory"
+    },
+    {
+      "file": "development/lifecycle-before-handles-fix.json",
+      "delivered_sha256": "8ebe7b0af214323915d683fbb89917cc18259ab7dbdd89c88e76726a8e5e1c4e",
+      "source": ".tools/react-prototype-20261023/lifecycle-diagnostic/results.json",
+      "original_sha256": "8ebe7b0af214323915d683fbb89917cc18259ab7dbdd89c88e76726a8e5e1c4e",
+      "transformation": "none"
+    },
+    {
+      "file": "development/lifecycle-final.txt",
+      "delivered_sha256": "f2018e78bd90e73d33271d31e334a56aa49f9c43b905a4c4493994d23e9276fa",
+      "source": ".tools/react-prototype-20261023/lifecycle-final.txt",
+      "original_sha256": "92affd286310d6203d59b859bb94b05fc4ec1d4fa33b12bb91ef28e84a75763d",
+      "transformation": "machine path redaction"
+    },
+    {
+      "file": "development/ui-delivery-final.txt",
+      "delivered_sha256": "a4f6d6e190b5f52b04005f118e5164b8a95ccd9fc2bd7e88e653d20de8881f83",
+      "source": ".tools/react-prototype-20261023/ui-delivery-final.txt",
+      "original_sha256": "a4f6d6e190b5f52b04005f118e5164b8a95ccd9fc2bd7e88e653d20de8881f83",
+      "transformation": "none"
+    },
+    {
+      "file": "development/ui-v2.txt",
+      "delivered_sha256": "453fb591a35c3b4b72f8d808ce84fa4c1e1d760b34187198faf05d8ed3f310d9",
+      "source": ".tools/react-prototype-20261023/ui-v2.txt",
+      "original_sha256": "b81fd3e3e44db179ea1b31ee20095d91893824d8b2378c42f7215a47bdf0ae51",
+      "transformation": "machine path redaction"
+    },
+    {
+      "file": "development/ui-v3.txt",
+      "delivered_sha256": "7a155a6bf5ac8470af664283b7a656db609e9df54520cff03ddb12091a7f9349",
+      "source": ".tools/react-prototype-20261023/ui-v3.txt",
+      "original_sha256": "bec72c749163d2516d97fd9975c7d22e64b6855d8db181f85e6a36b8b65a365f",
+      "transformation": "machine path redaction"
+    },
+    {
+      "file": "performance/first-interaction-and-drag.json",
+      "delivered_sha256": "b48901d8c9258e77f2ff9f4345d0c22c40b0e69c9a850844537c8327c50aa339",
+      "source": ".tools/react-prototype-20261023/interaction-performance/results.json",
+      "original_sha256": "b48901d8c9258e77f2ff9f4345d0c22c40b0e69c9a850844537c8327c50aa339",
+      "transformation": "none"
+    },
+    {
+      "file": "performance/lifecycle.json",
+      "delivered_sha256": "6ce9d8462a39cd0a0a127e293bfaa4875eafffcaf5c171e4ad1fcdbfca69d578",
+      "source": ".tools/react-prototype-20261023/lifecycle-fixed/results.json",
+      "original_sha256": "6ce9d8462a39cd0a0a127e293bfaa4875eafffcaf5c171e4ad1fcdbfca69d578",
+      "transformation": "none"
+    },
+    {
+      "file": "performance/routing.txt",
+      "delivered_sha256": "e6ca5578f81018157c956d92397f11fd715c710321f77618ae1ddd22ce7e5502",
+      "source": ".tools/react-prototype-20261023/routing-benchmark-final.txt",
+      "original_sha256": "23b50b822f3942ff83e2f137d8b551f9a590f2075cdf03a136f0404501c36b64",
+      "transformation": "machine path redaction; trailing blank lines normalized; raw output retained"
+    },
+    {
+      "file": "performance/update-and-switch.json",
+      "delivered_sha256": "756ec0966a32583e40ec91369295fb1a1eda150f7b3def6275ab3b68a2b3bfbe",
+      "source": ".tools/react-prototype-20261023/ui-certified/results.json",
+      "original_sha256": "756ec0966a32583e40ec91369295fb1a1eda150f7b3def6275ab3b68a2b3bfbe",
+      "transformation": "none"
+    },
+    {
+      "file": "performance/update-summary.csv",
+      "delivered_sha256": "d58b64b1667221d698a987b88aa5b0cf7c348c08c632a155c52a1e4241d5fee6",
+      "transformation": "derived summary; input files retained in this evidence directory"
+    },
+    {
+      "file": "preview/check.json",
+      "delivered_sha256": "3c7c632baddb56b2b91c4b38094a7e1a9aabc86e1704aaaf08a329a7a5dc4df7",
+      "source": ".tools/react-prototype-preview-20261023/preview-check.json",
+      "original_sha256": "3c7c632baddb56b2b91c4b38094a7e1a9aabc86e1704aaaf08a329a7a5dc4df7",
+      "transformation": "none"
+    },
+    {
+      "file": "preview/checkpoint.json",
+      "delivered_sha256": "d06f82627889e0c9fa2797d31ae434b25c564478c0b390372f8a447c18d81efb",
+      "transformation": "derived report or check; original records retained in task evidence directory"
+    },
+    {
+      "file": "preview/full-verification.json",
+      "delivered_sha256": "b83ea350c2cc9f803d7637596f2919a2db6c46f26a68f198c7a06138b8b9a7a8",
+      "transformation": "derived report or check; original records retained in task evidence directory"
+    },
+    {
+      "file": "preview/history-verification.json",
+      "delivered_sha256": "910413a198dd02dec97df6b818549a65b30203f8cf86b0f177a598ea4ff49d0d",
+      "transformation": "derived report or check; original records retained in task evidence directory"
+    },
+    {
+      "file": "preview/theme-check.json",
+      "delivered_sha256": "1b12cefaa4c82f80f9d325164e707733eb58a7bff794eda6a1d5a1339ec1ece8",
+      "source": ".tools/react-prototype-preview-20261023/theme-check.json",
+      "original_sha256": "1b12cefaa4c82f80f9d325164e707733eb58a7bff794eda6a1d5a1339ec1ece8",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/arithmetic-reference.json",
+      "delivered_sha256": "7ea9fd15bcc498ece1c1d4c7043aa3c54050e4501d02e4345a707bc4c56e2133",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/arithmetic-reference.json",
+      "original_sha256": "7ea9fd15bcc498ece1c1d4c7043aa3c54050e4501d02e4345a707bc4c56e2133",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/evidence.png",
+      "delivered_sha256": "dab8a708d17e87858d1c6909c67b2fb3243fcd59ee41df7cd631eec63103d762",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/evidence.png",
+      "original_sha256": "dab8a708d17e87858d1c6909c67b2fb3243fcd59ee41df7cd631eec63103d762",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/failover.png",
+      "delivered_sha256": "9751162c26fe514319bf9e6b20452d1fc883348933f0fdd06e723ded98bd1dbf",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/failover.png",
+      "original_sha256": "9751162c26fe514319bf9e6b20452d1fc883348933f0fdd06e723ded98bd1dbf",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/focus-1440.png",
+      "delivered_sha256": "deed76b1bf72c5eaab88b1b79062a336c24edd38f3579871998a1b5dfb784f7b",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/focus-1440.png",
+      "original_sha256": "deed76b1bf72c5eaab88b1b79062a336c24edd38f3579871998a1b5dfb784f7b",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/focus-1920.png",
+      "delivered_sha256": "ac5353adf94c7f632fb0da2d09fd1f9b83884c7cbe39ad5b0a8d13307a84947e",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/focus-1920.png",
+      "original_sha256": "ac5353adf94c7f632fb0da2d09fd1f9b83884c7cbe39ad5b0a8d13307a84947e",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/focus-390.png",
+      "delivered_sha256": "8340e1e9122dd6587b8b77f8aa184bfda4e371dfd7f84352c4eea82771d49637",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/focus-390.png",
+      "original_sha256": "8340e1e9122dd6587b8b77f8aa184bfda4e371dfd7f84352c4eea82771d49637",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/overview-1440.png",
+      "delivered_sha256": "6d61d7b0f93a1d70996e2f4052dbbd6796d4be7167c07caaefb6aa50a460ed8e",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/overview-1440.png",
+      "original_sha256": "6d61d7b0f93a1d70996e2f4052dbbd6796d4be7167c07caaefb6aa50a460ed8e",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/overview-1920.png",
+      "delivered_sha256": "fc9d10f2fefc9bd48a09c30806c868bdddc72ff46b7efed9f232ff35712b6668",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/overview-1920.png",
+      "original_sha256": "fc9d10f2fefc9bd48a09c30806c868bdddc72ff46b7efed9f232ff35712b6668",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/overview-390.png",
+      "delivered_sha256": "1cb5b99e20b599197ba1e01031c0a037b55acd8609d25940ab0729a48aa7ded5",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/overview-390.png",
+      "original_sha256": "1cb5b99e20b599197ba1e01031c0a037b55acd8609d25940ab0729a48aa7ded5",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/receipt-checkpoint-f559b06343fb51febaf3a7903084aa6f.json",
+      "delivered_sha256": "126f2fe0b8a984be3d5a59fe878f14ced9dd93c39c8f8d6882ae47df382b9883",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/receipt-checkpoint-f559b06343fb51febaf3a7903084aa6f.json",
+      "original_sha256": "126f2fe0b8a984be3d5a59fe878f14ced9dd93c39c8f8d6882ae47df382b9883",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/receipt-export-c835dc9078a10581d6cdd74994183623.json",
+      "delivered_sha256": "fee3727dd11b4559f134cfc5e31c2b28016014920e1035e46a3c3fa6054eb24d",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/receipt-export-c835dc9078a10581d6cdd74994183623.json",
+      "original_sha256": "fee3727dd11b4559f134cfc5e31c2b28016014920e1035e46a3c3fa6054eb24d",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/receipt-generate-bd9e6ff4e8a93e8f9f6d52577213d3e9.json",
+      "delivered_sha256": "0c87c43baea8a7878c8aea40b92d64468f7f96ee2ce2332e5388b63b33e9ec37",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/receipt-generate-bd9e6ff4e8a93e8f9f6d52577213d3e9.json",
+      "original_sha256": "0c87c43baea8a7878c8aea40b92d64468f7f96ee2ce2332e5388b63b33e9ec37",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/receipt-generate-cef14a253ba9f5a0d4c9a32390e97ab0.json",
+      "delivered_sha256": "127066f30965dbf29215590d37e617c21b939f7bd006c9d109dabfea1878a5a7",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/receipt-generate-cef14a253ba9f5a0d4c9a32390e97ab0.json",
+      "original_sha256": "127066f30965dbf29215590d37e617c21b939f7bd006c9d109dabfea1878a5a7",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/receipt-restart-72842b1793e267f3f935deb4a6ddfe63.json",
+      "delivered_sha256": "c9520426a90526bbdd8b8e6b7b18a71699b631c3348b6ccfa7f0552bdea9c254",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/receipt-restart-72842b1793e267f3f935deb4a6ddfe63.json",
+      "original_sha256": "c9520426a90526bbdd8b8e6b7b18a71699b631c3348b6ccfa7f0552bdea9c254",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/receipt-stop-d1bf2af3242a98d03a0e42fe1ed2cdbe.json",
+      "delivered_sha256": "2c19c760e6f219e90b20ad710d7842a1cda5d9bceecc8537727196ab4795322c",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/receipt-stop-d1bf2af3242a98d03a0e42fe1ed2cdbe.json",
+      "original_sha256": "2c19c760e6f219e90b20ad710d7842a1cda5d9bceecc8537727196ab4795322c",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/receipt-verify-93c0a7b02b7dfc96b24690f0a48fefb1.json",
+      "delivered_sha256": "9281a13ed84b4a9eb6cc92a5966706352bd13ea582c43211ccd958e9c85d951b",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/receipt-verify-93c0a7b02b7dfc96b24690f0a48fefb1.json",
+      "original_sha256": "9281a13ed84b4a9eb6cc92a5966706352bd13ea582c43211ccd958e9c85d951b",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/receipt-verify-ff6b0c637061055ccae25b8359aa6d1d.json",
+      "delivered_sha256": "6d5f55a3116f55e7c23282859cdd000eef4484c4789b665962c1e5a43678613b",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/receipt-verify-ff6b0c637061055ccae25b8359aa6d1d.json",
+      "original_sha256": "6d5f55a3116f55e7c23282859cdd000eef4484c4789b665962c1e5a43678613b",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/receipt-verify_history-59e1523e2897fe31b34dfe6c6677452b.json",
+      "delivered_sha256": "d04f01c2bf4e4b91c52ee9bff7a09c44e490404b22e2feb41f3b7cf25cd4fb92",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/receipt-verify_history-59e1523e2897fe31b34dfe6c6677452b.json",
+      "original_sha256": "d04f01c2bf4e4b91c52ee9bff7a09c44e490404b22e2feb41f3b7cf25cd4fb92",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-100/restored-history.png",
+      "delivered_sha256": "405873c9827bc10d9d4200e3a4102627d6c3575bef95b14c31dcd14af81fa0dd",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-100/restored-history.png",
+      "original_sha256": "405873c9827bc10d9d4200e3a4102627d6c3575bef95b14c31dcd14af81fa0dd",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/arithmetic-reference.json",
+      "delivered_sha256": "ef064a98ebca582b48b8cbb72b193ab33b7ada56f278225185eff55c111a09a1",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/arithmetic-reference.json",
+      "original_sha256": "ef064a98ebca582b48b8cbb72b193ab33b7ada56f278225185eff55c111a09a1",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/evidence.png",
+      "delivered_sha256": "a9cdab59f57545830a17319589ddc60a4bf40bea0659492c95220a62aaf94489",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/evidence.png",
+      "original_sha256": "a9cdab59f57545830a17319589ddc60a4bf40bea0659492c95220a62aaf94489",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/failover.png",
+      "delivered_sha256": "a059a9d826b81b133266cf027c37b2c482692c0f91961bae2d5142966ecbcdec",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/failover.png",
+      "original_sha256": "a059a9d826b81b133266cf027c37b2c482692c0f91961bae2d5142966ecbcdec",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/focus-1440.png",
+      "delivered_sha256": "bac4c4a54761ded242c92079a2158aa6db5d0f0955577b699adbbf0f95ecc49a",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/focus-1440.png",
+      "original_sha256": "bac4c4a54761ded242c92079a2158aa6db5d0f0955577b699adbbf0f95ecc49a",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/focus-1920.png",
+      "delivered_sha256": "651db15a6f67bdeee860d8b568839a7ad11fd37e068ca3f018b9e9e9a0bac94c",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/focus-1920.png",
+      "original_sha256": "651db15a6f67bdeee860d8b568839a7ad11fd37e068ca3f018b9e9e9a0bac94c",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/focus-390.png",
+      "delivered_sha256": "fbba33f6c0d441c833384155b856aad688a200381acada7c62ff489a69595b8c",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/focus-390.png",
+      "original_sha256": "fbba33f6c0d441c833384155b856aad688a200381acada7c62ff489a69595b8c",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/overview-1440.png",
+      "delivered_sha256": "3895d6c2248b459f4813e40d5344a477e378c410f328cc3ff245b2b459ebf0f6",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/overview-1440.png",
+      "original_sha256": "3895d6c2248b459f4813e40d5344a477e378c410f328cc3ff245b2b459ebf0f6",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/overview-1920.png",
+      "delivered_sha256": "27f71881dd3b8bc0e577d79df1d257cb7961f2f5cbd799817fab0a65747bd510",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/overview-1920.png",
+      "original_sha256": "27f71881dd3b8bc0e577d79df1d257cb7961f2f5cbd799817fab0a65747bd510",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/overview-390.png",
+      "delivered_sha256": "b486f465a0a04a6230e5853ca4c0f487705f6e095382d7ed186706e5a8f60fc8",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/overview-390.png",
+      "original_sha256": "b486f465a0a04a6230e5853ca4c0f487705f6e095382d7ed186706e5a8f60fc8",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/receipt-checkpoint-684ca0a5cbc0754fe282f08e899faa0a.json",
+      "delivered_sha256": "e125d36ac3e792a53a04dc1580df9f45ff35dd6c6933664e50dc9dcd9c54ee88",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/receipt-checkpoint-684ca0a5cbc0754fe282f08e899faa0a.json",
+      "original_sha256": "e125d36ac3e792a53a04dc1580df9f45ff35dd6c6933664e50dc9dcd9c54ee88",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/receipt-export-16f55c943c7ce99b64762b5b257fe5e3.json",
+      "delivered_sha256": "9c360efcd56e2754a3d593c865e53570b1053e7e8199d1be569bfd3713f2607c",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/receipt-export-16f55c943c7ce99b64762b5b257fe5e3.json",
+      "original_sha256": "9c360efcd56e2754a3d593c865e53570b1053e7e8199d1be569bfd3713f2607c",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/receipt-generate-5c722f9d06354fb9efe9ff4927a4fabd.json",
+      "delivered_sha256": "8af69ed3d1662386f2325240827cf140a81a82898a2e13d6cc6706594289d2fd",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/receipt-generate-5c722f9d06354fb9efe9ff4927a4fabd.json",
+      "original_sha256": "8af69ed3d1662386f2325240827cf140a81a82898a2e13d6cc6706594289d2fd",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/receipt-generate-b244361aae84918ad463615b59c3498d.json",
+      "delivered_sha256": "d8b5bd3006471e93108b4511852f77eef9f59975c1c4fd8efd040a4d819ecc5b",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/receipt-generate-b244361aae84918ad463615b59c3498d.json",
+      "original_sha256": "d8b5bd3006471e93108b4511852f77eef9f59975c1c4fd8efd040a4d819ecc5b",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/receipt-restart-a001340a60dc3b1eaf077376a0c041fe.json",
+      "delivered_sha256": "1eb2e0ce1d9bcd55e6225353a43419145319cfec53c2a7a38cb23fce4d97f7d9",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/receipt-restart-a001340a60dc3b1eaf077376a0c041fe.json",
+      "original_sha256": "1eb2e0ce1d9bcd55e6225353a43419145319cfec53c2a7a38cb23fce4d97f7d9",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/receipt-stop-b393d5cc6246f2f3093913996a5db1b1.json",
+      "delivered_sha256": "e501c572422eec0f42ed50e21dc0c85b73c6f115a9d1125a92995c95aa5aaa10",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/receipt-stop-b393d5cc6246f2f3093913996a5db1b1.json",
+      "original_sha256": "e501c572422eec0f42ed50e21dc0c85b73c6f115a9d1125a92995c95aa5aaa10",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/receipt-verify-3b62d534efa51b619b3af7f4f1df1133.json",
+      "delivered_sha256": "96b990c2b98951dcdd7d901c28f6655d3020d3372a2f34966da681d0931cf919",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/receipt-verify-3b62d534efa51b619b3af7f4f1df1133.json",
+      "original_sha256": "96b990c2b98951dcdd7d901c28f6655d3020d3372a2f34966da681d0931cf919",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/receipt-verify-f4a5cb2155f2bb5fef3dbe39ea5be1c3.json",
+      "delivered_sha256": "f4ccb436d761cc1ca830fda6a2609ee3bde42ce91115abfa931446413625c6ec",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/receipt-verify-f4a5cb2155f2bb5fef3dbe39ea5be1c3.json",
+      "original_sha256": "f4ccb436d761cc1ca830fda6a2609ee3bde42ce91115abfa931446413625c6ec",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/receipt-verify_history-2e740c29e5d9b03752f5a531261ae9db.json",
+      "delivered_sha256": "e2495f56302f78df2781aa79c12f3683df62804b9a6c5943486c7d56d9f62e2b",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/receipt-verify_history-2e740c29e5d9b03752f5a531261ae9db.json",
+      "original_sha256": "e2495f56302f78df2781aa79c12f3683df62804b9a6c5943486c7d56d9f62e2b",
+      "transformation": "none"
+    },
+    {
+      "file": "real/flow-11/restored-history.png",
+      "delivered_sha256": "a61bf9bb61d25eded22c7c98d81bb8c0d69645f5f5953aa0e8e3c66a042fa81e",
+      "source": ".tools/react-prototype-20261023/real-flow-certified/flow-11/restored-history.png",
+      "original_sha256": "a61bf9bb61d25eded22c7c98d81bb8c0d69645f5f5953aa0e8e3c66a042fa81e",
+      "transformation": "none"
+    },
+    {
+      "file": "real/results.json",
+      "delivered_sha256": "e3f600957116183d478400b59c4351d7a4070312a715fba122658db4c04a699c",
+      "transformation": "derived summary; input files retained in this evidence directory"
+    },
+    {
+      "file": "real/svg-100/arithmetic-reference.json",
+      "delivered_sha256": "7ea9fd15bcc498ece1c1d4c7043aa3c54050e4501d02e4345a707bc4c56e2133",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/arithmetic-reference.json",
+      "original_sha256": "7ea9fd15bcc498ece1c1d4c7043aa3c54050e4501d02e4345a707bc4c56e2133",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/evidence.png",
+      "delivered_sha256": "5d8a517e2f916a489afd79827cfa08cfc33236cd76aed5714aefb6a263dcd33a",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/evidence.png",
+      "original_sha256": "5d8a517e2f916a489afd79827cfa08cfc33236cd76aed5714aefb6a263dcd33a",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/failover.png",
+      "delivered_sha256": "42d059462ea3c33609d70c557b48b0c557a89d591e85ef0c809caa6252aba129",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/failover.png",
+      "original_sha256": "42d059462ea3c33609d70c557b48b0c557a89d591e85ef0c809caa6252aba129",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/focus-1440.png",
+      "delivered_sha256": "c9c6f436413685b7ba1b7b9cb26ae24ddbd798ef48708f95496babf19dbee5a8",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/focus-1440.png",
+      "original_sha256": "c9c6f436413685b7ba1b7b9cb26ae24ddbd798ef48708f95496babf19dbee5a8",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/focus-1920.png",
+      "delivered_sha256": "ccb777fd4b9cb20249ccbbb41bf9386903f251a2e2b57d2f552d09fa944c59db",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/focus-1920.png",
+      "original_sha256": "ccb777fd4b9cb20249ccbbb41bf9386903f251a2e2b57d2f552d09fa944c59db",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/focus-390.png",
+      "delivered_sha256": "6c977cdcece83ad5b151b868597e557ac3e8e189c403cca244a1085907632e33",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/focus-390.png",
+      "original_sha256": "6c977cdcece83ad5b151b868597e557ac3e8e189c403cca244a1085907632e33",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/overview-1440.png",
+      "delivered_sha256": "69c196bbfa1399882b1adbd6d139ca93f2901eb5f2b0dda8a15cb508e93d4bcd",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/overview-1440.png",
+      "original_sha256": "69c196bbfa1399882b1adbd6d139ca93f2901eb5f2b0dda8a15cb508e93d4bcd",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/overview-1920.png",
+      "delivered_sha256": "fa3b46ee974e844e79d61a8754cc02df576b880de2081ccec9b817a47b88c083",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/overview-1920.png",
+      "original_sha256": "fa3b46ee974e844e79d61a8754cc02df576b880de2081ccec9b817a47b88c083",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/overview-390.png",
+      "delivered_sha256": "47be67b61ac5d3b40fcbb5b639aa66c1a7beffd15cfe10937d612caefd9e3c9c",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/overview-390.png",
+      "original_sha256": "47be67b61ac5d3b40fcbb5b639aa66c1a7beffd15cfe10937d612caefd9e3c9c",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/receipt-checkpoint-9c772f527de04e34814bb10c8730b8e3.json",
+      "delivered_sha256": "79e3a2d00f3952af35b4b1e971aadf16db24dd7242a4a76547ddae2c36b12791",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/receipt-checkpoint-9c772f527de04e34814bb10c8730b8e3.json",
+      "original_sha256": "79e3a2d00f3952af35b4b1e971aadf16db24dd7242a4a76547ddae2c36b12791",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/receipt-export-863decfef5230c6fcd837b8a160206f9.json",
+      "delivered_sha256": "d9d46e90c9f26881a4f4c991405abc822138870cf96bdfa7b7a12a9dbdf1287e",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/receipt-export-863decfef5230c6fcd837b8a160206f9.json",
+      "original_sha256": "d9d46e90c9f26881a4f4c991405abc822138870cf96bdfa7b7a12a9dbdf1287e",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/receipt-generate-6f8b12b769d51c1479b14812c21504de.json",
+      "delivered_sha256": "9805424861fdba52634c010e1083bd811832ba01bf6a005ed924500882e48463",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/receipt-generate-6f8b12b769d51c1479b14812c21504de.json",
+      "original_sha256": "9805424861fdba52634c010e1083bd811832ba01bf6a005ed924500882e48463",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/receipt-generate-a76d2f9dd41ca00ca5f07c7684024c42.json",
+      "delivered_sha256": "c127ec9b59b726b428026249ca6332f3cd8a35de22ac99a9d54f4d0e165db693",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/receipt-generate-a76d2f9dd41ca00ca5f07c7684024c42.json",
+      "original_sha256": "c127ec9b59b726b428026249ca6332f3cd8a35de22ac99a9d54f4d0e165db693",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/receipt-restart-f69ce513b1339caeeb21223e41896835.json",
+      "delivered_sha256": "8ed7f1431a8437fbe67e4987a9cef0007318f870f226c27b5203985a4587b84d",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/receipt-restart-f69ce513b1339caeeb21223e41896835.json",
+      "original_sha256": "8ed7f1431a8437fbe67e4987a9cef0007318f870f226c27b5203985a4587b84d",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/receipt-stop-ae12419dd41b2122c8d4909a59bd94ae.json",
+      "delivered_sha256": "6d5f79cebb68c4dd090aa7560817c0a44979a3685d616f9bf36f09865d4cebac",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/receipt-stop-ae12419dd41b2122c8d4909a59bd94ae.json",
+      "original_sha256": "6d5f79cebb68c4dd090aa7560817c0a44979a3685d616f9bf36f09865d4cebac",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/receipt-verify-9140643c79a7432e2aa01ae21da9c550.json",
+      "delivered_sha256": "996937e9bcbec86a663f6671b336d47dff19017683863c94cd2963258653befc",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/receipt-verify-9140643c79a7432e2aa01ae21da9c550.json",
+      "original_sha256": "996937e9bcbec86a663f6671b336d47dff19017683863c94cd2963258653befc",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/receipt-verify-a98c284b9b96ac6692651fe9af05d692.json",
+      "delivered_sha256": "3d95dd5109cfbf3ce72bf5fe3dc8b578a4c2c2e36d15f43da4ea23b64d0e56d2",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/receipt-verify-a98c284b9b96ac6692651fe9af05d692.json",
+      "original_sha256": "3d95dd5109cfbf3ce72bf5fe3dc8b578a4c2c2e36d15f43da4ea23b64d0e56d2",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/receipt-verify_history-abe242cdcc6e74b418f449a98112bd14.json",
+      "delivered_sha256": "c0615e276d7b01d7458521c87c31388505ca187cd663e0b74389127b2d6ffb33",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/receipt-verify_history-abe242cdcc6e74b418f449a98112bd14.json",
+      "original_sha256": "c0615e276d7b01d7458521c87c31388505ca187cd663e0b74389127b2d6ffb33",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-100/restored-history.png",
+      "delivered_sha256": "f4dd04e69c9d3a0934364eb703d8b48169a6d8e0ae0f8e4c5f34e8158b76f3c7",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-100/restored-history.png",
+      "original_sha256": "f4dd04e69c9d3a0934364eb703d8b48169a6d8e0ae0f8e4c5f34e8158b76f3c7",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/arithmetic-reference.json",
+      "delivered_sha256": "ef064a98ebca582b48b8cbb72b193ab33b7ada56f278225185eff55c111a09a1",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/arithmetic-reference.json",
+      "original_sha256": "ef064a98ebca582b48b8cbb72b193ab33b7ada56f278225185eff55c111a09a1",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/evidence.png",
+      "delivered_sha256": "934a319b45ca6ef9067c9def73c1358caf68f297a085ac8c22c0dbba8f518c46",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/evidence.png",
+      "original_sha256": "934a319b45ca6ef9067c9def73c1358caf68f297a085ac8c22c0dbba8f518c46",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/failover.png",
+      "delivered_sha256": "fe11687a04942bcf4d419a42c871371af1074993d2385e563992c69a6532467c",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/failover.png",
+      "original_sha256": "fe11687a04942bcf4d419a42c871371af1074993d2385e563992c69a6532467c",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/focus-1440.png",
+      "delivered_sha256": "5cbe16b30c0bffed783dd93af514e866ef52bd5670b996d7aab35d3e08522e05",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/focus-1440.png",
+      "original_sha256": "5cbe16b30c0bffed783dd93af514e866ef52bd5670b996d7aab35d3e08522e05",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/focus-1920.png",
+      "delivered_sha256": "cbb06a861cca8288bb75f5f7d9732aa24d50e514d9ae22414219326d420e6ac7",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/focus-1920.png",
+      "original_sha256": "cbb06a861cca8288bb75f5f7d9732aa24d50e514d9ae22414219326d420e6ac7",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/focus-390.png",
+      "delivered_sha256": "3a8482018bce9dc81af20e22e7fbd51ed89fcb2a73aa7d88c122839cde2dff1b",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/focus-390.png",
+      "original_sha256": "3a8482018bce9dc81af20e22e7fbd51ed89fcb2a73aa7d88c122839cde2dff1b",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/overview-1440.png",
+      "delivered_sha256": "692e726ba8b2c999346fa61954640832e91f1a1ce9f4f44c1abb314a2e96420c",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/overview-1440.png",
+      "original_sha256": "692e726ba8b2c999346fa61954640832e91f1a1ce9f4f44c1abb314a2e96420c",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/overview-1920.png",
+      "delivered_sha256": "17464d3eb5a8b63f3e02134b61a3b08e2a83c88e7aeebbaad4c18ea48d764854",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/overview-1920.png",
+      "original_sha256": "17464d3eb5a8b63f3e02134b61a3b08e2a83c88e7aeebbaad4c18ea48d764854",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/overview-390.png",
+      "delivered_sha256": "e40ad284b5b89a13724af655e7facf857395aaa60022ac693a05a438ea64012b",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/overview-390.png",
+      "original_sha256": "e40ad284b5b89a13724af655e7facf857395aaa60022ac693a05a438ea64012b",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/receipt-checkpoint-f45a508c62ebe53020d746cc92bfd1fd.json",
+      "delivered_sha256": "3870131b5876a719d65a28ca3f4c1203ca156dc626a729099fae4c2c17d84487",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/receipt-checkpoint-f45a508c62ebe53020d746cc92bfd1fd.json",
+      "original_sha256": "3870131b5876a719d65a28ca3f4c1203ca156dc626a729099fae4c2c17d84487",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/receipt-export-d857b8e92825c430b598bd2c3b3a9189.json",
+      "delivered_sha256": "884df0f9bb2c059823d991aa0cc1a99259381c8be443113f3acf848b85bd18ce",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/receipt-export-d857b8e92825c430b598bd2c3b3a9189.json",
+      "original_sha256": "884df0f9bb2c059823d991aa0cc1a99259381c8be443113f3acf848b85bd18ce",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/receipt-generate-49c5a5bca22ab634905c9684079ea7a8.json",
+      "delivered_sha256": "b8a8eb81c3e654d75dcad62779d288ec2fca7bbb94b502e7ab44cd46a09995cb",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/receipt-generate-49c5a5bca22ab634905c9684079ea7a8.json",
+      "original_sha256": "b8a8eb81c3e654d75dcad62779d288ec2fca7bbb94b502e7ab44cd46a09995cb",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/receipt-generate-ed0f01a7edd3e48c0048a9b27a8d61ea.json",
+      "delivered_sha256": "78fade33af5b5279c00d7b0a3b52c2802f14241f3457cc21b3fb1d5b90a1dff1",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/receipt-generate-ed0f01a7edd3e48c0048a9b27a8d61ea.json",
+      "original_sha256": "78fade33af5b5279c00d7b0a3b52c2802f14241f3457cc21b3fb1d5b90a1dff1",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/receipt-restart-80db1dd662ff46fdf8d41041830f5b75.json",
+      "delivered_sha256": "b4149dd8f1d51fead8e0f7e821ca32ac9fbafc5f2e84ed4ed4106aff044b9be8",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/receipt-restart-80db1dd662ff46fdf8d41041830f5b75.json",
+      "original_sha256": "b4149dd8f1d51fead8e0f7e821ca32ac9fbafc5f2e84ed4ed4106aff044b9be8",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/receipt-stop-8e6ccb62a2de7a671a8d1d2b2a0fdefe.json",
+      "delivered_sha256": "bd3ae716a2f32b6d6e6a89a701f455ca5a541af08c9b9302a63d451ab0b388c1",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/receipt-stop-8e6ccb62a2de7a671a8d1d2b2a0fdefe.json",
+      "original_sha256": "bd3ae716a2f32b6d6e6a89a701f455ca5a541af08c9b9302a63d451ab0b388c1",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/receipt-verify-14d66cdb7a6a5cd1b5f6c23d37ca8d8f.json",
+      "delivered_sha256": "f8ce6d4352ae161f0d74f26877944a5f97b52ff5e19782cea051251a1524125f",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/receipt-verify-14d66cdb7a6a5cd1b5f6c23d37ca8d8f.json",
+      "original_sha256": "f8ce6d4352ae161f0d74f26877944a5f97b52ff5e19782cea051251a1524125f",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/receipt-verify-1b941c7207ae13b33f5c3f5d96d97aff.json",
+      "delivered_sha256": "ab0b2c4bc69f0000b114587727e613e4131de1e5538b417868280aff38be4cad",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/receipt-verify-1b941c7207ae13b33f5c3f5d96d97aff.json",
+      "original_sha256": "ab0b2c4bc69f0000b114587727e613e4131de1e5538b417868280aff38be4cad",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/receipt-verify_history-f5e580a7220b405db8471044d4d74438.json",
+      "delivered_sha256": "435bf40acb983f437129822bc0a817203eb9518875d9471fca1784a74e0ced4a",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/receipt-verify_history-f5e580a7220b405db8471044d4d74438.json",
+      "original_sha256": "435bf40acb983f437129822bc0a817203eb9518875d9471fca1784a74e0ced4a",
+      "transformation": "none"
+    },
+    {
+      "file": "real/svg-11/restored-history.png",
+      "delivered_sha256": "a610858792146d0faedc24ff8a1a511d8e6d3e16ced47e2dbe53c753daf408fc",
+      "source": ".tools/react-prototype-20261023/real-svg-certified/svg-11/restored-history.png",
+      "original_sha256": "a610858792146d0faedc24ff8a1a511d8e6d3e16ced47e2dbe53c753daf408fc",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/baseline-6ae0cfe-100-1440.png",
+      "delivered_sha256": "3af23509cb901e54dd1da043b8a12ba32250edb8d50fe5c5e654606afd0f7d5b",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/baseline-6ae0cfe-100-1440.png",
+      "original_sha256": "3af23509cb901e54dd1da043b8a12ba32250edb8d50fe5c5e654606afd0f7d5b",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/baseline-6ae0cfe-100-1920.png",
+      "delivered_sha256": "ed7444bfaee4c505f01a9721f484e3bca2430a0aa27936d8b2c75417e963d976",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/baseline-6ae0cfe-100-1920.png",
+      "original_sha256": "ed7444bfaee4c505f01a9721f484e3bca2430a0aa27936d8b2c75417e963d976",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/baseline-6ae0cfe-100-390.png",
+      "delivered_sha256": "1919e75ddb090aecc46a586c1f078b1d3cf705426dd2a18ea990bdd8ed71b820",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/baseline-6ae0cfe-100-390.png",
+      "original_sha256": "1919e75ddb090aecc46a586c1f078b1d3cf705426dd2a18ea990bdd8ed71b820",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/baseline-6ae0cfe-11-1440.png",
+      "delivered_sha256": "fa18642c733a2a59f04efeb300f8ddb8f13359ff93ac7e455f599f37cf7261d5",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/baseline-6ae0cfe-11-1440.png",
+      "original_sha256": "fa18642c733a2a59f04efeb300f8ddb8f13359ff93ac7e455f599f37cf7261d5",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/baseline-6ae0cfe-11-1920.png",
+      "delivered_sha256": "ce6e97898d45fdf26a47ad6a54fd6179a3b42093ea6f4e7c7c7668bd497b965e",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/baseline-6ae0cfe-11-1920.png",
+      "original_sha256": "ce6e97898d45fdf26a47ad6a54fd6179a3b42093ea6f4e7c7c7668bd497b965e",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/baseline-6ae0cfe-11-390.png",
+      "delivered_sha256": "d502dc17384a284035e374813980d4b5ec0efb31401b8393aec990c70f199d20",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/baseline-6ae0cfe-11-390.png",
+      "original_sha256": "d502dc17384a284035e374813980d4b5ec0efb31401b8393aec990c70f199d20",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/preview-100-flow-mobile-focus.png",
+      "delivered_sha256": "d91caefeffc6d5dea1093914ca89faa3ed3f51d1b9a30b530bb50f3824fc7958",
+      "source": ".tools/react-prototype-preview-20261023/preview-100-flow-mobile-focus.png",
+      "original_sha256": "d91caefeffc6d5dea1093914ca89faa3ed3f51d1b9a30b530bb50f3824fc7958",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/preview-100-flow-mobile.png",
+      "delivered_sha256": "bfa5c1dc3b38ff65ca8a611048a30f512f7f4b92363e16b8ce1773757d00151e",
+      "source": ".tools/react-prototype-preview-20261023/preview-100-flow-mobile.png",
+      "original_sha256": "bfa5c1dc3b38ff65ca8a611048a30f512f7f4b92363e16b8ce1773757d00151e",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/preview-100-svg-mobile-focus.png",
+      "delivered_sha256": "674c1832e3ee38763d3f1dc6b5312f203bac0160c3b03071e66318ce65d7d873",
+      "source": ".tools/react-prototype-preview-20261023/preview-100-svg-mobile-focus.png",
+      "original_sha256": "674c1832e3ee38763d3f1dc6b5312f203bac0160c3b03071e66318ce65d7d873",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/preview-100-svg-mobile.png",
+      "delivered_sha256": "89b522a7c130acf56e3b6558deec6e365edb6b884a33c04d7bbfe0e64c4793f9",
+      "source": ".tools/react-prototype-preview-20261023/preview-100-svg-mobile.png",
+      "original_sha256": "89b522a7c130acf56e3b6558deec6e365edb6b884a33c04d7bbfe0e64c4793f9",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/preview-11-flow-mobile-focus.png",
+      "delivered_sha256": "acaf7674604348b129dbee1e3c1e82cb12df9b68ef07291f7a33388213e06ebe",
+      "source": ".tools/react-prototype-preview-20261023/preview-11-flow-mobile-focus.png",
+      "original_sha256": "acaf7674604348b129dbee1e3c1e82cb12df9b68ef07291f7a33388213e06ebe",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/preview-11-flow-mobile.png",
+      "delivered_sha256": "ccb973ad4e22bacc8d5fcc64d8ca42e529ce667b96cbc75e47c183783dd2d2f4",
+      "source": ".tools/react-prototype-preview-20261023/preview-11-flow-mobile.png",
+      "original_sha256": "ccb973ad4e22bacc8d5fcc64d8ca42e529ce667b96cbc75e47c183783dd2d2f4",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/preview-11-svg-mobile-focus.png",
+      "delivered_sha256": "7fc9915d4f23d69a24387c1888cca1866529bc591d2d6979a25c482fe42f60e6",
+      "source": ".tools/react-prototype-preview-20261023/preview-11-svg-mobile-focus.png",
+      "original_sha256": "7fc9915d4f23d69a24387c1888cca1866529bc591d2d6979a25c482fe42f60e6",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/preview-11-svg-mobile.png",
+      "delivered_sha256": "861ddad9c23639ede8920a480f17cdd35f36c31e6da95d3fa1f21cc7cbbee471",
+      "source": ".tools/react-prototype-preview-20261023/preview-11-svg-mobile.png",
+      "original_sha256": "861ddad9c23639ede8920a480f17cdd35f36c31e6da95d3fa1f21cc7cbbee471",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-flow-100-1440.png",
+      "delivered_sha256": "18f1dae95a6ebe9a1147af65d30f552bfce3f4c308404e17ef4dffbbe45c90b7",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-flow-100-1440.png",
+      "original_sha256": "18f1dae95a6ebe9a1147af65d30f552bfce3f4c308404e17ef4dffbbe45c90b7",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-flow-100-1920.png",
+      "delivered_sha256": "0adb7dccf3b6bb7c7611bc2609e419a3a94cbaf7b599fc0d0619273ff002645a",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-flow-100-1920.png",
+      "original_sha256": "0adb7dccf3b6bb7c7611bc2609e419a3a94cbaf7b599fc0d0619273ff002645a",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-flow-100-390.png",
+      "delivered_sha256": "22a28dc156806be2d93f292910399714a2cc22abc270f41d13584a666147d01e",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-flow-100-390.png",
+      "original_sha256": "22a28dc156806be2d93f292910399714a2cc22abc270f41d13584a666147d01e",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-flow-11-1440.png",
+      "delivered_sha256": "3fd59bb1b08be9a97ae810ac405a66285232bde34ab996b41518c2e63f696d9f",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-flow-11-1440.png",
+      "original_sha256": "3fd59bb1b08be9a97ae810ac405a66285232bde34ab996b41518c2e63f696d9f",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-flow-11-1920.png",
+      "delivered_sha256": "2909b71a639ddcf8af23d8837eccaab78d44bbe61bc097eb63c5b12abd83ec9f",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-flow-11-1920.png",
+      "original_sha256": "2909b71a639ddcf8af23d8837eccaab78d44bbe61bc097eb63c5b12abd83ec9f",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-flow-11-390.png",
+      "delivered_sha256": "9959b872b961008a5ff184d1bd702e93360f11389ae2308ce3ed8946af95e5ac",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-flow-11-390.png",
+      "original_sha256": "9959b872b961008a5ff184d1bd702e93360f11389ae2308ce3ed8946af95e5ac",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-flow-mobile-compare.png",
+      "delivered_sha256": "3891f2494279543018b62002982c2eedb08d0509eca2bb9dfda3de68c0792f1d",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-flow-mobile-compare.png",
+      "original_sha256": "3891f2494279543018b62002982c2eedb08d0509eca2bb9dfda3de68c0792f1d",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-flow-mobile-focus.png",
+      "delivered_sha256": "9a76dc5fd99e85f38da16f3619ba5574b48b07aaaa7230e7b6ca35f2ccaeffed",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-flow-mobile-focus.png",
+      "original_sha256": "9a76dc5fd99e85f38da16f3619ba5574b48b07aaaa7230e7b6ca35f2ccaeffed",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-svg-100-1440.png",
+      "delivered_sha256": "0e5662f06c0aa7c61f0ec6a9903c7eef44d3ac6b0b77b3f7560dc0e1449d74af",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-svg-100-1440.png",
+      "original_sha256": "0e5662f06c0aa7c61f0ec6a9903c7eef44d3ac6b0b77b3f7560dc0e1449d74af",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-svg-100-1920.png",
+      "delivered_sha256": "6b275a2c144b936ea2b32f4a5f4ddae2ca085265e7f132d00694cd0849d55cf9",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-svg-100-1920.png",
+      "original_sha256": "6b275a2c144b936ea2b32f4a5f4ddae2ca085265e7f132d00694cd0849d55cf9",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-svg-100-390.png",
+      "delivered_sha256": "ba0850aa1427fa1e66646a0bf1f853f820dd711ddb9df5891de6000d7ee2d3fe",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-svg-100-390.png",
+      "original_sha256": "ba0850aa1427fa1e66646a0bf1f853f820dd711ddb9df5891de6000d7ee2d3fe",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-svg-11-1440.png",
+      "delivered_sha256": "046b5ae917e375fdef3966f1d0353a197ee974e81734de144783d35900604da2",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-svg-11-1440.png",
+      "original_sha256": "046b5ae917e375fdef3966f1d0353a197ee974e81734de144783d35900604da2",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-svg-11-1920.png",
+      "delivered_sha256": "52574f3ebdb0018152df8d370f7c7480a384d1cdbc6043f0249208c5316154cb",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-svg-11-1920.png",
+      "original_sha256": "52574f3ebdb0018152df8d370f7c7480a384d1cdbc6043f0249208c5316154cb",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-svg-11-390.png",
+      "delivered_sha256": "284d7e66f4c6c7eb7daa7887986105ec452d8e5e446bca8e24dcd93083bc999e",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-svg-11-390.png",
+      "original_sha256": "284d7e66f4c6c7eb7daa7887986105ec452d8e5e446bca8e24dcd93083bc999e",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-svg-mobile-compare.png",
+      "delivered_sha256": "41c3417212e966615dbcf2cb0caad657707c9b387b7631906186488ff1ae21db",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-svg-mobile-compare.png",
+      "original_sha256": "41c3417212e966615dbcf2cb0caad657707c9b387b7631906186488ff1ae21db",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/synthetic-svg-mobile-focus.png",
+      "delivered_sha256": "ee6a188130342eff107e763278b59c30a36df92708c5531aab894bee0f64c7b8",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/synthetic-svg-mobile-focus.png",
+      "original_sha256": "ee6a188130342eff107e763278b59c30a36df92708c5531aab894bee0f64c7b8",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-100-flow-dark.png",
+      "delivered_sha256": "5ae71ce746413bebd0a52d27f27b6ae1c455538b1b9aa5b4f5c5dd8b2c3ba0f7",
+      "source": ".tools/react-prototype-preview-20261023/verified-100-flow-dark.png",
+      "original_sha256": "5ae71ce746413bebd0a52d27f27b6ae1c455538b1b9aa5b4f5c5dd8b2c3ba0f7",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-100-flow-light.png",
+      "delivered_sha256": "0cae56a758e31a89888ff317147258e931f3276fd59498c12ff65c156a935d77",
+      "source": ".tools/react-prototype-preview-20261023/verified-100-flow-light.png",
+      "original_sha256": "0cae56a758e31a89888ff317147258e931f3276fd59498c12ff65c156a935d77",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-100-flow-projection.png",
+      "delivered_sha256": "d1bb050e10c1722a562f60c0ae5679dabd0c793b9210f55d92b62cd42a686dda",
+      "source": ".tools/react-prototype-preview-20261023/verified-100-flow-projection.png",
+      "original_sha256": "d1bb050e10c1722a562f60c0ae5679dabd0c793b9210f55d92b62cd42a686dda",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-100-svg-dark.png",
+      "delivered_sha256": "38274c5261aaca638b3f7d2b421e1b932fdb6c42922d3a2ab01d2fc232917cdb",
+      "source": ".tools/react-prototype-preview-20261023/verified-100-svg-dark.png",
+      "original_sha256": "38274c5261aaca638b3f7d2b421e1b932fdb6c42922d3a2ab01d2fc232917cdb",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-100-svg-light.png",
+      "delivered_sha256": "fe31b23c670096110f3470ff169dd074bebd5daaa23d1cf293cf82600137b991",
+      "source": ".tools/react-prototype-preview-20261023/verified-100-svg-light.png",
+      "original_sha256": "fe31b23c670096110f3470ff169dd074bebd5daaa23d1cf293cf82600137b991",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-100-svg-projection.png",
+      "delivered_sha256": "62890439ecfa7447cb20d57bbddaf7ed5d32748aadd4af3e5148ee2e3ff18cc2",
+      "source": ".tools/react-prototype-preview-20261023/verified-100-svg-projection.png",
+      "original_sha256": "62890439ecfa7447cb20d57bbddaf7ed5d32748aadd4af3e5148ee2e3ff18cc2",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-11-flow-dark.png",
+      "delivered_sha256": "483e6f39c73c733cc11174b2728654d527cf3ca3ee1f3c1a937773eb8b610473",
+      "source": ".tools/react-prototype-preview-20261023/verified-11-flow-dark.png",
+      "original_sha256": "483e6f39c73c733cc11174b2728654d527cf3ca3ee1f3c1a937773eb8b610473",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-11-flow-light.png",
+      "delivered_sha256": "94e7b1eba3981258fee7948144b6935a3256e27ae8f932235723ff6200f2ef3a",
+      "source": ".tools/react-prototype-preview-20261023/verified-11-flow-light.png",
+      "original_sha256": "94e7b1eba3981258fee7948144b6935a3256e27ae8f932235723ff6200f2ef3a",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-11-flow-projection.png",
+      "delivered_sha256": "18f1b35360dc15bcb03ce06fc84561f2e1b3d4f0077d8ba31ec7fba2f8e77b12",
+      "source": ".tools/react-prototype-preview-20261023/verified-11-flow-projection.png",
+      "original_sha256": "18f1b35360dc15bcb03ce06fc84561f2e1b3d4f0077d8ba31ec7fba2f8e77b12",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-11-svg-dark.png",
+      "delivered_sha256": "53c7afef99f9d459d38ad4433a0f8c43b3203cce5da57c454a68dd478e0c568d",
+      "source": ".tools/react-prototype-preview-20261023/verified-11-svg-dark.png",
+      "original_sha256": "53c7afef99f9d459d38ad4433a0f8c43b3203cce5da57c454a68dd478e0c568d",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-11-svg-light.png",
+      "delivered_sha256": "4db1e1d40259c4866188d0497737dd599e47122b932857c8386e35d8af9d00b1",
+      "source": ".tools/react-prototype-preview-20261023/verified-11-svg-light.png",
+      "original_sha256": "4db1e1d40259c4866188d0497737dd599e47122b932857c8386e35d8af9d00b1",
+      "transformation": "none"
+    },
+    {
+      "file": "screenshots/verified-11-svg-projection.png",
+      "delivered_sha256": "bdef92cd44ff9abf3492f6195d9b9890f1c3f3a6bab8e6fba556b68098d0d0dd",
+      "source": ".tools/react-prototype-preview-20261023/verified-11-svg-projection.png",
+      "original_sha256": "bdef92cd44ff9abf3492f6195d9b9890f1c3f3a6bab8e6fba556b68098d0d0dd",
+      "transformation": "none"
+    },
+    {
+      "file": "ui/results.json",
+      "delivered_sha256": "3749fcbb540445578e74e94935431e1d88413d79f748e735b5a1d81a7e69bc1f",
+      "source": ".tools/react-prototype-20261023/ui-geometry-final/results.json",
+      "original_sha256": "3749fcbb540445578e74e94935431e1d88413d79f748e735b5a1d81a7e69bc1f",
+      "transformation": "none"
+    }
+  ]
+}

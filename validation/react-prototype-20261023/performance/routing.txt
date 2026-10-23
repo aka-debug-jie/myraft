@@ -1,0 +1,29 @@
+
+> myraft-topology-prototypes@0.1.0 bench
+> vitest bench --run
+
+Benchmarking is an experimental feature.
+Breaking changes might not follow SemVer, please pin Vitest's version when using it.
+
+ RUN  v4.1.12 <REPO>/frontend
+
+
+ ✓ tests/routing.bench.ts > 100 nodes / 2 observed Leaders / 1200x900 657ms
+     name                                     hz     min     max    mean     p75     p99    p995    p999     rme  samples
+   · route all 98 reported relationships  171.58  5.4049  9.3427  5.8281  5.8901  9.3427  9.3427  9.3427  ±1.92%       86
+
+ ✓ tests/routing.bench.ts > 100 nodes / 2 observed Leaders / 400x600 608ms
+     name                                     hz     min     max    mean     p75     p99    p995    p999     rme  samples
+   · route all 98 reported relationships  686.50  1.3743  3.9753  1.4567  1.4770  1.8024  2.1650  3.9753  ±1.17%      344
+
+ ✓ tests/routing.bench.ts > 100 nodes / 2 observed Leaders / 390x250 642ms
+     name                                      hz      min      max     mean      p75      p99     p995     p999     rme  samples
+   · route all 98 reported relationships  76.2825  12.3765  20.7470  13.1092  12.9239  20.7470  20.7470  20.7470  ±3.62%       39
+
+ BENCH  Summary
+
+  route all 98 reported relationships - tests/routing.bench.ts > 100 nodes / 2 observed Leaders / 1200x900
+
+  route all 98 reported relationships - tests/routing.bench.ts > 100 nodes / 2 observed Leaders / 400x600
+
+  route all 98 reported relationships - tests/routing.bench.ts > 100 nodes / 2 observed Leaders / 390x250

@@ -1,0 +1,885 @@
+[
+  {
+    "Action": "skip",
+    "Package": "myraft/config",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft",
+    "Test": "TestSlowFollowerDoesNotDelaySubmission",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft",
+    "Test": "TestWriteStatusTable",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft",
+    "Test": "TestWriteStatusTablePropagatesWriterError",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft",
+    "Test": "TestWatchStopsAndPreservesJSON",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft",
+    "Test": "TestStatusBindsConfiguredIdentity",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestExperimentDependencyReport/source_missing",
+    "Elapsed": 0.07
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft",
+    "Test": "TestUncertainSubmissionNotRetried",
+    "Elapsed": 0.24
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft",
+    "Test": "TestSubmissionRequiresExplicitClusterIdentity",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestElectionDeadlineEvents/stale-log-vote",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestElectionDeadlineEvents/grant-vote",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestElectionDeadlineEvents/expired-append",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestElectionDeadlineEvents/mismatched-append",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestElectionDeadlineEvents/higher-vote-reply",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestElectionDeadlineEvents/higher-append-reply",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestElectionDeadlineEvents/expired-heartbeat",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestElectionDeadlineEvents/valid-heartbeat",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestElectionDeadlineEvents",
+    "Elapsed": 0.04
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestGenerateReplyReuse",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/rpc",
+    "Test": "TestPeerClientSurvivesIdleDeadline",
+    "Elapsed": 0.2
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/rpc",
+    "Test": "TestPeerTimeoutReconnectsWithoutLateReply",
+    "Elapsed": 0.06
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestIncrementalCommittedHashRecoveryAndFailure",
+    "Elapsed": 0.37
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestDivergenceInitialManifest/10",
+    "Elapsed": 0.13
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestExperimentDependencyReport/go_missing",
+    "Elapsed": 1.08
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft",
+    "Elapsed": 1.287
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestDivergenceInitialManifest/20",
+    "Elapsed": 0.38
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/rpc",
+    "Elapsed": 1.292
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestExperimentDependencyReport/python_missing",
+    "Elapsed": 1.14
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestDivergenceInitialManifest/50",
+    "Elapsed": 1.85
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestExperimentDependencyReport/all_ready",
+    "Elapsed": 2.12
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestExperimentDependencyReport",
+    "Elapsed": 4.41
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestDependencyRejectsPython310",
+    "Elapsed": 2.18
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestDivergenceInitialManifest/100",
+    "Elapsed": 3.39
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestDivergenceInitialManifest",
+    "Elapsed": 5.75
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestFixedMembershipRestartCannotSplitHistory",
+    "Elapsed": 0.93
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestLegacyClaimIsExplicitBackedUpAndReadOnly",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestLegacyClaimRejectsCorruptionWithoutPublishingIdentity",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/false",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL/true",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestLegacyClaimWithoutMetadataOnlyAcceptsEmptyWAL",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestSummaryIsNotLogVerification",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestReplicationBatchSizes/64",
+    "Elapsed": 0.56
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestReplicationBatchSizes/128",
+    "Elapsed": 0.52
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestDependencyVersionRequirements/minimum",
+    "Elapsed": 2.16
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestReplicationBatchSizes/256",
+    "Elapsed": 0.54
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestReplicationBatchSizes",
+    "Elapsed": 1.62
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestBlockedOrdinaryOutputDoesNotBlockProtocolOrStop",
+    "Elapsed": 0.23
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestLogRangeCopiesBoundedRevision",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestOrdinaryOutputReportsDroppedEvents",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestPartitionRepairsUncommittedLeaderTail",
+    "Elapsed": 1.18
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestHashEncodingRemainsJSONLines",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestDependencyVersionRequirements/newer",
+    "Elapsed": 2.17
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestStatusDiagnosticModes",
+    "Elapsed": 0.55
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestStatusSnapshotDuringSuffixReplacement",
+    "Elapsed": 1.49
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestDependencyVersionRequirements/old_go_patch",
+    "Elapsed": 2.14
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestDependencyVersionRequirements/old_python",
+    "Elapsed": 2.14
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestElectionFailoverRestartAndMinority",
+    "Elapsed": 3.62
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestVoteSurvivesRestart",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestStaleVoteResponsesIgnored",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestSingleNodeAndIdempotentStop",
+    "Elapsed": 0.44
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestCorruptStateRejected",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestPersistenceFailureDoesNotGrantVote",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestVoteLogFreshness/older",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestVoteLogFreshness/shorter",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestVoteLogFreshness/equal",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestVoteLogFreshness/longer",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestVoteLogFreshness/newer",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestVoteLogFreshness",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestAppendBoundsAndDuplicates/missing",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestAppendBoundsAndDuplicates/wrong_term",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestAppendBoundsAndDuplicates/empty",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestAppendBoundsAndDuplicates/sentinel",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestAppendBoundsAndDuplicates/duplicate",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestAppendBoundsAndDuplicates",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestConflictRepairAndCommittedProtection",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestCurrentTermCommitAndStaleReply",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestDependencyVersionRequirements/bad_go_output",
+    "Elapsed": 2.14
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestReplication2101EmptyNodeFailoverRestart",
+    "Elapsed": 1.68
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestSingleNodeCommandsAndConcurrentSubmit",
+    "Elapsed": 0.51
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestDependencyVersionRequirements/bad_python_output",
+    "Elapsed": 2.17
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestDependencyVersionRequirements",
+    "Elapsed": 12.92
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestMinorityCannotCommitAndStopWakesRequest",
+    "Elapsed": 0.56
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestElectionRequestsBoundedAcrossTerms",
+    "Elapsed": 0.57
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestAliasedVoterCannotAuthorizeLeader",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestAliasedReplicaCannotCommitMinorityWrite",
+    "Elapsed": 0.36
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestPeerReplyIdentityPrecedesTermAndProgress/node",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestPeerReplyIdentityPrecedesTermAndProgress/cluster",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestPeerReplyIdentityPrecedesTermAndProgress/members",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestPeerReplyIdentityPrecedesTermAndProgress/missing",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestPeerReplyIdentityPrecedesTermAndProgress",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestWrongTargetRejectedBeforePersistentChanges",
+    "Elapsed": 0
+  },
+  {
+    "Action": "skip",
+    "Package": "myraft/raft",
+    "Test": "TestResourceSoak",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestNodeStorageExclusive",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestNodeStorageLockReleasedAfterLoadError/state",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestNodeStorageLockReleasedAfterLoadError/wal",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestNodeStorageLockReleasedAfterLoadError",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestNodeStorageLockLifetime",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestConcurrentStopWaitsForStorageRelease",
+    "Elapsed": 0.05
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestNodeStorageLockDirectoryAlias",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestNodeStorageLockProcess",
+    "Elapsed": 0.03
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestDependencyUsesSourceGoMinimum",
+    "Elapsed": 2.13
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestOversizedAppendRejectedBeforeWALWrite",
+    "Elapsed": 2.83
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestRecoveryOnlyAppliesCommittedPrefix",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestWALIncompleteTailAndCorruption/header",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestWALIncompleteTailAndCorruption/payload",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestWALIncompleteTailAndCorruption/corrupt",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestWALIncompleteTailAndCorruption",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestStorageFailuresDoNotAcknowledgeOrApply/append",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestStorageFailuresDoNotAcknowledgeOrApply/commit",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestStorageFailuresDoNotAcknowledgeOrApply",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestStateMachineArithmetic",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestCommittedReplacementCannotResurrectOldTail/length",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestCommittedReplacementCannotResurrectOldTail/missing_record",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestCommittedReplacementCannotResurrectOldTail/torn_payload",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestCommittedReplacementCannotResurrectOldTail/empty_wal",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestCommittedReplacementCannotResurrectOldTail",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestFollowersDoNotStartPeerWorkers",
+    "Elapsed": 0.22
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestReplicationWorkersReusedAcrossTerms",
+    "Elapsed": 0.09
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestFirstLeadershipRacingStop",
+    "Elapsed": 0.07
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestStartAfterLocalLeaderSetup",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Test": "TestLiveLeaderRotationsKeepWorkersBounded",
+    "Elapsed": 1.54
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/raft",
+    "Elapsed": 26.11
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestDependencyCacheSharesConcurrentRefresh",
+    "Elapsed": 6.25
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestSlowVersionProbeDoesNotHoldSnapshotLock",
+    "Elapsed": 0.14
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestVersionProbeFailureIsNotUnsupported",
+    "Elapsed": 1.16
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestVersionProbeDeadline",
+    "Elapsed": 3.11
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestExperimentRefreshRejectsChangedTool",
+    "Elapsed": 4.21
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestExportContainsEvidenceWithoutPathsOrCredentials",
+    "Elapsed": 0.06
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestCancellationOnlyTargetsRegisteredActiveExperiment",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestExperimentReadingKeepsSourceGroupsAndPartialStates",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestExperimentIntegerPrecisionSurvivesJournalAndExport",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestHistoryCheckRejectsEqualCurrentStateWithChangedPrefix",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestExperimentCancellationFinishesAndRetainsStatus",
+    "Elapsed": 0.07
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestOwnershipChild",
+    "Elapsed": 0
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestRestartRunningNodeNeverKillsExistingProcess",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestCheckpointSurvivesControllerRestart",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestFailedEventReadDoesNotAdvanceCursor",
+    "Elapsed": 0.03
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestOldVerificationCannotOverwriteNewObservation",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestReadOnlyControlAndClosedInputs",
+    "Elapsed": 0.05
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestUnknownWriteAndConcurrentClicksAreNotResent",
+    "Elapsed": 0.03
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestOperationJournalNeverReplaysUncertainWrites",
+    "Elapsed": 0.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestStaleGenerationCannotMutateAndOldLogResponseIsDiscarded",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestHTTPHostOriginAndMethodBoundary",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestSharedCollectorDoesNotMultiplyRPCWithBrowsers",
+    "Elapsed": 0.09
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestEventBoundsAndGapAreVisible",
+    "Elapsed": 0.07
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestLogsRejectStaleSessionAndUnregisteredNode",
+    "Elapsed": 0.02
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Test": "TestSlowSSEWriteDoesNotBlockCollectorAndExpires",
+    "Elapsed": 2.01
+  },
+  {
+    "Action": "pass",
+    "Package": "myraft/cmd/dashboard",
+    "Elapsed": 40.163
+  }
+]

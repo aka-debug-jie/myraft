@@ -17,11 +17,12 @@
 - 手机 20 节点最下方节点与工具条重叠：布局明确预留底部操作空间。
 - 旧会话请求失败后，App 层可能再次显示已被 client 层丢弃的错误：App 同样核对发送作用域。
 - `enable_control` 返回确认状态而非任务回执：类型与显示逻辑区分两者，不生成假的任务记录。
+- React Flow 每次不可变节点更新会清空 DOM 端点测量缓存，出现有效关系99条但实际绘制0条：按固定几何显式声明 source/target 端点，保留正常尺寸观测；修复后逐帧与反复切换回归通过。
 - React Flow 原生滚轮与共用滚轮处理可能冲突：在共同入口处理 Ctrl/Cmd 滚轮，双指触摸独立保留。
 
 ## 验收和测量口径
 
-结果记录在本轮独立的 `validation/react-prototype-20261023/`。合成浏览器测试与真实 Raft 集群实验分别列出；真实运行目录保留在开发机 `.tools/react-prototype-20261023/`，不覆盖旧实验。
+完整的 [验收记录、前后截图、JSON/CSV 与摘要](../validation/react-prototype-20261023/README.md) 已保存。17项前端单元测试、30个布局组合、7组交互、四次真实11/100节点流程通过；222个节点经独立算术核查。Go test/race各90个顶层与52个子测试通过，Python44项通过。合成浏览器测试与真实 Raft 集群实验分别列出；真实运行目录保留在开发机 `.tools/react-prototype-20261023/`，不覆盖旧实验。
 
 更新延迟测量包含事件派发后等待两次 requestAnimationFrame，属于浏览器显示确认窗口，不等同于纯 JavaScript CPU 时间或 Raft 提交耗时。首屏、CPU、堆及长任务分别记录。同机三次小样本比较只供原型选型，不宣称可靠 P99 或所有电脑上的性能收益。
 
@@ -32,3 +33,14 @@ SVG 版对目前的固定、只读逻辑拓扑直接，维护面较小；React F
 100 节点总览不承诺手机上每个编号和每条密集线同时可读；一次选择提供真实关系及两端身份，搜索可定位指定节点。多 Leader 只表示采样到多个本地角色，不直接宣判协议错误。
 
 此阶段结束后等待使用者比较两版并选定渲染器，再迁移其余五页。尚未制作本轮 Windows 包，也未执行 Windows 原生、Safari/Firefox 或长时资源验收；没有复用旧版本 PASS 充当本轮结果。
+
+## 查看原型
+
+本地运行方式见 [frontend/README.md](../frontend/README.md)。当前 Tailscale 只读入口：
+
+| 集群 | SVG | React Flow | 比较 |
+|---|---|---|---|
+| 11节点 | [打开](http://100.108.139.80:8081/prototype/?renderer=svg) | [打开](http://100.108.139.80:8081/prototype/?renderer=flow) | [打开](http://100.108.139.80:8081/prototype/?renderer=compare) |
+| 100节点 | [打开](http://100.108.139.80:8082/prototype/?renderer=svg) | [打开](http://100.108.139.80:8082/prototype/?renderer=flow) | [打开](http://100.108.139.80:8082/prototype/?renderer=compare) |
+
+这些是当前开发机上的预览服务，不是公开互联网服务或永久发布。原11节点进程实例未改变；100节点使用新的固定成员配置和数据目录，已通过CLI生成并验证2101条算术命令。

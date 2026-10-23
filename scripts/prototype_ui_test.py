@@ -43,20 +43,24 @@ window.__long=[];new PerformanceObserver(list=>window.__long.push(...list.getEnt
 GEOMETRY="""()=>{
 const host=document.querySelector('.canvas-host'),box=host.getBoundingClientRect();
 const nodes=[...host.querySelectorAll('[data-node]')].map(e=>{const r=e.getBoundingClientRect();return {id:+e.dataset.node,x:r.x+r.width/2,y:r.y+r.height/2,r:r.width/2,hit:e.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)),label:getComputedStyle(e.querySelector('.node-badge__id')).display!=='none'};});
-let overlap=[],outside=[],crossings=[];
+let overlap=[],outside=[],crossings=[],edge_crossings=[];
 for(let i=0;i<nodes.length;i++){const a=nodes[i];if(a.x-a.r<box.x-1||a.y-a.r<box.y-1||a.x+a.r>box.right+1||a.y+a.r>box.bottom+1)outside.push(a.id);
  for(let j=i+1;j<nodes.length;j++){const b=nodes[j];if(Math.hypot(a.x-b.x,a.y-b.y)+.2<a.r+b.r)overlap.push([a.id,b.id]);}}
 const edges=[...host.querySelectorAll('[data-relation]')];
+const segments=edges.flatMap(edge=>{const values=edge.getAttribute('d').match(/[-+]?(?:\\d*\\.)?\\d+/g).map(Number),m=edge.getScreenCTM(),points=[];for(let i=0;i<values.length;i+=2)points.push(new DOMPoint(values[i],values[i+1]).matrixTransform(m));return points.slice(1).map((b,i)=>({id:edge.dataset.relation,a:points[i],b}));});
+const orient=(a,b,p)=>(b.x-a.x)*(p.y-a.y)-(b.y-a.y)*(p.x-a.x);
+for(let i=0;i<segments.length;i++)for(let j=i+1;j<segments.length;j++){const a=segments[i],b=segments[j];if(a.id!==b.id&&orient(a.a,a.b,b.a)*orient(a.a,a.b,b.b)<-1e-6&&orient(b.a,b.b,a.a)*orient(b.a,b.b,a.b)<-1e-6)edge_crossings.push([a.id,b.id]);}
 for(const edge of edges){const [from,to]=edge.dataset.relation.split('/').map(Number),length=edge.getTotalLength(),matrix=edge.getScreenCTM();
  for(let i=1;i<30;i++){const point=edge.getPointAtLength(length*i/30);const p=new DOMPoint(point.x,point.y).matrixTransform(matrix);
  for(const n of nodes)if(n.id!==from&&n.id!==to&&Math.hypot(n.x-p.x,n.y-p.y)<n.r-1)crossings.push([from,to,n.id]);}}
-return {members:nodes.length,visible:nodes.filter(n=>n.x>=box.x&&n.x<=box.right&&n.y>=box.y&&n.y<=box.bottom).length,hit:nodes.filter(n=>n.hit).length,labels:nodes.filter(n=>n.label).length,drawn:edges.filter(e=>getComputedStyle(e).visibility!=='hidden'&&Number(getComputedStyle(e).opacity)>.01).length,relations:+host.dataset.relations,overlap,outside,crossings,tab_stops:host.querySelectorAll('[data-node][tabindex="0"]').length};
+return {members:nodes.length,visible:nodes.filter(n=>n.x>=box.x&&n.x<=box.right&&n.y>=box.y&&n.y<=box.bottom).length,hit:nodes.filter(n=>n.hit).length,labels:nodes.filter(n=>n.label).length,drawn:edges.filter(e=>getComputedStyle(e).visibility!=='hidden'&&Number(getComputedStyle(e).opacity)>.01).length,relations:+host.dataset.relations,overlap,outside,crossings,edge_crossings,tab_stops:host.querySelectorAll('[data-node][tabindex="0"]').length};
 }"""
 
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--url',required=True);parser.add_argument('--output',type=Path,required=True)
-    a=parser.parse_args();a.output.mkdir(parents=True,exist_ok=False);result={'mode':'SYNTHETIC','cases':[],'interactions':[],'performance':[]};errors=[]
+    parser.add_argument('--skip-performance',action='store_true',help='rerun functional checks only; retain prior same-source performance records')
+    a=parser.parse_args();a.output.mkdir(parents=True,exist_ok=False);result={'mode':'SYNTHETIC','cases':[],'interactions':[],'performance':[],'performance_skipped':a.skip_performance};errors=[]
     with sync_playwright() as p:
         browser=p.chromium.launch()
         def page_for(count,renderer,viewport):
@@ -76,7 +80,7 @@ def main():
                         page.mouse.move(0,0);page.wait_for_timeout(120)
                         stats=page.evaluate(GEOMETRY);record={'nodes':count,'renderer':renderer,'viewport':viewport,**stats};result['cases'].append(record)
                         assert stats['visible']==count and stats['hit']==count,record
-                        assert not stats['overlap'] and not stats['outside'] and not stats['crossings'],record
+                        assert not stats['overlap'] and not stats['outside'] and not stats['crossings'] and not stats['edge_crossings'],record
                         assert stats['drawn']==count-1 and stats['relations']==count-1 and stats['tab_stops']==1,record
                         if count in [11,100]:page.screenshot(path=str(a.output/f'synthetic-{renderer}-{count}-{viewport[0]}.png'))
                         context.close()
@@ -166,7 +170,7 @@ def main():
             assert page.evaluate('()=>window.__streams.size')==1
             result['interactions'].append({'result':'PASS','renderer_chunk_failure_contained':True});context.close()
             # Same sequence and viewport, each renderer alone; not a production throughput benchmark.
-            for renderer in ['svg','flow']:
+            for renderer in ([] if a.skip_performance else ['svg','flow']):
                 for trial in range(3):
                     context,page=page_for(100,renderer,(1440,900))
                     cdp=context.new_cdp_session(page);cdp.send('Performance.enable')

@@ -1,0 +1,146 @@
+{
+  "mode": "SYNTHETIC",
+  "runs": [
+    {
+      "renderer": "svg",
+      "warmup_cycles": 2,
+      "measured_cycles": 8,
+      "samples": [
+        {
+          "batch": 0,
+          "Nodes": 1311,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5531576,
+          "sse": 1
+        },
+        {
+          "batch": 1,
+          "Nodes": 1311,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5679104,
+          "sse": 1
+        },
+        {
+          "batch": 2,
+          "Nodes": 1311,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5681992,
+          "sse": 1
+        },
+        {
+          "batch": 3,
+          "Nodes": 1311,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5775736,
+          "sse": 1
+        },
+        {
+          "batch": 4,
+          "Nodes": 1311,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5780092,
+          "sse": 1
+        },
+        {
+          "batch": 5,
+          "Nodes": 1311,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5747844,
+          "sse": 1
+        },
+        {
+          "batch": 6,
+          "Nodes": 1311,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5715228,
+          "sse": 1
+        },
+        {
+          "batch": 7,
+          "Nodes": 1311,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5828196,
+          "sse": 1
+        },
+        {
+          "batch": 8,
+          "Nodes": 1311,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5812504,
+          "sse": 1
+        }
+      ]
+    },
+    {
+      "renderer": "flow",
+      "warmup_cycles": 2,
+      "measured_cycles": 8,
+      "samples": [
+        {
+          "batch": 0,
+          "Nodes": 1821,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8142012,
+          "sse": 1
+        },
+        {
+          "batch": 1,
+          "Nodes": 1821,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8243868,
+          "sse": 1
+        },
+        {
+          "batch": 2,
+          "Nodes": 1821,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8321156,
+          "sse": 1
+        },
+        {
+          "batch": 3,
+          "Nodes": 1821,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8219052,
+          "sse": 1
+        },
+        {
+          "batch": 4,
+          "Nodes": 1821,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8256656,
+          "sse": 1
+        },
+        {
+          "batch": 5,
+          "Nodes": 1821,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8281116,
+          "sse": 1
+        },
+        {
+          "batch": 6,
+          "Nodes": 1821,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8275060,
+          "sse": 1
+        },
+        {
+          "batch": 7,
+          "Nodes": 1821,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8411456,
+          "sse": 1
+        },
+        {
+          "batch": 8,
+          "Nodes": 1821,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8447316,
+          "sse": 1
+        }
+      ]
+    }
+  ],
+  "result": "PASS"
+}
