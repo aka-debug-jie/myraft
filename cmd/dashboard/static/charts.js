@@ -80,7 +80,7 @@ const groupKey = (row) => JSON.stringify([
 const groupLabel = (row) => {
   const commands = Number(row.requested_commands);
   const workload = Number.isFinite(commands) ? commands.toLocaleString('zh-CN') : escapeHTML(row.requested_commands ?? '—');
-  return `${escapeHTML(row.platform ?? '未知平台')} · ${escapeHTML(row.nodes ?? '—')} 节点 · ${escapeHTML(row.scenario ?? '未知场景')} · 工作量 ${workload} 条命令 · batch ${escapeHTML(row.batch_size ?? '—')}`;
+  return `${escapeHTML(row.platform ?? '未知平台')} · ${escapeHTML(row.nodes ?? '—')} 节点 · ${escapeHTML(({election:'首次选举',failover:'故障重选',catchup:'空节点追赶',divergence:'分歧修复',replication:'日志复制'})[row.scenario]??row.scenario??'未知场景')} · 工作量 ${workload} 条命令 · batch ${escapeHTML(row.batch_size ?? '—')}`;
 };
 
 const elapsedSeconds = (item) => {
@@ -99,10 +99,10 @@ const renderGroup = (group) => {
   const mean = n ? values.reduce((sum, value) => sum + value / n, 0) : null;
   const median = n ? (sorted.length % 2 ? sorted[(n - 1) / 2] : sorted[n / 2 - 1] / 2 + sorted[n / 2] / 2) : null;
   const range = n ? `${sorted[0].toFixed(3)}–${secondsText(sorted[n - 1])}` : null;
-  let plot = '<p class="small muted perf-empty">没有可用的 PASS 耗时。</p>';
+  let plot = '<p class="small muted perf-empty">没有可用的 通过耗时。</p>';
 
   if (n === 1) {
-    plot = `<p class="perf-single" aria-label="单次 PASS 耗时 ${secondsText(values[0])}"><strong>${secondsText(values[0])}</strong><span>单次 PASS 耗时</span></p>`;
+    plot = `<p class="perf-single" aria-label="单次 通过耗时 ${secondsText(values[0])}"><strong>${secondsText(values[0])}</strong><span>单次 通过耗时</span></p>`;
   } else if (n > 1) {
     const timeline = rows.map((item, index) => ({ item, index, round: Number(item.round), seconds: item.result === 'PASS' ? elapsedSeconds(item) : null }))
       .filter((entry) => Number.isFinite(entry.round) && entry.round > 0)
@@ -128,14 +128,14 @@ const renderGroup = (group) => {
       return `<circle class="perf-point" cx="${cx.toFixed(2)}" cy="${cy.toFixed(2)}" r="4"><title>第 ${escapeHTML(entry.round)} 轮 · ${secondsText(entry.seconds)}</title></circle><text x="${cx.toFixed(2)}" y="${Math.max(12, cy - 8).toFixed(2)}" text-anchor="middle" class="perf-round-label">r${escapeHTML(entry.round)}</text>`;
     }).join('');
     const maxLabel = secondsText(timelineMax);
-    plot = `<div class="perf-chart-scroll"><svg class="perf-timeline" viewBox="0 0 600 132" role="img" aria-label="PASS 逐轮耗时，单位秒" preserveAspectRatio="xMidYMid meet"><line class="perf-axis" x1="42" y1="96" x2="558" y2="96"/><line class="perf-guide" x1="42" y1="28" x2="558" y2="28"/><text class="perf-axis-label" x="42" y="118">${escapeHTML(firstRound)} 轮</text><text class="perf-axis-label" x="558" y="118" text-anchor="end">${escapeHTML(lastRound)} 轮</text><text class="perf-axis-label" x="42" y="22">${escapeHTML(maxLabel)}</text>${lines.join('')}${dots}</svg></div>`;
+    plot = `<div class="perf-chart-scroll"><svg class="perf-timeline" viewBox="0 0 600 132" role="img" aria-label="通过轮次耗时，单位秒" preserveAspectRatio="xMidYMid meet"><line class="perf-axis" x1="42" y1="96" x2="558" y2="96"/><line class="perf-guide" x1="42" y1="28" x2="558" y2="28"/><text class="perf-axis-label" x="42" y="118">${escapeHTML(firstRound)} 轮</text><text class="perf-axis-label" x="558" y="118" text-anchor="end">${escapeHTML(lastRound)} 轮</text><text class="perf-axis-label" x="42" y="22">${escapeHTML(maxLabel)}</text>${lines.join('')}${dots}</svg></div>`;
   }
 
   const stats = n
     ? `均值 ${secondsText(mean)} · 中位数 ${secondsText(median)} · 范围 ${range} · n=${n}`
     : '有效耗时 n=0';
   const source = escapeHTML(row.source_sha256 ?? '未知');
-  return `<article class="panel perf-group"><h3 class="perf-title">${groupLabel(row)}</h3><p class="evidence-hash perf-source">平台 ${escapeHTML(row.platform ?? '未知')} · 源码 SHA-256 ${source}</p><p class="small muted perf-summary">PASS ${passes.length} · ${stats} · FAIL ${failed} · INTERRUPTED ${interrupted}</p>${plot}</article>`;
+  return `<article class="panel perf-group"><h3 class="perf-title">${groupLabel(row)}</h3><p class="evidence-hash perf-source">平台 ${escapeHTML(row.platform ?? '未知')} · 源码 SHA-256 ${source}</p><p class="small muted perf-summary">通过 ${passes.length} · ${stats} · 失败 ${failed} · 中断 ${interrupted}</p>${plot}</article>`;
 };
 
 export function experimentChart(rows) {

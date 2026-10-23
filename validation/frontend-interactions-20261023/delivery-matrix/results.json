@@ -1,0 +1,945 @@
+{
+  "mode": "REAL",
+  "platform": "posix",
+  "dashboard_sha256": "00c5e81e145255fd297ef6ca28e63be18fb82f8f039fffeb7ad7abea224b04df",
+  "node_sha256": "b735658d0b3e3003032ef745fbdc54e8205fe3bbbbcbba7124b24d5abd81c13d",
+  "runs": [
+    {
+      "nodes": 3,
+      "result": "PASS",
+      "checkpoint": {
+        "index": 2102,
+        "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+        "x": 0
+      },
+      "commands": 2104,
+      "views": [
+        {
+          "visible_members_across_groups": 3,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3
+              ],
+              "visible": 3,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            1440,
+            900
+          ]
+        },
+        {
+          "visible_members_across_groups": 3,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3
+              ],
+              "visible": 3,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "visible_members_across_groups": 3,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3
+              ],
+              "visible": 3,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            390,
+            844
+          ]
+        }
+      ],
+      "page_errors": [],
+      "initial_leader": 2,
+      "new_leader": 1,
+      "history_preserved": true,
+      "owned_nodes_remaining": 0,
+      "remaining_listeners": []
+    },
+    {
+      "nodes": 11,
+      "result": "PASS",
+      "checkpoint": {
+        "index": 2102,
+        "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+        "x": 0
+      },
+      "commands": 2104,
+      "views": [
+        {
+          "visible_members_across_groups": 11,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+              ],
+              "visible": 11,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            1440,
+            900
+          ]
+        },
+        {
+          "visible_members_across_groups": 11,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+              ],
+              "visible": 11,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "visible_members_across_groups": 11,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11
+              ],
+              "visible": 11,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            390,
+            844
+          ]
+        }
+      ],
+      "page_errors": [],
+      "initial_leader": 2,
+      "new_leader": 1,
+      "history_preserved": true,
+      "owned_nodes_remaining": 0,
+      "remaining_listeners": []
+    },
+    {
+      "nodes": 20,
+      "result": "PASS",
+      "checkpoint": {
+        "index": 2102,
+        "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+        "x": 0
+      },
+      "commands": 2104,
+      "views": [
+        {
+          "visible_members_across_groups": 20,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "visible": 20,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            1440,
+            900
+          ]
+        },
+        {
+          "visible_members_across_groups": 20,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20
+              ],
+              "visible": 20,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "visible_members_across_groups": 20,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19
+              ],
+              "visible": 19,
+              "blocked": []
+            },
+            {
+              "ids": [
+                10,
+                20
+              ],
+              "visible": 2,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            390,
+            844
+          ]
+        }
+      ],
+      "page_errors": [],
+      "initial_leader": 10,
+      "new_leader": 1,
+      "history_preserved": true,
+      "owned_nodes_remaining": 0,
+      "remaining_listeners": []
+    },
+    {
+      "nodes": 50,
+      "result": "PASS",
+      "checkpoint": {
+        "index": 2102,
+        "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+        "x": 0
+      },
+      "commands": 2104,
+      "views": [
+        {
+          "visible_members_across_groups": 50,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50
+              ],
+              "visible": 50,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            1440,
+            900
+          ]
+        },
+        {
+          "visible_members_across_groups": 50,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50
+              ],
+              "visible": 50,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "visible_members_across_groups": 50,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                48
+              ],
+              "visible": 20,
+              "blocked": []
+            },
+            {
+              "ids": [
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                48
+              ],
+              "visible": 20,
+              "blocked": []
+            },
+            {
+              "ids": [
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50
+              ],
+              "visible": 12,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            390,
+            844
+          ]
+        }
+      ],
+      "page_errors": [],
+      "initial_leader": 48,
+      "new_leader": 11,
+      "history_preserved": true,
+      "owned_nodes_remaining": 0,
+      "remaining_listeners": []
+    },
+    {
+      "nodes": 100,
+      "result": "PASS",
+      "checkpoint": {
+        "index": 2102,
+        "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+        "x": 0
+      },
+      "commands": 2104,
+      "views": [
+        {
+          "visible_members_across_groups": 100,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60
+              ],
+              "visible": 60,
+              "blocked": []
+            },
+            {
+              "ids": [
+                56,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                68,
+                69,
+                70,
+                71,
+                72,
+                73,
+                74,
+                75,
+                76,
+                77,
+                78,
+                79,
+                80,
+                81,
+                82,
+                83,
+                84,
+                85,
+                86,
+                87,
+                88,
+                89,
+                90,
+                91,
+                92,
+                93,
+                94,
+                95,
+                96,
+                97,
+                98,
+                99,
+                100
+              ],
+              "visible": 41,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            1440,
+            900
+          ]
+        },
+        {
+          "visible_members_across_groups": 100,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                68,
+                69,
+                70,
+                71,
+                72,
+                73,
+                74,
+                75,
+                76,
+                77,
+                78,
+                79,
+                80,
+                81
+              ],
+              "visible": 81,
+              "blocked": []
+            },
+            {
+              "ids": [
+                56,
+                82,
+                83,
+                84,
+                85,
+                86,
+                87,
+                88,
+                89,
+                90,
+                91,
+                92,
+                93,
+                94,
+                95,
+                96,
+                97,
+                98,
+                99,
+                100
+              ],
+              "visible": 20,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            1920,
+            1080
+          ]
+        },
+        {
+          "visible_members_across_groups": 100,
+          "groups": [
+            {
+              "ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                56
+              ],
+              "visible": 20,
+              "blocked": []
+            },
+            {
+              "ids": [
+                20,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                28,
+                29,
+                30,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                38,
+                56
+              ],
+              "visible": 20,
+              "blocked": []
+            },
+            {
+              "ids": [
+                39,
+                40,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                48,
+                49,
+                50,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57
+              ],
+              "visible": 19,
+              "blocked": []
+            },
+            {
+              "ids": [
+                56,
+                58,
+                59,
+                60,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                68,
+                69,
+                70,
+                71,
+                72,
+                73,
+                74,
+                75,
+                76
+              ],
+              "visible": 20,
+              "blocked": []
+            },
+            {
+              "ids": [
+                56,
+                77,
+                78,
+                79,
+                80,
+                81,
+                82,
+                83,
+                84,
+                85,
+                86,
+                87,
+                88,
+                89,
+                90,
+                91,
+                92,
+                93,
+                94,
+                95
+              ],
+              "visible": 20,
+              "blocked": []
+            },
+            {
+              "ids": [
+                56,
+                96,
+                97,
+                98,
+                99,
+                100
+              ],
+              "visible": 6,
+              "blocked": []
+            }
+          ],
+          "viewport": [
+            390,
+            844
+          ]
+        }
+      ],
+      "page_errors": [],
+      "initial_leader": 56,
+      "new_leader": 10,
+      "history_preserved": true,
+      "owned_nodes_remaining": 0,
+      "remaining_listeners": []
+    }
+  ]
+}

@@ -24,6 +24,7 @@ def main() -> None:
         browser = playwright.chromium.launch(headless=True)
         page = browser.new_page(viewport={"width": 390, "height": 844}, has_touch=True)
         page.set_content('<div id="host" style="position:relative;width:390px;height:473px"></div>')
+        page.add_style_tag(content=(ROOT/'cmd/dashboard/static/style.css').read_text())
         page.add_script_tag(url="data:text/javascript;charset=utf-8," + __import__("urllib.parse").parse.quote(stage_source), type="module")
         result = page.evaluate("""async () => {
           const {Stage}=await import(document.querySelector('script[type=module]').src);
@@ -31,7 +32,7 @@ def main() -> None:
           const members=Array.from({length:100},(_,i)=>({id:i+1}));
           const nodes=members.map(n=>({id:n.id,reachable:true,identity_ok:true,status:{state:n.id===1?'Leader':'Follower',term:1,leader_id:1,instance_id:'instance-'+n.id}}));
           const frame={members,nodes,fresh:true,scope:'first',selected:50,events:[],snapshotSeq:1};
-          stage.update(frame);stage.update({...frame,snapshotSeq:2});
+          stage.update(frame);stage.update({...frame,snapshotSeq:2});stage.overviewControl.click();
           const bounds=host.getBoundingClientRect();
           const complete=()=>[...host.querySelectorAll('.stage-node')].filter(n=>{const r=n.getBoundingClientRect();return r.left>=bounds.left-1&&r.right<=bounds.right+1&&r.top>=bounds.top-1&&r.bottom<=bounds.bottom+1}).length;
           const initial={scale:stage.scale,visible:complete(),edges:host.querySelectorAll('.stage-reported-edge').length};
@@ -39,7 +40,8 @@ def main() -> None:
           stage.scale=.75;stage.tx=-25;stage.ty=-17;stage.applyTransform();
           stage.update({...frame,snapshotSeq:3,nodes:nodes.map(n=>({...n,status:{...n.status,term:2}}))});
           const kept={scale:stage.scale,tx:stage.tx,ty:stage.ty};
-          stage.update({...frame,scope:'second'});stage.update({...frame,scope:'second',snapshotSeq:2});
+          const positionsStable=positions===JSON.stringify([...stage.nodes].map(([id,node])=>[id,node.style.left,node.style.top]));
+          stage.update({...frame,scope:'second'});stage.update({...frame,scope:'second',snapshotSeq:2});stage.overviewControl.click();
           const scopeFit={scale:stage.scale,visible:complete()};
           host.querySelector('.stage-control[aria-label="聚焦选中节点关系"]').click();
           const allEdges=[...host.querySelectorAll('.stage-reported-edge')].filter(e=>e.style.display!=='none').length;
@@ -61,7 +63,7 @@ def main() -> None:
           stage.tx=-10000;stage.ty=-10000;stage.applyTransform();stage.focus(50);
           const focused=host.querySelector('.stage-node[data-node="50"]').getBoundingClientRect();
           host.focus();const beforeArrow=stage.tx;host.dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowRight',bubbles:true}));const arrowMoved=stage.tx<beforeArrow;
-          const result={initial,positionsStable:positions===JSON.stringify([...stage.nodes].map(([id,node])=>[id,node.style.left,node.style.top])),kept,scopeFit,allEdges,filteredEdges:host.querySelectorAll('.stage-reported-edge').length,ordinaryClick,afterDragClick,pinchMinimum,focusedVisible:focused.left>=bounds.left-1&&focused.right<=bounds.right+1&&focused.top>=bounds.top-1&&focused.bottom<=bounds.bottom+1,arrowMoved};
+          const result={initial,positionsStable,kept,scopeFit,allEdges,filteredEdges:host.querySelectorAll('.stage-reported-edge').length,ordinaryClick,afterDragClick,pinchMinimum,focusedVisible:focused.left>=bounds.left-1&&focused.right<=bounds.right+1&&focused.top>=bounds.top-1&&focused.bottom<=bounds.bottom+1,arrowMoved};
           pageForShot();window.__stageTest=stage;return result;
           function pageForShot(){document.body.dataset.stageChecked='true'}
         }""")

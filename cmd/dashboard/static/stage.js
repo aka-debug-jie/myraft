@@ -12,6 +12,7 @@ export class Stage {
     this.autoFitPending = false;
     this.viewChangedByUser = false;
     this.showAllRelations = true;
+    this.groupIndex=0;this.thumbnail=false;
     this.scale = 1;
     this.tx = 0;
     this.ty = 0;
@@ -39,12 +40,12 @@ export class Stage {
     this.controls.className = 'stage-controls';
     this.controls.setAttribute('role', 'group');
     this.controls.setAttribute('aria-label', '拓扑缩放和平移');
-    this.controls.style.cssText = 'position:absolute;left:20px;bottom:24px;z-index:2;display:flex;gap:4px;';
+    
     this.controls.append(
       this.makeControl('放大', '+', () => this.zoomBy(1.2)),
       this.makeControl('缩小', '−', () => this.zoomBy(1 / 1.2)),
       this.makeControl('适合视图', '适合', () => this.fit()),
-      this.makeControl('按可读大小聚焦节点', '聚焦', () => {const id=this.selected??this.centerId??this.members?.[0],p=this.positions?.get(id);if(!p)return;this.viewChangedByUser=true;this.scale=1;this.tx=this.host.clientWidth/2-p[0];this.ty=this.host.clientHeight/2-p[1];this.applyTransform();this.focus(id);}),
+      this.makeControl('按可读大小聚焦节点', '聚焦', () => {const id=this.selected??this.displayCenter??this.members?.[0];this.focus(id);const p=this.positions?.get(id);if(!p)return;this.viewChangedByUser=true;this.scale=1;this.tx=this.host.clientWidth/2-p[0];this.ty=this.host.clientHeight/2-p[1];this.applyTransform();this.focus(id);}),
     );
     this.relationControl = this.makeControl('聚焦选中节点关系', '关系聚焦', () => {
       this.showAllRelations = !this.showAllRelations;
@@ -64,11 +65,19 @@ export class Stage {
     this.orientation.className='stage-orientation';this.orientation.hidden=true;
     this.orientation.setAttribute('aria-label','返回全景');
     this.orientation.addEventListener('click',()=>this.fit(),{signal:this.abort.signal});
-    this.host.append(this.world,this.controls,this.relationNote,this.orientation);
+    this.controls.append(this.orientation);
+    this.groupControls=document.createElement('div');this.groupControls.className='stage-groups';
+    this.groupPrev=this.makeControl('上一组','上一组',()=>this.changeGroup(-1));
+    this.groupNext=this.makeControl('下一组','下一组',()=>this.changeGroup(1));
+    this.groupLabel=document.createElement('span');this.groupLabel.className='group-label';this.groupLabel.setAttribute('aria-live','polite');
+    this.overviewControl=this.makeControl('全部节点缩略视图','全部缩略',()=>{this.thumbnail=!this.thumbnail;this.autoFitPending=true;this.layoutKey=null;this.layout();});
+    this.groupControls.append(this.groupPrev,this.groupLabel,this.groupNext,this.overviewControl);
+    this.centerNotice=document.createElement('div');this.centerNotice.className='center-notice';this.centerNotice.setAttribute('role','status');
+    this.host.append(this.world,this.controls,this.relationNote,this.groupControls,this.centerNotice);
 
     this.world.addEventListener('wheel', e => {
-      e.preventDefault();
-      this.zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.12 : 1 / 1.12);
+      if(e.ctrlKey||e.metaKey){e.preventDefault();if(e.deltaY)this.zoomAt(e.clientX,e.clientY,Math.exp(-e.deltaY*.002));}
+      else if(this.viewChangedByUser){e.preventDefault();this.tx-=e.deltaX;this.ty-=e.deltaY;this.applyTransform();}
     }, {passive:false, signal:this.abort.signal});
     this.world.addEventListener('pointerdown', e => this.pointerDown(e), {signal:this.abort.signal});
     this.world.addEventListener('pointermove', e => this.pointerMove(e), {signal:this.abort.signal});
@@ -81,9 +90,15 @@ export class Stage {
     }, {capture:true, signal:this.abort.signal});
     this.host.addEventListener('focusin', e => {
       const node = e.target.closest?.('.stage-node');
-      if (node) this.revealNode(Number(node.dataset.node));
+      if(node){this.tabNode=Number(node.dataset.node);this.updateTabStops();this.revealNode(this.tabNode);}
     }, {signal:this.abort.signal});
     this.host.addEventListener('keydown', e => {
+      const node=e.target.closest('.stage-node');
+      if(node&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(e.key)){
+        e.preventDefault();const i=this.members.indexOf(Number(node.dataset.node));
+        const next=e.key==='Home'?0:e.key==='End'?this.members.length-1:(i+(['ArrowLeft','ArrowUp'].includes(e.key)?-1:1)+this.members.length)%this.members.length;
+        this.focus(this.members[next]);return;
+      }
       if (e.target !== this.host) return;
       const step = e.shiftKey ? 80 : 40;
       if (e.key === 'ArrowLeft' || e.key === 'ArrowRight' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
@@ -123,7 +138,7 @@ export class Stage {
     const scopeChanged = this.scope !== scope;
     if (!this.initialized || scopeChanged) {
       this.eventsSeen.clear();
-      this.centerId=null;this.displayCenter=null;this.hovered=null;this.focusedNode=null;this.slotOrder=[];this.pendingLeader=null;this.lastSnapshotSeq=null;this.layoutKey=null;this.pathKey=null;
+      this.groupIndex=0;this.thumbnail=false;this.previousSelected=null;this.centerId=null;this.displayCenter=null;this.hovered=null;this.focusedNode=null;this.slotOrder=[];this.pendingLeader=null;this.lastSnapshotSeq=null;this.layoutKey=null;this.pathKey=null;
       for (const event of events) if (Number.isFinite(event.seq)) this.eventsSeen.add(`${scope}:${event.seq}`);
       this.scale=1; this.tx=0; this.ty=0; this.autoFitPending = true; this.viewChangedByUser = false;
       this.showAllRelations = true;
@@ -172,17 +187,17 @@ export class Stage {
       if (id === selected) button.classList.add('selected');
       const reachable = sample?.reachable === true;
       const identityOK = sample?.identity_ok === true;
-      button.setAttribute('aria-label', `节点 ${id}；角色 ${state}；${reachable ? '可达' : '不可达或未知'}；${identityOK ? '身份匹配' : '身份不匹配或未知'}；任期 ${sample?.status?.term ?? '未知'}；报告 Leader ${sample?.status?.leader_id ?? '未知'}`);
-      button.querySelector('.stage-role').textContent = ({leader:'Leader',candidate:'竞选中',unknown:!fresh?'过期':'未知'})[role] || 'Follower';
+      button.setAttribute('aria-label', `节点 ${id}；角色 ${state}；${reachable ? '可达' : '不可达或未知'}；${!fresh||!reachable?'身份未核验':identityOK?'身份匹配':'身份不匹配'}；任期 ${sample?.status?.term ?? '未知'}；报告 Leader ${sample?.status?.leader_id ?? '未知'}`);
+      button.querySelector('.stage-role').textContent = ({leader:'Leader',candidate:'竞选中',unknown:!fresh?'过期':!reachable?'不可达':'未知'})[role] || 'Follower';
       button.classList.toggle('unreachable',sample?.reachable===false);
-      button.classList.toggle('identity-error',sample?.identity_ok===false);
+      button.classList.toggle('identity-error',fresh&&sample?.reachable===true&&sample?.identity_ok===false);
       button.setAttribute('aria-pressed',String(id===selected));
     }
 
     this.samples = sampleById;
     this.members = memberIds;
     this.fresh = fresh;
-    this.selected = selected;
+    this.selectionChanged=selected!==this.selected;this.selected = selected;
     this.observeLeader(snapshotSeq);
     this.relationControl.hidden = memberIds.length <= 15;
     this.updateRelationControl();
@@ -202,7 +217,6 @@ export class Stage {
     if(this.pendingLeader?.key!==key){this.pendingLeader={key,seq};return;}
     if(seq<=this.pendingLeader.seq||leader.id===this.centerId)return;
     const old=this.displayCenter;
-    if(old!=null){const index=this.slotOrder.indexOf(leader.id);this.slotOrder[this.slotOrder.indexOf(old)]=leader.id;this.slotOrder[index]=old;}
     this.centerId=leader.id;this.displayCenter=leader.id;this.layoutKey=null;
     this.animateLayout=old!=null&&old!==leader.id&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
@@ -221,17 +235,32 @@ export class Stage {
     const width=Math.max(1,this.host.clientWidth),height=Math.max(1,this.host.clientHeight);
     const resized=this.layoutSize&&(this.layoutSize[0]!==width||this.layoutSize[1]!==height);
     this.layoutSize=[width,height];
-    const key=[width,height,this.displayCenter,...(this.slotOrder||[])].join('/');
+    const active=this.samples?.get(this.displayCenter),center=this.fresh&&active?.reachable&&active.identity_ok&&!active.error&&active.status?.state==='Leader'?this.displayCenter:null;
+    const all=this.members||[];
+    const capacityKey=[width,height,...all].join('/');
+    if(this.capacityKey!==capacityKey){
+      let count=all.length;
+      while(count>2){const ids=all.slice(0,count);if(geometry(ids,ids,-1,width,height).fits)break;count--;}
+      this.readableCapacity=Math.max(1,count);this.capacityKey=capacityKey;
+    }
+    const capacity=this.thumbnail?all.length:this.readableCapacity;
+    this.capacity=Math.max(1,capacity);this.groupCount=Math.max(1,Math.ceil(all.length/this.capacity));
+    if((this.selectionChanged||resized)&&this.selected!=null)this.groupIndex=Math.floor(all.indexOf(this.selected)/this.capacity);
+    this.selectionChanged=false;this.groupIndex=Math.max(0,Math.min(this.groupCount-1,this.groupIndex));
+    const group=this.thumbnail?all:all.slice(this.groupIndex*this.capacity,(this.groupIndex+1)*this.capacity);
+    const visible=new Set(group);if(center!=null)visible.add(center);this.visibleIds=visible;
+    const key=[width,height,center,this.thumbnail,this.groupIndex,...group].join('/');
     if(this.layoutKey!==key){
       this.layoutKey=key;this.pathKey=null;
-      this.geom=geometry(this.members||[],this.slotOrder||[],this.displayCenter,width,height);
+      const worldWidth=this.thumbnail?Math.max(width,all.length*28):width,worldHeight=this.thumbnail?Math.max(height,all.length*18):height;
+      this.geom=geometry([...visible],group,center,worldWidth,worldHeight);
       const before=this.positions;this.positions=this.geom.positions;
       this.host.classList.toggle('stage-dense',this.geom.dense);this.host.classList.toggle('stage-compact',this.geom.compact);
       for(const[id,button]of this.nodes){
-        const p=this.positions.get(id);if(!p)continue;const size=this.geom.radii.get(id)*2;
+        button.hidden=!visible.has(id);const p=this.positions.get(id);if(!p)continue;const size=this.geom.radii.get(id)*2;
         button.style.width=`${size}px`;button.style.height=`${size}px`;
         button.style.left=`${p[0]-size/2}px`;button.style.top=`${p[1]-size/2}px`;
-        button.classList.toggle('center-slot',id===this.displayCenter);
+        button.classList.toggle('center-slot',id===center);
         if(this.animateLayout&&before?.has(id)&&distanceMoved(before.get(id),p)>1){
           const prev=before.get(id),animation=button.animate([{translate:`${prev[0]-p[0]}px ${prev[1]-p[1]}px`},{translate:'0px 0px'}],{duration:280,easing:'cubic-bezier(.2,.8,.2,1)'});
           this.activeAnimations.add(animation);animation.finished.catch(()=>{}).finally(()=>this.activeAnimations.delete(animation));
@@ -242,7 +271,12 @@ export class Stage {
       if(this.animateLayout){const animation=this.svg.animate([{opacity:0},{opacity:0,offset:.8},{opacity:1}],{duration:320});this.activeAnimations.add(animation);animation.finished.catch(()=>{}).finally(()=>this.activeAnimations.delete(animation));}
       this.animateLayout=false;
     }
-    this.drawEdges();this.applyTransform();
+    this.groupControls.hidden=this.groupCount===1&&!this.thumbnail;
+    this.groupLabel.textContent=this.thumbnail?`全部 ${all.length} 节点 · 缩略视图`:`第 ${this.groupIndex+1}/${this.groupCount} 组 · 成员 #${group[0]??'—'}–#${group.at(-1)??'—'} / 共 ${all.length}`;
+    this.groupPrev.hidden=this.groupNext.hidden=this.thumbnail;
+    this.groupPrev.disabled=this.groupIndex===0;this.groupNext.disabled=this.groupIndex===this.groupCount-1;
+    this.overviewControl.textContent=this.thumbnail?'可读分组':'全部缩略';
+    this.updateTabStops();this.updateCenterNotice(center);this.drawEdges();this.applyTransform();
     if(this.autoFitPending||(resized&&!this.viewChangedByUser)){this.fit();this.autoFitPending=false;}
     else if(resized&&this.selected!=null)this.revealNode(this.selected);
   }
@@ -293,13 +327,13 @@ export class Stage {
 
   paintRelations() {
     // Selecting a Leader is not a request to emphasize every incident edge.
-    const from=[this.hovered,this.focusedNode,this.selected].find(id=>this.edges.has(id));
+    const from=[this.hovered,this.focusedNode,this.selected].find(id=>this.visibleIds?.has(id)&&this.edges.has(id)&&this.visibleIds.has(Number(this.edges.get(id).dataset.to)));
     const active=this.edges.get(from),to=active?Number(active.dataset.to):null;
     let visible=0;
     for(const[id,line]of this.edges){
       line.classList.toggle('selected',id===from);
       line.classList.toggle('subdued',from!=null&&id!==from);
-      line.style.display=(!this.showAllRelations&&from!=null&&id!==from)?'none':'';
+      line.style.display=(!this.visibleIds?.has(id)||!this.visibleIds?.has(Number(line.dataset.to))||this.thumbnail&&id!==from||!this.showAllRelations&&from!=null&&id!==from)?'none':'';
       line.hit.style.display=line.style.display;if(line.style.display!=='none')visible++;
     }
     for(const[id,node]of this.nodes){
@@ -307,8 +341,25 @@ export class Stage {
       node.classList.toggle('unrelated',from!=null&&id!==from&&id!==to&&id!==this.selected);
     }
     this.host.dataset.visibleRelations=String(visible);
-    this.relationNote.hidden=!active;
+    const leader=this.samples?.get(this.selected);
+    const leaderSelected=this.fresh&&leader?.reachable&&leader.identity_ok&&!leader.error&&leader.status?.state==='Leader';
+    this.relationNote.hidden=!active&&!leaderSelected;
+    if(!active&&leaderSelected)this.relationNote.textContent=`Leader #${this.selected} · ${[...this.edges.values()].filter(e=>Number(e.dataset.to)===this.selected).length} 条有效报告关系 · 非复制确认`;
     if(active)this.relationNote.textContent=`#${from} 报告 Leader #${to} · Term ${this.samples.get(from)?.status?.term} · 非实测链路`;
+  }
+
+  changeGroup(delta){this.groupIndex+=delta;this.hovered=null;this.focusedNode=null;this.showAllRelations=true;this.autoFitPending=true;this.viewChangedByUser=false;this.layoutKey=null;this.host.dispatchEvent(new CustomEvent('stage-clear-selection',{bubbles:true}));this.layout();}
+  updateTabStops(){
+    const visible=[...this.nodes].filter(([,n])=>!n.hidden).map(([id])=>id);
+    if(!visible.includes(this.tabNode))this.tabNode=visible.includes(this.selected)?this.selected:visible[0];
+    for(const[id,node]of this.nodes)node.tabIndex=id===this.tabNode?0:-1;
+  }
+  clearSelection(){this.selected=undefined;this.hovered=null;this.focusedNode=null;this.showAllRelations=true;for(const node of this.nodes.values()){node.classList.remove('selected');node.setAttribute('aria-pressed','false');}this.paintRelations();this.updateRelationControl();}
+  updateCenterNotice(center){
+    const valid=this.fresh?[...this.samples.values()].filter(n=>n.reachable&&n.identity_ok&&!n.error):[];
+    const leaders=valid.filter(n=>n.status?.state==='Leader'),candidates=valid.filter(n=>n.status?.state==='Candidate');
+    this.centerNotice.hidden=center!=null;
+    this.centerNotice.textContent=!this.fresh?'等待新鲜观测':leaders.length>1?'多个本地 Leader · 等待观测稳定':leaders.length===1?`观测到 Leader #${leaders[0].id} · 等待稳定`:candidates.length?`正在选举 · ${candidates.length} 个候选节点 · 观测任期 ${[...new Set(candidates.map(n=>n.status.term))].join('/')}`:'尚未观察到 Leader';
   }
 
   pulse(id) {
@@ -321,8 +372,10 @@ export class Stage {
   }
 
   focus(id) {
+    if(this.thumbnail){this.thumbnail=false;this.groupIndex=Math.floor(this.members.indexOf(id)/this.readableCapacity);this.autoFitPending=true;this.layoutKey=null;this.layout();}
     const button = this.nodes.get(id);
     if (!button) return;
+    if(!this.visibleIds?.has(id)&&this.capacity){this.groupIndex=Math.floor(this.members.indexOf(id)/this.capacity);this.autoFitPending=true;this.layoutKey=null;this.layout();}
     const p=this.positions?.get(id),radius=this.geom?.radii.get(id)||22;
     const readable=Math.min(1,44/(radius*2));
     if(p&&this.scale<readable){this.viewChangedByUser=true;this.scale=readable;this.tx=this.host.clientWidth/2-p[0]*this.scale;this.ty=this.host.clientHeight/2-p[1]*this.scale;this.applyTransform();}
@@ -343,8 +396,7 @@ export class Stage {
   fit() {
     if (!this.world) return;
     const width = Math.max(1, this.host.clientWidth), height = Math.max(1, this.host.clientHeight);
-    const dense=this.members?.length>15;
-    const scale = Math.min(1, Math.max(1,width-(dense?24:0)) / this.world.offsetWidth, Math.max(1,height-(dense?144:0)) / this.world.offsetHeight);
+    const scale = Math.min(1,width/this.world.offsetWidth,height/this.world.offsetHeight);
     this.viewChangedByUser=false;
     this.scale = scale;
     this.tx = (width - this.world.offsetWidth * scale) / 2;
@@ -353,7 +405,7 @@ export class Stage {
   }
 
   zoomBy(factor) { this.zoomAt(this.host.getBoundingClientRect().left + this.host.clientWidth / 2, this.host.getBoundingClientRect().top + this.host.clientHeight / 2, factor); }
-  minimumScale() { const dense=this.members?.length>15;return Math.min(.5, Math.max(1,this.host.clientWidth-(dense?24:0)) / this.world.offsetWidth, Math.max(1,this.host.clientHeight-(dense?144:0)) / this.world.offsetHeight); }
+  minimumScale() {return Math.min(1,this.host.clientWidth/this.world.offsetWidth,this.host.clientHeight/this.world.offsetHeight);}
   zoomAt(clientX, clientY, factor) {
     this.viewChangedByUser=true;
     const rect = this.host.getBoundingClientRect(), x = clientX - rect.left, y = clientY - rect.top;
@@ -363,7 +415,7 @@ export class Stage {
     this.scale = next; this.applyTransform();
   }
   applyTransform() {
-    this.world.style.transform=`translate(${this.tx}px,${this.ty}px) scale(${this.scale})`;
+    this.world.style.transform=`translate(${this.tx}px,${this.ty}px) scale(${this.scale})`;this.host.classList.toggle('stage-thumbnail',this.thumbnail);
     if(this.orientation){
       this.orientation.hidden=!this.viewChangedByUser;
       this.orientation.textContent=`${Math.round(this.scale*100)}% · 返回全景`;
@@ -380,7 +432,7 @@ export class Stage {
     else if (this.pointers.size === 2) {
       const points = [...this.pointers.values()].map(p=>[p.x,p.y]);
       this.pinch = {distance:Math.hypot(points[0][0]-points[1][0],points[0][1]-points[1][1]),scale:this.scale,tx:this.tx,ty:this.ty,x:(points[0][0]+points[1][0])/2,y:(points[0][1]+points[1][1])/2}; this.drag = null;
-      for (const p of this.pointers.values()) if (p.targetNode) p.moved = true;
+      for (const p of this.pointers.values()) p.moved = true;
     }
   }
   pointerMove(event) {
@@ -407,6 +459,7 @@ export class Stage {
       (this.suppressedClicks ||= new Set()).add(pointer.targetNode);
       setTimeout(() => this.suppressedClicks?.delete(pointer.targetNode), 0);
     }
+    if(pointer&&!pointer.moved&&!pointer.targetNode&&event.type==='pointerup')this.host.dispatchEvent(new CustomEvent('stage-clear-selection',{bubbles:true}));
     this.pointers.delete(event.pointerId);
     if (this.pointers.size < 2) this.pinch = null;
     if (!this.pointers.size) this.drag = null;

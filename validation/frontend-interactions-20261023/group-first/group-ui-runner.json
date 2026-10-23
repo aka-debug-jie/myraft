@@ -1,0 +1,10 @@
+{
+  "tests_run": 1,
+  "failures": [
+    {
+      "test": "test_group_matrix_and_rendered_geometry (__main__.GroupBrowserAcceptance.test_group_matrix_and_rendered_geometry)",
+      "traceback": "Traceback (most recent call last):\n  File \"<workspace>/public/myraft-interactions/scripts/group_ui_test.py\", line 245, in test_group_matrix_and_rendered_geometry\n    self.fail(f\"{len(failures)} group UI acceptance failures; first: {failures[0]}\")\nAssertionError: 126 group UI acceptance failures; first: 100-1920x1080: '第 1/2 组 · 成员 #1–#80 / 共 100': visible paths 11->1 and 12->1 cross\n"
+    }
+  ],
+  "errors": []
+}

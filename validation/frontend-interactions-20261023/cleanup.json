@@ -1,0 +1,32 @@
+{
+  "result": "PASS",
+  "own_node_processes_remaining": [],
+  "test_http_listeners_remaining": [],
+  "stopped_test_controllers": [
+    {
+      "pid": 648389,
+      "listen": "127.0.0.1:18096"
+    },
+    {
+      "pid": 665150,
+      "listen": "127.0.0.1:18097"
+    },
+    {
+      "pid": 668833,
+      "listen": "127.0.0.1:18098"
+    },
+    {
+      "pid": 678691,
+      "listen": "127.0.0.1:18099"
+    },
+    {
+      "pid": 696618,
+      "listen": "127.0.0.1:18100"
+    },
+    {
+      "pid": 744146,
+      "listen": "127.0.0.1:18101"
+    }
+  ],
+  "scope": "only verified task executable paths and known test listen addresses; original preview and data preserved"
+}

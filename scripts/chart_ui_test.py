@@ -71,13 +71,13 @@ def main():
                 ("mean", "均值 4.667 s"),
                 ("median", "中位数 4.000 s"),
                 ("range", "范围 2.000–8.000 s"),
-                ("failure count", "FAIL 1"),
-                ("interruption count", "INTERRUPTED 1"),
+                ("failure count", "失败 1"),
+                ("interruption count", "中断 1"),
             ]:
                 check(f"{label} is explicit", expected in result["mixedText"], repr(result["mixedText"]))
             check("invalid elapsed values are absent from the chart", "-7" not in result["mixedMarkup"] and "999" not in result["mixedMarkup"] and "888" not in result["mixedMarkup"])
             check("timeline leaves missing rounds disconnected", result["mixedMarkup"].count('class="perf-line-segment"') == 1)
-            check("SVG has an accessible label and seconds unit", 'aria-label="PASS 逐轮耗时，单位秒"' in result["mixedMarkup"])
+            check("SVG has an accessible label and seconds unit", 'aria-label="通过轮次耗时，单位秒"' in result["mixedMarkup"])
             check("grouping fields still separate distinct platform runs", result["groupedCount"] == 2)
             check("untrusted group labels are escaped", result["injectedImages"] == 0)
 

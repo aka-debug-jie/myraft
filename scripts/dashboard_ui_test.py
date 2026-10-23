@@ -603,6 +603,7 @@ class DashboardBrowserTests(unittest.TestCase):
                 if count == 50:
                     page.screenshot(path=str(OUTPUT / "synthetic-50-node-stage-fixture.png"), full_page=True)
                 if count == 100:
+                    page.locator('[aria-label="全部节点缩略视图"]').click()
                     boxes = [node.bounding_box() for node in nodes.all()]
                     self.assertTrue(all(box is not None for box in boxes), "synthetic 100-node Stage has hidden nodes")
                     for index, left in enumerate(boxes):
@@ -614,11 +615,11 @@ class DashboardBrowserTests(unittest.TestCase):
                                             "synthetic 100-node Stage contains overlapping buttons")
                     page.screenshot(path=str(OUTPUT / "synthetic-100-node-stage-fixture.png"), full_page=True)
                 if count == 11:
-                    before = nodes.nth(0).bounding_box()
+                    before = page.locator('.stage-node[data-node="3"]').bounding_box()
                     switched = stage_fixture(11, leader_id=2, term=2)
                     page.evaluate("frame => window.__emitSyntheticFrame(frame)", switched)
                     page.wait_for_function("() => document.querySelector('#stage-host .stage-node[data-node=\"2\"]')?.classList.contains('leader')")
-                    after = page.locator('#stage-host .stage-node[data-node="1"]').bounding_box()
+                    after = page.locator('#stage-host .stage-node[data-node="3"]').bounding_box()
                     self.assertAlmostEqual(before["x"], after["x"], delta=0.5)
                     self.assertAlmostEqual(before["y"], after["y"], delta=0.5)
                     page.screenshot(path=str(OUTPUT / "synthetic-11-node-leader-switch-fixture.png"), full_page=True)
@@ -638,7 +639,7 @@ class DashboardBrowserTests(unittest.TestCase):
               const members=Array.from({length:100},(_,i)=>({id:i+1}));
               const nodes=members.map(n=>({...n,reachable:true,identity_ok:true,status:{state:n.id===1?'Leader':'Follower',term:1,leader_id:1}}));
               const frame={members,nodes,fresh:true,scope:'synthetic',events:[]};
-              stage.update(frame);stage.fit();
+              stage.update(frame);stage.thumbnail=true;stage.layoutKey=null;stage.layout();stage.fit();
               const h=host.getBoundingClientRect();
               const fits=[...host.querySelectorAll('.stage-node')].every(n=>{const b=n.getBoundingClientRect();return b.left>=h.left-1&&b.right<=h.right+1&&b.top>=h.top-1&&b.bottom<=h.bottom+1});
               const event=seq=>({seq,source:'node',node_id:1,name:'log_committed',node_event:{seq}});

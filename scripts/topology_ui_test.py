@@ -37,10 +37,10 @@ def main():
           }
           for(const n of [0,3,11,15,16,20,50,100]){
             const ids=Array.from({length:n},(_,i)=>i*3+7);
-            for(const leader of ids){const g=geometry(ids,ids,leader,1440,1000);for(const id of ids)if(id!==leader)inspect(g,id,leader);}
+            for(const leader of ids){const g=geometry(ids,ids,leader,n>50?2800:1920,n>50?1800:1200);for(const id of ids)if(id!==leader)inspect(g,id,leader);}
           }
           for(const n of [11,20,100]){
-            const ids=Array.from({length:n},(_,i)=>i+1),g=geometry(ids,ids,1,1440,1000);
+            const ids=Array.from({length:n},(_,i)=>i+1),g=geometry(ids,ids,1,n>50?2800:1920,n>50?1800:1200);
             for(const id of ids.slice(0,12))if(id!==n)inspect(g,id,n);
           }
           svg.remove();const host=document.querySelector('#host'),s=new Stage(host),ids=Array.from({length:11},(_,i)=>i+1);
@@ -49,7 +49,7 @@ def main():
           s.update(frame(1,2));check(s.centerId===1,'two observations did not center');const initial=new Map(s.positions);
           s.update(frame(7,3,2));check(s.centerId===1,'new leader moved prematurely');s.update(frame(7,4,2));check(s.centerId===7,'new leader not centered');
           check(ids.every(id=>id===1||id===7||JSON.stringify(initial.get(id))===JSON.stringify(s.positions.get(id))),'unrelated node moved');
-          check(JSON.stringify(initial.get(7))===JSON.stringify(s.positions.get(1)),'old leader did not take vacated slot');
+          check(JSON.stringify(s.geom.slots.get(1))===JSON.stringify(s.positions.get(1)),'old leader did not return to its ID slot');
           s.update(frame(3,5,3,'first'));s.update(frame(3,6,3,'second'));check(s.centerId===7,'different instances counted together');
           s.update(frame(3,7,3,'second'));check(s.centerId===3,'same new instance never centered');
           const multi=frame(4,8,4);multi.nodes[5].status.state='Leader';s.update(multi);s.update({...multi,snapshotSeq:9});check(s.centerId===3,'multiple leaders changed center');

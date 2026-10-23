@@ -1,0 +1,26 @@
+[
+  {
+    "name": "read-only lesson badge says 只读",
+    "passed": true
+  },
+  {
+    "name": "performance sizes are ordered 3,10,11,20,50,100",
+    "passed": true
+  },
+  {
+    "name": "node detail uses Chinese label 节点 1",
+    "passed": true
+  },
+  {
+    "name": "leader detail counts only valid same-term follower reports and says not ACK",
+    "passed": true
+  },
+  {
+    "name": "receipt explains known backend error in Chinese and keeps raw error in details",
+    "passed": true
+  },
+  {
+    "name": "chart scenario is Chinese while result label is Chinese",
+    "passed": true
+  }
+]

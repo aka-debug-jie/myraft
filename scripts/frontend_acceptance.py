@@ -40,8 +40,18 @@ def main():
                         context=browser.new_context(viewport={'width':width,'height':height},has_touch=width==390,reduced_motion='reduce')
                         page=context.new_page();page.on('pageerror',lambda error:errors.append(str(error)));page.goto(url)
                         page.wait_for_function('(n)=>document.querySelectorAll(".stage-node").length===n && document.querySelectorAll(".stage-node.center-slot.leader").length===1 && document.querySelectorAll(".stage-reported-edge").length===n-1',arg=count,timeout=30000)
-                        stats=page.locator('.stage-node').evaluate_all('''ns=>({visible:ns.filter(n=>{const r=n.getBoundingClientRect();return r.left>=0&&r.top>=0&&r.right<=innerWidth&&r.bottom<=innerHeight}).length,blocked:ns.filter(n=>{const r=n.getBoundingClientRect();return !n.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))}).map(n=>n.dataset.node)})''')
-                        assert stats['visible']==count and not stats['blocked'],stats
+                        seen=set();groups=[]
+                        while True:
+                            stats=page.locator('.stage-node:visible').evaluate_all("""ns=>({ids:ns.map(n=>Number(n.dataset.node)),visible:ns.filter(n=>{const r=n.getBoundingClientRect();return r.left>=0&&r.top>=0&&r.right<=innerWidth&&r.bottom<=innerHeight}).length,blocked:ns.filter(n=>{const r=n.getBoundingClientRect();return !n.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))}).map(n=>n.dataset.node)})""")
+                            assert stats['visible']==len(stats['ids']) and not stats['blocked'],stats
+                            seen.update(stats['ids']);groups.append(stats)
+                            nxt=page.locator('[aria-label="下一组"]')
+                            if not nxt.is_visible() or nxt.is_disabled():break
+                            nxt.click()
+                        assert seen==set(range(1,count+1)),seen
+                        prev=page.locator('[aria-label="上一组"]')
+                        while prev.is_visible() and prev.is_enabled():prev.click()
+                        stats={'visible_members_across_groups':len(seen),'groups':groups}
                         page.mouse.move(width-1,1);page.screenshot(path=str(folder/f'overview-{width}.png'))
                         page.locator('[aria-label="按可读大小聚焦节点"]').click()
                         assert page.locator('.stage-node.center-slot').bounding_box()['width']>=90

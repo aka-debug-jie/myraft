@@ -1,0 +1,177 @@
+{
+  "mode": "SYNTHETIC data in real browser against current served frontend",
+  "observations": {
+    "return_overview_hit": {
+      "bounds": {
+        "x": 1309.625,
+        "y": 64,
+        "width": 112.375,
+        "height": 36,
+        "top": 64,
+        "right": 1422,
+        "bottom": 100,
+        "left": 1309.625
+      },
+      "hit": "<summary id=\"task-summary\" aria-live=\"polite\">校验当前 · 未执行</summary>",
+      "reachable": false
+    },
+    "plus_edge_opens_nav": true,
+    "drawer_over_node_11_4": {
+      "bounds": {
+        "x": 1143.625,
+        "y": 304.796875,
+        "width": 84,
+        "height": 84,
+        "top": 304.796875,
+        "right": 1227.625,
+        "bottom": 388.796875,
+        "left": 1143.625
+      },
+      "top": "DIV",
+      "blockedByDrawer": true,
+      "detail": {
+        "x": 1080,
+        "y": 64,
+        "width": 344,
+        "height": 752,
+        "top": 64,
+        "right": 1424,
+        "bottom": 816,
+        "left": 1080
+      }
+    },
+    "selected_after_close_escape_blank_11": 1,
+    "drawer_over_node_100_55": {
+      "bounds": {
+        "x": 1078.343994140625,
+        "y": 143.82000732421875,
+        "width": 33.263916015625,
+        "height": 33.26399230957031,
+        "top": 143.82000732421875,
+        "right": 1111.60791015625,
+        "bottom": 177.08399963378906,
+        "left": 1078.343994140625
+      },
+      "top": "ASIDE",
+      "blockedByDrawer": true,
+      "detail": {
+        "x": 1080,
+        "y": 64,
+        "width": 344,
+        "height": 752,
+        "top": 64,
+        "right": 1424,
+        "bottom": 816,
+        "left": 1080
+      }
+    },
+    "selected_after_close_escape_blank_100": 1,
+    "leader_click": {
+      "detail_visible": true,
+      "selected_nodes": 1,
+      "highlighted_edges": 0
+    },
+    "unreachable": {
+      "classes": "stage-node unknown unreachable identity-error",
+      "label": "节点 3；角色 未知；不可达或未知；身份不匹配或未知；任期 未知；报告 Leader 未知",
+      "text": "#3\n未知",
+      "after": "\"!\""
+    },
+    "readonly_badge": {
+      "badge": "01",
+      "label": "当前入口仅供查看"
+    },
+    "no_leader": {
+      "edges": 0,
+      "center": "1",
+      "topbar": "MyRaft\n合成浏览器状态\n尚未观察到 Leader"
+    },
+    "node_tab_stops": 100,
+    "readonly_ready_badge": {
+      "badge": "02",
+      "label": "当前入口仅供查看"
+    },
+    "ready_control_generate_visible": true
+  },
+  "geometry": [
+    {
+      "nodes": 20,
+      "viewport": [
+        1440,
+        900
+      ],
+      "follower_height": 174.719970703125,
+      "canvas_height": 900,
+      "scale": 0.84,
+      "font_screen_px": 10.92
+    },
+    {
+      "nodes": 50,
+      "viewport": [
+        1440,
+        900
+      ],
+      "follower_height": 312.47998046875,
+      "canvas_height": 900,
+      "scale": 0.84,
+      "font_screen_px": 10.92
+    },
+    {
+      "nodes": 100,
+      "viewport": [
+        1440,
+        900
+      ],
+      "follower_height": 591.1919555664062,
+      "canvas_height": 900,
+      "scale": 0.756,
+      "font_screen_px": 9.828
+    },
+    {
+      "nodes": 20,
+      "viewport": [
+        390,
+        844
+      ],
+      "follower_height": 64.51522827148438,
+      "canvas_height": 844,
+      "scale": 0.310169,
+      "font_screen_px": 4.032197
+    },
+    {
+      "nodes": 50,
+      "viewport": [
+        390,
+        844
+      ],
+      "follower_height": 115.38302612304688,
+      "canvas_height": 844,
+      "scale": 0.310169,
+      "font_screen_px": 4.032197
+    },
+    {
+      "nodes": 100,
+      "viewport": [
+        390,
+        844
+      ],
+      "follower_height": 242.55255126953125,
+      "canvas_height": 844,
+      "scale": 0.310169,
+      "font_screen_px": 4.032197
+    }
+  ],
+  "css": {
+    "bytes": 48839,
+    "important_count": 19,
+    "plain_edge_rule_count": 5,
+    "font_sizes_below_11": [
+      7.0,
+      8.0,
+      9.0,
+      10.0
+    ],
+    "existing_color_tokens": true,
+    "existing_radius_token": true
+  }
+}

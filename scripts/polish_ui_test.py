@@ -27,6 +27,7 @@ class PolishTests(base.DashboardBrowserTests):
             page.locator('.stage-node[data-node="37"]').click()
             self.assertEqual(page.locator('.stage-reported-edge.selected').count(),0,'Leader selection highlights all edges')
             page.locator('#node-detail .detail-close').click()
+            page.locator('#stage-host').evaluate('e=>e.getBoundingClientRect()')
             edge=page.locator('.stage-reported-edge[data-from="2"]')
             point=edge.evaluate('e=>{const p=e.getPointAtLength(e.getTotalLength()*.25),m=e.getScreenCTM();return{x:m.a*p.x+m.c*p.y+m.e,y:m.b*p.x+m.d*p.y+m.f}}')
             page.mouse.move(point['x'],point['y'])
@@ -94,7 +95,7 @@ class PolishTests(base.DashboardBrowserTests):
             frame=base.stage_fixture(100,leader_id=37);frame['snapshot']['seq']=10
             page.evaluate('f=>window.__emitSyntheticFrame(f)',frame)
             frame['snapshot']['seq']=11;page.evaluate('f=>window.__emitSyntheticFrame(f)',frame)
-            points=page.locator('.stage-reported-edge').evaluate_all("es=>es.flatMap(e=>[.25,.5,.75].map(t=>{const p=e.getPointAtLength(e.getTotalLength()*t),m=e.getScreenCTM();return{id:e.dataset.from,x:m.a*p.x+m.c*p.y+m.e,y:m.b*p.x+m.d*p.y+m.f}}))")
+            points=page.locator('.stage-reported-edge:visible').evaluate_all("es=>es.flatMap(e=>[.25,.5,.75].map(t=>{const p=e.getPointAtLength(e.getTotalLength()*t),m=e.getScreenCTM();return{id:e.dataset.from,x:m.a*p.x+m.c*p.y+m.e,y:m.b*p.x+m.d*p.y+m.f}}))")
             page.evaluate("""async()=>{const {Stage}=await import('/stage.js'),original=Stage.prototype.inspectEdge;window.__pickCosts=[];Stage.prototype.inspectEdge=function(e){const t=performance.now();original.call(this,e);window.__pickCosts.push(performance.now()-t)}}""")
             misses=[]
             for i,point in enumerate(points):

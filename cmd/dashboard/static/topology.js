@@ -1,43 +1,43 @@
 // Stable slots describe presentation only; they never choose a protocol leader.
 export function geometry(ids, order, center, width, height) {
-  const dense=ids.length>15, compact=!dense&&width<600, outer=order.filter(id=>id!==center), positions=new Map(), radii=new Map(), lanes=new Map();
-  let w=Math.max(width,dense?1180:compact?360:680), h=Math.max(height,dense?650:620);
-  const cols=dense?Math.min(5,Math.max(2,Math.ceil(Math.sqrt(outer.length/2)))):0;
-  const rows=dense?Math.ceil(Math.ceil(outer.length/2)/cols):0;
-  if(dense)h=Math.max(h,rows*82+180);
-  const cx=w/2,cy=(h-28)/2, radius=dense?68:compact?48:60;
-  if(center!=null){positions.set(center,[cx,cy]);radii.set(center,radius);}
-  if(!dense){
-    const rx=Math.min(w*.34,(w-132)/2),ry=Math.min((h-196)*.41,rx*(compact?1.75:1));
-    outer.forEach((id,i)=>{const a=-Math.PI/2+2*Math.PI*i/Math.max(1,outer.length);positions.set(id,[cx+rx*Math.cos(a),cy+ry*Math.sin(a)]);radii.set(id,compact?(outer.length>6?26:34):outer.length>12?36:42);});
-  }else{
-    const half=Math.ceil(outer.length/2),pitch=Math.min(102,(w/2-190)/cols),top=cy-(rows-1)*82/2;
-    outer.forEach((id,i)=>{
-      const side=i<half?-1:1,k=i<half?i:i-half,row=Math.floor(k/cols),col=k%cols;
-      positions.set(id,[cx+side*(190+col*pitch),top+row*82]);radii.set(id,22);
-      lanes.set(id,{side,row,col,y:top+row*82-22-10-col*5});
-    });
-    // Independent ports around each half-circle keep all logical relationships visible.
-    for(const side of [-1,1]){
-      const ordered=[...lanes.values()].filter(l=>l.side===side).sort((a,b)=>a.y-b.y);
-      ordered.forEach((lane,i)=>{lane.portY=radius*.94*(-1+2*i/Math.max(1,ordered.length-1));});
-    }
+  const w=Math.max(240,width),h=Math.max(200,height),cx=w/2,cy=h/2;
+  const rx=Math.max(40,w/2-40),ry=Math.max(40,h/2-104),positions=new Map(),radii=new Map(),slots=new Map();
+  const points=[],lengths=[0];let length=0;
+  // Equal arc lengths avoid squeezing nodes at the narrow end of an ellipse.
+  for(let i=0;i<=720;i++){
+    const angle=-Math.PI/2+i*Math.PI/360,p=[cx+rx*Math.cos(angle),cy+ry*Math.sin(angle)];
+    if(i)length+=Math.hypot(p[0]-points[i-1][0],p[1]-points[i-1][1]);points.push(p);lengths.push(length);
   }
-  return {positions,radii,lanes,width:w,height:h,center,cx,cy,dense,compact};
+  let j=1;
+  order.forEach((id,i)=>{const target=length*i/Math.max(1,order.length);
+    while(j<points.length-1&&lengths[j+1]<target)j++;
+    const lo=lengths[j],hi=lengths[j+1],t=hi>lo?(target-lo)/(hi-lo):0;
+    const p=[points[j-1][0]+(points[j][0]-points[j-1][0])*t,points[j-1][1]+(points[j][1]-points[j-1][1])*t];
+    if(h<400&&order.length<=2){p[0]=cx+(i?1:-1)*rx;p[1]=cy;}
+    slots.set(id,p);positions.set(id,p);radii.set(id,w<600?26:order.length<=15?38:22);
+  });
+  const outside=order.filter(id=>id!==center);let minAngle=Math.PI;
+  const angles=outside.map(id=>{const p=slots.get(id);return Math.atan2(p[1]-cy,p[0]-cx)}).sort((a,b)=>a-b);
+  for(let i=0;i<angles.length;i++)minAngle=Math.min(minAngle,(angles[(i+1)%angles.length]-angles[i]+2*Math.PI)%(2*Math.PI)||2*Math.PI);
+  // 6px clear space plus a 1.8px highlighted stroke at the center ports.
+  const radius=Math.max(h<400?40:w<600?46:60,angles.length>1?7.8/(2*Math.sin(minAngle/2))+.5:0);
+  if(center!=null){positions.set(center,[cx,cy]);radii.set(center,radius);}
+  let fits=h<400&&order.length<=2?radius+10<h/2-44:radius+40<Math.min(rx,ry);
+  for(const id of outside){const a=positions.get(id);
+    if(center!=null&&Math.hypot(a[0]-cx,a[1]-cy)<radius+radii.get(id)+12)fits=false;
+    for(const other of outside){if(other<=id)continue;const b=positions.get(other);if(Math.hypot(a[0]-b[0],a[1]-b[1])<radii.get(id)+radii.get(other)+8)fits=false;}
+  }
+  return {positions,radii,slots,lanes:new Map(),width:w,height:h,center,cx,cy,dense:order.length>15,compact:w<600,fits};
 }
 
 const distance=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1]);
 function clip(a,b,r){const d=distance(a,b)||1;return[a[0]+(b[0]-a[0])*r/d,a[1]+(b[1]-a[1])*r/d];}
 function crosses(a,b,p,r){
-  // Segment against an expanded axis-aligned node box, including its boundary.
-  let low=0,high=1;
-  for(let axis=0;axis<2;axis++){
-    const delta=b[axis]-a[axis],min=p[axis]-r,max=p[axis]+r;
-    if(Math.abs(delta)<1e-8){if(a[axis]<min||a[axis]>max)return false;}
-    else{let t1=(min-a[axis])/delta,t2=(max-a[axis])/delta;if(t1>t2)[t1,t2]=[t2,t1];low=Math.max(low,t1);high=Math.min(high,t2);if(low>high)return false;}
-  }
-  return true;
+  const dx=b[0]-a[0],dy=b[1]-a[1],length=dx*dx+dy*dy;
+  const t=length?Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dy)/length)):0;
+  return Math.hypot(p[0]-a[0]-t*dx,p[1]-a[1]-t*dy)<=r;
 }
+
 function clear(points,g,from,to){
   for(const [id,p] of g.positions){if(id===from||id===to)continue;const r=g.radii.get(id)+5;
     for(let i=1;i<points.length;i++)if(crosses(points[i-1],points[i],p,r))return false;
@@ -91,13 +91,6 @@ function orthogonal(g,from,to){
 export function route(g,from,to){
   const a=g.positions.get(from),b=g.positions.get(to);if(!a||!b)return '';
   let points;
-  if(g.dense&&to===g.center&&g.lanes.has(from)){
-    const lane=g.lanes.get(from),r=g.radii.get(to),dy=lane.portY,dx=lane.side*Math.sqrt(r*r-dy*dy);
-    const tip=[b[0]+dx,b[1]+dy],entry=[g.cx+lane.side*150,lane.y];
-    points=[[a[0],a[1]-g.radii.get(from)],[a[0],lane.y],entry];
-    // Ordered fan controls avoid crossings; each relationship has its own circle port.
-    return rounded(simplify(points),8)+` C${g.cx+lane.side*120},${lane.y} ${g.cx+lane.side*105},${tip[1]} ${g.cx+lane.side*(r+20)},${tip[1]} L${tip.join(',')}`;
-  }
   if(!points){const direct=[clip(a,b,g.radii.get(from)),clip(b,a,g.radii.get(to))];points=clear(direct,g,from,to)?direct:orthogonal(g,from,to);}
   return rounded(simplify(points));
 }
