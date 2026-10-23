@@ -99,6 +99,7 @@ type eventCursor struct {
 	Seq      uint64
 }
 type dashboard struct {
+	dependencies               dependencyCache
 	mu                         sync.Mutex
 	opts                       settings
 	ctx                        context.Context

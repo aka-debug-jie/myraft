@@ -1,0 +1,8 @@
+{
+  "scope": "working tree including curated evidence",
+  "scanner": "gitleaks 8.30.1",
+  "findings": 22,
+  "classification": "All findings were cmd/dashboard/static/api.js SHA-256 values verified against Git blobs; not credentials.",
+  "unresolved_findings": 0,
+  "raw_evidence_policy": "Only curated provenance-listed files were force-added. Raw WAL and original workspace directories excluded."
+}

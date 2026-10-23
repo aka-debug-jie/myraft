@@ -23,6 +23,14 @@ def package(node, console, build_receipt, output):
     if any('\\' in name for name in names):
         raise ValueError('non-portable source path contains a backslash; normalize evidence paths first')
     files = {f'project/{name}': (ROOT / name).read_bytes() for name in names if name}
+    # Evidence listed by a provenance manifest must survive gitignore and packaging.
+    for name, data in files.items():
+        if name.startswith('project/validation/') and name.endswith('/provenance.json'):
+            for entry in json.loads(data)['files']:
+                target = name.rsplit('/', 1)[0] + '/' + entry['file']
+                payload = files.get(target)
+                if payload is None or sha(payload) != entry['delivered_sha256']:
+                    raise ValueError(f'evidence missing or digest differs: {target}')
     receipt = json.loads(build_receipt.read_text(encoding='utf-8-sig'))
     production = {name.removeprefix('project/'): sha(data) for name, data in files.items()
                   if (name.endswith('.go') and not name.endswith('_test.go')) or name == 'project/go.mod'

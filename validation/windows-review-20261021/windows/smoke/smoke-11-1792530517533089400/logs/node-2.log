@@ -1,0 +1,14 @@
+2026/10/21 05:08:37.705472 node=2 term=0 role=Follower | node_recovered index=0 commit=0 applied=0 x=0
+2026/10/21 05:08:37.739898 node=2 term=0 role=Follower | started addr=127.0.0.1:60428 members=11 quorum=6
+2026/10/21 05:08:41.048264 node=2 term=1 role=Follower | higher_term_observed
+2026/10/21 05:08:41.097361 node=2 term=1 role=Follower | vote_granted candidate=6
+2026/10/21 05:08:41.105580 node=2 term=1 role=Follower | leader_observed leader=6
+2026/10/21 05:08:41.114583 node=2 term=1 role=Follower | log_replicated from=1 index=1
+2026/10/21 05:08:41.162195 node=2 term=1 role=Follower | log_committed index=1
+2026/10/21 05:08:41.162195 node=2 term=1 role=Follower | state_applied from=1 index=1 commands=0 x=0
+2026/10/21 05:08:50.797724 node=2 term=2 role=Follower | higher_term_observed
+2026/10/21 05:08:50.860892 node=2 term=2 role=Follower | vote_granted candidate=4
+2026/10/21 05:08:50.874570 node=2 term=2 role=Follower | leader_observed leader=4
+2026/10/21 05:08:50.878385 node=2 term=2 role=Follower | log_replicated from=2 index=2
+2026/10/21 05:08:50.927517 node=2 term=2 role=Follower | log_committed index=2
+2026/10/21 05:08:50.927517 node=2 term=2 role=Follower | state_applied from=2 index=2 commands=0 x=0

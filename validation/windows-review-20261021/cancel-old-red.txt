@@ -1,0 +1,14 @@
+test_cancel_during_build_records_interruption (test_cancel.CancellationTests.test_cancel_during_build_records_interruption) ... FAIL
+
+======================================================================
+FAIL: test_cancel_during_build_records_interruption (test_cancel.CancellationTests.test_cancel_during_build_records_interruption)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/.tools/windows-review-20261021/baseline-source/scripts/test_cancel.py", line 104, in test_cancel_during_build_records_interruption
+    self.assertLess(time.monotonic() - begin, 1.5)
+AssertionError: 1.8942222390323877 not less than 1.5
+
+----------------------------------------------------------------------
+Ran 1 test in 1.897s
+
+FAILED (failures=1)

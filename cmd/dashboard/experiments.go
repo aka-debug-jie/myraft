@@ -62,7 +62,7 @@ func readExperiment(dir string, previous experimentResult) experimentResult {
 }
 
 func (d *dashboard) runExperiment(ctx context.Context, job operationJob) (any, error) {
-	dependencies := d.experimentDependencyReport()
+	dependencies := d.experimentDependencyReport(true)
 	if !dependencies.Ready {
 		return map[string]any{"category": "environment_unavailable", "experiment_dependencies": dependencies}, fmt.Errorf("experiment environment not ready: %s", dependencies.Reason)
 	}

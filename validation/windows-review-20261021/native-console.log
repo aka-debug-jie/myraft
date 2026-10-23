@@ -1,0 +1,5 @@
+Guest PID: 1924
+{"result": "PASS", "visible_desktop": "NOT RUN", "manual_close": "NOT RUN", "new_managed_title": {"expected": "HOST-CONSOLE-NEW-KEEP", "observed": "HOST-CONSOLE-NEW-KEEP", "nodes": 11, "commands": 2101, "history": "passed"}, "legacy_resume": {"nodes": 3, "commands": 256, "retained_binary_sha256": "35aa48fe12f06bbc168ea6de285aefd92034e34b03bbb4e9e86599dabf3bc72d", "checkpoint_index": 257, "checkpoint_hash": "b50cac88bb65e812db0a3387b6ebd5bf45fc9b225f88684a1f63012b5bfa7abf", "checkpoint_x": -10, "historical_mismatches": 0}}
+NATIVE_CONSOLE_AND_LEGACY_CLEANUP_PASS
+
+Guest result: {"exitcode": 0, "exited": true}

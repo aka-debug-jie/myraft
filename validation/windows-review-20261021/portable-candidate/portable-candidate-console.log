@@ -1,0 +1,45 @@
+Guest PID: 6888
+{
+    "nodes":  11,
+    "python_on_path":  false,
+    "result":  "PASS",
+    "entrypoint":  "Start-Console.cmd",
+    "go_on_path":  false,
+    "commands":  2101,
+    "export_sha256":  "d9b1506837a9105f3fc4d60c9658abcaf70b12550f8526a5ba8e87102feb6bed",
+    "browser":  "not used in this native smoke",
+    "dependency_report":  {
+                              "ready":  false,
+                              "source":  {
+                                             "ready":  true,
+                                             "state":  "ready"
+                                         },
+                              "go":  {
+                                         "ready":  false,
+                                         "state":  "missing",
+                                         "required":  "1.26.3",
+                                         "reason":  "go executable not found in PATH"
+                                     },
+                              "python":  {
+                                             "ready":  false,
+                                             "state":  "missing",
+                                             "required":  "3.12",
+                                             "reason":  "configured Python executable is unavailable"
+                                         },
+                              "reason":  "go executable not found in PATH; configured Python executable is unavailable",
+                              "checked_at":  "2026-10-20T21:48:14.3435199Z",
+                              "expires_at":  "2026-10-20T21:49:14.3435199Z"
+                          },
+    "platform":  "Windows 11",
+    "protocol":  "real HTTP + real net/rpc",
+    "history":  "stale",
+    "checkpoint":  {
+                       "index":  2102,
+                       "hash":  "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+                       "x":  0,
+                       "saved_at":  "2026-10-20T21:48:22.3439019Z"
+                   }
+}
+NATIVE_CONSOLE_OWNED_PROCESS_CLEANUP_PASS
+
+Guest result: {"exitcode": 0, "exited": true}

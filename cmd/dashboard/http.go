@@ -80,13 +80,14 @@ func (d *dashboard) handler() http.Handler {
 }
 
 func (d *dashboard) sessionHTTP(w http.ResponseWriter, r *http.Request) {
+	dependencies := d.experimentDependencyReport(false)
 	d.mu.Lock()
 	list := make([]session, 0, len(d.sessions))
 	for _, s := range d.sessions {
 		list = append(list, *s)
 	}
 	sort.Slice(list, func(i, j int) bool { return list[i].CreatedAt.Before(list[j].CreatedAt) })
-	view := map[string]any{"controller_id": d.controllerID, "mode": "REAL", "csrf_token": d.csrf, "session": d.active, "sessions": list, "generation": d.generation, "control_allowed": d.opts.AllowControl, "control_enabled": d.control, "poll_ms": d.opts.Interval.Milliseconds(), "network_partition_supported": false, "experiment_dependencies": d.experimentDependencyReport()}
+	view := map[string]any{"controller_id": d.controllerID, "mode": "REAL", "csrf_token": d.csrf, "session": d.active, "sessions": list, "generation": d.generation, "control_allowed": d.opts.AllowControl, "control_enabled": d.control, "poll_ms": d.opts.Interval.Milliseconds(), "network_partition_supported": false, "experiment_dependencies": dependencies}
 	d.mu.Unlock()
 	respond(w, 200, view)
 }

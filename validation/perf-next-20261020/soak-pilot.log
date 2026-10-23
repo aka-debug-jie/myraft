@@ -1,0 +1,7 @@
+=== RUN   TestResourceSoak
+    soak_test.go:97: {"accepted_connections":2,"commands":2101,"elapsed_seconds":3.267165333,"goroutines":17,"heap_live_bytes":3141896,"phase":"initial","round":0,"worker_bound":2,"workers":2}
+    soak_test.go:97: {"accepted_connections":2,"commands":2117,"elapsed_seconds":8.58052399,"goroutines":17,"heap_live_bytes":3145808,"phase":"rotation","round":1,"worker_bound":2,"workers":2}
+    soak_test.go:124: stopped baseline_goroutines=2 final_goroutines=2
+--- PASS: TestResourceSoak (8.58s)
+PASS
+ok  	myraft/raft	8.600s

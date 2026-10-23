@@ -1,0 +1,11 @@
+Guest PID: 9816
+{"result": "PASS", "trials": [{"mode": "idle", "trial": 1, "cpu_workers": 0, "exit_code": 0, "result": "PASS"}, {"mode": "idle", "trial": 2, "cpu_workers": 0, "exit_code": 0, "result": "PASS"}, {"mode": "idle", "trial": 3, "cpu_workers": 0, "exit_code": 0, "result": "PASS"}, {"mode": "load", "trial": 1, "cpu_workers": 4, "exit_code": 0, "result": "PASS"}, {"mode": "load", "trial": 2, "cpu_workers": 4, "exit_code": 0, "result": "PASS"}, {"mode": "load", "trial": 3, "cpu_workers": 4, "exit_code": 0, "result": "PASS"}]}
+3 nodes: initial leader 3, term 1
+3 nodes: killed leader; new leader 2 after 4.819s (polling observation)
+3 nodes: PASS restart and minority checks; evidence: <win-review-root>\candidate-source\.test-output\smoke-3-1792530498979327600
+11 nodes: initial leader 6, term 1
+11 nodes: killed leader; new leader 4 after 5.719s (polling observation)
+11 nodes: PASS restart and minority checks; evidence: <win-review-root>\candidate-source\.test-output\smoke-11-1792530517533089400
+ADDITIONAL_NATIVE_PASS
+
+Guest result: {"exitcode": 0, "exited": true}

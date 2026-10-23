@@ -1,0 +1,17 @@
+.........................F..................
+======================================================================
+FAIL: test_binds_sources_and_both_tested_binaries (test_package_windows.WindowsPackageTests.test_binds_sources_and_both_tested_binaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/public/myraft/scripts/test_package_windows.py", line 94, in test_binds_sources_and_both_tested_binaries
+    with self.assertRaises(FileExistsError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: FileExistsError not raised
+
+----------------------------------------------------------------------
+Ran 44 tests in 0.939s
+
+FAILED (failures=1)
+build cancel request start-to-interrupt response: 0.154s
+{"file": "/tmp/tmpppp9itco/good.zip", "sha256": "72c8f28c8fba7e1ef708c5aad61b77b6217649212261321957812528b22964ee", "entries": 13, "bytes": 3408}
+{"file": "/tmp/tmpljhn3p_2/package.zip", "sha256": "f420be42f78c249390da1b8a1813ca58ffd20f76388a11ab6a007d7f7e8cc3e5", "entries": 11, "bytes": 2882}

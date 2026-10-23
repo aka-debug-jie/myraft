@@ -1,0 +1,22 @@
+{
+  "mode": "REAL",
+  "root": "real-guided",
+  "measurements": [],
+  "result": "PASS",
+  "nodes": 3,
+  "commands_before_fault": 2101,
+  "commands_after_fault": 2104,
+  "original_checkpoint": {
+    "index": 2102,
+    "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+    "x": 0,
+    "saved_at": "2026-10-21T10:39:17.61804989Z"
+  },
+  "final_checkpoint": {
+    "index": 2102,
+    "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+    "x": 0,
+    "saved_at": "2026-10-21T10:39:17.61804989Z"
+  },
+  "page_errors": []
+}

@@ -98,6 +98,7 @@ def stage_fixture(node_count: int, *, leader_id: int = 1, term: int = 1) -> dict
             "state": "Leader" if node_id == leader_id else "Follower",
             "term": term,
             "leader_id": leader_id,
+            "instance_id": f"SYNTHETIC-NODE-{node_id}",
             "last_log_index": 1,
             "commit_index": 1,
             "last_applied": 1,
@@ -157,7 +158,8 @@ class DashboardBrowserTests(unittest.TestCase):
 
     def intercept_synthetic_api(self, page: Page, *, with_session: bool = True, age_seconds: int = 0,
                                 connection_error: bool = False, control_enabled: bool = False,
-                                hold_logs: bool = False) -> None:
+                                hold_logs: bool = False, hold_operations: bool = False,
+                                bootstrap_handler=None) -> None:
         """Install stable synthetic bootstrap and EventSource responses for UI only."""
 
         fixture = frame_fixture(with_session=with_session, age_seconds=age_seconds)
@@ -195,6 +197,20 @@ class DashboardBrowserTests(unittest.TestCase):
             ? (window.__syntheticLogReadCount++, new Promise(resolve => window.__syntheticLogResolvers.push(resolve)))
               : originalFetch(input, init);
           }}
+          if ({json.dumps(hold_operations)}) {{
+            const originalFetch = window.fetch.bind(window);
+            window.__syntheticOperationPosts = [];
+            window.__syntheticOperationResolvers = [];
+            window.__resolveSyntheticOperation = (result='success') => {{
+              const resolve = window.__syntheticOperationResolvers.shift();
+              if (!resolve) throw new Error('no synthetic operation is pending');
+              if (result === 'network-error') resolve.reject(new TypeError('synthetic network failure'));
+              else resolve.resolve(new Response(JSON.stringify({{id:'SYNTHETIC-OP',state:'accepted'}}), {{status:200,headers:{{'Content-Type':'application/json'}}}}));
+            }};
+            window.fetch = (input, init) => String(input).includes('/api/operations') && init?.method === 'POST'
+              ? (window.__syntheticOperationPosts.push(JSON.parse(init.body)), new Promise((resolve,reject) => window.__syntheticOperationResolvers.push({{resolve,reject}})))
+              : originalFetch(input, init);
+          }}
           window.EventSource = class SyntheticEventSource {{
             constructor() {{
               this.handlers = new Map();
@@ -214,8 +230,287 @@ class DashboardBrowserTests(unittest.TestCase):
             close() {{ this.closed = true; }}
           }};
         }})();""")
-        page.route("**/api/session", lambda route: route.fulfill(
-            status=200, content_type="application/json", body=json.dumps(bootstrap, ensure_ascii=False)))
+        if bootstrap_handler is None:
+            page.route("**/api/session", lambda route: route.fulfill(
+                status=200, content_type="application/json", body=json.dumps(bootstrap, ensure_ascii=False)))
+        else:
+            page.route("**/api/session", bootstrap_handler)
+
+    def test_create_submit_is_immediately_busy_and_ignores_double_click(self) -> None:
+        """A delayed synthetic operations response must not allow a second create POST."""
+        context, page = self.new_page()
+        try:
+            self.intercept_synthetic_api(page, control_enabled=True, hold_operations=True)
+            page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            self.wait_for_synthetic_stream(page)
+            self.navigate(page, "settings")
+            button = page.locator("#create-form button")
+            page.evaluate("() => { const b=document.querySelector('#create-form button'); b.click(); b.click(); }")
+            page.wait_for_function("() => (window.__syntheticOperationPosts || []).length === 1")
+            self.assertTrue(button.is_disabled(), "create remained enabled while its POST was pending")
+            self.assertEqual(page.evaluate("() => window.__syntheticOperationPosts.length"), 1,
+                             "double-click submitted more than one create POST")
+            page.evaluate("() => window.__resolveSyntheticOperation()")
+        finally:
+            context.close()
+
+    def test_settings_draft_stays_but_create_disables_after_control_revoked(self) -> None:
+        """A control-disabled synthetic frame must disable create after blur and retain the draft."""
+        context, page = self.new_page()
+        try:
+            self.intercept_synthetic_api(page, control_enabled=True)
+            page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            self.wait_for_synthetic_stream(page)
+            self.navigate(page, "settings")
+            name = page.locator('#create-form [name="name"]')
+            name.fill("draft-after-revocation")
+            revoked = frame_fixture()
+            revoked["control_enabled"] = False
+            revoked["snapshot"]["seq"] = 2
+            page.evaluate("frame => window.__emitSyntheticFrame(frame)", revoked)
+            page.evaluate("() => document.activeElement.blur()")
+            button = page.locator("#create-form button")
+            self.assertTrue(button.is_disabled(), "create stayed enabled after control was revoked")
+            self.assertEqual(name.input_value(), "draft-after-revocation", "revocation discarded the form draft")
+        finally:
+            context.close()
+
+    def test_generate_confirmation_rejects_changed_generation(self) -> None:
+        """A confirmation captured for an old generation must not send a write POST."""
+        context, page = self.new_page()
+        try:
+            self.intercept_synthetic_api(page, control_enabled=True, hold_operations=True)
+            page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            self.wait_for_synthetic_stream(page)
+            page.evaluate("() => document.querySelector('#nav-actions [data-act=generate]').click()")
+            page.locator("#action-dialog").wait_for(state="visible")
+            changed = frame_fixture()
+            changed["generation"] = 2
+            changed["control_enabled"] = True
+            changed["snapshot"]["generation"] = 2
+            changed["snapshot"]["seq"] = 2
+            page.evaluate("frame => window.__emitSyntheticFrame(frame)", changed)
+            page.locator("#action-dialog").wait_for(state="hidden")
+            page.get_by_role("status").filter(has_text="会话已变化").wait_for(state="visible", timeout=3000)
+            self.assertEqual(page.evaluate("() => window.__syntheticOperationPosts.length"), 0,
+                             "stale confirmation issued an operations POST")
+        finally:
+            context.close()
+
+    def test_older_bootstrap_response_cannot_replace_current_scope_or_control(self) -> None:
+        """Out-of-order synthetic bootstrap reads must preserve the newest session and permission."""
+        context, page = self.new_page()
+        held_bootstraps: list[Route] = []
+        bootstrap_count = 0
+        initial = session_fixture()
+        current = session_fixture()
+        current["control_allowed"] = False
+        current["sessions"] = [{**current["session"], "id": "CURRENT-BOOTSTRAP", "name": "当前引导会话"}]
+        stale = session_fixture()
+        stale["control_allowed"] = True
+        stale["sessions"] = [{**stale["session"], "id": "STALE-BOOTSTRAP", "name": "过期引导会话"}]
+
+        def bootstrap(route: Route) -> None:
+            nonlocal bootstrap_count
+            bootstrap_count += 1
+            if bootstrap_count == 1:
+                route.fulfill(status=200, content_type="application/json", body=json.dumps(initial))
+            else:
+                held_bootstraps.append(route)
+
+        try:
+            self.intercept_synthetic_api(page, bootstrap_handler=bootstrap)
+            page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            self.wait_for_synthetic_stream(page)
+            generation_two = frame_fixture()
+            generation_two["generation"] = 2
+            generation_two["snapshot"]["generation"] = 2
+            generation_two["snapshot"]["seq"] = 2
+            with page.expect_request("**/api/session"):
+                page.evaluate("frame => window.__emitSyntheticFrame(frame)", generation_two)
+            self.assertEqual(len(held_bootstraps), 2, "expected two deferred bootstrap reads")
+            held_bootstraps[1].fulfill(status=200, content_type="application/json", body=json.dumps(current))
+            held_bootstraps[0].fulfill(status=200, content_type="application/json", body=json.dumps(stale))
+            self.navigate(page, "settings")
+            page.locator('[data-session="CURRENT-BOOTSTRAP"]').wait_for(state="visible")
+            self.assertEqual(page.locator('[data-session="STALE-BOOTSTRAP"]').count(), 0,
+                             "older bootstrap replaced the current session list")
+            self.assertTrue(page.locator('[data-act="enable-control"]').is_disabled(),
+                            "older bootstrap restored control permission")
+        finally:
+            context.close()
+
+    def test_cancel_stop_confirmation_sends_no_post(self) -> None:
+        """Canceling a synthetic stop confirmation must issue zero POST requests."""
+        context, page = self.new_page()
+        posts: list[str] = []
+        try:
+            self.intercept_synthetic_api(page, control_enabled=True)
+            page.on("request", lambda request: posts.append(request.method)
+                    if request.url.endswith("/api/operations") else None)
+            page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            self.wait_for_synthetic_stream(page)
+            frame = frame_fixture()
+            frame["control_enabled"] = True
+            frame["snapshot"]["nodes"] = [{"id": 1, "reachable": True, "owned": True,
+                "status": {"state": "Leader", "term": 1, "leader_id": 1}}]
+            page.evaluate("frame => window.__emitSyntheticFrame(frame)", frame)
+            page.locator('#stage-host .stage-node[data-node="1"]').click()
+            page.evaluate("() => document.querySelector('#node-detail [data-act=stop]').click()")
+            page.locator("#action-dialog").wait_for(state="visible")
+            page.locator('#dialog-form button[value="cancel"]').click()
+            page.wait_for_function("() => !document.querySelector('#action-dialog')")
+            self.assertEqual(posts, [], "canceling stop confirmation sent an operations POST")
+        finally:
+            context.close()
+
+    def test_unknown_post_is_not_automatically_retried(self) -> None:
+        """A synthetic network error after POST must not trigger an automatic retry."""
+        context, page = self.new_page()
+        try:
+            self.intercept_synthetic_api(page, control_enabled=True, hold_operations=True)
+            page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            self.wait_for_synthetic_stream(page)
+            page.evaluate("() => document.querySelector('#nav-actions [data-act=generate]').click()")
+            page.evaluate("() => document.querySelector('#dialog-form #confirm').click()")
+            page.wait_for_function("() => (window.__syntheticOperationPosts || []).length === 1")
+            page.evaluate("() => window.__resolveSyntheticOperation('network-error')")
+            page.locator("#action-dialog .field-error").filter(has_text="synthetic network failure").wait_for(state="visible")
+            self.assertTrue(page.locator("#confirm").is_disabled(), "unknown outcome left the same confirmation ready to resend")
+            self.assertEqual(page.evaluate("() => window.__syntheticOperationPosts.length"), 1,
+                             "unknown POST result was automatically retried")
+        finally:
+            context.close()
+
+    def test_old_controller_post_reply_is_not_shown_in_new_controller(self) -> None:
+        context,page=self.new_page()
+        try:
+            self.intercept_synthetic_api(page,control_enabled=True,hold_operations=True)
+            page.goto(BASE_URL);self.wait_for_synthetic_stream(page);self.navigate(page,"settings")
+            page.locator('#create-form button').click()
+            page.wait_for_function('window.__syntheticOperationPosts.length===1')
+            current=session_fixture();current['controller_id']='NEW-CONTROLLER';current['control_allowed']=True
+            page.route('**/api/session',lambda r:r.fulfill(status=200,content_type='application/json',body=json.dumps(current)))
+            new=frame_fixture();new['controller_id']='NEW-CONTROLLER';new['control_enabled']=True
+            page.evaluate('f=>window.__emitSyntheticFrame(f)',new)
+            page.evaluate('window.__resolveSyntheticOperation()')
+            page.wait_for_function("document.querySelector('#create-form button').disabled===false")
+            self.assertNotIn('SYNTHETIC-OP',page.locator('#task-body').inner_text())
+        finally:context.close()
+
+    def test_bootstrap_retries_after_controller_changes(self) -> None:
+        context,page=self.new_page();failures=[]
+        try:
+            self.intercept_synthetic_api(page,control_enabled=True)
+            page.goto(BASE_URL);self.wait_for_synthetic_stream(page);self.navigate(page,'settings')
+            current=session_fixture();current['controller_id']='RECOVERED-CONTROLLER';current['control_allowed']=True
+            def recover(route):
+                if not failures:
+                    failures.append('first bootstrap failed');route.fulfill(status=503,body='temporary bootstrap failure')
+                else:route.fulfill(status=200,content_type='application/json',body=json.dumps(current))
+            page.route('**/api/session',recover)
+            new=frame_fixture();new['controller_id']='RECOVERED-CONTROLLER';new['control_enabled']=True
+            page.evaluate('f=>window.__emitSyntheticFrame(f)',new)
+            page.wait_for_function("document.querySelector('#create-form button').disabled===false",timeout=10000)
+            self.assertEqual(failures,['first bootstrap failed'])
+        finally:context.close()
+
+    def test_workflow_requires_identity_and_fresh_verification(self) -> None:
+        context,page=self.new_page()
+        try:
+            self.intercept_synthetic_api(page);page.goto(BASE_URL);self.wait_for_synthetic_stream(page)
+            f=stage_fixture(3)
+            f['snapshot']['nodes'][1]['identity_ok']=False
+            f['current_verification']={'state':'stale'};f['history_verification']={'state':'stale'}
+            f['checkpoint']={'index':1,'hash':'synthetic','x':0}
+            page.evaluate('f=>window.__emitSyntheticFrame(f)',f)
+            page.locator('.demo-trigger').click()
+            states=page.locator('.workflow-step').evaluate_all("es=>es.map(e=>e.classList.contains('complete'))")
+            self.assertFalse(states[0],'wrong identity marked cluster ready')
+            self.assertFalse(states[2],'stale verification marked current check complete')
+            self.assertFalse(states[5],'stale history marked history check complete')
+        finally:context.close()
+
+    def test_old_checkpoint_does_not_skip_new_write_verification(self) -> None:
+        context,page=self.new_page()
+        try:
+            self.intercept_synthetic_api(page,control_enabled=True)
+            page.goto(BASE_URL);self.wait_for_synthetic_stream(page)
+            f=stage_fixture(3);f['control_enabled']=True
+            f['checkpoint']={'index':50,'hash':'SYNTHETIC','x':0}
+            f['operations']=[{'id':'new-write','kind':'generate','state':'succeeded','committed':True,'result':{'last_index':100}}]
+            f['current_verification']={'state':'stale'}
+            for n in f['snapshot']['nodes']:n['status']['last_applied']=50
+            page.evaluate('f=>window.__emitSyntheticFrame(f)',f)
+            self.assertIn('应用与完整校验',page.locator('#lesson-dock').inner_text())
+            self.assertEqual(page.locator('#lesson-dock [data-page=faults]').count(),0)
+            page.locator('.stage-node[data-node="2"]').click()
+            page.locator('[data-act=close-detail]').click()
+            self.assertTrue(page.locator('.stage-node[data-node="2"]').evaluate("n=>n.classList.contains('selected')"))
+        finally:context.close()
+
+    def test_stage_controls_do_not_cover_nodes_and_readonly_is_explicit(self) -> None:
+        context,page=self.new_page(width=1100,height=650)
+        try:
+            self.intercept_synthetic_api(page)
+            page.goto(BASE_URL);self.wait_for_synthetic_stream(page)
+            f=stage_fixture(11)
+            page.evaluate('f=>window.__emitSyntheticFrame(f)',f)
+            f['snapshot']['seq']=2;page.evaluate('f=>window.__emitSyntheticFrame(f)',f)
+            page.wait_for_function("() => document.querySelector('.center-slot') !== null")
+            self.assertIn('当前入口仅供查看',page.locator('#lesson-dock').inner_text())
+            covers=page.locator('.stage-node').evaluate_all("nodes=>nodes.filter(n=>{const r=n.getBoundingClientRect();return !n.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))}).map(n=>n.dataset.node)")
+            self.assertEqual(covers,[])
+            heights=page.locator('.stage-control:visible').evaluate_all('ns=>ns.map(n=>n.getBoundingClientRect().height)')
+            self.assertTrue(all(h<=48 for h in heights))
+            page.locator('.stage-node[data-node="2"]').click()
+            self.assertIn('当前入口仅供查看',page.locator('#node-detail').inner_text())
+            self.assertNotIn('可在会话设置启用控制',page.locator('#node-detail').inner_text())
+        finally:context.close()
+
+    def test_readonly_transport_disables_posts_but_allows_log_reads(self) -> None:
+        context,page=self.new_page()
+        try:
+            def readonly(route):
+                route.fulfill(status=200,content_type='application/json',headers={'X-MyRaft-Read-Only':'1'},body=json.dumps(session_fixture()|{'control_allowed':True,'control_enabled':True}))
+            self.intercept_synthetic_api(page,control_enabled=True,bootstrap_handler=readonly)
+            page.goto(BASE_URL);self.wait_for_synthetic_stream(page)
+            f=stage_fixture(3);f['control_enabled']=True;page.evaluate('f=>window.__emitSyntheticFrame(f)',f)
+            self.assertEqual(page.locator('#mode').inner_text(),'只读')
+            self.assertIn('当前入口仅供查看',page.locator('#lesson-dock').inner_text())
+            self.open_sidebar(page)
+            self.assertTrue(page.locator('#nav-actions [data-act=verify]').is_disabled())
+            self.assertIn('只允许查看',page.locator('#nav-actions [data-act=verify]').get_attribute('title'))
+            self.navigate(page,'logs')
+            self.assertTrue(page.locator('#logs-form button').is_enabled())
+        finally:context.close()
+
+    def test_live_update_preserves_input_focus_and_browser_navigation(self) -> None:
+        context,page=self.new_page()
+        try:
+            self.intercept_synthetic_api(page,control_enabled=True)
+            page.goto(BASE_URL);self.wait_for_synthetic_stream(page);self.navigate(page,'settings')
+            name=page.locator('#create-form [name=name]');name.fill('focused-classroom-draft')
+            page.evaluate("window.__draftInput=document.activeElement;window.__draftInput.setSelectionRange(2,8)")
+            page.evaluate("window.__emitSyntheticFrame({...window.__lastSyntheticFrame,snapshot:{...window.__lastSyntheticFrame.snapshot,seq:9}})")
+            self.assertEqual(page.evaluate("({same:document.activeElement===window.__draftInput,start:document.activeElement.selectionStart,end:document.activeElement.selectionEnd})"),{'same':True,'start':2,'end':8})
+            self.navigate(page,'logs');page.go_back()
+            page.wait_for_function("document.body.dataset.page==='settings'")
+            self.assertEqual(name.input_value(),'focused-classroom-draft')
+            page.reload();self.wait_for_synthetic_stream(page)
+            self.assertEqual(page.locator('body').get_attribute('data-page'),'settings')
+        finally:context.close()
+
+    def test_raw_receipt_is_rendered_only_on_explicit_expansion(self) -> None:
+        context,page=self.new_page()
+        try:
+            self.intercept_synthetic_api(page);page.goto(BASE_URL);self.wait_for_synthetic_stream(page)
+            frame=frame_fixture();frame['operations']=[{'id':'RAW-RECEIPT','kind':'experiment','state':'succeeded','result':{'marker':'EVIDENCE-ONLY-ON-DEMAND'}}]
+            page.evaluate('f=>window.__emitSyntheticFrame(f)',frame)
+            self.assertNotIn('EVIDENCE-ONLY-ON-DEMAND',page.locator('#task-body').text_content())
+            page.locator('#task-summary').click();page.locator('#task-body details summary').click()
+            page.locator('#task-body pre').filter(has_text='EVIDENCE-ONLY-ON-DEMAND').wait_for(state='visible')
+        finally:context.close()
 
     def test_live_console_read_only_tabs_and_screenshots(self) -> None:
         """Capture the supplied live target; only GET traffic is allowed."""
@@ -472,6 +767,29 @@ class DashboardBrowserTests(unittest.TestCase):
         finally:
             context.close()
 
+    def test_log_selection_invalidates_in_flight_query(self) -> None:
+        """Changing selected nodes invalidates an in-flight log result without rereading."""
+        context, page = self.new_page()
+        try:
+            self.intercept_synthetic_api(page, hold_logs=True)
+            page.goto(BASE_URL, wait_until="domcontentloaded", timeout=15000)
+            self.wait_for_synthetic_stream(page)
+            self.navigate(page, "logs")
+            page.get_by_role("button", name="读取实际日志").click()
+            page.wait_for_function("() => window.__syntheticLogResolvers.length === 2")
+            page.locator('[data-log-node="2"]').uncheck()
+            self.assertTrue(page.locator("#logs-form button").is_enabled(),
+                            "changing node selection left the old query loading")
+            self.assertEqual(page.evaluate("() => window.__syntheticLogReadCount"), 2,
+                             "changing node selection must not start another read")
+            page.evaluate("() => window.__resolveSyntheticLogs(503)")
+            page.wait_for_timeout(50)
+            self.assertEqual(page.locator("#main [role=alert]").count(), 0,
+                             "an invalidated query error was rendered")
+            self.assertEqual(page.evaluate("() => window.__syntheticLogReadCount"), 2)
+        finally:
+            context.close()
+
     def test_create_and_experiment_form_drafts_survive_blur_and_sse(self) -> None:
         """Synthetic typing, blur, and SSE renders preserve both form drafts."""
         context, page = self.new_page()
@@ -482,6 +800,7 @@ class DashboardBrowserTests(unittest.TestCase):
             self.navigate(page, "settings")
             page.locator('#create-form [name="name"]').fill("draft-session")
             page.locator('#create-form [name="nodes"]').fill("17")
+            page.locator('#create-form details summary').click()
             page.locator('#create-form [name="batch"]').fill("256")
             page.evaluate("() => document.activeElement.blur()")
             page.evaluate("() => window.__emitSyntheticFrame({ ...window.__lastSyntheticFrame, snapshot: { ...window.__lastSyntheticFrame.snapshot, seq: 2 } })")
@@ -492,10 +811,13 @@ class DashboardBrowserTests(unittest.TestCase):
             self.navigate(page, "experiments")
             page.locator('#experiment-form [name="entries"]').fill("4096")
             page.locator('#experiment-form [name="rounds"]').fill("3")
+            page.locator('#experiment-form details summary').click()
             page.locator('#experiment-form [name="seed"]').fill("77")
             page.locator('#experiment-form [name="batch"]').fill("512")
-            page.locator('#experiment-form [name="nodes"]').select_option(["3", "11"])
-            page.locator('#experiment-form [name="scenarios"]').select_option(["election", "replication"])
+            page.locator('#experiment-form [name="nodes"][value="3"]').check()
+            page.locator('#experiment-form [name="nodes"][value="11"]').check()
+            page.locator('#experiment-form [name="scenarios"][value="election"]').check()
+            page.locator('#experiment-form [name="scenarios"][value="replication"]').check()
             page.evaluate("() => document.activeElement.blur()")
             frame = frame_fixture()
             frame["snapshot"]["seq"] = 3
@@ -504,8 +826,8 @@ class DashboardBrowserTests(unittest.TestCase):
             self.assertEqual(page.locator('#experiment-form [name="rounds"]').input_value(), "3")
             self.assertEqual(page.locator('#experiment-form [name="seed"]').input_value(), "77")
             self.assertEqual(page.locator('#experiment-form [name="batch"]').input_value(), "512")
-            self.assertEqual(page.locator('#experiment-form [name="nodes"]').evaluate("e => [...e.selectedOptions].map(o => o.value)"), ["3", "11"])
-            self.assertEqual(page.locator('#experiment-form [name="scenarios"]').evaluate("e => [...e.selectedOptions].map(o => o.value)"), ["election", "replication"])
+            self.assertEqual(page.locator('#experiment-form [name="nodes"]:checked').evaluate_all("es => es.map(e=>e.value)"), ["3", "11"])
+            self.assertEqual(page.locator('#experiment-form [name="scenarios"]:checked').evaluate_all("es => es.map(e=>e.value)"), ["election", "replication"])
         finally:
             context.close()
 

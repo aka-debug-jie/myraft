@@ -119,25 +119,22 @@ try:
   page=browser.new_page(viewport={'width':1440,'height':1050},reduced_motion='reduce');page.on('pageerror',lambda e:errors.append(str(e)));page.goto(url)
   # Independent real experiment, then an interrupted run, both submitted from the actual form.
   navigate(page,'experiments')
-  form=page.locator('#experiment-form');form.locator('[name=nodes]').select_option('3');form.locator('[name=scenarios]').select_option('replication')
+  form=page.locator('#experiment-form');form.locator('[name=nodes]:checked').uncheck();form.locator('[name=nodes][value="3"]').check();form.locator('[name=scenarios][value="replication"]').check();form.locator('details summary').click()
   form.locator('[name=entries]').fill('2101');form.locator('[name=rounds]').fill('1');form.locator('[name=seed]').fill('42');form.locator('[name=batch]').fill('128')
-  page.evaluate('''() => {
-    document.activeElement.blur();
-    const main=document.querySelector('#main');
-    const observer=new MutationObserver(() => { main.dataset.testRendered='yes'; observer.disconnect(); });
-    observer.observe(main, {childList:true});
-  }''')
-  expect(page.locator('#main')).to_have_attribute('data-test-rendered','yes',timeout=5000)
-  assert form.locator('[name=nodes]').evaluate("e => [...e.selectedOptions].map(o=>o.value)")==['3']
-  assert form.locator('[name=scenarios]').evaluate("e => [...e.selectedOptions].map(o=>o.value)")==['replication']
+  # Live updates preserve the form node, values and caret instead of rebuilding it.
+  page.evaluate("window.__experimentForm=document.querySelector('#experiment-form')")
+  before_seq=frame()['snapshot']['seq'];until(lambda f:f['snapshot']['seq']>before_seq)
+  assert page.evaluate("window.__experimentForm===document.querySelector('#experiment-form')")
+  assert form.locator('[name=nodes]:checked').evaluate_all("es=>es.map(e=>e.value)")==['3']
+  assert form.locator('[name=scenarios]:checked').evaluate_all("es=>es.map(e=>e.value)")==['replication']
   assert form.locator('[name=entries]').input_value()=='2101' and form.locator('[name=rounds]').input_value()=='1'
   assert form.locator('[name=seed]').input_value()=='42' and form.locator('[name=batch]').input_value()=='128'
-  before=operation_ids('experiment');form.locator('button').click()
+  before=operation_ids('experiment');form.locator('button[type=submit]').click()
   op=wait_latest('experiment',before,120)
   assert op['state']=='succeeded',op
-  form=page.locator('#experiment-form');form.locator('[name=nodes]').select_option('10');form.locator('[name=scenarios]').select_option('election')
+  form=page.locator('#experiment-form');form.locator('[name=nodes]:checked').uncheck();form.locator('[name=nodes][value="10"]').check();form.locator('[name=scenarios]:checked').uncheck();form.locator('[name=scenarios][value="election"]').check()
   form.locator('[name=entries]').fill('256');form.locator('[name=rounds]').fill('3');form.locator('[name=seed]').fill('42');form.locator('[name=batch]').fill('128')
-  before=operation_ids('experiment');form.locator('button').click()
+  before=operation_ids('experiment');form.locator('button[type=submit]').click()
   running=until(lambda f:any(o['kind']=='experiment' and o['id'] not in before and o.get('result',{}).get('phase')=='running' for o in f['operations']),120)
   interrupted=next(o for o in running['operations'] if o['kind']=='experiment' and o['id'] not in before)
   with page.expect_response(lambda response: response.url.endswith('/api/operations') and response.request.post_data_json.get('kind')=='cancel_experiment') as cancel_response:

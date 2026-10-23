@@ -80,28 +80,66 @@ class CancellationTests(unittest.TestCase):
                             ' time.sleep(2)\n'
                             ' pathlib.Path(sys.argv[3]).write_bytes(b"fake")\n')
             original_popen = subprocess.Popen
+            owned_builds = []
             def popen(command, *args, **kwargs):
                 if command[0] == 'go':
                     command = [sys.executable, str(fake), *command[1:]]
-                return original_popen(command, *args, **kwargs)
+                process = original_popen(command, *args, **kwargs)
+                if len(command) > 2 and command[1] == str(fake) and command[2] == 'build':
+                    owned_builds.append(process)
+                return process
             def cancel_when_started():
                 deadline = time.monotonic() + 5
                 while not started.exists() and time.monotonic() < deadline:
                     time.sleep(.01)
-                marker.touch()
+                if started.exists():
+                    marker_request_ns.append(time.monotonic_ns())
+                    marker.write_text('cancel')
+                    marker_written_ns.append(time.monotonic_ns())
             cancel = threading.Thread(target=cancel_when_started)
             args = ['benchmark.py', '--nodes', '3', '--rounds', '1', '--output', str(root / 'run'),
                     '--cancel-file', str(marker)]
+            sentinel = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(10)'])
+            interrupted_ns = None
+            sentinel_survived = False
+            runner_returncodes = None
+            marker_request_ns = []
+            marker_written_ns = []
             cancel.start()
-            begin = time.monotonic()
             try:
                 with patch.object(sys, 'argv', args), patch.object(benchmark.subprocess, 'Popen', side_effect=popen), \
                      patch.object(benchmark, 'CANCEL_FILE', None):
-                    with self.assertRaises(KeyboardInterrupt):
+                    try:
                         benchmark.main()
+                    except KeyboardInterrupt:
+                        interrupted_ns = time.monotonic_ns()
+                    else:
+                        self.fail('benchmark.main did not raise KeyboardInterrupt')
+                runner_returncodes = [process.returncode for process in owned_builds]
+                sentinel_survived = sentinel.poll() is None
             finally:
                 cancel.join(timeout=6)
-            self.assertLess(time.monotonic() - begin, 1.5)
+                for process in owned_builds:
+                    if process.poll() is None:
+                        process.kill()
+                        process.wait(timeout=5)
+                if sentinel.poll() is None:
+                    sentinel.kill()
+                sentinel.wait(timeout=5)
+            self.assertFalse(cancel.is_alive(), 'cancel synchronizer did not finish')
+            self.assertTrue(started.exists(), 'build process never reached its synchronized start')
+            self.assertTrue(marker.exists(), 'cancel synchronizer did not write the marker')
+            self.assertEqual(len(marker_written_ns), 1, 'cancel marker write did not complete')
+            self.assertEqual(len(marker_request_ns), 1, 'cancel request was not recorded')
+            self.assertIsNotNone(interrupted_ns, 'KeyboardInterrupt was not observed')
+            response = interrupted_ns - marker_request_ns[0]
+            self.assertGreaterEqual(response, 0)
+            print(f'build cancel request start-to-interrupt response: {response / 1e9:.3f}s')
+            self.assertEqual(len(owned_builds), 1)
+            self.assertIsNotNone(runner_returncodes, 'runner process state was not recorded')
+            self.assertIsNotNone(runner_returncodes[0], 'runner did not exit and reap the owned build process')
+            self.assertTrue(sentinel_survived, 'cancellation affected an unrelated sentinel process')
+            self.assertFalse((root / 'run' / benchmark.EXE.name).exists(), 'incomplete binary was left as a build result')
             self.assertEqual(json.loads((root / 'run/run-status.json').read_text())['status'], 'INTERRUPTED')
 
     def test_cancelled_cli_is_killed_and_waited(self):

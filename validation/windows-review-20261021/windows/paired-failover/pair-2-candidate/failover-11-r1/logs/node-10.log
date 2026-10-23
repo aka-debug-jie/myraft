@@ -1,0 +1,66 @@
+2026/10/21 04:56:56.372389 node=10 term=0 role=Follower | node_recovered index=0 commit=0 applied=0 x=0
+2026/10/21 04:56:56.422656 node=10 term=0 role=Follower | started addr=127.0.0.1:57242 members=11 quorum=6
+2026/10/21 04:56:59.680294 node=10 term=1 role=Follower | higher_term_observed
+2026/10/21 04:56:59.724082 node=10 term=1 role=Follower | vote_granted candidate=6
+2026/10/21 04:56:59.749911 node=10 term=1 role=Follower | leader_observed leader=6
+2026/10/21 04:56:59.749911 node=10 term=1 role=Follower | log_replicated from=1 index=1
+2026/10/21 04:56:59.799435 node=10 term=1 role=Follower | log_committed index=1
+2026/10/21 04:56:59.799435 node=10 term=1 role=Follower | state_applied from=1 index=1 commands=0 x=0
+2026/10/21 04:57:00.165380 node=10 term=1 role=Follower | log_replicated from=2 index=129
+2026/10/21 04:57:00.196662 node=10 term=1 role=Follower | log_replicated from=130 index=257
+2026/10/21 04:57:00.249153 node=10 term=1 role=Follower | log_committed index=129
+2026/10/21 04:57:00.249153 node=10 term=1 role=Follower | state_applied from=2 index=129 commands=128 x=-6
+2026/10/21 04:57:00.262614 node=10 term=1 role=Follower | log_replicated from=258 index=385
+2026/10/21 04:57:00.298201 node=10 term=1 role=Follower | log_committed index=257
+2026/10/21 04:57:00.298201 node=10 term=1 role=Follower | state_applied from=130 index=257 commands=256 x=26
+2026/10/21 04:57:00.318943 node=10 term=1 role=Follower | log_replicated from=386 index=513
+2026/10/21 04:57:00.345345 node=10 term=1 role=Follower | log_committed index=385
+2026/10/21 04:57:00.345345 node=10 term=1 role=Follower | state_applied from=258 index=385 commands=384 x=-11
+2026/10/21 04:57:00.360636 node=10 term=1 role=Follower | log_replicated from=514 index=641
+2026/10/21 04:57:00.382252 node=10 term=1 role=Follower | log_committed index=513
+2026/10/21 04:57:00.382252 node=10 term=1 role=Follower | state_applied from=386 index=513 commands=512 x=13
+2026/10/21 04:57:00.404280 node=10 term=1 role=Follower | log_replicated from=642 index=769
+2026/10/21 04:57:00.416306 node=10 term=1 role=Follower | log_committed index=641
+2026/10/21 04:57:00.416306 node=10 term=1 role=Follower | state_applied from=514 index=641 commands=640 x=-5
+2026/10/21 04:57:00.430799 node=10 term=1 role=Follower | log_replicated from=770 index=897
+2026/10/21 04:57:00.451350 node=10 term=1 role=Follower | log_committed index=769
+2026/10/21 04:57:00.451350 node=10 term=1 role=Follower | state_applied from=642 index=769 commands=768 x=-15
+2026/10/21 04:57:00.465873 node=10 term=1 role=Follower | log_replicated from=898 index=1025
+2026/10/21 04:57:00.480326 node=10 term=1 role=Follower | log_committed index=897
+2026/10/21 04:57:00.480326 node=10 term=1 role=Follower | state_applied from=770 index=897 commands=896 x=0
+2026/10/21 04:57:00.498287 node=10 term=1 role=Follower | log_replicated from=1026 index=1153
+2026/10/21 04:57:00.512126 node=10 term=1 role=Follower | log_committed index=1025
+2026/10/21 04:57:00.512126 node=10 term=1 role=Follower | state_applied from=898 index=1025 commands=1024 x=9
+2026/10/21 04:57:00.527319 node=10 term=1 role=Follower | log_replicated from=1154 index=1281
+2026/10/21 04:57:00.542956 node=10 term=1 role=Follower | log_committed index=1153
+2026/10/21 04:57:00.542956 node=10 term=1 role=Follower | state_applied from=1026 index=1153 commands=1152 x=2
+2026/10/21 04:57:00.558801 node=10 term=1 role=Follower | log_replicated from=1282 index=1409
+2026/10/21 04:57:00.570683 node=10 term=1 role=Follower | log_committed index=1281
+2026/10/21 04:57:00.570683 node=10 term=1 role=Follower | state_applied from=1154 index=1281 commands=1280 x=1
+2026/10/21 04:57:00.585174 node=10 term=1 role=Follower | log_replicated from=1410 index=1537
+2026/10/21 04:57:00.599639 node=10 term=1 role=Follower | log_committed index=1409
+2026/10/21 04:57:00.599639 node=10 term=1 role=Follower | state_applied from=1282 index=1409 commands=1408 x=-1
+2026/10/21 04:57:00.619355 node=10 term=1 role=Follower | log_replicated from=1538 index=1665
+2026/10/21 04:57:00.630094 node=10 term=1 role=Follower | log_committed index=1537
+2026/10/21 04:57:00.633722 node=10 term=1 role=Follower | state_applied from=1410 index=1537 commands=1536 x=-1
+2026/10/21 04:57:00.644510 node=10 term=1 role=Follower | log_replicated from=1666 index=1793
+2026/10/21 04:57:00.658895 node=10 term=1 role=Follower | log_committed index=1665
+2026/10/21 04:57:00.658895 node=10 term=1 role=Follower | state_applied from=1538 index=1665 commands=1664 x=0
+2026/10/21 04:57:00.674782 node=10 term=1 role=Follower | log_replicated from=1794 index=1921
+2026/10/21 04:57:00.690367 node=10 term=1 role=Follower | log_committed index=1793
+2026/10/21 04:57:00.690367 node=10 term=1 role=Follower | state_applied from=1666 index=1793 commands=1792 x=-4
+2026/10/21 04:57:00.704753 node=10 term=1 role=Follower | log_replicated from=1922 index=2049
+2026/10/21 04:57:00.719733 node=10 term=1 role=Follower | log_committed index=1921
+2026/10/21 04:57:00.719733 node=10 term=1 role=Follower | state_applied from=1794 index=1921 commands=1920 x=2
+2026/10/21 04:57:00.737464 node=10 term=1 role=Follower | log_replicated from=2050 index=2102
+2026/10/21 04:57:00.747105 node=10 term=1 role=Follower | log_committed index=2049
+2026/10/21 04:57:00.747105 node=10 term=1 role=Follower | state_applied from=1922 index=2049 commands=2048 x=3
+2026/10/21 04:57:00.772841 node=10 term=1 role=Follower | log_committed index=2102
+2026/10/21 04:57:00.772841 node=10 term=1 role=Follower | state_applied from=2050 index=2102 commands=2101 x=8
+2026/10/21 04:57:04.125975 node=10 term=2 role=Candidate | election_started
+2026/10/21 04:57:04.256649 node=10 term=2 role=Leader | leader_elected votes=6/11 election_ms=130.675 index=2103
+2026/10/21 04:57:04.275370 node=10 term=2 role=Leader | log_committed index=2103
+2026/10/21 04:57:04.275370 node=10 term=2 role=Leader | state_applied from=2103 index=2103 commands=2101 x=8
+2026/10/21 04:57:04.791304 node=10 term=2 role=Leader | log_appended from=2104 index=2104 commands=1
+2026/10/21 04:57:04.808792 node=10 term=2 role=Leader | log_committed index=2104
+2026/10/21 04:57:04.808792 node=10 term=2 role=Leader | state_applied from=2104 index=2104 commands=2102 x=8

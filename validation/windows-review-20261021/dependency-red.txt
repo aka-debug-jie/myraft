@@ -1,0 +1,5 @@
+--- FAIL: TestDependencyRejectsPython310 (0.08s)
+    dependency_versions_test.go:52: unsupported interpreter accepted: {Ready:true Source:{Ready:true Reason:} Go:{Ready:true Reason:} Python:{Ready:true Reason:} Reason:}
+FAIL
+FAIL	myraft/cmd/dashboard	0.103s
+FAIL

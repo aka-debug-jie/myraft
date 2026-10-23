@@ -1,5 +1,5 @@
 {
-  "sanitization": "Workspace paths abbreviated; JSON process IDs removed; no WAL or credentials exported. Raw data retained in the isolated local experiment root.",
+  "sanitization": "Workspace paths abbreviated; JSON process IDs removed; no WAL or credentials exported. Raw data retained in the isolated local experiment root. Public snapshot 2026-10-23 additionally abbreviates home paths; raw hashes and local original files are preserved.",
   "files": [
     {
       "source": "baseline-batches/catchup-11-b128-r1/arithmetic-reference.json",
@@ -13373,13 +13373,13 @@
       "source": "real-console.log",
       "file": "development-failures/real-console.log",
       "raw_sha256": "cf3bbf694e97929a2ceaf82ed0841fe598bd03e2360baaa82426257e886ce40e",
-      "delivered_sha256": "102fae6990ac191d0bfe324db9fb119c92f8b4f987865178b9144040c0544b90"
+      "delivered_sha256": "66df7678c5c3719f92f30c2548f14396ceca840498b634632bd4a2693454f7a8"
     },
     {
       "source": "real-console-retry.log",
       "file": "development-failures/real-console-retry.log",
       "raw_sha256": "477880e4db206d7580067444ecba5ed0b78d693ccfb6dacdf6c62a11c418e7c6",
-      "delivered_sha256": "40f29fb4baa4aa5fc48c695501a2d96f4bff5ad3bf3556e92a6681b8c3bba684"
+      "delivered_sha256": "6b272cfc89215b212307b981fc8a51c4319f6239dcd9885e53c56bb81e92daf7"
     },
     {
       "source": "reverse-recheck-50/run-status.json",

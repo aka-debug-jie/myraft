@@ -1,0 +1,11 @@
+2026/10/21 05:08:37.814022 node=4 term=0 role=Follower | node_recovered index=0 commit=0 applied=0 x=0
+2026/10/21 05:08:37.869995 node=4 term=0 role=Follower | started addr=127.0.0.1:60430 members=11 quorum=6
+2026/10/21 05:08:41.038541 node=4 term=1 role=Candidate | election_started
+2026/10/21 05:08:41.105580 node=4 term=1 role=Follower | leader_observed leader=6
+2026/10/21 05:08:41.118718 node=4 term=1 role=Follower | log_replicated from=1 index=1
+2026/10/21 05:08:41.154324 node=4 term=1 role=Follower | log_committed index=1
+2026/10/21 05:08:41.157990 node=4 term=1 role=Follower | state_applied from=1 index=1 commands=0 x=0
+2026/10/21 05:08:50.704660 node=4 term=2 role=Candidate | election_started
+2026/10/21 05:08:50.869124 node=4 term=2 role=Leader | leader_elected votes=6/11 election_ms=164.465 index=2
+2026/10/21 05:08:50.886302 node=4 term=2 role=Leader | log_committed index=2
+2026/10/21 05:08:50.886302 node=4 term=2 role=Leader | state_applied from=2 index=2 commands=0 x=0

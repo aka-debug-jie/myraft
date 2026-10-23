@@ -296,7 +296,8 @@ func (d *dashboard) startNode(ctx context.Context, s *session, id int) error {
 	cmd := exec.Command(exe, args...)
 	cmd.Stdout = output
 	cmd.Stderr = output
-	cmd.Env = append(os.Environ(), "GOMAXPROCS=1")
+	// Older session binaries ignore the opt-out; adding a required CLI flag would prevent their restart.
+	cmd.Env = append(os.Environ(), "GOMAXPROCS=1", "MYRAFT_NO_CONSOLE_TITLE=1")
 	if err = cmd.Start(); err != nil {
 		output.Close()
 		return err

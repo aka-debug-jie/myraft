@@ -1,0 +1,13 @@
+Guest PID: 2280
+Verified SYSTEM temporary directory: <win-review-root>\private-temp\
+build cancel request start-to-interrupt response: 0.383s
+{"file": "P:\\Xinbao\\windows-review-20261021\\private-temp\\tmpiq12h8np\\good.zip", "sha256": "b73f0398b64a17aff73b5f884d2323ca2b1640f88eaddc3c5831af857c59ad7f", "entries": 11, "bytes": 2882}
+{"file": "P:\\Xinbao\\windows-review-20261021\\private-temp\\tmpm94ga35y\\package.zip", "sha256": "b73f0398b64a17aff73b5f884d2323ca2b1640f88eaddc3c5831af857c59ad7f", "entries": 11, "bytes": 2882}
+CANDIDATE_NATIVE_PASS
+................s...........................
+----------------------------------------------------------------------
+Ran 44 tests in 4.179s
+
+OK (skipped=1)
+
+Guest result: {"exitcode": 0, "exited": true}

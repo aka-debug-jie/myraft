@@ -1,0 +1,44 @@
+[
+  {
+    "mode": "idle",
+    "trial": 1,
+    "cpu_workers": 0,
+    "exit_code": 0,
+    "result": "PASS"
+  },
+  {
+    "mode": "idle",
+    "trial": 2,
+    "cpu_workers": 0,
+    "exit_code": 0,
+    "result": "PASS"
+  },
+  {
+    "mode": "idle",
+    "trial": 3,
+    "cpu_workers": 0,
+    "exit_code": 0,
+    "result": "PASS"
+  },
+  {
+    "mode": "load",
+    "trial": 1,
+    "cpu_workers": 4,
+    "exit_code": 0,
+    "result": "PASS"
+  },
+  {
+    "mode": "load",
+    "trial": 2,
+    "cpu_workers": 4,
+    "exit_code": 0,
+    "result": "PASS"
+  },
+  {
+    "mode": "load",
+    "trial": 3,
+    "cpu_workers": 4,
+    "exit_code": 0,
+    "result": "PASS"
+  }
+]

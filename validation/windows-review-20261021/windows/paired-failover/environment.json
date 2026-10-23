@@ -1,0 +1,25 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.12 (tags/v3.13.12:1cbe481, Feb  3 2026, 18:22:25) [MSC v.1944 64 bit (AMD64)]",
+  "cpu_count": 8,
+  "go": "go version go1.26.3 windows/amd64",
+  "temp": "<win-review-root>\\private-temp",
+  "system_temp": "<win-review-root>\\private-temp",
+  "gotmpdir": "<win-review-root>\\private-temp",
+  "case": "11 nodes, fixed 11 voters, 2101 initial commands; one Leader process killed; no GUI/window action",
+  "order": "AB/BA/AB",
+  "seeds": [
+    42,
+    43,
+    46
+  ],
+  "GOMAXPROCS_per_node": 1,
+  "election_min_seconds": 3,
+  "election_jitter_seconds": 3,
+  "heartbeat_ms": 150,
+  "rpc_timeout_seconds": 1,
+  "source_archives": {
+    "baseline": "b2f3bd2fb030076a9be7853744ba8d9ed9dc0270c1782c27167598996c112822",
+    "candidate": "1553adf822b371b6f4dd2b5be83cdb79c551565d9671d1891e2ba42a077a7e8c"
+  }
+}

@@ -1,0 +1,418 @@
+{
+  "mode": "REAL",
+  "root": "real-11",
+  "measurements": [
+    {
+      "browsers": 1,
+      "rounds": 5,
+      "monitor_rpcs": 55,
+      "node_total_rpcs": 385
+    },
+    {
+      "browsers": 5,
+      "rounds": 5,
+      "monitor_rpcs": 55,
+      "node_total_rpcs": 395
+    },
+    {
+      "browsers": 10,
+      "rounds": 5,
+      "monitor_rpcs": 55,
+      "node_total_rpcs": 395
+    }
+  ],
+  "latency_trials": [
+    {
+      "browsers": 10,
+      "entries": 256,
+      "external_seconds": 0.2286796129992581
+    },
+    {
+      "browsers": 10,
+      "entries": 256,
+      "external_seconds": 0.2217706970004656
+    },
+    {
+      "browsers": 10,
+      "entries": 256,
+      "external_seconds": 0.2080726029998914
+    },
+    {
+      "browsers": 0,
+      "entries": 256,
+      "external_seconds": 0.1801103379984852
+    },
+    {
+      "browsers": 0,
+      "entries": 256,
+      "external_seconds": 0.20327852599984908
+    },
+    {
+      "browsers": 0,
+      "entries": 256,
+      "external_seconds": 0.21342146700044395
+    },
+    {
+      "browsers": 10,
+      "entries": 256,
+      "external_seconds": 0.25490625299971725
+    },
+    {
+      "browsers": 10,
+      "entries": 256,
+      "external_seconds": 0.23592747200018493
+    },
+    {
+      "browsers": 10,
+      "entries": 256,
+      "external_seconds": 0.24047745099960594
+    },
+    {
+      "browsers": 0,
+      "entries": 256,
+      "external_seconds": 0.2160041770002863
+    },
+    {
+      "browsers": 0,
+      "entries": 256,
+      "external_seconds": 0.24271487799887836
+    },
+    {
+      "browsers": 0,
+      "entries": 256,
+      "external_seconds": 0.22055395399911504
+    }
+  ],
+  "experiment": {
+    "result": {
+      "phase": "finished",
+      "planned": 1,
+      "rows": [
+        {
+          "all_applied_seconds": 0.18249802799982717,
+          "batch_size": 128,
+          "commit_index": 2102,
+          "committed_commands": 2101,
+          "committed_hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+          "elapsed_seconds": 0.06465318200025649,
+          "error": null,
+          "final_leader": 1,
+          "final_term": 1,
+          "independent_reference": "PASS",
+          "initial_election_observed_seconds": 4.253563337000742,
+          "initial_leader": 1,
+          "initial_local_election_ms": 4.285,
+          "last_query_seconds": 0.008764210000663297,
+          "launch_seconds": 0.003828825001619407,
+          "nodes": 3,
+          "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+          "query_timeouts": 0,
+          "requested_commands": 2101,
+          "result": "PASS",
+          "round": 1,
+          "scenario": "replication",
+          "seed": 42,
+          "source_sha256": "695feadd74dbf19484d562a303b12a8881e72bb62c8fdf0f70808e70b3f8743d",
+          "x": 0
+        }
+      ],
+      "environment": {
+        "arguments": {
+          "batch_sizes": [
+            128
+          ],
+          "cancel_file": "<workspace>/.tools/frontend-enterprise-20261022/real-11/sessions/experiments/5688e0e0b5762799248cb3fdaaa5a7fc.cancel",
+          "entries": 2101,
+          "nodes": [
+            3
+          ],
+          "output": "<workspace>/.tools/frontend-enterprise-20261022/real-11/sessions/experiments/5688e0e0b5762799248cb3fdaaa5a7fc",
+          "rounds": 1,
+          "scenarios": [
+            "replication"
+          ],
+          "seed": 42,
+          "timeout": 120
+        },
+        "batch_execution_order": [
+          {
+            "batch_sizes": [
+              128
+            ],
+            "round": 1
+          }
+        ],
+        "binary_sha256": "318ac765ad6fcf472a90d30e01d02a9f49fa315d05c388a04228389e6897031b",
+        "build_command": [
+          "go",
+          "build",
+          "-o",
+          "raft-node",
+          "."
+        ],
+        "git_commit": "3ed2d82775bdd2cd6fbbc77cc274433b5ec21603",
+        "git_dirty": true,
+        "go": "go version go1.27.2 linux/amd64",
+        "logical_cpus": 128,
+        "measurement": "monotonic polling observation; per wait/generate timeout, not total scenario budget; two consistent snapshots 100 ms apart; includes polling overhead",
+        "node_gomaxprocs": 1,
+        "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+        "python": "3.12.7",
+        "source_sha256": {
+          "client_routing_test.go": "0b3f74551363c24344682fa70cb8400e3589145ee6ca9ab6bc754b0d8d4adb6d",
+          "config/config.go": "d527e5a3f643862639565915f555f3a2c48128b1cc3e557769c862dea75ab494",
+          "config/identity.go": "48da8221c31bbbf45db6b3f76e28c2c4f77c440f835d113a8e341a076a4f7f00",
+          "console_other.go": "72f2e12c1f010c1943e5cab1921935fd75c58ead9e55842c1a29b88bfe2cce16",
+          "console_windows.go": "0400551dfe51bc44e50f0c4873e040b34555cdba00002857208ea3e2530b5a18",
+          "display.go": "dc9d86f318f7a3b55183acb4f336f3694dd05fda837e326c765fa18083c28697",
+          "display_test.go": "6f3ec63bc5aac95b3671a0cb9262762e786d44806c1d47897c63ac7fa52c709f",
+          "go.mod": "9f625a9d7bd67ed216644a207c16ed5ab633c3992e5c64f58654112c327d986b",
+          "main.go": "bce4e0f1290e820db1af8a407851d4d488578e5fd97a65afd204b4c21d54e702",
+          "main_test.go": "c1eb32c25f8a43cc0dc521968d51e98598870e0b1afe0bb3d7807dad1b55eec2",
+          "raft/claim.go": "c34e86d160df13b7baa4ad2285c1807284f2c7c5e422625646dd4b38dd4667c9",
+          "raft/closure_test.go": "f64497e5255a57110c7d8e8ea0bd76ba6e6ee3077033c150d6a758d9a2b154a2",
+          "raft/events.go": "9726f2f96f1c9ab824a83d8b2476374097256ad371d3e1728605bb9596b39a75",
+          "raft/fixture.go": "cdbbbbf4ada4d5485184e494733100fb99757b513628aeebe81820d3e71d238f",
+          "raft/fixture_manifest_test.go": "3d9347b0e17f436dcdcd5dd493a068ffec0ce19f6dac4848e48af48600b83631",
+          "raft/identity_test.go": "ecce4dc292c718baa9bac8b5689c8c20237ff492e867722fe40e0ba13c04995b",
+          "raft/log.go": "5fb3562ff541dcc459b2331614807d08071335a490a166d8b8d72f7e7ba87107",
+          "raft/monitor_test.go": "0ac9d85c8ccd4d8ed6a2ee842a980d7fc09d0376758577c8a87c4a7025694fdb",
+          "raft/observation_test.go": "8104bda099d596f8f6aa270822423d2dc0eddd025b23ea3b66d491f3fa91800b",
+          "raft/partition_test.go": "465602d5ce45931cf01efc52b72edb1e76d4b78617f188d6ea1a6e1079425c22",
+          "raft/perf_next_test.go": "f38304984490482d9b1991577b0c1c968379bf4d3c7550d596246ab206e89526",
+          "raft/performance_test.go": "f5e6d41738cb3c072fa2ac26761f711d96b18ca608b13a40d79a2cf7f37836ba",
+          "raft/raft.go": "7105a1a53c0b3e407ebfb44d021a67ac7e25a3a910bc82d8f901b8aa32e70562",
+          "raft/raft_test.go": "9138ef8aa344c3470b3288b05c0169d87c2af01e479130fe98607fdf7d7a1d0c",
+          "raft/replication_test.go": "76608331099cc111285512e0dfefe238c6129ca85892989fb51b2fe6358215ed",
+          "raft/routing_test.go": "f76ccaf12a952e0907505de91b80e4d246c3caa9ea46270d1e773caf39ec9f32",
+          "raft/soak_test.go": "7a175aae7dd1704a111348459c51450d980c4367654dbf8f7d294401ee98d9a2",
+          "raft/state_machine.go": "f71f9ded793d269dee6c4a95799f4d52d13e915e1e5e0c75a4e1200a6ae92323",
+          "raft/status_benchmark_test.go": "c31504cd4726878b2c29fac762c0bf8835faeb8fe9d9c6fc3bc8f689bb466642",
+          "raft/storage.go": "6345943651dbec5a00c61d8e10a34a6ae0212dbda7cc7c745a2c9fdd38c4776b",
+          "raft/storage_lock_other.go": "44dcb32a02db9e25b3d0bd4d0c480fab4be7848ae0544f3a6935e6e15b5e19d9",
+          "raft/storage_lock_unix.go": "c00fd638829106f8db4bd4843d853d2d0c804af6d6ce6f4ae1bed546b3b6ed8a",
+          "raft/storage_lock_windows.go": "71e0f54a34fa204c32f927107625e3b4e1a3281bb882a4b24e2443cb424eda5d",
+          "raft/storage_safety_test.go": "5860566614a5fe6a9d2cbf96900fbb6715d8a79a5a46a09822faaae1d15e616c",
+          "raft/storage_test.go": "71b57578f05b7016e9e6d97634bea0568b68959707114095b613a19fa5d166bb",
+          "raft/workers_test.go": "946093e5e243a49be8433c56c4d135e6db1d77a318ba380ef0638a0f0673b54e",
+          "rpc/client.go": "c89540798b4fbc2f8f416f1343ad3364ca6aa47fbe670e616c64841a06d16627",
+          "rpc/rpc.go": "321916ad9c4bfdd81f77d65c386df560631e0bc45c22b0812cc6b0b867d294eb",
+          "rpc/rpc_test.go": "0ed20f3f4d54e88346c2524edb051a5b72175e172311ee13ed87dc049a410507",
+          "scripts/arithmetic_reference.py": "f720a2a267eed579dd85c348974b51d4082e87643d907373bf67cdde31d1f6f4",
+          "scripts/benchmark.py": "83badff096560fb7f0d113d1e27953fa69665f49f3338710cf07e24d9521ffde",
+          "scripts/compare_performance.py": "22d9c283df9e771548bb8e49123a04827de75437b06f4b532418d5b8da7f7d1c",
+          "scripts/dashboard_e2e.py": "b5967da3b1901fc882e7068089f0eb1b600ebfdd65bdb1cc5a50fb4ab20a7383",
+          "scripts/dashboard_ui_test.py": "fed5c4ef8fae878ff736809b9ccc32223c4934b992fe5a1ecab21f371267eb8e",
+          "scripts/demo.ps1": "e0184afb9a304c275b57ddf3a62c6a4b0c5783d2480e697631f239961e639e12",
+          "scripts/package_windows.py": "822d6550cca9de41d3bf0099474c953da35cfc080ee8730f3894c280e0ffb11c",
+          "scripts/perf_probe.go": "37fbdd7edc017e1695fdb0079ca287de4d6f3cbfe2c4254ced57f1bef321b969",
+          "scripts/performance.py": "9941543c58d418265eea761fea7d19e0da45b7a14b4a435e25f453b631f9436f",
+          "scripts/render_report.py": "73babc71c80c70b3e6379f2f7e906fc47957caced021ed853b3b4c01117fe92a",
+          "scripts/session.ps1": "215606408a55ce9ba4136612498fccfb0e77e79006c818f496deebb8ec44f819",
+          "scripts/smoke_test.py": "1418cf4781e26e04005c3f7882b8869789685787d3f4ccb3a663fe841d270672",
+          "scripts/stage_ui_test.py": "9a6bdb1577b267fce488309191ed053b19ba9852a7070fd0e930a20eb94d6014",
+          "scripts/start.ps1": "abac1e052c8ba9f2307e3f5dcb681192804b6a4172600bb9944ebc49739d742a",
+          "scripts/test_arithmetic_reference.py": "8af5361d8a785d8deb201601560f7c7c7fb4edd597d6b7469682e6ccd4ce0e65",
+          "scripts/test_benchmark.py": "79a1a540ee5cd0c66c781eb1ef37c375dab0fa75459af67b22688d70aac6f8e1",
+          "scripts/test_cancel.py": "b67379404fa0ee135dd904a334c33953d4ca44454a406ec5a44233a3ba98f4b7",
+          "scripts/test_compare_performance.py": "121b1f7b3ca361e133e2656b684242c4023fbab5c3bcb415fe4d6890c4033c7b",
+          "scripts/test_demo.ps1": "bbe9514500ef20aa0cf83161e3075c67a29b19d9d9d66839a44010280ccaa3cd",
+          "scripts/test_package_windows.py": "27551b9c03cff431ab73ee188da42043a5ce14b8f737e3de9ff80cd2c6a2d6fa",
+          "scripts/test_performance.py": "322434457463bf7bab01700f848f3f63a484face53664a57ea3227d5f2f97d34",
+          "scripts/test_report.py": "f231c56bec2176ef0b8499cade862a13f005f986522b561955ca4d1bdd6c0e9e",
+          "scripts/test_smoke.py": "5dfe108f71e32c296f48425e1eda67bc3e75766b9ba00dbba6b25d71bb8c10a3",
+          "scripts/test_start.ps1": "13e0ceaf1f72459a65fdfc6ece6f5ba31f6da80f6b8b799150ed9750670b0a92",
+          "scripts/test_visualize.py": "6f838d5ec9e41bf87ed7d8459f23d1c0292404dc901ae509cce01688c2c6d196",
+          "scripts/topology_ui_test.py": "eb138f985802661179f186ade38130ad429201e15e0c2c370537b89b87d7ac3c",
+          "scripts/visualize.py": "ff3727a5a28055fe4edd889649f763a3dfa566520ba90335852c1b8b6a2dee89"
+        },
+        "timings_ms": {
+          "election_jitter": 3000,
+          "election_min": 3000,
+          "heartbeat": 150,
+          "rpc_timeout": 1000
+        }
+      },
+      "run_status": {
+        "completed": 1,
+        "failed": 0,
+        "interrupted": 0,
+        "passed": 1,
+        "planned": 1,
+        "status": "COMPLETE"
+      }
+    },
+    "interrupted": {
+      "phase": "finished",
+      "planned": 3,
+      "rows": [
+        {
+          "batch_size": 128,
+          "elapsed_seconds": null,
+          "error": "KeyboardInterrupt",
+          "launch_seconds": 0.013002702000449062,
+          "nodes": 10,
+          "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+          "query_timeouts": 0,
+          "requested_commands": 256,
+          "result": "INTERRUPTED",
+          "round": 1,
+          "scenario": "election",
+          "seed": 42,
+          "source_sha256": "695feadd74dbf19484d562a303b12a8881e72bb62c8fdf0f70808e70b3f8743d"
+        }
+      ],
+      "environment": {
+        "arguments": {
+          "batch_sizes": [
+            128
+          ],
+          "cancel_file": "<workspace>/.tools/frontend-enterprise-20261022/real-11/sessions/experiments/d3d33dd038fb3f8624eadf669fe9b0f2.cancel",
+          "entries": 256,
+          "nodes": [
+            10
+          ],
+          "output": "<workspace>/.tools/frontend-enterprise-20261022/real-11/sessions/experiments/d3d33dd038fb3f8624eadf669fe9b0f2",
+          "rounds": 3,
+          "scenarios": [
+            "election"
+          ],
+          "seed": 42,
+          "timeout": 120
+        },
+        "batch_execution_order": [
+          {
+            "batch_sizes": [
+              128
+            ],
+            "round": 1
+          },
+          {
+            "batch_sizes": [
+              128
+            ],
+            "round": 2
+          },
+          {
+            "batch_sizes": [
+              128
+            ],
+            "round": 3
+          }
+        ],
+        "binary_sha256": "318ac765ad6fcf472a90d30e01d02a9f49fa315d05c388a04228389e6897031b",
+        "build_command": [
+          "go",
+          "build",
+          "-o",
+          "raft-node",
+          "."
+        ],
+        "git_commit": "3ed2d82775bdd2cd6fbbc77cc274433b5ec21603",
+        "git_dirty": true,
+        "go": "go version go1.27.2 linux/amd64",
+        "logical_cpus": 128,
+        "measurement": "monotonic polling observation; per wait/generate timeout, not total scenario budget; two consistent snapshots 100 ms apart; includes polling overhead",
+        "node_gomaxprocs": 1,
+        "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+        "python": "3.12.7",
+        "source_sha256": {
+          "client_routing_test.go": "0b3f74551363c24344682fa70cb8400e3589145ee6ca9ab6bc754b0d8d4adb6d",
+          "config/config.go": "d527e5a3f643862639565915f555f3a2c48128b1cc3e557769c862dea75ab494",
+          "config/identity.go": "48da8221c31bbbf45db6b3f76e28c2c4f77c440f835d113a8e341a076a4f7f00",
+          "console_other.go": "72f2e12c1f010c1943e5cab1921935fd75c58ead9e55842c1a29b88bfe2cce16",
+          "console_windows.go": "0400551dfe51bc44e50f0c4873e040b34555cdba00002857208ea3e2530b5a18",
+          "display.go": "dc9d86f318f7a3b55183acb4f336f3694dd05fda837e326c765fa18083c28697",
+          "display_test.go": "6f3ec63bc5aac95b3671a0cb9262762e786d44806c1d47897c63ac7fa52c709f",
+          "go.mod": "9f625a9d7bd67ed216644a207c16ed5ab633c3992e5c64f58654112c327d986b",
+          "main.go": "bce4e0f1290e820db1af8a407851d4d488578e5fd97a65afd204b4c21d54e702",
+          "main_test.go": "c1eb32c25f8a43cc0dc521968d51e98598870e0b1afe0bb3d7807dad1b55eec2",
+          "raft/claim.go": "c34e86d160df13b7baa4ad2285c1807284f2c7c5e422625646dd4b38dd4667c9",
+          "raft/closure_test.go": "f64497e5255a57110c7d8e8ea0bd76ba6e6ee3077033c150d6a758d9a2b154a2",
+          "raft/events.go": "9726f2f96f1c9ab824a83d8b2476374097256ad371d3e1728605bb9596b39a75",
+          "raft/fixture.go": "cdbbbbf4ada4d5485184e494733100fb99757b513628aeebe81820d3e71d238f",
+          "raft/fixture_manifest_test.go": "3d9347b0e17f436dcdcd5dd493a068ffec0ce19f6dac4848e48af48600b83631",
+          "raft/identity_test.go": "ecce4dc292c718baa9bac8b5689c8c20237ff492e867722fe40e0ba13c04995b",
+          "raft/log.go": "5fb3562ff541dcc459b2331614807d08071335a490a166d8b8d72f7e7ba87107",
+          "raft/monitor_test.go": "0ac9d85c8ccd4d8ed6a2ee842a980d7fc09d0376758577c8a87c4a7025694fdb",
+          "raft/observation_test.go": "8104bda099d596f8f6aa270822423d2dc0eddd025b23ea3b66d491f3fa91800b",
+          "raft/partition_test.go": "465602d5ce45931cf01efc52b72edb1e76d4b78617f188d6ea1a6e1079425c22",
+          "raft/perf_next_test.go": "f38304984490482d9b1991577b0c1c968379bf4d3c7550d596246ab206e89526",
+          "raft/performance_test.go": "f5e6d41738cb3c072fa2ac26761f711d96b18ca608b13a40d79a2cf7f37836ba",
+          "raft/raft.go": "7105a1a53c0b3e407ebfb44d021a67ac7e25a3a910bc82d8f901b8aa32e70562",
+          "raft/raft_test.go": "9138ef8aa344c3470b3288b05c0169d87c2af01e479130fe98607fdf7d7a1d0c",
+          "raft/replication_test.go": "76608331099cc111285512e0dfefe238c6129ca85892989fb51b2fe6358215ed",
+          "raft/routing_test.go": "f76ccaf12a952e0907505de91b80e4d246c3caa9ea46270d1e773caf39ec9f32",
+          "raft/soak_test.go": "7a175aae7dd1704a111348459c51450d980c4367654dbf8f7d294401ee98d9a2",
+          "raft/state_machine.go": "f71f9ded793d269dee6c4a95799f4d52d13e915e1e5e0c75a4e1200a6ae92323",
+          "raft/status_benchmark_test.go": "c31504cd4726878b2c29fac762c0bf8835faeb8fe9d9c6fc3bc8f689bb466642",
+          "raft/storage.go": "6345943651dbec5a00c61d8e10a34a6ae0212dbda7cc7c745a2c9fdd38c4776b",
+          "raft/storage_lock_other.go": "44dcb32a02db9e25b3d0bd4d0c480fab4be7848ae0544f3a6935e6e15b5e19d9",
+          "raft/storage_lock_unix.go": "c00fd638829106f8db4bd4843d853d2d0c804af6d6ce6f4ae1bed546b3b6ed8a",
+          "raft/storage_lock_windows.go": "71e0f54a34fa204c32f927107625e3b4e1a3281bb882a4b24e2443cb424eda5d",
+          "raft/storage_safety_test.go": "5860566614a5fe6a9d2cbf96900fbb6715d8a79a5a46a09822faaae1d15e616c",
+          "raft/storage_test.go": "71b57578f05b7016e9e6d97634bea0568b68959707114095b613a19fa5d166bb",
+          "raft/workers_test.go": "946093e5e243a49be8433c56c4d135e6db1d77a318ba380ef0638a0f0673b54e",
+          "rpc/client.go": "c89540798b4fbc2f8f416f1343ad3364ca6aa47fbe670e616c64841a06d16627",
+          "rpc/rpc.go": "321916ad9c4bfdd81f77d65c386df560631e0bc45c22b0812cc6b0b867d294eb",
+          "rpc/rpc_test.go": "0ed20f3f4d54e88346c2524edb051a5b72175e172311ee13ed87dc049a410507",
+          "scripts/arithmetic_reference.py": "f720a2a267eed579dd85c348974b51d4082e87643d907373bf67cdde31d1f6f4",
+          "scripts/benchmark.py": "83badff096560fb7f0d113d1e27953fa69665f49f3338710cf07e24d9521ffde",
+          "scripts/compare_performance.py": "22d9c283df9e771548bb8e49123a04827de75437b06f4b532418d5b8da7f7d1c",
+          "scripts/dashboard_e2e.py": "b5967da3b1901fc882e7068089f0eb1b600ebfdd65bdb1cc5a50fb4ab20a7383",
+          "scripts/dashboard_ui_test.py": "fed5c4ef8fae878ff736809b9ccc32223c4934b992fe5a1ecab21f371267eb8e",
+          "scripts/demo.ps1": "e0184afb9a304c275b57ddf3a62c6a4b0c5783d2480e697631f239961e639e12",
+          "scripts/package_windows.py": "822d6550cca9de41d3bf0099474c953da35cfc080ee8730f3894c280e0ffb11c",
+          "scripts/perf_probe.go": "37fbdd7edc017e1695fdb0079ca287de4d6f3cbfe2c4254ced57f1bef321b969",
+          "scripts/performance.py": "9941543c58d418265eea761fea7d19e0da45b7a14b4a435e25f453b631f9436f",
+          "scripts/render_report.py": "73babc71c80c70b3e6379f2f7e906fc47957caced021ed853b3b4c01117fe92a",
+          "scripts/session.ps1": "215606408a55ce9ba4136612498fccfb0e77e79006c818f496deebb8ec44f819",
+          "scripts/smoke_test.py": "1418cf4781e26e04005c3f7882b8869789685787d3f4ccb3a663fe841d270672",
+          "scripts/stage_ui_test.py": "9a6bdb1577b267fce488309191ed053b19ba9852a7070fd0e930a20eb94d6014",
+          "scripts/start.ps1": "abac1e052c8ba9f2307e3f5dcb681192804b6a4172600bb9944ebc49739d742a",
+          "scripts/test_arithmetic_reference.py": "8af5361d8a785d8deb201601560f7c7c7fb4edd597d6b7469682e6ccd4ce0e65",
+          "scripts/test_benchmark.py": "79a1a540ee5cd0c66c781eb1ef37c375dab0fa75459af67b22688d70aac6f8e1",
+          "scripts/test_cancel.py": "b67379404fa0ee135dd904a334c33953d4ca44454a406ec5a44233a3ba98f4b7",
+          "scripts/test_compare_performance.py": "121b1f7b3ca361e133e2656b684242c4023fbab5c3bcb415fe4d6890c4033c7b",
+          "scripts/test_demo.ps1": "bbe9514500ef20aa0cf83161e3075c67a29b19d9d9d66839a44010280ccaa3cd",
+          "scripts/test_package_windows.py": "27551b9c03cff431ab73ee188da42043a5ce14b8f737e3de9ff80cd2c6a2d6fa",
+          "scripts/test_performance.py": "322434457463bf7bab01700f848f3f63a484face53664a57ea3227d5f2f97d34",
+          "scripts/test_report.py": "f231c56bec2176ef0b8499cade862a13f005f986522b561955ca4d1bdd6c0e9e",
+          "scripts/test_smoke.py": "5dfe108f71e32c296f48425e1eda67bc3e75766b9ba00dbba6b25d71bb8c10a3",
+          "scripts/test_start.ps1": "13e0ceaf1f72459a65fdfc6ece6f5ba31f6da80f6b8b799150ed9750670b0a92",
+          "scripts/test_visualize.py": "6f838d5ec9e41bf87ed7d8459f23d1c0292404dc901ae509cce01688c2c6d196",
+          "scripts/topology_ui_test.py": "eb138f985802661179f186ade38130ad429201e15e0c2c370537b89b87d7ac3c",
+          "scripts/visualize.py": "ff3727a5a28055fe4edd889649f763a3dfa566520ba90335852c1b8b6a2dee89"
+        },
+        "timings_ms": {
+          "election_jitter": 3000,
+          "election_min": 3000,
+          "heartbeat": 150,
+          "rpc_timeout": 1000
+        }
+      },
+      "run_status": {
+        "completed": 1,
+        "failed": 0,
+        "interrupted": 1,
+        "passed": 0,
+        "planned": 3,
+        "status": "INTERRUPTED"
+      }
+    }
+  },
+  "result": "PASS",
+  "original_checkpoint": {
+    "index": 2102,
+    "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+    "x": 0,
+    "saved_at": "2026-10-21T16:57:47.750734684Z"
+  },
+  "final_checkpoint": {
+    "index": 2102,
+    "hash": "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+    "x": 0,
+    "saved_at": "2026-10-21T16:57:47.750734684Z"
+  },
+  "page_errors": []
+}

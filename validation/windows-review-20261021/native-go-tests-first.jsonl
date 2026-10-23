@@ -1,0 +1,53 @@
+{"ImportPath":"myraft/rpc.test","Action":"build-output","Output":"# myraft/rpc.test\n"}
+{"ImportPath":"myraft/rpc.test","Action":"build-output","Output":"P:\\Xinbao\\myraft-win11\\tools\\go\\pkg\\tool\\windows_amd64\\link.exe: resize output file failed: truncate $WORK\\b232\\rpc.test.exe: There is not enough space on the disk.\n"}
+{"ImportPath":"myraft/rpc.test","Action":"build-fail"}
+{"ImportPath":"myraft/raft.test","Action":"build-output","Output":"# myraft/raft.test\n"}
+{"ImportPath":"myraft/raft.test","Action":"build-output","Output":"P:\\Xinbao\\myraft-win11\\tools\\go\\pkg\\tool\\windows_amd64\\link.exe: resize output file failed: truncate $WORK\\b230\\raft.test.exe: There is not enough space on the disk.\n"}
+{"ImportPath":"myraft/raft.test","Action":"build-fail"}
+{"ImportPath":"myraft/cmd/dashboard.test","Action":"build-output","Output":"# myraft/cmd/dashboard.test\n"}
+{"ImportPath":"myraft/cmd/dashboard.test","Action":"build-output","Output":"P:\\Xinbao\\myraft-win11\\tools\\go\\pkg\\tool\\windows_amd64\\link.exe: resize output file failed: truncate $WORK\\b219\\dashboard.test.exe: There is not enough space on the disk.\n"}
+{"ImportPath":"myraft/cmd/dashboard.test","Action":"build-fail"}
+{"Time":"2026-10-21T04:49:07.7850502+08:00","Action":"start","Package":"myraft"}
+{"Time":"2026-10-21T04:49:07.7850502+08:00","Action":"start","Package":"myraft/cmd/dashboard"}
+{"Time":"2026-10-21T04:49:07.7850502+08:00","Action":"output","Package":"myraft/cmd/dashboard","Output":"FAIL\tmyraft/cmd/dashboard [build failed]\n"}
+{"Time":"2026-10-21T04:49:07.7850502+08:00","Action":"start","Package":"myraft/config"}
+{"Time":"2026-10-21T04:49:07.785533+08:00","Action":"output","Package":"myraft/config","Output":"?   \tmyraft/config\t[no test files]\n"}
+{"Time":"2026-10-21T04:49:07.785533+08:00","Action":"skip","Package":"myraft/config","Elapsed":0}
+{"Time":"2026-10-21T04:49:07.785533+08:00","Action":"start","Package":"myraft/raft"}
+{"Time":"2026-10-21T04:49:07.7850502+08:00","Action":"fail","Package":"myraft/cmd/dashboard","Elapsed":0,"FailedBuild":"myraft/cmd/dashboard.test"}
+{"Time":"2026-10-21T04:49:07.785533+08:00","Action":"output","Package":"myraft/raft","Output":"FAIL\tmyraft/raft [build failed]\n"}
+{"Time":"2026-10-21T04:49:07.785533+08:00","Action":"fail","Package":"myraft/raft","Elapsed":0,"FailedBuild":"myraft/raft.test"}
+{"Time":"2026-10-21T04:49:07.785533+08:00","Action":"start","Package":"myraft/rpc"}
+{"Time":"2026-10-21T04:49:07.785533+08:00","Action":"output","Package":"myraft/rpc","Output":"FAIL\tmyraft/rpc [build failed]\n"}
+{"Time":"2026-10-21T04:49:07.785533+08:00","Action":"fail","Package":"myraft/rpc","Elapsed":0,"FailedBuild":"myraft/rpc.test"}
+{"Time":"2026-10-21T04:49:09.2392422+08:00","Action":"run","Package":"myraft","Test":"TestSlowFollowerDoesNotDelaySubmission"}
+{"Time":"2026-10-21T04:49:09.2392422+08:00","Action":"output","Package":"myraft","Test":"TestSlowFollowerDoesNotDelaySubmission","Output":"=== RUN   TestSlowFollowerDoesNotDelaySubmission\n"}
+{"Time":"2026-10-21T04:49:09.258126+08:00","Action":"output","Package":"myraft","Test":"TestSlowFollowerDoesNotDelaySubmission","Output":"--- PASS: TestSlowFollowerDoesNotDelaySubmission (0.02s)\n"}
+{"Time":"2026-10-21T04:49:09.258126+08:00","Action":"pass","Package":"myraft","Test":"TestSlowFollowerDoesNotDelaySubmission","Elapsed":0.02}
+{"Time":"2026-10-21T04:49:09.258126+08:00","Action":"run","Package":"myraft","Test":"TestWriteStatusTable"}
+{"Time":"2026-10-21T04:49:09.258126+08:00","Action":"output","Package":"myraft","Test":"TestWriteStatusTable","Output":"=== RUN   TestWriteStatusTable\n"}
+{"Time":"2026-10-21T04:49:09.2626421+08:00","Action":"output","Package":"myraft","Test":"TestWriteStatusTable","Output":"--- PASS: TestWriteStatusTable (0.00s)\n"}
+{"Time":"2026-10-21T04:49:09.2626421+08:00","Action":"pass","Package":"myraft","Test":"TestWriteStatusTable","Elapsed":0}
+{"Time":"2026-10-21T04:49:09.2626421+08:00","Action":"run","Package":"myraft","Test":"TestWriteStatusTablePropagatesWriterError"}
+{"Time":"2026-10-21T04:49:09.2626421+08:00","Action":"output","Package":"myraft","Test":"TestWriteStatusTablePropagatesWriterError","Output":"=== RUN   TestWriteStatusTablePropagatesWriterError\n"}
+{"Time":"2026-10-21T04:49:09.262964+08:00","Action":"output","Package":"myraft","Test":"TestWriteStatusTablePropagatesWriterError","Output":"--- PASS: TestWriteStatusTablePropagatesWriterError (0.00s)\n"}
+{"Time":"2026-10-21T04:49:09.262964+08:00","Action":"pass","Package":"myraft","Test":"TestWriteStatusTablePropagatesWriterError","Elapsed":0}
+{"Time":"2026-10-21T04:49:09.262964+08:00","Action":"run","Package":"myraft","Test":"TestWatchStopsAndPreservesJSON"}
+{"Time":"2026-10-21T04:49:09.262964+08:00","Action":"output","Package":"myraft","Test":"TestWatchStopsAndPreservesJSON","Output":"=== RUN   TestWatchStopsAndPreservesJSON\n"}
+{"Time":"2026-10-21T04:49:09.3129283+08:00","Action":"output","Package":"myraft","Test":"TestWatchStopsAndPreservesJSON","Output":"--- PASS: TestWatchStopsAndPreservesJSON (0.05s)\n"}
+{"Time":"2026-10-21T04:49:09.3129283+08:00","Action":"pass","Package":"myraft","Test":"TestWatchStopsAndPreservesJSON","Elapsed":0.05}
+{"Time":"2026-10-21T04:49:09.3129283+08:00","Action":"run","Package":"myraft","Test":"TestStatusBindsConfiguredIdentity"}
+{"Time":"2026-10-21T04:49:09.3129283+08:00","Action":"output","Package":"myraft","Test":"TestStatusBindsConfiguredIdentity","Output":"=== RUN   TestStatusBindsConfiguredIdentity\n"}
+{"Time":"2026-10-21T04:49:09.3186751+08:00","Action":"output","Package":"myraft","Test":"TestStatusBindsConfiguredIdentity","Output":"--- PASS: TestStatusBindsConfiguredIdentity (0.00s)\n"}
+{"Time":"2026-10-21T04:49:09.3186751+08:00","Action":"pass","Package":"myraft","Test":"TestStatusBindsConfiguredIdentity","Elapsed":0}
+{"Time":"2026-10-21T04:49:09.3186751+08:00","Action":"run","Package":"myraft","Test":"TestUncertainSubmissionNotRetried"}
+{"Time":"2026-10-21T04:49:09.3186751+08:00","Action":"output","Package":"myraft","Test":"TestUncertainSubmissionNotRetried","Output":"=== RUN   TestUncertainSubmissionNotRetried\n"}
+{"Time":"2026-10-21T04:49:09.5609545+08:00","Action":"output","Package":"myraft","Test":"TestUncertainSubmissionNotRetried","Output":"--- PASS: TestUncertainSubmissionNotRetried (0.24s)\n"}
+{"Time":"2026-10-21T04:49:09.5609545+08:00","Action":"pass","Package":"myraft","Test":"TestUncertainSubmissionNotRetried","Elapsed":0.24}
+{"Time":"2026-10-21T04:49:09.5609545+08:00","Action":"run","Package":"myraft","Test":"TestSubmissionRequiresExplicitClusterIdentity"}
+{"Time":"2026-10-21T04:49:09.5609545+08:00","Action":"output","Package":"myraft","Test":"TestSubmissionRequiresExplicitClusterIdentity","Output":"=== RUN   TestSubmissionRequiresExplicitClusterIdentity\n"}
+{"Time":"2026-10-21T04:49:09.5609545+08:00","Action":"output","Package":"myraft","Test":"TestSubmissionRequiresExplicitClusterIdentity","Output":"--- PASS: TestSubmissionRequiresExplicitClusterIdentity (0.00s)\n"}
+{"Time":"2026-10-21T04:49:09.5609545+08:00","Action":"pass","Package":"myraft","Test":"TestSubmissionRequiresExplicitClusterIdentity","Elapsed":0}
+{"Time":"2026-10-21T04:49:09.5609545+08:00","Action":"output","Package":"myraft","Output":"PASS\n"}
+{"Time":"2026-10-21T04:49:09.5750725+08:00","Action":"output","Package":"myraft","Output":"ok  \tmyraft\t1.790s\n"}
+{"Time":"2026-10-21T04:49:09.5750725+08:00","Action":"pass","Package":"myraft","Elapsed":1.79}

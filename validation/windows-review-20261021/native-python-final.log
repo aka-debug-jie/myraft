@@ -1,0 +1,21 @@
+Guest PID: 3016
+build cancel request start-to-interrupt response: 0.535s
+{"file": "P:\\Xinbao\\windows-review-20261021\\private-temp\\tmpf40bipkx\\good.zip", "sha256": "8d5c27e1f4579cf3503973901bcfd9f589018c3b77d04fba1b34c9e203a5c838", "entries": 13, "bytes": 3408}
+{"file": "P:\\Xinbao\\windows-review-20261021\\private-temp\\tmpjtdcf7th\\package.zip", "sha256": "85cdc00cf381386a1cc15e3e73a66e2c0cd3e3d912dc271537f9524b7935d319", "entries": 11, "bytes": 2882}
+................s........F..................
+======================================================================
+FAIL: test_binds_sources_and_both_tested_binaries (test_package_windows.WindowsPackageTests.test_binds_sources_and_both_tested_binaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<win-review-root>\packaging-source\scripts\test_package_windows.py", line 94, in test_binds_sources_and_both_tested_binaries
+    with self.assertRaises(FileExistsError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError: FileExistsError not raised
+
+----------------------------------------------------------------------
+Ran 44 tests in 4.300s
+
+FAILED (failures=1, skipped=1)
+#< CLIXML
+<Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><S S="Error">final Python suite failed_x000D__x000A_</S><S S="Error">所在位置 行:14 字符: 19_x000D__x000A_</S><S S="Error">+ if($LASTEXITCODE){throw 'final Python suite failed'}_x000D__x000A_</S><S S="Error">+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~_x000D__x000A_</S><S S="Error">    + CategoryInfo          : OperationStopped: (final Python suite failed:String) [], RuntimeException_x000D__x000A_</S><S S="Error">    + FullyQualifiedErrorId : final Python suite failed_x000D__x000A_</S><S S="Error"> _x000D__x000A_</S></Objs>
+Guest result: {"exitcode": 1, "exited": true}

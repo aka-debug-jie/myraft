@@ -1,0 +1,41 @@
+Guest PID: 344
+[
+    {
+        "DriveLetter":  "P",
+        "FileSystem":  "NTFS",
+        "Size":  68701646848,
+        "SizeRemaining":  59629142016
+    },
+    {
+        "DriveLetter":  "C",
+        "FileSystem":  "NTFS",
+        "Size":  193273524224,
+        "SizeRemaining":  15425536
+    },
+    {
+        "DriveLetter":  null,
+        "FileSystem":  "FAT32",
+        "Size":  205520896,
+        "SizeRemaining":  169324544
+    }
+]
+[
+    {
+        "Number":  0,
+        "FriendlyName":  "QEMU HARDDISK",
+        "SerialNumber":  "QM00001",
+        "UniqueId":  "     ATAQEMU HARDDISK",
+        "PartitionStyle":  "GPT",
+        "Size":  214748364800
+    },
+    {
+        "Number":  1,
+        "FriendlyName":  "QEMU HARDDISK",
+        "SerialNumber":  "QM00003",
+        "UniqueId":  "     ATAQEMU HARDDISK",
+        "PartitionStyle":  "GPT",
+        "Size":  68719476736
+    }
+]
+
+Guest result: {"exitcode": 0, "exited": true}

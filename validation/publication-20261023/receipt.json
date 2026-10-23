@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "scope": "Final deployed binary, real Linux 11-node browser E2E and 100-node 2101-command consistency/arithmetic recheck",
+  "console_sha256": "804e08e015733243fc7692f7d7d44cc05c390f7dda7047c1e0c7725154aeadd3",
+  "node_sha256": "318ac765ad6fcf472a90d30e01d02a9f49fa315d05c388a04228389e6897031b",
+  "static_sha256": {
+    "cmd/dashboard/static/api.js": "fd61fd020f1b8faf3ed97ef14c439765b5a1ea8d96df397e77497c5d14f4a09c",
+    "cmd/dashboard/static/app.js": "004a16f55c5f5a9122317c66d8d0abf5682c43cd934665426a133cafe86f9749",
+    "cmd/dashboard/static/charts.js": "54d961e03d38a3581205dfa691efd0c437b4389b0c13a8e543b0e15c088aaa2d",
+    "cmd/dashboard/static/index.html": "21ac10f8d9b6d0b7cf8fea32af135ba58e3525472c5ff63350204ed3ae365148",
+    "cmd/dashboard/static/stage.js": "8802adaeeeb3d3d0a3c7b474d65061209229145ef194d794b447d8820432100b",
+    "cmd/dashboard/static/style.css": "f857b9d2cf1c43985c126e56ed9f1bc5a73ea7542ab22b78c1b43df81632b481",
+    "cmd/dashboard/static/topology.js": "494b7b02d9db83c13b5cc87c3bf6ca6e77f40d13540bcbdffa506981d31ce61f",
+    "cmd/dashboard/static/views.js": "575595411532f5d514506cc60299243025fa967760c1d756e824add6b4865a96"
+  },
+  "not_run": [
+    "Windows desktop/native acceptance for this revision",
+    "Windows race",
+    "teacher target computer",
+    "full course scale matrix and long soak"
+  ]
+}

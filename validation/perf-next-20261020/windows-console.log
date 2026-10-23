@@ -1,0 +1,19 @@
+Guest PID: 9144
+{
+    "protocol":  "real HTTP + real net/rpc",
+    "browser":  "not used in this native smoke",
+    "platform":  "Windows 11",
+    "export_sha256":  "04bbfdc2ae2e604f75c369baed218130f1795be2d96000048b2de1632e5b269f",
+    "commands":  2101,
+    "checkpoint":  {
+                       "index":  2102,
+                       "hash":  "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+                       "x":  0,
+                       "saved_at":  "2026-10-20T13:30:37.4738261Z"
+                   },
+    "nodes":  11,
+    "result":  "PASS",
+    "history":  "passed"
+}
+
+Guest result: {"exitcode": 0, "exited": true}

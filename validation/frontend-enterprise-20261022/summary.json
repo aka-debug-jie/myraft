@@ -1,0 +1,43 @@
+{
+  "baseline_commit": "3ed2d82775bdd2cd6fbbc77cc274433b5ec21603",
+  "code_changes": "frontend only; no Go/Raft/RPC production files changed",
+  "go": {
+    "go-tests.jsonl": {
+      "pass_top": 90,
+      "pass_sub": 52,
+      "skip_top": 1
+    },
+    "race-tests.jsonl": {
+      "pass_top": 90,
+      "pass_sub": 52,
+      "skip_top": 1
+    }
+  },
+  "python": {
+    "passed": 44
+  },
+  "browser": {
+    "total": 25,
+    "passed": 24,
+    "skipped": 1
+  },
+  "geometry": {
+    "routes": 13330,
+    "failures": [],
+    "stable_update_samples": 200,
+    "stable_update_p95_ms": 0.30000000074505806
+  },
+  "real_11": "PASS",
+  "real_100": {
+    "nodes": 100,
+    "commands": 2101,
+    "independent_arithmetic_passed": 100,
+    "result": "PASS"
+  },
+  "not_run": [
+    "Windows native/interactive desktop for this revision",
+    "Windows race",
+    "teacher target computer",
+    "full course scale matrix and new long-duration soak"
+  ]
+}

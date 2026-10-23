@@ -1,0 +1,36 @@
+{
+  "source_local_commit": "91d9377e3dfd1a0e6aaf520feb53ab501fa0190d",
+  "public_parent": "f5e546c75916c4e118b0c1d49ab256a3ac559546",
+  "method": "new fast-forward snapshot; local unpublished history preserved; no history rewrite or force push",
+  "redacted_files": {
+    "validation/frontend-ux-20261021/regression-red.txt": {
+      "before_sha256": "b23f9b7ae6942dd4d1b4f83078140e331272a036275ebcf09101a40e243679aa",
+      "after_sha256": "3a173c8a3d54ebd80a0df2af168e0893ca097297c4d559a07c346bfe6484107e",
+      "replacements": 12
+    },
+    "validation/perf-next-20261020/development-failures/real-console-retry.log": {
+      "before_sha256": "40f29fb4baa4aa5fc48c695501a2d96f4bff5ad3bf3556e92a6681b8c3bba684",
+      "after_sha256": "6b272cfc89215b212307b981fc8a51c4319f6239dcd9885e53c56bb81e92daf7",
+      "replacements": 6
+    },
+    "validation/frontend-ux-20261021/ui-second.txt": {
+      "before_sha256": "f5c8191d1796482afc3d6dd995f82125bf54d0a3e8c1592e175d6e71c142adc8",
+      "after_sha256": "745e64752b4d63547a561509cbf88bbf75a6fe313c0d905803e18c19e8a20be9",
+      "replacements": 13
+    },
+    "validation/frontend-ux-20261021/ui-first.txt": {
+      "before_sha256": "5ba8e05ec835bc51b75f15ae12165ce7ec7ab641d067166a3528c1d46711c476",
+      "after_sha256": "9a2b5b3c9d75470a276eb06afa148966e4fd2a3dd64846dc41d949cb4771cf85",
+      "replacements": 31
+    },
+    "validation/perf-next-20261020/development-failures/real-console.log": {
+      "before_sha256": "102fae6990ac191d0bfe324db9fb119c92f8b4f987865178b9144040c0544b90",
+      "after_sha256": "66df7678c5c3719f92f30c2548f14396ceca840498b634632bd4a2693454f7a8",
+      "replacements": 6
+    }
+  },
+  "updated_manifests": [
+    "validation/frontend-ux-20261021/provenance.json",
+    "validation/perf-next-20261020/provenance.json"
+  ]
+}

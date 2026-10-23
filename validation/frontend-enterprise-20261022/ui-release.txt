@@ -1,0 +1,47 @@
+test_bootstrap_retries_after_controller_changes (__main__.DashboardBrowserTests.test_bootstrap_retries_after_controller_changes) ... ok
+test_cancel_stop_confirmation_sends_no_post (__main__.DashboardBrowserTests.test_cancel_stop_confirmation_sends_no_post)
+Canceling a synthetic stop confirmation must issue zero POST requests. ... ok
+test_create_and_experiment_form_drafts_survive_blur_and_sse (__main__.DashboardBrowserTests.test_create_and_experiment_form_drafts_survive_blur_and_sse)
+Synthetic typing, blur, and SSE renders preserve both form drafts. ... ok
+test_create_submit_is_immediately_busy_and_ignores_double_click (__main__.DashboardBrowserTests.test_create_submit_is_immediately_busy_and_ignores_double_click)
+A delayed synthetic operations response must not allow a second create POST. ... ok
+test_experiment_chart_separates_requested_workloads (__main__.DashboardBrowserTests.test_experiment_chart_separates_requested_workloads)
+Rows with distinct requested command counts have separate chart groups. ... ok
+test_generate_confirmation_rejects_changed_generation (__main__.DashboardBrowserTests.test_generate_confirmation_rejects_changed_generation)
+A confirmation captured for an old generation must not send a write POST. ... ok
+test_live_console_read_only_tabs_and_screenshots (__main__.DashboardBrowserTests.test_live_console_read_only_tabs_and_screenshots)
+Capture the supplied live target; only GET traffic is allowed. ... skipped '--synthetic-only: no live console target was supplied'
+test_live_update_preserves_input_focus_and_browser_navigation (__main__.DashboardBrowserTests.test_live_update_preserves_input_focus_and_browser_navigation) ... ok
+test_log_request_in_flight_then_session_generation_switch (__main__.DashboardBrowserTests.test_log_request_in_flight_then_session_generation_switch)
+A stale synthetic LogRange response must not leave the read button disabled. ... ok
+test_log_selection_invalidates_in_flight_query (__main__.DashboardBrowserTests.test_log_selection_invalidates_in_flight_query)
+Changing selected nodes invalidates an in-flight log result without rereading. ... ok
+test_mobile_menu_keyboard_focus_theme_and_projection (__main__.DashboardBrowserTests.test_mobile_menu_keyboard_focus_theme_and_projection)
+Exercise mobile navigation and presentation controls without API writes. ... ok
+test_old_checkpoint_does_not_skip_new_write_verification (__main__.DashboardBrowserTests.test_old_checkpoint_does_not_skip_new_write_verification) ... ok
+test_old_controller_post_reply_is_not_shown_in_new_controller (__main__.DashboardBrowserTests.test_old_controller_post_reply_is_not_shown_in_new_controller) ... ok
+test_older_bootstrap_response_cannot_replace_current_scope_or_control (__main__.DashboardBrowserTests.test_older_bootstrap_response_cannot_replace_current_scope_or_control)
+Out-of-order synthetic bootstrap reads must preserve the newest session and permission. ... ok
+test_raw_receipt_is_rendered_only_on_explicit_expansion (__main__.DashboardBrowserTests.test_raw_receipt_is_rendered_only_on_explicit_expansion) ... ok
+test_readonly_transport_disables_posts_but_allows_log_reads (__main__.DashboardBrowserTests.test_readonly_transport_disables_posts_but_allows_log_reads) ... ok
+test_settings_draft_stays_but_create_disables_after_control_revoked (__main__.DashboardBrowserTests.test_settings_draft_stays_but_create_disables_after_control_revoked)
+A control-disabled synthetic frame must disable create after blur and retain the draft. ... ok
+test_stage_controls_do_not_cover_nodes_and_readonly_is_explicit (__main__.DashboardBrowserTests.test_stage_controls_do_not_cover_nodes_and_readonly_is_explicit) ... ok
+test_stage_event_budget_fit_and_update_cost (__main__.DashboardBrowserTests.test_stage_event_budget_fit_and_update_cost)
+Synthetic rendering cost only; no claim about protocol or network timing. ... ok
+test_synthetic_empty_connection_error_and_stale_fixtures (__main__.DashboardBrowserTests.test_synthetic_empty_connection_error_and_stale_fixtures)
+Check empty, disconnected, and stale labels using intercepted fixtures. ... ok
+test_synthetic_loading_fixture (__main__.DashboardBrowserTests.test_synthetic_loading_fixture)
+Capture the shipped initial loading markup with app bootstrap intercepted. ... ok
+test_synthetic_stage_layout_counts_and_leader_stability (__main__.DashboardBrowserTests.test_synthetic_stage_layout_counts_and_leader_stability)
+Exercise the Stage DOM renderer with synthetic 11, 50, and 100 node fixtures. ... ok
+test_unknown_post_is_not_automatically_retried (__main__.DashboardBrowserTests.test_unknown_post_is_not_automatically_retried)
+A synthetic network error after POST must not trigger an automatic retry. ... ok
+test_unsafe_integer_api_and_sse_values_remain_exact (__main__.DashboardBrowserTests.test_unsafe_integer_api_and_sse_values_remain_exact)
+Raw JSON fixtures preserve unsafe integers in API responses and displayed SSE data. ... ok
+test_workflow_requires_identity_and_fresh_verification (__main__.DashboardBrowserTests.test_workflow_requires_identity_and_fresh_verification) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 22.733s
+
+OK (skipped=1)

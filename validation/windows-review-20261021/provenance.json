@@ -1,0 +1,1991 @@
+{
+  "sanitization": "Workspace paths abbreviated and JSON process IDs omitted; raw evidence retained separately. No WAL included.",
+  "files": [
+    {
+      "source": "baseline.json",
+      "file": "baseline.json",
+      "raw_sha256": "c3c6cd698e495095020934e94a556221b26f51fc5e9e702c7331db01df97ef60",
+      "delivered_sha256": "c3c6cd698e495095020934e94a556221b26f51fc5e9e702c7331db01df97ef60"
+    },
+    {
+      "source": "baseline-go.jsonl",
+      "file": "baseline-go.jsonl",
+      "raw_sha256": "416a9c75e466bbbe7855af4cafd537b08afc7b8375fffb122a12a4fe3d43d5de",
+      "delivered_sha256": "416a9c75e466bbbe7855af4cafd537b08afc7b8375fffb122a12a4fe3d43d5de"
+    },
+    {
+      "source": "baseline-python.txt",
+      "file": "baseline-python.txt",
+      "raw_sha256": "381a391649e1ef457a382f8c4f96a5fa972b191c53fbe42c8d6a5672e91a4448",
+      "delivered_sha256": "381a391649e1ef457a382f8c4f96a5fa972b191c53fbe42c8d6a5672e91a4448"
+    },
+    {
+      "source": "dependency-red.txt",
+      "file": "dependency-red.txt",
+      "raw_sha256": "23996612eb39ff20e0a0c875048b12437631b7d0eae4e7b9a3a3f1b5d6690bad",
+      "delivered_sha256": "23996612eb39ff20e0a0c875048b12437631b7d0eae4e7b9a3a3f1b5d6690bad"
+    },
+    {
+      "source": "dependency-green.txt",
+      "file": "dependency-green.txt",
+      "raw_sha256": "c8c457f65a9954032d46ab64a875c40c009af26d6fd6f21c0590e35a27dcb6ac",
+      "delivered_sha256": "c8c457f65a9954032d46ab64a875c40c009af26d6fd6f21c0590e35a27dcb6ac"
+    },
+    {
+      "source": "dependency-race.txt",
+      "file": "dependency-race.txt",
+      "raw_sha256": "688cd65a2610c76f95ca603b096f48620a707bd944dceb413707b6034d48721f",
+      "delivered_sha256": "688cd65a2610c76f95ca603b096f48620a707bd944dceb413707b6034d48721f"
+    },
+    {
+      "source": "diagnosis.json",
+      "file": "diagnosis.json",
+      "raw_sha256": "9d4bba86e5576c5cbbf66feac1d6f3b9b67a062986b765fd5c2508c2bc4856f6",
+      "delivered_sha256": "fda5dcc11e69019342d2916089c22ace6328b90af39c8abfc7448994712c52d2"
+    },
+    {
+      "source": "cancel-old-red.txt",
+      "file": "cancel-old-red.txt",
+      "raw_sha256": "03e00e9e41f5f4a9c32ce0ec6285278c9773f9e53e4ba01f803e64e8d26e4e01",
+      "delivered_sha256": "d98f6cf9d16e8ec116769bc9960d2face252b0f465730b4cfc218dd20b6f27e7"
+    },
+    {
+      "source": "cancel-old-red.json",
+      "file": "cancel-old-red.json",
+      "raw_sha256": "2281567ea095d76d1a3afce5d0e6a6332dd87f95f651d50542a7eb7d660fb68b",
+      "delivered_sha256": "2281567ea095d76d1a3afce5d0e6a6332dd87f95f651d50542a7eb7d660fb68b"
+    },
+    {
+      "source": "cancel-new-delayed-green.txt",
+      "file": "cancel-new-delayed-green.txt",
+      "raw_sha256": "e528cc2b688dd4f690235e6a625031b549562e7d2c3ec2012cff450381852e4a",
+      "delivered_sha256": "e528cc2b688dd4f690235e6a625031b549562e7d2c3ec2012cff450381852e4a"
+    },
+    {
+      "source": "cancel-new-delayed-green.json",
+      "file": "cancel-new-delayed-green.json",
+      "raw_sha256": "793ece09f6a777175d31cf3040f6321fcade0a1e6fcc5a98350eede34c6a3d0d",
+      "delivered_sha256": "793ece09f6a777175d31cf3040f6321fcade0a1e6fcc5a98350eede34c6a3d0d"
+    },
+    {
+      "source": "cancel-final.txt",
+      "file": "cancel-final.txt",
+      "raw_sha256": "704338ee08bc59bfab18b77f00b86e8efde685f083c57cd536083d2656d0bb17",
+      "delivered_sha256": "704338ee08bc59bfab18b77f00b86e8efde685f083c57cd536083d2656d0bb17"
+    },
+    {
+      "source": "fmt.txt",
+      "file": "fmt.txt",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "delivered_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "vet.txt",
+      "file": "vet.txt",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "delivered_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "go-tests.jsonl",
+      "file": "go-tests.jsonl",
+      "raw_sha256": "2e45d5601694dcccb6a41b3b0459cf070427ab37a76d0c7f62f3e81b57ddce03",
+      "delivered_sha256": "2e45d5601694dcccb6a41b3b0459cf070427ab37a76d0c7f62f3e81b57ddce03"
+    },
+    {
+      "source": "race-tests.jsonl",
+      "file": "race-tests.jsonl",
+      "raw_sha256": "cdfaa3bfc269f7c6136a3f7f273890eb86f5ba943dbf1e72692b03b1354f3c21",
+      "delivered_sha256": "cdfaa3bfc269f7c6136a3f7f273890eb86f5ba943dbf1e72692b03b1354f3c21"
+    },
+    {
+      "source": "python-tests.txt",
+      "file": "python-tests.txt",
+      "raw_sha256": "3234a40e7992fa4fd1391809de87bbe0d0c3b6b073ed535fa959645e6091a1f5",
+      "delivered_sha256": "3234a40e7992fa4fd1391809de87bbe0d0c3b6b073ed535fa959645e6091a1f5"
+    },
+    {
+      "source": "smoke-3.txt",
+      "file": "smoke-3.txt",
+      "raw_sha256": "1bf2ce521834dc5de018d25027aaf7fdc504cd9d61c16ef28297b7b70f824ff8",
+      "delivered_sha256": "0d09ef624a85bbd131e0bda5fbf9e808dc7fa93aa49df6476abb80d036171fb9"
+    },
+    {
+      "source": "smoke-11.txt",
+      "file": "smoke-11.txt",
+      "raw_sha256": "6d9ed1de15d30499b84aa8abe476578a109ec7e3e7babd3eb9c30d6c999fc05a",
+      "delivered_sha256": "de586556bff95daa88edd6086d7528619e7423ecc352084d9dc1749bf4f9d399"
+    },
+    {
+      "source": "real-console.txt",
+      "file": "real-console.txt",
+      "raw_sha256": "3e93d68ba2eabe7694bb5a03b1908897df9dbacc0f4c7050e0d5a6225e89f6f4",
+      "delivered_sha256": "faf433ad8d480e9ddb6490fd3e5ea791c812442aa5adfab2610b4ae66f006618"
+    },
+    {
+      "source": "title-baseline.log",
+      "file": "title-baseline.log",
+      "raw_sha256": "ab4cab24a9528834baefb42a8613082e07e93e3ad33dfae8c6d45aab99d96b68",
+      "delivered_sha256": "ab4cab24a9528834baefb42a8613082e07e93e3ad33dfae8c6d45aab99d96b68"
+    },
+    {
+      "source": "title-default.log",
+      "file": "title-default.log",
+      "raw_sha256": "cba805ae620773c86814c858e9cfc7fb2ad4fb338f847835c2203e446ab0913d",
+      "delivered_sha256": "cba805ae620773c86814c858e9cfc7fb2ad4fb338f847835c2203e446ab0913d"
+    },
+    {
+      "source": "storage-before.log",
+      "file": "storage-before.log",
+      "raw_sha256": "d2a3f9b2e34f0f03a397733c3df4807ab875b43185b33205c674faeb9a6d2bf5",
+      "delivered_sha256": "d2a3f9b2e34f0f03a397733c3df4807ab875b43185b33205c674faeb9a6d2bf5"
+    },
+    {
+      "source": "native-build.log",
+      "file": "native-build.log",
+      "raw_sha256": "79048919de64e0e8fc6726be49cdbc57a32deb7c307dcb6633a812687f53f814",
+      "delivered_sha256": "79048919de64e0e8fc6726be49cdbc57a32deb7c307dcb6633a812687f53f814"
+    },
+    {
+      "source": "native-go-tests-first.jsonl",
+      "file": "native-go-tests-first.jsonl",
+      "raw_sha256": "ea092f387cf2ed04c5fa940e3e77e74884fa40e47d99d6da1303f3b98d3c5275",
+      "delivered_sha256": "9b3d51179b33f6de086c76940a4b2869e840f43d66acd246edcab6d1a5c89cf7"
+    },
+    {
+      "source": "native-build-retry.log",
+      "file": "native-build-retry.log",
+      "raw_sha256": "2603066544a992c55ff3df317a8cdaf9bc2c47efbb9cb99814db1f1d4bc84638",
+      "delivered_sha256": "236003d11032fd8be5371fed0fd9ae69df75f852aff505e917c08542df38f08e"
+    },
+    {
+      "source": "paired-native.log",
+      "file": "paired-native.log",
+      "raw_sha256": "18fdeb3ee85344de900659def83f017607bc0ef1b9181405f7faa2982c0beb6e",
+      "delivered_sha256": "18fdeb3ee85344de900659def83f017607bc0ef1b9181405f7faa2982c0beb6e"
+    },
+    {
+      "source": "native-console.log",
+      "file": "native-console.log",
+      "raw_sha256": "a8d18b9dbb6c80f8a369e2035cf31b03ef9bf92fe20e7ea21165e4b19cea7cbe",
+      "delivered_sha256": "a8d18b9dbb6c80f8a369e2035cf31b03ef9bf92fe20e7ea21165e4b19cea7cbe"
+    },
+    {
+      "source": "native-additional.log",
+      "file": "native-additional.log",
+      "raw_sha256": "031018d68799006b2f345c72008e307b29833df24d24e0d0631329cde343a12f",
+      "delivered_sha256": "0c21c6c15b785e6ab66f7ba8145dc8a54b69407604f120900a6b07efae688615"
+    },
+    {
+      "source": "native-build-receipt.json",
+      "file": "native-build-receipt.json",
+      "raw_sha256": "7e8e4587570e0f7536f3ec3e942af591fd61a01ab7b01e448cb1be7ea19b8942",
+      "delivered_sha256": "2191e122b8056d4289e5b20c48f694d63f753803346c521f70e60e6a11abd34f"
+    },
+    {
+      "source": "native-evidence/cancel-load/idle-1.txt",
+      "file": "windows/cancel-load/idle-1.txt",
+      "raw_sha256": "f61efe019b47b2f6c2a11195d519d23199c60cc1bada36536d05cb0d33068537",
+      "delivered_sha256": "f61efe019b47b2f6c2a11195d519d23199c60cc1bada36536d05cb0d33068537"
+    },
+    {
+      "source": "native-evidence/cancel-load/idle-2.txt",
+      "file": "windows/cancel-load/idle-2.txt",
+      "raw_sha256": "386cf7ee0968fe1190af7469e67fef86991efa7898243f9443bcd360314f0ef7",
+      "delivered_sha256": "386cf7ee0968fe1190af7469e67fef86991efa7898243f9443bcd360314f0ef7"
+    },
+    {
+      "source": "native-evidence/cancel-load/idle-3.txt",
+      "file": "windows/cancel-load/idle-3.txt",
+      "raw_sha256": "562eb16164327d1db67cd0ebbfa1ae0f8f355235fba3532efb516afd6f6995c7",
+      "delivered_sha256": "562eb16164327d1db67cd0ebbfa1ae0f8f355235fba3532efb516afd6f6995c7"
+    },
+    {
+      "source": "native-evidence/cancel-load/load-1.txt",
+      "file": "windows/cancel-load/load-1.txt",
+      "raw_sha256": "b1f2e3eca012daf92cddd29990ecf73e68d5ab6d33abd955be06ca0068146049",
+      "delivered_sha256": "b1f2e3eca012daf92cddd29990ecf73e68d5ab6d33abd955be06ca0068146049"
+    },
+    {
+      "source": "native-evidence/cancel-load/load-2.txt",
+      "file": "windows/cancel-load/load-2.txt",
+      "raw_sha256": "d3b90c9b03d268b130e47b9f4efa058f3c8ef9406ca50b8b6e3f5c32b3e707cb",
+      "delivered_sha256": "d3b90c9b03d268b130e47b9f4efa058f3c8ef9406ca50b8b6e3f5c32b3e707cb"
+    },
+    {
+      "source": "native-evidence/cancel-load/load-3.txt",
+      "file": "windows/cancel-load/load-3.txt",
+      "raw_sha256": "fc6deb6d27c81ac4cb9b273c7d2f07beb538d9ad4f5f482b57b785740389d062",
+      "delivered_sha256": "fc6deb6d27c81ac4cb9b273c7d2f07beb538d9ad4f5f482b57b785740389d062"
+    },
+    {
+      "source": "native-evidence/cancel-load/results.json",
+      "file": "windows/cancel-load/results.json",
+      "raw_sha256": "560e7876251d453c7d01e1efef40a598c87f95213fdfe2887d02ce777800e9d1",
+      "delivered_sha256": "4d0f168982cf12b7289960ed4ffbe3e7451b9f43974bdc95ab93943b287be3aa"
+    },
+    {
+      "source": "native-evidence/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/logs/node-1.log",
+      "file": "windows/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/logs/node-1.log",
+      "raw_sha256": "149aee46c087324979cebd549e5cd1d9449fe744a777d7e92124223e7c1dae73",
+      "delivered_sha256": "149aee46c087324979cebd549e5cd1d9449fe744a777d7e92124223e7c1dae73"
+    },
+    {
+      "source": "native-evidence/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/logs/node-2.log",
+      "file": "windows/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/logs/node-2.log",
+      "raw_sha256": "20b0beba7f6b1c9c948c1220125d6f4e5c080f18c96e9a0eb73040e4b2c1cb0b",
+      "delivered_sha256": "20b0beba7f6b1c9c948c1220125d6f4e5c080f18c96e9a0eb73040e4b2c1cb0b"
+    },
+    {
+      "source": "native-evidence/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/logs/node-3.log",
+      "file": "windows/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/logs/node-3.log",
+      "raw_sha256": "8e9443dca2093de18540c5d3ac3251bf84b7f87d1a6a8a1a80807f2e6deac474",
+      "delivered_sha256": "8e9443dca2093de18540c5d3ac3251bf84b7f87d1a6a8a1a80807f2e6deac474"
+    },
+    {
+      "source": "native-evidence/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/nodes.json",
+      "file": "windows/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/nodes.json",
+      "raw_sha256": "06a0e50652fede0861c4e3b4525d19462fc1cab5f85a4329b33a70243fd1b900",
+      "delivered_sha256": "06a0e50652fede0861c4e3b4525d19462fc1cab5f85a4329b33a70243fd1b900"
+    },
+    {
+      "source": "native-evidence/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/process-1.log",
+      "file": "windows/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/process-1.log",
+      "raw_sha256": "149aee46c087324979cebd549e5cd1d9449fe744a777d7e92124223e7c1dae73",
+      "delivered_sha256": "149aee46c087324979cebd549e5cd1d9449fe744a777d7e92124223e7c1dae73"
+    },
+    {
+      "source": "native-evidence/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/process-2.log",
+      "file": "windows/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/process-2.log",
+      "raw_sha256": "20b0beba7f6b1c9c948c1220125d6f4e5c080f18c96e9a0eb73040e4b2c1cb0b",
+      "delivered_sha256": "20b0beba7f6b1c9c948c1220125d6f4e5c080f18c96e9a0eb73040e4b2c1cb0b"
+    },
+    {
+      "source": "native-evidence/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/process-3.log",
+      "file": "windows/console-check/legacy-session/1ad6f28bdafcbda92cd2d919291eee12/process-3.log",
+      "raw_sha256": "8e9443dca2093de18540c5d3ac3251bf84b7f87d1a6a8a1a80807f2e6deac474",
+      "delivered_sha256": "8e9443dca2093de18540c5d3ac3251bf84b7f87d1a6a8a1a80807f2e6deac474"
+    },
+    {
+      "source": "native-evidence/console-check/legacy-session/operations.json",
+      "file": "windows/console-check/legacy-session/operations.json",
+      "raw_sha256": "68f2ef40ff641959f0b452429acab8919fbc9cec03f6b724fe9a67acd47100bf",
+      "delivered_sha256": "68f2ef40ff641959f0b452429acab8919fbc9cec03f6b724fe9a67acd47100bf"
+    },
+    {
+      "source": "native-evidence/console-check/new-controller-old-session.log",
+      "file": "windows/console-check/new-controller-old-session.log",
+      "raw_sha256": "c924f13dc10496be5ecd0ca9a07c8e41370c67b0e4f89046bf8340bc1a67a9d3",
+      "delivered_sha256": "c924f13dc10496be5ecd0ca9a07c8e41370c67b0e4f89046bf8340bc1a67a9d3"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-1.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-1.log",
+      "raw_sha256": "444a94a289d6d6d7455b70b2ed1b3e025b3d496439cccc1da28e1bf36da59e23",
+      "delivered_sha256": "444a94a289d6d6d7455b70b2ed1b3e025b3d496439cccc1da28e1bf36da59e23"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-10.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-10.log",
+      "raw_sha256": "d103171163f34d1a8a2216e9d0e3315362581733dff5932bfbebdb2c565ab966",
+      "delivered_sha256": "d103171163f34d1a8a2216e9d0e3315362581733dff5932bfbebdb2c565ab966"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-11.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-11.log",
+      "raw_sha256": "d22ba94bdb6fabc7195e78ff040fde31bb4db1c98f6c6df5ce8b522331671d52",
+      "delivered_sha256": "d22ba94bdb6fabc7195e78ff040fde31bb4db1c98f6c6df5ce8b522331671d52"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-2.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-2.log",
+      "raw_sha256": "c78c84bb37ebe644b46600adbfcc409876d91336719b8c6af9b17007d8da8372",
+      "delivered_sha256": "c78c84bb37ebe644b46600adbfcc409876d91336719b8c6af9b17007d8da8372"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-3.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-3.log",
+      "raw_sha256": "593baf6657a8e2581aabc0b170ab45dad43711bd473c8ac3532006feb95c652d",
+      "delivered_sha256": "593baf6657a8e2581aabc0b170ab45dad43711bd473c8ac3532006feb95c652d"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-4.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-4.log",
+      "raw_sha256": "bda4a63bd2971f501233e53d0afc86951225e896e8e9645cb785ca0f53a7584e",
+      "delivered_sha256": "bda4a63bd2971f501233e53d0afc86951225e896e8e9645cb785ca0f53a7584e"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-5.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-5.log",
+      "raw_sha256": "e383a95dc036635c9021d8acb940e6c0163fb7c326445bc20aed832119b745d0",
+      "delivered_sha256": "e383a95dc036635c9021d8acb940e6c0163fb7c326445bc20aed832119b745d0"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-6.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-6.log",
+      "raw_sha256": "b48efdd9407ccb9ed0ab41f2a7f52adbbd28cfa80d27451d21cd35bb19472cba",
+      "delivered_sha256": "b48efdd9407ccb9ed0ab41f2a7f52adbbd28cfa80d27451d21cd35bb19472cba"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-7.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-7.log",
+      "raw_sha256": "eefff2ccd3adeb8e3740a952640fc742996ad642d1745b1475d8dfc21e9ca845",
+      "delivered_sha256": "eefff2ccd3adeb8e3740a952640fc742996ad642d1745b1475d8dfc21e9ca845"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-8.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-8.log",
+      "raw_sha256": "f5150929a1fcb72eb8702877ceb2562de79c3d2546d1a3266693cc88302717a2",
+      "delivered_sha256": "f5150929a1fcb72eb8702877ceb2562de79c3d2546d1a3266693cc88302717a2"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-9.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/logs/node-9.log",
+      "raw_sha256": "1d58cb0d5a622ac4e078a79101b34d634f2933e1712bd1685db8be26a7247541",
+      "delivered_sha256": "1d58cb0d5a622ac4e078a79101b34d634f2933e1712bd1685db8be26a7247541"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/nodes.json",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/nodes.json",
+      "raw_sha256": "02863a2d0414c8bbdaf6f5f67d904465a200c591c3903e543e6c2c80f524d434",
+      "delivered_sha256": "02863a2d0414c8bbdaf6f5f67d904465a200c591c3903e543e6c2c80f524d434"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/process-1.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/process-1.log",
+      "raw_sha256": "444a94a289d6d6d7455b70b2ed1b3e025b3d496439cccc1da28e1bf36da59e23",
+      "delivered_sha256": "444a94a289d6d6d7455b70b2ed1b3e025b3d496439cccc1da28e1bf36da59e23"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/process-10.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/process-10.log",
+      "raw_sha256": "d103171163f34d1a8a2216e9d0e3315362581733dff5932bfbebdb2c565ab966",
+      "delivered_sha256": "d103171163f34d1a8a2216e9d0e3315362581733dff5932bfbebdb2c565ab966"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/process-11.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/process-11.log",
+      "raw_sha256": "d22ba94bdb6fabc7195e78ff040fde31bb4db1c98f6c6df5ce8b522331671d52",
+      "delivered_sha256": "d22ba94bdb6fabc7195e78ff040fde31bb4db1c98f6c6df5ce8b522331671d52"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/process-2.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/process-2.log",
+      "raw_sha256": "c78c84bb37ebe644b46600adbfcc409876d91336719b8c6af9b17007d8da8372",
+      "delivered_sha256": "c78c84bb37ebe644b46600adbfcc409876d91336719b8c6af9b17007d8da8372"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/process-3.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/process-3.log",
+      "raw_sha256": "593baf6657a8e2581aabc0b170ab45dad43711bd473c8ac3532006feb95c652d",
+      "delivered_sha256": "593baf6657a8e2581aabc0b170ab45dad43711bd473c8ac3532006feb95c652d"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/process-4.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/process-4.log",
+      "raw_sha256": "bda4a63bd2971f501233e53d0afc86951225e896e8e9645cb785ca0f53a7584e",
+      "delivered_sha256": "bda4a63bd2971f501233e53d0afc86951225e896e8e9645cb785ca0f53a7584e"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/process-5.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/process-5.log",
+      "raw_sha256": "e383a95dc036635c9021d8acb940e6c0163fb7c326445bc20aed832119b745d0",
+      "delivered_sha256": "e383a95dc036635c9021d8acb940e6c0163fb7c326445bc20aed832119b745d0"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/process-6.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/process-6.log",
+      "raw_sha256": "b48efdd9407ccb9ed0ab41f2a7f52adbbd28cfa80d27451d21cd35bb19472cba",
+      "delivered_sha256": "b48efdd9407ccb9ed0ab41f2a7f52adbbd28cfa80d27451d21cd35bb19472cba"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/process-7.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/process-7.log",
+      "raw_sha256": "eefff2ccd3adeb8e3740a952640fc742996ad642d1745b1475d8dfc21e9ca845",
+      "delivered_sha256": "eefff2ccd3adeb8e3740a952640fc742996ad642d1745b1475d8dfc21e9ca845"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/process-8.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/process-8.log",
+      "raw_sha256": "f5150929a1fcb72eb8702877ceb2562de79c3d2546d1a3266693cc88302717a2",
+      "delivered_sha256": "f5150929a1fcb72eb8702877ceb2562de79c3d2546d1a3266693cc88302717a2"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/34629caaa705035000285f70633e9cc2/process-9.log",
+      "file": "windows/console-check/new-session/34629caaa705035000285f70633e9cc2/process-9.log",
+      "raw_sha256": "1d58cb0d5a622ac4e078a79101b34d634f2933e1712bd1685db8be26a7247541",
+      "delivered_sha256": "1d58cb0d5a622ac4e078a79101b34d634f2933e1712bd1685db8be26a7247541"
+    },
+    {
+      "source": "native-evidence/console-check/new-session/operations.json",
+      "file": "windows/console-check/new-session/operations.json",
+      "raw_sha256": "61e6dc1cb34b52aac17e51f34a59871ecd837718f16e8d899f7748cf290197bc",
+      "delivered_sha256": "61e6dc1cb34b52aac17e51f34a59871ecd837718f16e8d899f7748cf290197bc"
+    },
+    {
+      "source": "native-evidence/console-check/new.log",
+      "file": "windows/console-check/new.log",
+      "raw_sha256": "8a7cbafbb4163d0f17772aa30ae68520aef334e970ded88a68fc1bd321c25baf",
+      "delivered_sha256": "8a7cbafbb4163d0f17772aa30ae68520aef334e970ded88a68fc1bd321c25baf"
+    },
+    {
+      "source": "native-evidence/console-check/old-controller.log",
+      "file": "windows/console-check/old-controller.log",
+      "raw_sha256": "01921dc31b007b03c6989dab5b309ab416a69a92d387a370e529188c8ced0663",
+      "delivered_sha256": "01921dc31b007b03c6989dab5b309ab416a69a92d387a370e529188c8ced0663"
+    },
+    {
+      "source": "native-evidence/console-check/operations.json",
+      "file": "windows/console-check/operations.json",
+      "raw_sha256": "e3923204687704a6c0cfede750ad1ac402e3814e6ee9383069ac04d17eea22df",
+      "delivered_sha256": "afe133894ec67f43e07cde0aa9b6aea934ab421924fdf8f612a1ae9f8f5f4755"
+    },
+    {
+      "source": "native-evidence/console-check/result.json",
+      "file": "windows/console-check/result.json",
+      "raw_sha256": "eca793a23c989c00452a530e017ef0ba644da69626afed75796318743fbb4e7a",
+      "delivered_sha256": "833a58e082a5638bbe4fa74871160c0a107b91fbb492f077d3efb9cacaf6088e"
+    },
+    {
+      "source": "native-evidence/native-build-receipt.json",
+      "file": "windows/native-build-receipt.json",
+      "raw_sha256": "7e8e4587570e0f7536f3ec3e942af591fd61a01ab7b01e448cb1be7ea19b8942",
+      "delivered_sha256": "2191e122b8056d4289e5b20c48f694d63f753803346c521f70e60e6a11abd34f"
+    },
+    {
+      "source": "native-evidence/native-go-tests.jsonl",
+      "file": "windows/native-go-tests.jsonl",
+      "raw_sha256": "6e74fb857b0a69a3a89b22b7b767c37e16f55b034c829cd55af8c7b489125e41",
+      "delivered_sha256": "9dfae614cd761ffb14881683c426a322e7ef920a5344f57fd875f1864f93bbd3"
+    },
+    {
+      "source": "native-evidence/paired-failover/environment.json",
+      "file": "windows/paired-failover/environment.json",
+      "raw_sha256": "462d3dcbcf76db64dfe9095242691b3c27c04377c7e9b97e5a55ed7ad713ed29",
+      "delivered_sha256": "c04cfa69bd1b0ae8a9c24df12264a76f2939dc14546057a43b5ed4055abc099e"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/environment.json",
+      "file": "windows/paired-failover/pair-1-baseline/environment.json",
+      "raw_sha256": "bca9bac1c8fc742d81e28adaac96510c7ae8324dcb052c77ef2bd9b957d03cfe",
+      "delivered_sha256": "d23e9e505a705c9b0932e0dbae4da1164d3360363f9c4a34975b3c1548ee47c9"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/arithmetic-reference.json",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/arithmetic-reference.json",
+      "raw_sha256": "fc52840ddd7b66237b1b5885d771b00586c1a79d494accc0f8dac1b9f69e16dd",
+      "delivered_sha256": "e24abdb8aead0c0863e1463b867f07b0887a2f1531ad28a971f2a8b4f698b745"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/checkpoint.json",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/checkpoint.json",
+      "raw_sha256": "537a72a37505ac88626dba7df863bf4aeac7884a12169d8da07a125925646d5e",
+      "delivered_sha256": "e86fc38892951a7629ecda7d585286e96135744903d68c4048affce222c39e1b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/events.json",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/events.json",
+      "raw_sha256": "0f32623a730bc5f8ea0e062214590c3837a381f3222facbed4266b0ac42f78e5",
+      "delivered_sha256": "1bd6f5640c45f4c89f118bbce75799cfcd9d6f5f5088efebd99b71651b3b55ef"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/last-status.json",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/last-status.json",
+      "raw_sha256": "3962a2f335082e6ff9f8310c8c9eb5e8118e3735120d91c85ffb33d64f63c2f6",
+      "delivered_sha256": "b9ed77a930bb16bfeefa40d0b64dd83857ad7a18d7b17ca248c34597de18f774"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/logs/node-1.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/logs/node-1.log",
+      "raw_sha256": "8852e959c422adda226826c246f0243d40b9e2a880090c1665cbc62558b97c0b",
+      "delivered_sha256": "8852e959c422adda226826c246f0243d40b9e2a880090c1665cbc62558b97c0b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/logs/node-10.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/logs/node-10.log",
+      "raw_sha256": "b4fa5862d3d5266278ce8e52ac5a3a992ef68e775dbacbbdb2c48d97a669a2a7",
+      "delivered_sha256": "b4fa5862d3d5266278ce8e52ac5a3a992ef68e775dbacbbdb2c48d97a669a2a7"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/logs/node-11.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/logs/node-11.log",
+      "raw_sha256": "ecf443a7a58caa77f484cbd648ce6373b04e361ecd67656d5d3412c4c0d59a12",
+      "delivered_sha256": "ecf443a7a58caa77f484cbd648ce6373b04e361ecd67656d5d3412c4c0d59a12"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/logs/node-2.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/logs/node-2.log",
+      "raw_sha256": "ad12cba1eebfd5a4bef8478e1ffd32673b2fb84902c5ec938538837d4ac7101f",
+      "delivered_sha256": "ad12cba1eebfd5a4bef8478e1ffd32673b2fb84902c5ec938538837d4ac7101f"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/logs/node-3.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/logs/node-3.log",
+      "raw_sha256": "78fc8b8f02d5f52c9ada45531af7a08d7a82c7269087a365e00c7dc1fbbbcf1b",
+      "delivered_sha256": "78fc8b8f02d5f52c9ada45531af7a08d7a82c7269087a365e00c7dc1fbbbcf1b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/logs/node-4.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/logs/node-4.log",
+      "raw_sha256": "b2f7a30167e1f2c8169d2d421a1e299b9cd0daaa0b7f91099f122f5f71f4d5fc",
+      "delivered_sha256": "b2f7a30167e1f2c8169d2d421a1e299b9cd0daaa0b7f91099f122f5f71f4d5fc"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/logs/node-5.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/logs/node-5.log",
+      "raw_sha256": "d340f4e4a9366af74b71f31871d51dc9ad938a40a45641326f814aba0d5b73af",
+      "delivered_sha256": "d340f4e4a9366af74b71f31871d51dc9ad938a40a45641326f814aba0d5b73af"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/logs/node-6.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/logs/node-6.log",
+      "raw_sha256": "e7720765bb07526aaaffbb8f92e1e3ac457a7b80bd53f6558f42699bdf971388",
+      "delivered_sha256": "e7720765bb07526aaaffbb8f92e1e3ac457a7b80bd53f6558f42699bdf971388"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/logs/node-7.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/logs/node-7.log",
+      "raw_sha256": "7d317d8045fe28a31fd93527ea8cd5ba4da492cb19f4c0d86d6ce3bc9dbf7046",
+      "delivered_sha256": "7d317d8045fe28a31fd93527ea8cd5ba4da492cb19f4c0d86d6ce3bc9dbf7046"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/logs/node-8.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/logs/node-8.log",
+      "raw_sha256": "535581c81267216538b83a7c0d316f265666ac91b3c0f3a0f79f86768059cbcf",
+      "delivered_sha256": "535581c81267216538b83a7c0d316f265666ac91b3c0f3a0f79f86768059cbcf"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/logs/node-9.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/logs/node-9.log",
+      "raw_sha256": "5e68378678b242cac00053f63f2bc5dbd293a82504d9aec9c68d26c3186ea574",
+      "delivered_sha256": "5e68378678b242cac00053f63f2bc5dbd293a82504d9aec9c68d26c3186ea574"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/nodes.json",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/nodes.json",
+      "raw_sha256": "1056615fa83e06ee6f0ca41edc85e1fdc9c915588152e5f8d85ee086cd6f6c12",
+      "delivered_sha256": "7e811b0f2a9fa86bca9a7bf58211618d7e77840fce10b210172c972f79d8be08"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/process-1.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/process-1.log",
+      "raw_sha256": "8852e959c422adda226826c246f0243d40b9e2a880090c1665cbc62558b97c0b",
+      "delivered_sha256": "8852e959c422adda226826c246f0243d40b9e2a880090c1665cbc62558b97c0b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/process-10.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/process-10.log",
+      "raw_sha256": "b4fa5862d3d5266278ce8e52ac5a3a992ef68e775dbacbbdb2c48d97a669a2a7",
+      "delivered_sha256": "b4fa5862d3d5266278ce8e52ac5a3a992ef68e775dbacbbdb2c48d97a669a2a7"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/process-11.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/process-11.log",
+      "raw_sha256": "ecf443a7a58caa77f484cbd648ce6373b04e361ecd67656d5d3412c4c0d59a12",
+      "delivered_sha256": "ecf443a7a58caa77f484cbd648ce6373b04e361ecd67656d5d3412c4c0d59a12"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/process-2.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/process-2.log",
+      "raw_sha256": "ad12cba1eebfd5a4bef8478e1ffd32673b2fb84902c5ec938538837d4ac7101f",
+      "delivered_sha256": "ad12cba1eebfd5a4bef8478e1ffd32673b2fb84902c5ec938538837d4ac7101f"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/process-3.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/process-3.log",
+      "raw_sha256": "78fc8b8f02d5f52c9ada45531af7a08d7a82c7269087a365e00c7dc1fbbbcf1b",
+      "delivered_sha256": "78fc8b8f02d5f52c9ada45531af7a08d7a82c7269087a365e00c7dc1fbbbcf1b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/process-4.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/process-4.log",
+      "raw_sha256": "b2f7a30167e1f2c8169d2d421a1e299b9cd0daaa0b7f91099f122f5f71f4d5fc",
+      "delivered_sha256": "b2f7a30167e1f2c8169d2d421a1e299b9cd0daaa0b7f91099f122f5f71f4d5fc"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/process-5.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/process-5.log",
+      "raw_sha256": "d340f4e4a9366af74b71f31871d51dc9ad938a40a45641326f814aba0d5b73af",
+      "delivered_sha256": "d340f4e4a9366af74b71f31871d51dc9ad938a40a45641326f814aba0d5b73af"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/process-6.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/process-6.log",
+      "raw_sha256": "e7720765bb07526aaaffbb8f92e1e3ac457a7b80bd53f6558f42699bdf971388",
+      "delivered_sha256": "e7720765bb07526aaaffbb8f92e1e3ac457a7b80bd53f6558f42699bdf971388"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/process-7.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/process-7.log",
+      "raw_sha256": "7d317d8045fe28a31fd93527ea8cd5ba4da492cb19f4c0d86d6ce3bc9dbf7046",
+      "delivered_sha256": "7d317d8045fe28a31fd93527ea8cd5ba4da492cb19f4c0d86d6ce3bc9dbf7046"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/process-8.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/process-8.log",
+      "raw_sha256": "535581c81267216538b83a7c0d316f265666ac91b3c0f3a0f79f86768059cbcf",
+      "delivered_sha256": "535581c81267216538b83a7c0d316f265666ac91b3c0f3a0f79f86768059cbcf"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/process-9.log",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/process-9.log",
+      "raw_sha256": "5e68378678b242cac00053f63f2bc5dbd293a82504d9aec9c68d26c3186ea574",
+      "delivered_sha256": "5e68378678b242cac00053f63f2bc5dbd293a82504d9aec9c68d26c3186ea574"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/failover-11-r1/result.json",
+      "file": "windows/paired-failover/pair-1-baseline/failover-11-r1/result.json",
+      "raw_sha256": "5f32579db6af43a05c84d11162492b8507510b16e0df90ca376a9cf1826ec380",
+      "delivered_sha256": "d17d2f54e1a531fec5ed17c087843b5a833eaad66374f54ea81c4309b409bbb1"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/results.json",
+      "file": "windows/paired-failover/pair-1-baseline/results.json",
+      "raw_sha256": "c729ed9e1dc59b7eeb9a35dabd65e66d54d8accd2aa57b0b3518e2deb67f3ffb",
+      "delivered_sha256": "3a0c1208708d72799ef140975dbaf459439cfef84ec6336eae67f3a68727636c"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline/summary.json",
+      "file": "windows/paired-failover/pair-1-baseline/summary.json",
+      "raw_sha256": "e9cee9fc1d6782a7d29c02aca8d2c27bf755fb135e2a927222b1d3756b7c0e25",
+      "delivered_sha256": "b658dec8994a4ed1266dfc99061d1edf7dfa94cf7dcee762f6ec60120399b416"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-baseline.log",
+      "file": "windows/paired-failover/pair-1-baseline.log",
+      "raw_sha256": "a5e3767ac96ea65d7fa18b074213e83cd99c655970d050028d496b008472b32e",
+      "delivered_sha256": "f41a299171f7764e344f45e5df6b59e079d491f9768e944264c0e35dc35ab3aa"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/environment.json",
+      "file": "windows/paired-failover/pair-1-candidate/environment.json",
+      "raw_sha256": "388b49570c2b18b85d7153d381c953cb89c0a59c6bbdd7dfcc596bee8d076699",
+      "delivered_sha256": "0392d35ee69fe422ef4f46dabdf2c7e32190fdfa61c97b9ea0d2ffd9c6ce42cd"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/arithmetic-reference.json",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/arithmetic-reference.json",
+      "raw_sha256": "fc52840ddd7b66237b1b5885d771b00586c1a79d494accc0f8dac1b9f69e16dd",
+      "delivered_sha256": "e24abdb8aead0c0863e1463b867f07b0887a2f1531ad28a971f2a8b4f698b745"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/checkpoint.json",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/checkpoint.json",
+      "raw_sha256": "537a72a37505ac88626dba7df863bf4aeac7884a12169d8da07a125925646d5e",
+      "delivered_sha256": "e86fc38892951a7629ecda7d585286e96135744903d68c4048affce222c39e1b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/events.json",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/events.json",
+      "raw_sha256": "ac0abb18be2613b788fa3778ed6a389ddbb3c51bdfc8614ea1536cb085c877a2",
+      "delivered_sha256": "987c25bccf69bd2bea07d07879328e604712cba62033afad32ba5bdc3fd1a2b5"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/last-status.json",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/last-status.json",
+      "raw_sha256": "c8cd76344a5853673777e811744d420c10885a10c74ddefc4931e7b71cc48882",
+      "delivered_sha256": "b65ebca21bec1113f11b4222483692b7014753d2cc54f9a7db859df8d6f4eca5"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/logs/node-1.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/logs/node-1.log",
+      "raw_sha256": "fa37952523485106184721caaf4d775191683ab76eba92f26f18233855d807df",
+      "delivered_sha256": "fa37952523485106184721caaf4d775191683ab76eba92f26f18233855d807df"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/logs/node-10.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/logs/node-10.log",
+      "raw_sha256": "349c0e2a717eb642adb83af5b2b3aa30c50305ebea8eefeec654ad88a18332e4",
+      "delivered_sha256": "349c0e2a717eb642adb83af5b2b3aa30c50305ebea8eefeec654ad88a18332e4"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/logs/node-11.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/logs/node-11.log",
+      "raw_sha256": "8f37e6984ad9651b7184e98e8f3df1d13d28149f868391fec4b2e434d3a29288",
+      "delivered_sha256": "8f37e6984ad9651b7184e98e8f3df1d13d28149f868391fec4b2e434d3a29288"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/logs/node-2.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/logs/node-2.log",
+      "raw_sha256": "1ecd9f736fe92f2b4b58c64c3f4a702c918849472dc722553b03f5efaae7011c",
+      "delivered_sha256": "1ecd9f736fe92f2b4b58c64c3f4a702c918849472dc722553b03f5efaae7011c"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/logs/node-3.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/logs/node-3.log",
+      "raw_sha256": "4a50b61b87efffd8d554538ca9a20ba8bbebb0e20d08e98a12c4052c7767dc84",
+      "delivered_sha256": "4a50b61b87efffd8d554538ca9a20ba8bbebb0e20d08e98a12c4052c7767dc84"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/logs/node-4.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/logs/node-4.log",
+      "raw_sha256": "dfdece8c1462322371767179ef74f40aeeac3319398a8e446092d42208e2e2d5",
+      "delivered_sha256": "dfdece8c1462322371767179ef74f40aeeac3319398a8e446092d42208e2e2d5"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/logs/node-5.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/logs/node-5.log",
+      "raw_sha256": "96c6950e898c0e2f0a836a2c7738ff09397a82a897aa7fed0e1ff7259d06a70f",
+      "delivered_sha256": "96c6950e898c0e2f0a836a2c7738ff09397a82a897aa7fed0e1ff7259d06a70f"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/logs/node-6.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/logs/node-6.log",
+      "raw_sha256": "34d86c73c8f9f95d1f6330ea6bd597037f7030ecf923142581204487d8720097",
+      "delivered_sha256": "34d86c73c8f9f95d1f6330ea6bd597037f7030ecf923142581204487d8720097"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/logs/node-7.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/logs/node-7.log",
+      "raw_sha256": "449e4ac9a99210f4708c90809e5ec826646447c272d62f938bf3486dbc9da35a",
+      "delivered_sha256": "449e4ac9a99210f4708c90809e5ec826646447c272d62f938bf3486dbc9da35a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/logs/node-8.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/logs/node-8.log",
+      "raw_sha256": "b5275de96f2fcf555a511ada6c1854aa720f93620d21cb6f06d74eb60ca405de",
+      "delivered_sha256": "b5275de96f2fcf555a511ada6c1854aa720f93620d21cb6f06d74eb60ca405de"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/logs/node-9.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/logs/node-9.log",
+      "raw_sha256": "d4cd84f363050057e39db4508de74bffca321a5ed710bc5f6a1857e9aee28284",
+      "delivered_sha256": "d4cd84f363050057e39db4508de74bffca321a5ed710bc5f6a1857e9aee28284"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/nodes.json",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/nodes.json",
+      "raw_sha256": "5af3f56b836324a65f93ad50041738cf6482bf817bedacc1cd416a8675ad5e52",
+      "delivered_sha256": "2643a33d20ca2ff75a8ca909c3a0540a698b8718bd1dc121144978980e903afe"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/process-1.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/process-1.log",
+      "raw_sha256": "fa37952523485106184721caaf4d775191683ab76eba92f26f18233855d807df",
+      "delivered_sha256": "fa37952523485106184721caaf4d775191683ab76eba92f26f18233855d807df"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/process-10.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/process-10.log",
+      "raw_sha256": "349c0e2a717eb642adb83af5b2b3aa30c50305ebea8eefeec654ad88a18332e4",
+      "delivered_sha256": "349c0e2a717eb642adb83af5b2b3aa30c50305ebea8eefeec654ad88a18332e4"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/process-11.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/process-11.log",
+      "raw_sha256": "8f37e6984ad9651b7184e98e8f3df1d13d28149f868391fec4b2e434d3a29288",
+      "delivered_sha256": "8f37e6984ad9651b7184e98e8f3df1d13d28149f868391fec4b2e434d3a29288"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/process-2.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/process-2.log",
+      "raw_sha256": "1ecd9f736fe92f2b4b58c64c3f4a702c918849472dc722553b03f5efaae7011c",
+      "delivered_sha256": "1ecd9f736fe92f2b4b58c64c3f4a702c918849472dc722553b03f5efaae7011c"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/process-3.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/process-3.log",
+      "raw_sha256": "4a50b61b87efffd8d554538ca9a20ba8bbebb0e20d08e98a12c4052c7767dc84",
+      "delivered_sha256": "4a50b61b87efffd8d554538ca9a20ba8bbebb0e20d08e98a12c4052c7767dc84"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/process-4.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/process-4.log",
+      "raw_sha256": "dfdece8c1462322371767179ef74f40aeeac3319398a8e446092d42208e2e2d5",
+      "delivered_sha256": "dfdece8c1462322371767179ef74f40aeeac3319398a8e446092d42208e2e2d5"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/process-5.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/process-5.log",
+      "raw_sha256": "96c6950e898c0e2f0a836a2c7738ff09397a82a897aa7fed0e1ff7259d06a70f",
+      "delivered_sha256": "96c6950e898c0e2f0a836a2c7738ff09397a82a897aa7fed0e1ff7259d06a70f"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/process-6.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/process-6.log",
+      "raw_sha256": "34d86c73c8f9f95d1f6330ea6bd597037f7030ecf923142581204487d8720097",
+      "delivered_sha256": "34d86c73c8f9f95d1f6330ea6bd597037f7030ecf923142581204487d8720097"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/process-7.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/process-7.log",
+      "raw_sha256": "449e4ac9a99210f4708c90809e5ec826646447c272d62f938bf3486dbc9da35a",
+      "delivered_sha256": "449e4ac9a99210f4708c90809e5ec826646447c272d62f938bf3486dbc9da35a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/process-8.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/process-8.log",
+      "raw_sha256": "b5275de96f2fcf555a511ada6c1854aa720f93620d21cb6f06d74eb60ca405de",
+      "delivered_sha256": "b5275de96f2fcf555a511ada6c1854aa720f93620d21cb6f06d74eb60ca405de"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/process-9.log",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/process-9.log",
+      "raw_sha256": "d4cd84f363050057e39db4508de74bffca321a5ed710bc5f6a1857e9aee28284",
+      "delivered_sha256": "d4cd84f363050057e39db4508de74bffca321a5ed710bc5f6a1857e9aee28284"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/failover-11-r1/result.json",
+      "file": "windows/paired-failover/pair-1-candidate/failover-11-r1/result.json",
+      "raw_sha256": "fb94d5c6be78f867bffe8c68c9e3f986bdbea72eac3253935d41b80339005de4",
+      "delivered_sha256": "b18e57b58800d1a60bb3ed7704e7a8234f7edd197677c4641cd9ad99fffb7643"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/results.json",
+      "file": "windows/paired-failover/pair-1-candidate/results.json",
+      "raw_sha256": "c3d4ff681c4dec947444f3f0f632bd78ae7234e015ff9b07e84b979b7eafb6bc",
+      "delivered_sha256": "e982eab03cec500f56159c093c36ca143f15609e3c274180b94a542bccd8538e"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate/summary.json",
+      "file": "windows/paired-failover/pair-1-candidate/summary.json",
+      "raw_sha256": "0a9a86acd67bbc1fce1851a4ae59333ddf4e8fd79bc83d0a3a79586b0799fd66",
+      "delivered_sha256": "5aa5630f202236d22a2565137fe56105fb57423e2665679289e0ab267852f17e"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-1-candidate.log",
+      "file": "windows/paired-failover/pair-1-candidate.log",
+      "raw_sha256": "1fec9e5c6cbc2a48439071da81d90a80355c8f60fc8ae311817188b430598228",
+      "delivered_sha256": "a42c8d662b963f0d6976908d0645cdf4132c8b09453783613c5d207e1cbd94bd"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/environment.json",
+      "file": "windows/paired-failover/pair-2-baseline/environment.json",
+      "raw_sha256": "37f203ceb9a10727f1e3593ec362a6c80e95b41867484e1cc089fbc4aa5f2eae",
+      "delivered_sha256": "2393d4b5ba6ecaad9fa243b58b48d5e470095c074031435e1bd9a3e03a89e71e"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/arithmetic-reference.json",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/arithmetic-reference.json",
+      "raw_sha256": "f145ceaa352ca3d5bc27058dafb7ae871cc345eb65c7e7082004d72e4be1f77b",
+      "delivered_sha256": "05fc2ffafab8c87c15fa7c4be11ecadbdf0c77e3c92d4bc621b35e5ac645cfc4"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/checkpoint.json",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/checkpoint.json",
+      "raw_sha256": "a4c07990bb32920ab61e5043832de435571f7380e39ce6bdbb545817aca32166",
+      "delivered_sha256": "d82274fcf771f6509f99116f067418beebd81ae3525cf32baa137b36e9da84b6"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/events.json",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/events.json",
+      "raw_sha256": "9c8fe235a64c46059c304adc0d165d7256f25207ca7d145da38c59f7ca815091",
+      "delivered_sha256": "3802a6ae5a36e706ebfc50d67fb7115fa9da96a559c5c41272a1c0d81d2f63a8"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/last-status.json",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/last-status.json",
+      "raw_sha256": "2c1b70216067714a6999dca881be222db505dfd774eefe12a757debbaa03884c",
+      "delivered_sha256": "94a634ad9efea5daf56fce61d7fa5c2bdeff6185b4ceb025e60067b730d1fc01"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/logs/node-1.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/logs/node-1.log",
+      "raw_sha256": "8ce39f63f4f0928678de4fe935a0022ae9f6c130d8706c8cf16a8d21857395c1",
+      "delivered_sha256": "8ce39f63f4f0928678de4fe935a0022ae9f6c130d8706c8cf16a8d21857395c1"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/logs/node-10.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/logs/node-10.log",
+      "raw_sha256": "43d0c23e667c2ec4c142a01c9d899c91f4e9f10d598f3cac2160f2cc87c7696b",
+      "delivered_sha256": "43d0c23e667c2ec4c142a01c9d899c91f4e9f10d598f3cac2160f2cc87c7696b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/logs/node-11.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/logs/node-11.log",
+      "raw_sha256": "f5856abe24e1cb58e1ca9e9a76c6110cc04d662fe154964e4eb19f607752623d",
+      "delivered_sha256": "f5856abe24e1cb58e1ca9e9a76c6110cc04d662fe154964e4eb19f607752623d"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/logs/node-2.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/logs/node-2.log",
+      "raw_sha256": "218119b30752edb178b8f1fac917f3a62682f1ad608e2ddb278b297cf1a353dc",
+      "delivered_sha256": "218119b30752edb178b8f1fac917f3a62682f1ad608e2ddb278b297cf1a353dc"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/logs/node-3.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/logs/node-3.log",
+      "raw_sha256": "fc2d5c2e97b23f6b3d369c70bf0131aeb5483019e35e2cbeda63d0b0e0a735b5",
+      "delivered_sha256": "fc2d5c2e97b23f6b3d369c70bf0131aeb5483019e35e2cbeda63d0b0e0a735b5"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/logs/node-4.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/logs/node-4.log",
+      "raw_sha256": "2a50457e1df6b8e9125afe0c4742cce42fe52ee67a6fa44724493afc9379e68d",
+      "delivered_sha256": "2a50457e1df6b8e9125afe0c4742cce42fe52ee67a6fa44724493afc9379e68d"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/logs/node-5.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/logs/node-5.log",
+      "raw_sha256": "2117b6f6c2998996e946f18d2cf3e9581af6408c74b282911c77c869ccf1ec71",
+      "delivered_sha256": "2117b6f6c2998996e946f18d2cf3e9581af6408c74b282911c77c869ccf1ec71"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/logs/node-6.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/logs/node-6.log",
+      "raw_sha256": "bebf7d32abb2a1d6a785e34d38e1efc00dcd5e40e36f6c194c9d3814f60c6945",
+      "delivered_sha256": "bebf7d32abb2a1d6a785e34d38e1efc00dcd5e40e36f6c194c9d3814f60c6945"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/logs/node-7.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/logs/node-7.log",
+      "raw_sha256": "9879b16dd95e1347a69ec2a9d57dae3b602e27e347e5cb2f7186b603595346b5",
+      "delivered_sha256": "9879b16dd95e1347a69ec2a9d57dae3b602e27e347e5cb2f7186b603595346b5"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/logs/node-8.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/logs/node-8.log",
+      "raw_sha256": "30ee30518752ab6f722a1811289ecd6d697f19f2b692e1a8abbbf5e2f61c079e",
+      "delivered_sha256": "30ee30518752ab6f722a1811289ecd6d697f19f2b692e1a8abbbf5e2f61c079e"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/logs/node-9.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/logs/node-9.log",
+      "raw_sha256": "9128053620a5679772bc5aab541149c7a07ded68652430a197619e11ba26d31d",
+      "delivered_sha256": "9128053620a5679772bc5aab541149c7a07ded68652430a197619e11ba26d31d"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/nodes.json",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/nodes.json",
+      "raw_sha256": "42a0ac7686c6918f15098a4f613bd1946f78f4e0654f0a7876917bf34095e53e",
+      "delivered_sha256": "1a6ba1f7861f933258d6e84f068bc0d6ebf0b470ff76c75083e9231e44864af3"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/process-1.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/process-1.log",
+      "raw_sha256": "8ce39f63f4f0928678de4fe935a0022ae9f6c130d8706c8cf16a8d21857395c1",
+      "delivered_sha256": "8ce39f63f4f0928678de4fe935a0022ae9f6c130d8706c8cf16a8d21857395c1"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/process-10.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/process-10.log",
+      "raw_sha256": "43d0c23e667c2ec4c142a01c9d899c91f4e9f10d598f3cac2160f2cc87c7696b",
+      "delivered_sha256": "43d0c23e667c2ec4c142a01c9d899c91f4e9f10d598f3cac2160f2cc87c7696b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/process-11.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/process-11.log",
+      "raw_sha256": "f5856abe24e1cb58e1ca9e9a76c6110cc04d662fe154964e4eb19f607752623d",
+      "delivered_sha256": "f5856abe24e1cb58e1ca9e9a76c6110cc04d662fe154964e4eb19f607752623d"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/process-2.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/process-2.log",
+      "raw_sha256": "218119b30752edb178b8f1fac917f3a62682f1ad608e2ddb278b297cf1a353dc",
+      "delivered_sha256": "218119b30752edb178b8f1fac917f3a62682f1ad608e2ddb278b297cf1a353dc"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/process-3.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/process-3.log",
+      "raw_sha256": "fc2d5c2e97b23f6b3d369c70bf0131aeb5483019e35e2cbeda63d0b0e0a735b5",
+      "delivered_sha256": "fc2d5c2e97b23f6b3d369c70bf0131aeb5483019e35e2cbeda63d0b0e0a735b5"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/process-4.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/process-4.log",
+      "raw_sha256": "2a50457e1df6b8e9125afe0c4742cce42fe52ee67a6fa44724493afc9379e68d",
+      "delivered_sha256": "2a50457e1df6b8e9125afe0c4742cce42fe52ee67a6fa44724493afc9379e68d"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/process-5.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/process-5.log",
+      "raw_sha256": "2117b6f6c2998996e946f18d2cf3e9581af6408c74b282911c77c869ccf1ec71",
+      "delivered_sha256": "2117b6f6c2998996e946f18d2cf3e9581af6408c74b282911c77c869ccf1ec71"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/process-6.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/process-6.log",
+      "raw_sha256": "bebf7d32abb2a1d6a785e34d38e1efc00dcd5e40e36f6c194c9d3814f60c6945",
+      "delivered_sha256": "bebf7d32abb2a1d6a785e34d38e1efc00dcd5e40e36f6c194c9d3814f60c6945"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/process-7.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/process-7.log",
+      "raw_sha256": "9879b16dd95e1347a69ec2a9d57dae3b602e27e347e5cb2f7186b603595346b5",
+      "delivered_sha256": "9879b16dd95e1347a69ec2a9d57dae3b602e27e347e5cb2f7186b603595346b5"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/process-8.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/process-8.log",
+      "raw_sha256": "30ee30518752ab6f722a1811289ecd6d697f19f2b692e1a8abbbf5e2f61c079e",
+      "delivered_sha256": "30ee30518752ab6f722a1811289ecd6d697f19f2b692e1a8abbbf5e2f61c079e"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/process-9.log",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/process-9.log",
+      "raw_sha256": "9128053620a5679772bc5aab541149c7a07ded68652430a197619e11ba26d31d",
+      "delivered_sha256": "9128053620a5679772bc5aab541149c7a07ded68652430a197619e11ba26d31d"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/failover-11-r1/result.json",
+      "file": "windows/paired-failover/pair-2-baseline/failover-11-r1/result.json",
+      "raw_sha256": "8b4f7536a9167d8fe0efb3e13fbaa8993ed926e9826e926ac7237f6234ba9178",
+      "delivered_sha256": "1ae20f8c3119433a412dd25d743ba25b923e8e07d0323bcb0290e77468206309"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/results.json",
+      "file": "windows/paired-failover/pair-2-baseline/results.json",
+      "raw_sha256": "93f06e2a51f151bdc1eaa5d1fdc694f36d9bda6679713c01ce24ff18bf947113",
+      "delivered_sha256": "8179dd393684b95f9949772baf8864100c6128df86483b2c7533d5bcfb6c4186"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline/summary.json",
+      "file": "windows/paired-failover/pair-2-baseline/summary.json",
+      "raw_sha256": "b2e58853f3319106a366304e064b4842282c71b7990553536035d1a9cfd29119",
+      "delivered_sha256": "904e5e434077807ac572fe0f4a870234ab24271d6e49f6d4314695cfe1e070bc"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-baseline.log",
+      "file": "windows/paired-failover/pair-2-baseline.log",
+      "raw_sha256": "83667b8face5a23898e4bcbd654f6ce5b77492086a96b469da78429f7f3f54ee",
+      "delivered_sha256": "02abf6672fcc5a1924219e068c4210069d2d5e73c7280ab19d00baf024b5ceb5"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/environment.json",
+      "file": "windows/paired-failover/pair-2-candidate/environment.json",
+      "raw_sha256": "23e9647c61a6aec0f631f74be24fa7c7f5dfb7e637daa81062cfc77d579eb663",
+      "delivered_sha256": "facfb677a968b9c3fb7bfde14aaedbd38556a86024f39cfbc66bbc1e9c07caf4"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/arithmetic-reference.json",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/arithmetic-reference.json",
+      "raw_sha256": "f145ceaa352ca3d5bc27058dafb7ae871cc345eb65c7e7082004d72e4be1f77b",
+      "delivered_sha256": "05fc2ffafab8c87c15fa7c4be11ecadbdf0c77e3c92d4bc621b35e5ac645cfc4"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/checkpoint.json",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/checkpoint.json",
+      "raw_sha256": "a4c07990bb32920ab61e5043832de435571f7380e39ce6bdbb545817aca32166",
+      "delivered_sha256": "d82274fcf771f6509f99116f067418beebd81ae3525cf32baa137b36e9da84b6"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/events.json",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/events.json",
+      "raw_sha256": "40fc562b99aa67212a31049a874a396aa6011ebd2fe52f1acb5c679030dccf3f",
+      "delivered_sha256": "dcab518b578148a0c3b2af76fae96cba0e72691a2e4acbbcc44bda9dafd19b58"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/last-status.json",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/last-status.json",
+      "raw_sha256": "6cc92af0fc7e8c32e13d70f31404942f1401d1e396134225e31377b94b6b92c2",
+      "delivered_sha256": "d92cb767c8ab8e53fd3339f0f214386a05df5511687fc3524a2136294883e066"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/logs/node-1.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/logs/node-1.log",
+      "raw_sha256": "6fd9db30ab02b114f31327f9e4256c843f630b40ea728537588665a156c5223a",
+      "delivered_sha256": "6fd9db30ab02b114f31327f9e4256c843f630b40ea728537588665a156c5223a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/logs/node-10.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/logs/node-10.log",
+      "raw_sha256": "bac801b882cccf46b512efba4ad0483b19269c20b4fe02eda7c47f79e87c373e",
+      "delivered_sha256": "bac801b882cccf46b512efba4ad0483b19269c20b4fe02eda7c47f79e87c373e"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/logs/node-11.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/logs/node-11.log",
+      "raw_sha256": "fcea2a502551c134c615afa58634fd5e6b1c008081e9b752c6c19f89d28b8fd5",
+      "delivered_sha256": "fcea2a502551c134c615afa58634fd5e6b1c008081e9b752c6c19f89d28b8fd5"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/logs/node-2.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/logs/node-2.log",
+      "raw_sha256": "fd884ca83b1a90811379e9ee22e815baaec0b5518ee8fbf431f1415e5745d842",
+      "delivered_sha256": "fd884ca83b1a90811379e9ee22e815baaec0b5518ee8fbf431f1415e5745d842"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/logs/node-3.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/logs/node-3.log",
+      "raw_sha256": "4a8d6c5bf1293c707e3a04b5a3fd11685de78efc65cddcd7c3bd77f6c46d6a7a",
+      "delivered_sha256": "4a8d6c5bf1293c707e3a04b5a3fd11685de78efc65cddcd7c3bd77f6c46d6a7a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/logs/node-4.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/logs/node-4.log",
+      "raw_sha256": "266d8620c1d638619853ab0b2fc2e54ee6b2afdac90af9e3168cd5b8cb11e386",
+      "delivered_sha256": "266d8620c1d638619853ab0b2fc2e54ee6b2afdac90af9e3168cd5b8cb11e386"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/logs/node-5.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/logs/node-5.log",
+      "raw_sha256": "a1dc20121d4306e8b2da121b13d2af4018898266d0ab95148960a77c0c91d44a",
+      "delivered_sha256": "a1dc20121d4306e8b2da121b13d2af4018898266d0ab95148960a77c0c91d44a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/logs/node-6.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/logs/node-6.log",
+      "raw_sha256": "035eca1a412d6e52fa3e0c24a9279d97a6c95b845a66c5438fc03b1de6b00717",
+      "delivered_sha256": "035eca1a412d6e52fa3e0c24a9279d97a6c95b845a66c5438fc03b1de6b00717"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/logs/node-7.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/logs/node-7.log",
+      "raw_sha256": "87c28821076c1c1b2d39beec69540a170d124f00465dab0b8945dc050de40a06",
+      "delivered_sha256": "87c28821076c1c1b2d39beec69540a170d124f00465dab0b8945dc050de40a06"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/logs/node-8.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/logs/node-8.log",
+      "raw_sha256": "e49b09ad8422c752f351fcedfdd64361e69b73a596b20778a66eecc66a9eec56",
+      "delivered_sha256": "e49b09ad8422c752f351fcedfdd64361e69b73a596b20778a66eecc66a9eec56"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/logs/node-9.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/logs/node-9.log",
+      "raw_sha256": "eb8ad61b3603b18bbfed43d1c6a64cdb57b7046121ef8eb0c3e97a3c16a8d39a",
+      "delivered_sha256": "eb8ad61b3603b18bbfed43d1c6a64cdb57b7046121ef8eb0c3e97a3c16a8d39a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/nodes.json",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/nodes.json",
+      "raw_sha256": "78f608e7d68bee3ad23ef91fc12252ce314a669c85801f2487931ace3b5fc405",
+      "delivered_sha256": "361c9411277134f1ee8135a769d968126bcc91511ef869478d26123bd5e61601"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/process-1.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/process-1.log",
+      "raw_sha256": "6fd9db30ab02b114f31327f9e4256c843f630b40ea728537588665a156c5223a",
+      "delivered_sha256": "6fd9db30ab02b114f31327f9e4256c843f630b40ea728537588665a156c5223a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/process-10.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/process-10.log",
+      "raw_sha256": "bac801b882cccf46b512efba4ad0483b19269c20b4fe02eda7c47f79e87c373e",
+      "delivered_sha256": "bac801b882cccf46b512efba4ad0483b19269c20b4fe02eda7c47f79e87c373e"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/process-11.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/process-11.log",
+      "raw_sha256": "fcea2a502551c134c615afa58634fd5e6b1c008081e9b752c6c19f89d28b8fd5",
+      "delivered_sha256": "fcea2a502551c134c615afa58634fd5e6b1c008081e9b752c6c19f89d28b8fd5"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/process-2.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/process-2.log",
+      "raw_sha256": "fd884ca83b1a90811379e9ee22e815baaec0b5518ee8fbf431f1415e5745d842",
+      "delivered_sha256": "fd884ca83b1a90811379e9ee22e815baaec0b5518ee8fbf431f1415e5745d842"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/process-3.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/process-3.log",
+      "raw_sha256": "4a8d6c5bf1293c707e3a04b5a3fd11685de78efc65cddcd7c3bd77f6c46d6a7a",
+      "delivered_sha256": "4a8d6c5bf1293c707e3a04b5a3fd11685de78efc65cddcd7c3bd77f6c46d6a7a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/process-4.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/process-4.log",
+      "raw_sha256": "266d8620c1d638619853ab0b2fc2e54ee6b2afdac90af9e3168cd5b8cb11e386",
+      "delivered_sha256": "266d8620c1d638619853ab0b2fc2e54ee6b2afdac90af9e3168cd5b8cb11e386"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/process-5.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/process-5.log",
+      "raw_sha256": "a1dc20121d4306e8b2da121b13d2af4018898266d0ab95148960a77c0c91d44a",
+      "delivered_sha256": "a1dc20121d4306e8b2da121b13d2af4018898266d0ab95148960a77c0c91d44a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/process-6.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/process-6.log",
+      "raw_sha256": "035eca1a412d6e52fa3e0c24a9279d97a6c95b845a66c5438fc03b1de6b00717",
+      "delivered_sha256": "035eca1a412d6e52fa3e0c24a9279d97a6c95b845a66c5438fc03b1de6b00717"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/process-7.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/process-7.log",
+      "raw_sha256": "87c28821076c1c1b2d39beec69540a170d124f00465dab0b8945dc050de40a06",
+      "delivered_sha256": "87c28821076c1c1b2d39beec69540a170d124f00465dab0b8945dc050de40a06"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/process-8.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/process-8.log",
+      "raw_sha256": "e49b09ad8422c752f351fcedfdd64361e69b73a596b20778a66eecc66a9eec56",
+      "delivered_sha256": "e49b09ad8422c752f351fcedfdd64361e69b73a596b20778a66eecc66a9eec56"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/process-9.log",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/process-9.log",
+      "raw_sha256": "eb8ad61b3603b18bbfed43d1c6a64cdb57b7046121ef8eb0c3e97a3c16a8d39a",
+      "delivered_sha256": "eb8ad61b3603b18bbfed43d1c6a64cdb57b7046121ef8eb0c3e97a3c16a8d39a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/failover-11-r1/result.json",
+      "file": "windows/paired-failover/pair-2-candidate/failover-11-r1/result.json",
+      "raw_sha256": "5652e8e84f523ba64bb808fcaea1b7832f1abf60f6a9995b675901295c4ac979",
+      "delivered_sha256": "a806d4ffa6be716888b44f9ae2d21f35f194bad3b5e406555ecc3cc8b5351450"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/results.json",
+      "file": "windows/paired-failover/pair-2-candidate/results.json",
+      "raw_sha256": "3fa010ac74593bc1a42993313acd65650cbb383e551c816b5fd8f1f7f47ed8b0",
+      "delivered_sha256": "ab263d656119fc55772fe7087488f2710075e46642c4019d37327671c92e865b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate/summary.json",
+      "file": "windows/paired-failover/pair-2-candidate/summary.json",
+      "raw_sha256": "3615463b4a4fa7b8514d6c1add46f634ce63f32791f67f0ec43b5c694ad85710",
+      "delivered_sha256": "5668bdb3a643dda03dba30b662b9a348598125289dac6b7f0fad6624fb1259ec"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-2-candidate.log",
+      "file": "windows/paired-failover/pair-2-candidate.log",
+      "raw_sha256": "3dd58b9af20b4256e017b7a90e4d6ba3404a2e32478aacfcecb05bf2e0a88e72",
+      "delivered_sha256": "02664792453738c02bfa3b00814c13850de1b7c93670a9b12934c2bc4f57e099"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/environment.json",
+      "file": "windows/paired-failover/pair-3-baseline/environment.json",
+      "raw_sha256": "1d19af16a1bd8e25cade533c5b136552397dea1094d1c9eb5da846256c24840a",
+      "delivered_sha256": "26a373339660097aa67a0e6047b05549e491686acef960c4322f15712c3a8712"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/arithmetic-reference.json",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/arithmetic-reference.json",
+      "raw_sha256": "f704df801de60c19b347629b0df6757b1b5ef5a061d4efae9488be65b8158d7a",
+      "delivered_sha256": "e085968f8942f3b13aecd6e0972fea8d34fc6d9e62a29c29a3c1fb10cedab60c"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/checkpoint.json",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/checkpoint.json",
+      "raw_sha256": "d3079f2bc5a3f293b54b61778fa3e5754f7205fe579b1215fe813e659f712bc9",
+      "delivered_sha256": "8a270543b26cc384db118ca66eab92d36c345e1644fc83b86a89fcd7fa67f7f7"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/events.json",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/events.json",
+      "raw_sha256": "02aed37dd686ba58b3c00ebce618a3db210bc16611313297104550dffc176847",
+      "delivered_sha256": "72f108d6cd4d2e030f4e1f3deba5caafe6862bbd81499a0f9d43d7292fbc5dbc"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/last-status.json",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/last-status.json",
+      "raw_sha256": "9c4bf0096d2f0da8276d78d05cc568560fe8d752b6b83c93b6454853a8fbfbb9",
+      "delivered_sha256": "577b1920d6c54e3344fb010c33b9aa4518e6549c565036b5eba1d5e9739603e6"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/logs/node-1.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/logs/node-1.log",
+      "raw_sha256": "1615330e3d85627a68d6b77bb70188e5a1d0e389d234384ca09b3dee1af9b30f",
+      "delivered_sha256": "1615330e3d85627a68d6b77bb70188e5a1d0e389d234384ca09b3dee1af9b30f"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/logs/node-10.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/logs/node-10.log",
+      "raw_sha256": "0d31232e0a85dfbbf5796fa999be4474b868a51e014a57309981e0de686d4b09",
+      "delivered_sha256": "0d31232e0a85dfbbf5796fa999be4474b868a51e014a57309981e0de686d4b09"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/logs/node-11.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/logs/node-11.log",
+      "raw_sha256": "2c186a64b407cd0139c4f64ffb88853a92c5329b86e0fa6ff7127e87c86490fc",
+      "delivered_sha256": "2c186a64b407cd0139c4f64ffb88853a92c5329b86e0fa6ff7127e87c86490fc"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/logs/node-2.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/logs/node-2.log",
+      "raw_sha256": "1760d0f3b224d810dfd6a2b1238bba49d35c7b14a127dbdb8d969fdc82cd046a",
+      "delivered_sha256": "1760d0f3b224d810dfd6a2b1238bba49d35c7b14a127dbdb8d969fdc82cd046a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/logs/node-3.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/logs/node-3.log",
+      "raw_sha256": "b2cef236ba34ab083db71f564c2af71975d440d573cd5613e1e4c7b1b6466291",
+      "delivered_sha256": "b2cef236ba34ab083db71f564c2af71975d440d573cd5613e1e4c7b1b6466291"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/logs/node-4.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/logs/node-4.log",
+      "raw_sha256": "a4acd745ef751b1ba3d6df320045a87e889495de3618e8457ab5c64b88a654cc",
+      "delivered_sha256": "a4acd745ef751b1ba3d6df320045a87e889495de3618e8457ab5c64b88a654cc"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/logs/node-5.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/logs/node-5.log",
+      "raw_sha256": "50b9690b1f255afec78d4986346dba0d159eb94498f3741e80f38126ea8af6ec",
+      "delivered_sha256": "50b9690b1f255afec78d4986346dba0d159eb94498f3741e80f38126ea8af6ec"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/logs/node-6.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/logs/node-6.log",
+      "raw_sha256": "b2145f3bd10d26fe0fa5c6858901b7dd3991e06c92ab6ac202ad9acfcaecd051",
+      "delivered_sha256": "b2145f3bd10d26fe0fa5c6858901b7dd3991e06c92ab6ac202ad9acfcaecd051"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/logs/node-7.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/logs/node-7.log",
+      "raw_sha256": "f87e33716a1e321205049ef40fb10e4039907666cd4d83e952e16ec2d08bc931",
+      "delivered_sha256": "f87e33716a1e321205049ef40fb10e4039907666cd4d83e952e16ec2d08bc931"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/logs/node-8.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/logs/node-8.log",
+      "raw_sha256": "caff871e1ea32a2301029a87f1926bcdfe92cb5cef125c0379673842f0c956c7",
+      "delivered_sha256": "caff871e1ea32a2301029a87f1926bcdfe92cb5cef125c0379673842f0c956c7"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/logs/node-9.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/logs/node-9.log",
+      "raw_sha256": "bcde701d181b12897b9bee5f77a75087ab3446b5277d4738dfad565d19411525",
+      "delivered_sha256": "bcde701d181b12897b9bee5f77a75087ab3446b5277d4738dfad565d19411525"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/nodes.json",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/nodes.json",
+      "raw_sha256": "dbccc197c7d815706a17c23e47b409d36db954d605bf7b981e58f230181a2dab",
+      "delivered_sha256": "b04d30a9e97f5a76e11e609fd8d989176e7b5d53ff89c68313b909a086ddb6a3"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/process-1.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/process-1.log",
+      "raw_sha256": "1615330e3d85627a68d6b77bb70188e5a1d0e389d234384ca09b3dee1af9b30f",
+      "delivered_sha256": "1615330e3d85627a68d6b77bb70188e5a1d0e389d234384ca09b3dee1af9b30f"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/process-10.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/process-10.log",
+      "raw_sha256": "0d31232e0a85dfbbf5796fa999be4474b868a51e014a57309981e0de686d4b09",
+      "delivered_sha256": "0d31232e0a85dfbbf5796fa999be4474b868a51e014a57309981e0de686d4b09"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/process-11.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/process-11.log",
+      "raw_sha256": "2c186a64b407cd0139c4f64ffb88853a92c5329b86e0fa6ff7127e87c86490fc",
+      "delivered_sha256": "2c186a64b407cd0139c4f64ffb88853a92c5329b86e0fa6ff7127e87c86490fc"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/process-2.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/process-2.log",
+      "raw_sha256": "1760d0f3b224d810dfd6a2b1238bba49d35c7b14a127dbdb8d969fdc82cd046a",
+      "delivered_sha256": "1760d0f3b224d810dfd6a2b1238bba49d35c7b14a127dbdb8d969fdc82cd046a"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/process-3.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/process-3.log",
+      "raw_sha256": "b2cef236ba34ab083db71f564c2af71975d440d573cd5613e1e4c7b1b6466291",
+      "delivered_sha256": "b2cef236ba34ab083db71f564c2af71975d440d573cd5613e1e4c7b1b6466291"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/process-4.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/process-4.log",
+      "raw_sha256": "a4acd745ef751b1ba3d6df320045a87e889495de3618e8457ab5c64b88a654cc",
+      "delivered_sha256": "a4acd745ef751b1ba3d6df320045a87e889495de3618e8457ab5c64b88a654cc"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/process-5.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/process-5.log",
+      "raw_sha256": "50b9690b1f255afec78d4986346dba0d159eb94498f3741e80f38126ea8af6ec",
+      "delivered_sha256": "50b9690b1f255afec78d4986346dba0d159eb94498f3741e80f38126ea8af6ec"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/process-6.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/process-6.log",
+      "raw_sha256": "b2145f3bd10d26fe0fa5c6858901b7dd3991e06c92ab6ac202ad9acfcaecd051",
+      "delivered_sha256": "b2145f3bd10d26fe0fa5c6858901b7dd3991e06c92ab6ac202ad9acfcaecd051"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/process-7.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/process-7.log",
+      "raw_sha256": "f87e33716a1e321205049ef40fb10e4039907666cd4d83e952e16ec2d08bc931",
+      "delivered_sha256": "f87e33716a1e321205049ef40fb10e4039907666cd4d83e952e16ec2d08bc931"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/process-8.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/process-8.log",
+      "raw_sha256": "caff871e1ea32a2301029a87f1926bcdfe92cb5cef125c0379673842f0c956c7",
+      "delivered_sha256": "caff871e1ea32a2301029a87f1926bcdfe92cb5cef125c0379673842f0c956c7"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/process-9.log",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/process-9.log",
+      "raw_sha256": "bcde701d181b12897b9bee5f77a75087ab3446b5277d4738dfad565d19411525",
+      "delivered_sha256": "bcde701d181b12897b9bee5f77a75087ab3446b5277d4738dfad565d19411525"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/failover-11-r1/result.json",
+      "file": "windows/paired-failover/pair-3-baseline/failover-11-r1/result.json",
+      "raw_sha256": "7cf3fe37f5fb88b1cd6a7d28e3f3836764fce18c24b93db1160c29169bfdcab7",
+      "delivered_sha256": "1fda9b0d579af75f13c0bf49b7204ffd8eb48917bad9276e30861166562c7f48"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/results.json",
+      "file": "windows/paired-failover/pair-3-baseline/results.json",
+      "raw_sha256": "9379d4d53a7270e523c05a689bd8a5d394728884ec82f354a9cd3e3c7daa3f40",
+      "delivered_sha256": "af634c4f687846dc40bef7028f5e005c186846dfa2c7f3590ee32d78aa12662b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline/summary.json",
+      "file": "windows/paired-failover/pair-3-baseline/summary.json",
+      "raw_sha256": "3b597846838d7a7460a992c9224d2b2477d3d9754de8996b5c039cae7b324380",
+      "delivered_sha256": "ca54abe7eaa636f610207da19214499d353a29aa8037c5b51b173f291698c245"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-baseline.log",
+      "file": "windows/paired-failover/pair-3-baseline.log",
+      "raw_sha256": "e36169f865bd0ff30e4080821fd906c779be91e4926b514c967ea5b381951308",
+      "delivered_sha256": "812b2426e5b05eb68015757ed3219d17d4f911a2ca10fc0dbb79ac11b0238730"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/environment.json",
+      "file": "windows/paired-failover/pair-3-candidate/environment.json",
+      "raw_sha256": "5bc95504b974a876ea4d4ce071f310abead665587e07a9d16fc2a755375b335a",
+      "delivered_sha256": "17b313c994a19cbf61eb94b07f29a0ef9254d18bce79c9e813b62f13a0e6d1cf"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/arithmetic-reference.json",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/arithmetic-reference.json",
+      "raw_sha256": "f704df801de60c19b347629b0df6757b1b5ef5a061d4efae9488be65b8158d7a",
+      "delivered_sha256": "e085968f8942f3b13aecd6e0972fea8d34fc6d9e62a29c29a3c1fb10cedab60c"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/checkpoint.json",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/checkpoint.json",
+      "raw_sha256": "d3079f2bc5a3f293b54b61778fa3e5754f7205fe579b1215fe813e659f712bc9",
+      "delivered_sha256": "8a270543b26cc384db118ca66eab92d36c345e1644fc83b86a89fcd7fa67f7f7"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/events.json",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/events.json",
+      "raw_sha256": "19221703290ea5aad5a22b07071ac7d5b8ac8f8317600da31372b1278531c3fd",
+      "delivered_sha256": "ae21f44083da418bc450aa8197be7571be252e752fa7079678e484bed9f02080"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/last-status.json",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/last-status.json",
+      "raw_sha256": "d5c109b3cc6583fed7d4c75282f6905c4db49f7f0f8271da61908883a9511a06",
+      "delivered_sha256": "70f9d91cd39114fe1b0f9fb2a0c696889c66fd0488b413662f2a4d1c27d1b425"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/logs/node-1.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/logs/node-1.log",
+      "raw_sha256": "dbf26b21ab7e627b3b38467a4f3debfbd2eeb864bc6b6d664f8e5744316f3aa7",
+      "delivered_sha256": "dbf26b21ab7e627b3b38467a4f3debfbd2eeb864bc6b6d664f8e5744316f3aa7"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/logs/node-10.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/logs/node-10.log",
+      "raw_sha256": "607fd23a47de9a3d94e8639649aafa5b6e6c656f4b30cad4c8b358f5e61ac3b7",
+      "delivered_sha256": "607fd23a47de9a3d94e8639649aafa5b6e6c656f4b30cad4c8b358f5e61ac3b7"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/logs/node-11.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/logs/node-11.log",
+      "raw_sha256": "9100a27370493056b8b68da3ef4de6a4b4fdf539c068cbdf620ee9402e62525b",
+      "delivered_sha256": "9100a27370493056b8b68da3ef4de6a4b4fdf539c068cbdf620ee9402e62525b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/logs/node-2.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/logs/node-2.log",
+      "raw_sha256": "e0d72bf3898b21879f74303d1dafc4317d5934ea4e829563ddec68dbc60b7ec0",
+      "delivered_sha256": "e0d72bf3898b21879f74303d1dafc4317d5934ea4e829563ddec68dbc60b7ec0"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/logs/node-3.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/logs/node-3.log",
+      "raw_sha256": "d653463f073c5c2b52c2eb9c4f5c3a0df6733720294a5a8b26d6bbe87d77dbed",
+      "delivered_sha256": "d653463f073c5c2b52c2eb9c4f5c3a0df6733720294a5a8b26d6bbe87d77dbed"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/logs/node-4.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/logs/node-4.log",
+      "raw_sha256": "56b83c70d6c4eafd7e7307c6e757b2abe431b0f0ff28cdb709c4a87e2913001d",
+      "delivered_sha256": "56b83c70d6c4eafd7e7307c6e757b2abe431b0f0ff28cdb709c4a87e2913001d"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/logs/node-5.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/logs/node-5.log",
+      "raw_sha256": "44fb421f8bf04b5fc118dd6239de9e9621b39e7c58bdd3ac27f8e0ffd63bb529",
+      "delivered_sha256": "44fb421f8bf04b5fc118dd6239de9e9621b39e7c58bdd3ac27f8e0ffd63bb529"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/logs/node-6.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/logs/node-6.log",
+      "raw_sha256": "a7d5ce2440f9ffa3138b65ee48ea4158f2d25593f82a43616f088d77aee15b61",
+      "delivered_sha256": "a7d5ce2440f9ffa3138b65ee48ea4158f2d25593f82a43616f088d77aee15b61"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/logs/node-7.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/logs/node-7.log",
+      "raw_sha256": "bf3c78b126a23dec64c8b231525b8eebdcdb1c6f6c4d796654cc80a823f6ba14",
+      "delivered_sha256": "bf3c78b126a23dec64c8b231525b8eebdcdb1c6f6c4d796654cc80a823f6ba14"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/logs/node-8.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/logs/node-8.log",
+      "raw_sha256": "a4165632871d94d6cf18414d499adba31be6c37ac601bb2f5dedf039a21f4cce",
+      "delivered_sha256": "a4165632871d94d6cf18414d499adba31be6c37ac601bb2f5dedf039a21f4cce"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/logs/node-9.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/logs/node-9.log",
+      "raw_sha256": "65caa37a844f8e9e9000c403f7027c04aeec8215520e8fdd7d01f608ac621cf2",
+      "delivered_sha256": "65caa37a844f8e9e9000c403f7027c04aeec8215520e8fdd7d01f608ac621cf2"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/nodes.json",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/nodes.json",
+      "raw_sha256": "6af5a35902288959562d6ce3d167f9d7a0966ae08d28e481aa128921f897a680",
+      "delivered_sha256": "5e7804ca4868800428491baf69847d18c55a78ff4d2a12f7f44bda3e8e9236ce"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/process-1.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/process-1.log",
+      "raw_sha256": "dbf26b21ab7e627b3b38467a4f3debfbd2eeb864bc6b6d664f8e5744316f3aa7",
+      "delivered_sha256": "dbf26b21ab7e627b3b38467a4f3debfbd2eeb864bc6b6d664f8e5744316f3aa7"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/process-10.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/process-10.log",
+      "raw_sha256": "607fd23a47de9a3d94e8639649aafa5b6e6c656f4b30cad4c8b358f5e61ac3b7",
+      "delivered_sha256": "607fd23a47de9a3d94e8639649aafa5b6e6c656f4b30cad4c8b358f5e61ac3b7"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/process-11.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/process-11.log",
+      "raw_sha256": "9100a27370493056b8b68da3ef4de6a4b4fdf539c068cbdf620ee9402e62525b",
+      "delivered_sha256": "9100a27370493056b8b68da3ef4de6a4b4fdf539c068cbdf620ee9402e62525b"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/process-2.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/process-2.log",
+      "raw_sha256": "e0d72bf3898b21879f74303d1dafc4317d5934ea4e829563ddec68dbc60b7ec0",
+      "delivered_sha256": "e0d72bf3898b21879f74303d1dafc4317d5934ea4e829563ddec68dbc60b7ec0"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/process-3.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/process-3.log",
+      "raw_sha256": "d653463f073c5c2b52c2eb9c4f5c3a0df6733720294a5a8b26d6bbe87d77dbed",
+      "delivered_sha256": "d653463f073c5c2b52c2eb9c4f5c3a0df6733720294a5a8b26d6bbe87d77dbed"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/process-4.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/process-4.log",
+      "raw_sha256": "56b83c70d6c4eafd7e7307c6e757b2abe431b0f0ff28cdb709c4a87e2913001d",
+      "delivered_sha256": "56b83c70d6c4eafd7e7307c6e757b2abe431b0f0ff28cdb709c4a87e2913001d"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/process-5.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/process-5.log",
+      "raw_sha256": "44fb421f8bf04b5fc118dd6239de9e9621b39e7c58bdd3ac27f8e0ffd63bb529",
+      "delivered_sha256": "44fb421f8bf04b5fc118dd6239de9e9621b39e7c58bdd3ac27f8e0ffd63bb529"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/process-6.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/process-6.log",
+      "raw_sha256": "a7d5ce2440f9ffa3138b65ee48ea4158f2d25593f82a43616f088d77aee15b61",
+      "delivered_sha256": "a7d5ce2440f9ffa3138b65ee48ea4158f2d25593f82a43616f088d77aee15b61"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/process-7.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/process-7.log",
+      "raw_sha256": "bf3c78b126a23dec64c8b231525b8eebdcdb1c6f6c4d796654cc80a823f6ba14",
+      "delivered_sha256": "bf3c78b126a23dec64c8b231525b8eebdcdb1c6f6c4d796654cc80a823f6ba14"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/process-8.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/process-8.log",
+      "raw_sha256": "a4165632871d94d6cf18414d499adba31be6c37ac601bb2f5dedf039a21f4cce",
+      "delivered_sha256": "a4165632871d94d6cf18414d499adba31be6c37ac601bb2f5dedf039a21f4cce"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/process-9.log",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/process-9.log",
+      "raw_sha256": "65caa37a844f8e9e9000c403f7027c04aeec8215520e8fdd7d01f608ac621cf2",
+      "delivered_sha256": "65caa37a844f8e9e9000c403f7027c04aeec8215520e8fdd7d01f608ac621cf2"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/failover-11-r1/result.json",
+      "file": "windows/paired-failover/pair-3-candidate/failover-11-r1/result.json",
+      "raw_sha256": "e4cf9e22ef76979af6f5145f66a74c75404a2be163042b44b014d8326a312616",
+      "delivered_sha256": "27487ec9a061bc61ab1987702ea76a79627bc0fd5a6c7bce128bfe990d8f9bce"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/results.json",
+      "file": "windows/paired-failover/pair-3-candidate/results.json",
+      "raw_sha256": "80b70905a12c115e0afd76c07c17bc127a9ca55562ea7ce10afcaeb0de422ff7",
+      "delivered_sha256": "7bd8108ff7f36c75e98afa399b0ccc3fe33826b6fc87b339c38ff47edb9e9191"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate/summary.json",
+      "file": "windows/paired-failover/pair-3-candidate/summary.json",
+      "raw_sha256": "696767657bc457eba4c3b8ef8bbfcfbe44e1e2872cf820be61cdc9b409cad2c6",
+      "delivered_sha256": "3cbf6e8ffd4f1fa984997bc596223145d4705efbc87a8ffa9ca5da3360b78845"
+    },
+    {
+      "source": "native-evidence/paired-failover/pair-3-candidate.log",
+      "file": "windows/paired-failover/pair-3-candidate.log",
+      "raw_sha256": "084d7349dc74f496dac35fcf84f69fa516e8839a2f4c6cb920a5984a21497e54",
+      "delivered_sha256": "6ba8adf72734aff6248d2a9821e299e0a65e0ceea0d29b5fe841d48c2cc3f233"
+    },
+    {
+      "source": "native-evidence/paired-failover/progress.json",
+      "file": "windows/paired-failover/progress.json",
+      "raw_sha256": "6d91021919bd526529a50e194c0eec4f1bf63b7612c244c41adbec03c1d030a7",
+      "delivered_sha256": "6e6d6598f6437b0172c3ac9c28e96e4d99b7239b80924569c61ccd88b1ccc727"
+    },
+    {
+      "source": "native-evidence/paired-failover/results.json",
+      "file": "windows/paired-failover/results.json",
+      "raw_sha256": "96c64163464e1c7428d0cf6064789a71b629d21b157cad72781f15511c0d5338",
+      "delivered_sha256": "a9b296a2a6af2aef2aa5e05faa02b6ed7b24cae74fa3b1beaf94f0a23752961a"
+    },
+    {
+      "source": "native-evidence/paired-failover/summary.json",
+      "file": "windows/paired-failover/summary.json",
+      "raw_sha256": "079a5fc56621c68646a725eff384fea1f2d1966a555a90a879eb278302ef1102",
+      "delivered_sha256": "06ceb28ed7407b23006a5ed225ffe090decbc1fb93c0df621c932513a88a526f"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/logs/node-1.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/logs/node-1.log",
+      "raw_sha256": "b35fd4fe697b73e754b59480a96b227f7a93f86ce248a6cccded359d48c0feb1",
+      "delivered_sha256": "b35fd4fe697b73e754b59480a96b227f7a93f86ce248a6cccded359d48c0feb1"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/logs/node-10.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/logs/node-10.log",
+      "raw_sha256": "f5fa5ce27ba271452fbe934932621aa11b80431df2a9aeb381032bf2446e89fa",
+      "delivered_sha256": "f5fa5ce27ba271452fbe934932621aa11b80431df2a9aeb381032bf2446e89fa"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/logs/node-11.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/logs/node-11.log",
+      "raw_sha256": "812a5cb317c55ee72a6f87305bef27cefa43bdc7f4f752511414ef5c257ab992",
+      "delivered_sha256": "812a5cb317c55ee72a6f87305bef27cefa43bdc7f4f752511414ef5c257ab992"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/logs/node-2.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/logs/node-2.log",
+      "raw_sha256": "cddc26bdee1d632cf66fc166511975f7a9745a2579d376f60c51ba57dc726556",
+      "delivered_sha256": "cddc26bdee1d632cf66fc166511975f7a9745a2579d376f60c51ba57dc726556"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/logs/node-3.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/logs/node-3.log",
+      "raw_sha256": "c51b7328223b53c57b6f841f30a772e1685d6c0f4f08380d08fdb0c6bcb636e6",
+      "delivered_sha256": "c51b7328223b53c57b6f841f30a772e1685d6c0f4f08380d08fdb0c6bcb636e6"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/logs/node-4.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/logs/node-4.log",
+      "raw_sha256": "317584ce6974e11d444f3960f9cd1fc7f087c2df349c12fa9e5d4d76cc6b25cb",
+      "delivered_sha256": "317584ce6974e11d444f3960f9cd1fc7f087c2df349c12fa9e5d4d76cc6b25cb"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/logs/node-5.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/logs/node-5.log",
+      "raw_sha256": "6d21f3ad354cb5509b5577f1c908b0e8ed9144c05ff5bc2c495cda22bbf25729",
+      "delivered_sha256": "6d21f3ad354cb5509b5577f1c908b0e8ed9144c05ff5bc2c495cda22bbf25729"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/logs/node-6.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/logs/node-6.log",
+      "raw_sha256": "8a085f5c4a5476bf86620484227e2c58b6636239e9a802be7eb2cee73cd868f3",
+      "delivered_sha256": "8a085f5c4a5476bf86620484227e2c58b6636239e9a802be7eb2cee73cd868f3"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/logs/node-7.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/logs/node-7.log",
+      "raw_sha256": "eb2809ee6083f01157730dcee50f696a93e38a29b2a5473573a95e3b55c13008",
+      "delivered_sha256": "eb2809ee6083f01157730dcee50f696a93e38a29b2a5473573a95e3b55c13008"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/logs/node-8.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/logs/node-8.log",
+      "raw_sha256": "363ce48dd4325d7daf9197dc053bbcbaab4e0f5e5315060c1bea255b58784697",
+      "delivered_sha256": "363ce48dd4325d7daf9197dc053bbcbaab4e0f5e5315060c1bea255b58784697"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/logs/node-9.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/logs/node-9.log",
+      "raw_sha256": "d1778feef125962bf4e2c9eb9dc82de1e5f2fa40894d8ef2d41fda359fef4a54",
+      "delivered_sha256": "d1778feef125962bf4e2c9eb9dc82de1e5f2fa40894d8ef2d41fda359fef4a54"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/nodes.json",
+      "file": "windows/smoke/smoke-11-1792530517533089400/nodes.json",
+      "raw_sha256": "acd6e6e346e916e7b36e418d6dd4585268361a13c815b2c5f44b33c85d538bf0",
+      "delivered_sha256": "fb1909d012adf9c91c1b0d758d8c14f8ffd9035a359c0663a0fb9d8d2ad4912c"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/process-1.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/process-1.log",
+      "raw_sha256": "b35fd4fe697b73e754b59480a96b227f7a93f86ce248a6cccded359d48c0feb1",
+      "delivered_sha256": "b35fd4fe697b73e754b59480a96b227f7a93f86ce248a6cccded359d48c0feb1"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/process-10.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/process-10.log",
+      "raw_sha256": "f5fa5ce27ba271452fbe934932621aa11b80431df2a9aeb381032bf2446e89fa",
+      "delivered_sha256": "f5fa5ce27ba271452fbe934932621aa11b80431df2a9aeb381032bf2446e89fa"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/process-11.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/process-11.log",
+      "raw_sha256": "812a5cb317c55ee72a6f87305bef27cefa43bdc7f4f752511414ef5c257ab992",
+      "delivered_sha256": "812a5cb317c55ee72a6f87305bef27cefa43bdc7f4f752511414ef5c257ab992"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/process-2.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/process-2.log",
+      "raw_sha256": "cddc26bdee1d632cf66fc166511975f7a9745a2579d376f60c51ba57dc726556",
+      "delivered_sha256": "cddc26bdee1d632cf66fc166511975f7a9745a2579d376f60c51ba57dc726556"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/process-3.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/process-3.log",
+      "raw_sha256": "c51b7328223b53c57b6f841f30a772e1685d6c0f4f08380d08fdb0c6bcb636e6",
+      "delivered_sha256": "c51b7328223b53c57b6f841f30a772e1685d6c0f4f08380d08fdb0c6bcb636e6"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/process-4.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/process-4.log",
+      "raw_sha256": "317584ce6974e11d444f3960f9cd1fc7f087c2df349c12fa9e5d4d76cc6b25cb",
+      "delivered_sha256": "317584ce6974e11d444f3960f9cd1fc7f087c2df349c12fa9e5d4d76cc6b25cb"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/process-5.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/process-5.log",
+      "raw_sha256": "6d21f3ad354cb5509b5577f1c908b0e8ed9144c05ff5bc2c495cda22bbf25729",
+      "delivered_sha256": "6d21f3ad354cb5509b5577f1c908b0e8ed9144c05ff5bc2c495cda22bbf25729"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/process-6.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/process-6.log",
+      "raw_sha256": "8a085f5c4a5476bf86620484227e2c58b6636239e9a802be7eb2cee73cd868f3",
+      "delivered_sha256": "8a085f5c4a5476bf86620484227e2c58b6636239e9a802be7eb2cee73cd868f3"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/process-7.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/process-7.log",
+      "raw_sha256": "eb2809ee6083f01157730dcee50f696a93e38a29b2a5473573a95e3b55c13008",
+      "delivered_sha256": "eb2809ee6083f01157730dcee50f696a93e38a29b2a5473573a95e3b55c13008"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/process-8.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/process-8.log",
+      "raw_sha256": "363ce48dd4325d7daf9197dc053bbcbaab4e0f5e5315060c1bea255b58784697",
+      "delivered_sha256": "363ce48dd4325d7daf9197dc053bbcbaab4e0f5e5315060c1bea255b58784697"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/process-9.log",
+      "file": "windows/smoke/smoke-11-1792530517533089400/process-9.log",
+      "raw_sha256": "d1778feef125962bf4e2c9eb9dc82de1e5f2fa40894d8ef2d41fda359fef4a54",
+      "delivered_sha256": "d1778feef125962bf4e2c9eb9dc82de1e5f2fa40894d8ef2d41fda359fef4a54"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-11-1792530517533089400/result.json",
+      "file": "windows/smoke/smoke-11-1792530517533089400/result.json",
+      "raw_sha256": "252257dbed09d392973a2a1d98872e807cffb4bca9160a8fe4bb7e60d006fa46",
+      "delivered_sha256": "9cdf6c54d5a455e3913b972ca9879098813e162eb5600985be4af9cf50cda711"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-3-1792530498979327600/logs/node-1.log",
+      "file": "windows/smoke/smoke-3-1792530498979327600/logs/node-1.log",
+      "raw_sha256": "b9ab184ab2a283d140c021a60dd2b767a6e58f3564f6bb114f20da1522b26d09",
+      "delivered_sha256": "b9ab184ab2a283d140c021a60dd2b767a6e58f3564f6bb114f20da1522b26d09"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-3-1792530498979327600/logs/node-2.log",
+      "file": "windows/smoke/smoke-3-1792530498979327600/logs/node-2.log",
+      "raw_sha256": "68cd8a235bdcad88d6fb082a0dddaf60a745211823682fd7656d8bcb38b49017",
+      "delivered_sha256": "68cd8a235bdcad88d6fb082a0dddaf60a745211823682fd7656d8bcb38b49017"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-3-1792530498979327600/logs/node-3.log",
+      "file": "windows/smoke/smoke-3-1792530498979327600/logs/node-3.log",
+      "raw_sha256": "21a26f3cb6da3001bcbdac92c10dc0239c012fda915fd25feb94bc0446eac59a",
+      "delivered_sha256": "21a26f3cb6da3001bcbdac92c10dc0239c012fda915fd25feb94bc0446eac59a"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-3-1792530498979327600/nodes.json",
+      "file": "windows/smoke/smoke-3-1792530498979327600/nodes.json",
+      "raw_sha256": "78c8b870af067b65b82ebbf793064a694e43e3f438c47acd87c4994e8b08998c",
+      "delivered_sha256": "5c39cfceb18c94f9708cd412a5fc5fd44ae6fd7b720a3814d1f12dbf076d72cc"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-3-1792530498979327600/process-1.log",
+      "file": "windows/smoke/smoke-3-1792530498979327600/process-1.log",
+      "raw_sha256": "b9ab184ab2a283d140c021a60dd2b767a6e58f3564f6bb114f20da1522b26d09",
+      "delivered_sha256": "b9ab184ab2a283d140c021a60dd2b767a6e58f3564f6bb114f20da1522b26d09"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-3-1792530498979327600/process-2.log",
+      "file": "windows/smoke/smoke-3-1792530498979327600/process-2.log",
+      "raw_sha256": "68cd8a235bdcad88d6fb082a0dddaf60a745211823682fd7656d8bcb38b49017",
+      "delivered_sha256": "68cd8a235bdcad88d6fb082a0dddaf60a745211823682fd7656d8bcb38b49017"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-3-1792530498979327600/process-3.log",
+      "file": "windows/smoke/smoke-3-1792530498979327600/process-3.log",
+      "raw_sha256": "21a26f3cb6da3001bcbdac92c10dc0239c012fda915fd25feb94bc0446eac59a",
+      "delivered_sha256": "21a26f3cb6da3001bcbdac92c10dc0239c012fda915fd25feb94bc0446eac59a"
+    },
+    {
+      "source": "native-evidence/smoke/smoke-3-1792530498979327600/result.json",
+      "file": "windows/smoke/smoke-3-1792530498979327600/result.json",
+      "raw_sha256": "4bcd50821c55e91ef1a62ec22efb1d470901c74abd41acf50e0e199c57be434b",
+      "delivered_sha256": "92f280a184f98b04fafa50ae501f38edc8f55211477b6d7eb5ffd59badc96cdb"
+    },
+    {
+      "source": "native-evidence/title-baseline/logs/node-1.log",
+      "file": "windows/title-baseline/logs/node-1.log",
+      "raw_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "delivered_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "native-evidence/title-baseline/result.json",
+      "file": "windows/title-baseline/result.json",
+      "raw_sha256": "2bc1a5bb8e8ff84b9fb07984eb5f644cbd20e9efdc93939efed6fbbde044b352",
+      "delivered_sha256": "6e1e31ca257d96278a2e9286eaac34355e4c723e087d07d266e82ec276bc6e31"
+    },
+    {
+      "source": "native-evidence/title-default/logs/node-1.log",
+      "file": "windows/title-default/logs/node-1.log",
+      "raw_sha256": "5c17be8e508b452be0864fa4afb02b941e13208aa9b1221b7182989340deaf63",
+      "delivered_sha256": "5c17be8e508b452be0864fa4afb02b941e13208aa9b1221b7182989340deaf63"
+    },
+    {
+      "source": "native-evidence/title-default/result.json",
+      "file": "windows/title-default/result.json",
+      "raw_sha256": "413a7dbe90a54fe6a877e124a802dc97a87305fcb6350c75ed25f2b5a78341bb",
+      "delivered_sha256": "d8af1250a86450ea658db2734570fbe049080ce49230e522696a37837cadf1e4"
+    },
+    {
+      "source": "real-console/dark.png",
+      "file": "real-console/dark.png",
+      "raw_sha256": "702b21dc895d53e82b1c97c4ded894ec3972544a2cbb794492c6d0e4605228ef",
+      "delivered_sha256": "702b21dc895d53e82b1c97c4ded894ec3972544a2cbb794492c6d0e4605228ef"
+    },
+    {
+      "source": "real-console/evidence.png",
+      "file": "real-console/evidence.png",
+      "raw_sha256": "6cd97dee3b110ce59a2ecd1c34438b3e83c07b63534a7693a54a532d476a2ae5",
+      "delivered_sha256": "6cd97dee3b110ce59a2ecd1c34438b3e83c07b63534a7693a54a532d476a2ae5"
+    },
+    {
+      "source": "real-console/experiments.png",
+      "file": "real-console/experiments.png",
+      "raw_sha256": "77cc8777473e314d9fb07646f2fbbafff4defecabf128a4c5eb693e7a985626b",
+      "delivered_sha256": "77cc8777473e314d9fb07646f2fbbafff4defecabf128a4c5eb693e7a985626b"
+    },
+    {
+      "source": "real-console/faults.png",
+      "file": "real-console/faults.png",
+      "raw_sha256": "e66a0d96e057fa40d48008b1c613e5cddc4b032c0778fc2685b20ef7324ad957",
+      "delivered_sha256": "e66a0d96e057fa40d48008b1c613e5cddc4b032c0778fc2685b20ef7324ad957"
+    },
+    {
+      "source": "real-console/logs.png",
+      "file": "real-console/logs.png",
+      "raw_sha256": "fcfa0ceaae31c867b91c410c5aa6be849aacc9221de5a0fc66d412ea38b9ab8d",
+      "delivered_sha256": "fcfa0ceaae31c867b91c410c5aa6be849aacc9221de5a0fc66d412ea38b9ab8d"
+    },
+    {
+      "source": "real-console/mobile.png",
+      "file": "real-console/mobile.png",
+      "raw_sha256": "697a5584ff9cd907887944b785e0ecbb93d8b7fc45a381f9f6759990a64d5977",
+      "delivered_sha256": "697a5584ff9cd907887944b785e0ecbb93d8b7fc45a381f9f6759990a64d5977"
+    },
+    {
+      "source": "real-console/overview.png",
+      "file": "real-console/overview.png",
+      "raw_sha256": "9aa00de2a5e3e171ed69779f34380aa0c99e3318c76790b493a0e80291e1eb08",
+      "delivered_sha256": "9aa00de2a5e3e171ed69779f34380aa0c99e3318c76790b493a0e80291e1eb08"
+    },
+    {
+      "source": "real-console/projection.png",
+      "file": "real-console/projection.png",
+      "raw_sha256": "21eb6a333b88c80ced432f05ff2b500cf6ca87cf7cd3be48f31b168c8dd2f5f9",
+      "delivered_sha256": "21eb6a333b88c80ced432f05ff2b500cf6ca87cf7cd3be48f31b168c8dd2f5f9"
+    },
+    {
+      "source": "real-console/results.json",
+      "file": "real-console/results.json",
+      "raw_sha256": "2cf54cab9f5c220144b6cade2fd087eb77cf29fc69b41ee6c6925e1a03a008db",
+      "delivered_sha256": "7f612289a21508b8b4331f22e9be026abb0e8925fcdceaf7d13c1aa1f0477cfb"
+    },
+    {
+      "source": "real-console/settings.png",
+      "file": "real-console/settings.png",
+      "raw_sha256": "a1d348eddbe2af82f7f2e73fd208c173075a137b824884351bf6b6537de9e871",
+      "delivered_sha256": "a1d348eddbe2af82f7f2e73fd208c173075a137b824884351bf6b6537de9e871"
+    },
+    {
+      "source": "package-evidence-red.txt",
+      "file": "package-evidence-red.txt",
+      "raw_sha256": "ca2b7a92625510ad197cfc0241515cf8b3d27e9ec7b01d0246c4ea659b7a9706",
+      "delivered_sha256": "2f615968773f8dcdf4bb7e8dc90334ab1aa28ad3a6e6643f17b135c38438d375"
+    },
+    {
+      "source": "python-final.txt",
+      "file": "python-final.txt",
+      "raw_sha256": "c02074c8305021ebece0b48667ff54094a417d7499a0a7ac03c753f6ec273b8c",
+      "delivered_sha256": "f3d1a08a530de6d4a17276c03b4c98c91c8502174932fd2652af3c626bc5d70d"
+    },
+    {
+      "source": "python-final-fixed.txt",
+      "file": "python-final-fixed.txt",
+      "raw_sha256": "01f940212371e9723de31aa05ab165341d2d65ac7e2bbe951391ea2fccc1c473",
+      "delivered_sha256": "01f940212371e9723de31aa05ab165341d2d65ac7e2bbe951391ea2fccc1c473"
+    },
+    {
+      "source": "native-python-final.log",
+      "file": "native-python-final.log",
+      "raw_sha256": "961f1011a748e2f711928d5bbb6b3d2e09a3af90d2c112ebecfe9341762732be",
+      "delivered_sha256": "d7381d3f0667d8ee902526430d2055b89822c2018b18e2b87f390a6d263b6953"
+    },
+    {
+      "source": "native-python-fixed.log",
+      "file": "native-python-fixed.log",
+      "raw_sha256": "23798e4fd9c85e276aed771e67051464be9044fb459725197527a110eaacaeb6",
+      "delivered_sha256": "23798e4fd9c85e276aed771e67051464be9044fb459725197527a110eaacaeb6"
+    },
+    {
+      "source": "packaging-python-source-sha256.json",
+      "file": "packaging-python-source-sha256.json",
+      "raw_sha256": "8ab8299ddbe2939ef99b8dbea80cb9739088912216ce10fcc3063987f1561db9",
+      "delivered_sha256": "8ab8299ddbe2939ef99b8dbea80cb9739088912216ce10fcc3063987f1561db9"
+    },
+    {
+      "source": "candidate-native-console-final-result.json",
+      "file": "portable-candidate/candidate-native-console-final-result.json",
+      "raw_sha256": "9ea6063e42eec3e23584a390b109f0f0e59d9851dad3f1b4b74d1a1b1282b6bb",
+      "delivered_sha256": "cf56e468863758e4b278dd024709ab04e9df87d3e3e486182ddde370bf65b13c"
+    },
+    {
+      "source": "candidate-native-console-operations.json",
+      "file": "portable-candidate/candidate-native-console-operations.json",
+      "raw_sha256": "43c5f99e8bf260ba891817e97039c6d6ec45ffe935011a056a8b05b8d63e6f9e",
+      "delivered_sha256": "cd76589b899075ecdcd7842f97df315c64366b0801ff26a149ed68ab6af2d6ce"
+    },
+    {
+      "source": "candidate-initial-verify.json",
+      "file": "portable-candidate/candidate-initial-verify.json",
+      "raw_sha256": "121bede56d84891999c7a226912877e65df3793d46dd14200ad2f166c503041c",
+      "delivered_sha256": "35215bb9dbcfb5d1060c0ad99e2308f8b70aedaa53459d8f1c542325c6a8f40c"
+    },
+    {
+      "source": "candidate-portable-check.json",
+      "file": "portable-candidate/candidate-portable-check.json",
+      "raw_sha256": "5455f5e34872117462faf17c5eba69e92734b77d85bac88e7cd15f4452b00455",
+      "delivered_sha256": "dd65ee386d6668dcf0fecf7f1f71714c026d04dda2eb8d2ea3cad1827b9ae069"
+    },
+    {
+      "source": "candidate-final-verify.json",
+      "file": "portable-candidate/candidate-final-verify.json",
+      "raw_sha256": "417b056efcb771872d52c854cd2f0c750a99d4578ce02dc993b5d5466bc5bac2",
+      "delivered_sha256": "c7fc4d1e7617e3add944876cbea0d1857c6abade1b207235aa5703ff62033c5a"
+    },
+    {
+      "source": "portable-candidate-terminal.log",
+      "file": "portable-candidate/portable-candidate-terminal.log",
+      "raw_sha256": "c7bea21545e4fb2e3f10df54a27e832459dd8d57bbeb45a3e268c2120836836c",
+      "delivered_sha256": "c7bea21545e4fb2e3f10df54a27e832459dd8d57bbeb45a3e268c2120836836c"
+    },
+    {
+      "source": "portable-candidate-console.log",
+      "file": "portable-candidate/portable-candidate-console.log",
+      "raw_sha256": "086235de71ce25ba0299cd0a9da8f7c1b8279db578b69330b8d762445219fa9f",
+      "delivered_sha256": "086235de71ce25ba0299cd0a9da8f7c1b8279db578b69330b8d762445219fa9f"
+    }
+  ]
+}

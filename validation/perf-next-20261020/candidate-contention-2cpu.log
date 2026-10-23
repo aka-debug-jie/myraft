@@ -1,0 +1,12 @@
+goos: linux
+goarch: amd64
+pkg: myraft/raft
+cpu: Intel(R) Xeon(R) Platinum 8336C CPU @ 2.30GHz
+BenchmarkStatusContention-2    	      37	   8626862 ns/op	        33.55 writer-wait-ns	  844190 B/op	       6 allocs/op
+BenchmarkStatusContention-2    	      40	   9398955 ns/op	        34.27 writer-wait-ns	  844152 B/op	       5 allocs/op
+BenchmarkStatusContention-2    	      43	   8446739 ns/op	        33.06 writer-wait-ns	  844180 B/op	       6 allocs/op
+BenchmarkSummaryContention-2   	 1000000	       462.8 ns/op	     28833 writer-wait-ns	       0 B/op	       0 allocs/op
+BenchmarkSummaryContention-2   	  344166	      1019 ns/op	     54136 writer-wait-ns	       0 B/op	       0 allocs/op
+BenchmarkSummaryContention-2   	  739077	       506.5 ns/op	     21332 writer-wait-ns	       0 B/op	       0 allocs/op
+PASS
+ok  	myraft/raft	3.751s

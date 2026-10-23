@@ -58,8 +58,9 @@ class WindowsPackageTests(unittest.TestCase):
                     'binary_sha256': {'raft-node.exe': package.sha(node.read_bytes()),
                                       'raft-console.exe': package.sha(console.read_bytes())}}
             receipt.write_text(json.dumps(data))
+            names = ['go.mod', 'docs/quick-start-zh.md']
             def git(args, **kwargs):
-                return b'go.mod\0docs/quick-start-zh.md\0' if 'ls-files' in args else 'source\n' if 'rev-parse' in args else ''
+                return '\0'.join(names).encode() if 'ls-files' in args else 'source\n' if 'rev-parse' in args else ''
             with patch.object(package, 'ROOT', root), patch.object(package.subprocess, 'check_output', side_effect=git):
                 for binary in [node, console]:
                     saved = binary.read_bytes(); binary.write_bytes(b'unrelated-old-binary')
@@ -71,6 +72,20 @@ class WindowsPackageTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'source set/digests'):
                     package.package(node, console, receipt, root / 'bad.zip')
                 (root / 'go.mod').write_text('module probe')
+                evidence = root / 'validation/probe'
+                evidence.mkdir(parents=True)
+                (evidence / 'run.log').write_bytes(b'actual evidence')
+                (evidence / 'provenance.json').write_text(json.dumps({'files': [
+                    {'file': 'run.log', 'delivered_sha256': package.sha(b'actual evidence')}
+                ]}))
+                names.append('validation/probe/provenance.json')
+                with self.assertRaisesRegex(ValueError, 'evidence'):
+                    package.package(node, console, receipt, root / 'missing-evidence.zip')
+                names.append('validation/probe/run.log')
+                (evidence / 'run.log').write_bytes(b'changed evidence')
+                with self.assertRaisesRegex(ValueError, 'evidence'):
+                    package.package(node, console, receipt, root / 'changed-evidence.zip')
+                (evidence / 'run.log').write_bytes(b'actual evidence')
                 package.package(node, console, receipt, root / 'good.zip')
                 with zipfile.ZipFile(root / 'good.zip') as z:
                     for line in z.read('SHA256SUMS.txt').decode().splitlines():

@@ -1,0 +1,15 @@
+{
+  "legacy_total_assertion_threshold_seconds": 1.5,
+  "total_seconds": 1.9139181673526764,
+  "legacy_assertion_would_fail": true,
+  "marker_to_interrupt_seconds": 0.1558264009654522,
+  "status": {
+    "status": "INTERRUPTED",
+    "completed": 0,
+    "error": "controller cancellation requested"
+  },
+  "owned_process_returncodes": [
+    -9
+  ],
+  "error": null
+}

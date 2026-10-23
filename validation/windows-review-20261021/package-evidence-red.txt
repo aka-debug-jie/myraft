@@ -1,0 +1,18 @@
+test_binds_sources_and_both_tested_binaries (test_package_windows.WindowsPackageTests.test_binds_sources_and_both_tested_binaries) ... FAIL
+test_reuses_binary_bytes_used_for_receipt_check (test_package_windows.WindowsPackageTests.test_reuses_binary_bytes_used_for_receipt_check) ... ok
+
+======================================================================
+FAIL: test_binds_sources_and_both_tested_binaries (test_package_windows.WindowsPackageTests.test_binds_sources_and_both_tested_binaries)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/public/myraft/scripts/test_package_windows.py", line 82, in test_binds_sources_and_both_tested_binaries
+    with self.assertRaisesRegex(ValueError, 'evidence'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.006s
+
+FAILED (failures=1)
+{"file": "/tmp/tmpvxth_zec/missing-evidence.zip", "sha256": "4779f7150bc282d6e743abefaffc620c05aa1b5ae3f78b0f94f862a2c82aeb77", "entries": 12, "bytes": 3202}
+{"file": "/tmp/tmp6lygepq1/package.zip", "sha256": "1498b2a26e4e76f6177e2da8a20ee19a7715a267a5e69c6b4f5f7e4932e08080", "entries": 11, "bytes": 2882}

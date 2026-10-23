@@ -1,0 +1,36 @@
+=== RUN   TestResourceSoak
+    soak_test.go:97: {"accepted_connections":10,"commands":2101,"elapsed_seconds":3.452966664,"goroutines":65,"heap_live_bytes":2313864,"phase":"initial","round":0,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2117,"elapsed_seconds":6.680452872,"goroutines":65,"heap_live_bytes":2296024,"phase":"rotation","round":1,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2133,"elapsed_seconds":9.98350764,"goroutines":65,"heap_live_bytes":2298144,"phase":"rotation","round":2,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2149,"elapsed_seconds":13.266039028,"goroutines":65,"heap_live_bytes":2297600,"phase":"rotation","round":3,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2165,"elapsed_seconds":16.73637119,"goroutines":65,"heap_live_bytes":2296592,"phase":"rotation","round":4,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2181,"elapsed_seconds":20.177397667,"goroutines":65,"heap_live_bytes":2291776,"phase":"rotation","round":5,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2197,"elapsed_seconds":24.011132225,"goroutines":65,"heap_live_bytes":2285336,"phase":"rotation","round":6,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2213,"elapsed_seconds":27.363619393,"goroutines":65,"heap_live_bytes":2292640,"phase":"rotation","round":7,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2229,"elapsed_seconds":31.236986867,"goroutines":65,"heap_live_bytes":2285072,"phase":"rotation","round":8,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2245,"elapsed_seconds":35.017239931,"goroutines":65,"heap_live_bytes":2647272,"phase":"rotation","round":9,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2261,"elapsed_seconds":38.479709613,"goroutines":65,"heap_live_bytes":2648736,"phase":"rotation","round":10,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2277,"elapsed_seconds":41.665394721,"goroutines":65,"heap_live_bytes":2640992,"phase":"rotation","round":11,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2293,"elapsed_seconds":44.890906782,"goroutines":65,"heap_live_bytes":2646096,"phase":"rotation","round":12,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2309,"elapsed_seconds":48.312519533,"goroutines":65,"heap_live_bytes":2647176,"phase":"rotation","round":13,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2325,"elapsed_seconds":51.972714211,"goroutines":65,"heap_live_bytes":2650296,"phase":"rotation","round":14,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2341,"elapsed_seconds":55.41853444,"goroutines":65,"heap_live_bytes":2656944,"phase":"rotation","round":15,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2357,"elapsed_seconds":58.919461678,"goroutines":65,"heap_live_bytes":2650568,"phase":"rotation","round":16,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2373,"elapsed_seconds":62.023727227,"goroutines":65,"heap_live_bytes":2650240,"phase":"rotation","round":17,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2389,"elapsed_seconds":65.88428138,"goroutines":65,"heap_live_bytes":2638880,"phase":"rotation","round":18,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2405,"elapsed_seconds":69.396323204,"goroutines":65,"heap_live_bytes":2643688,"phase":"rotation","round":19,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2421,"elapsed_seconds":72.83880845,"goroutines":65,"heap_live_bytes":2642288,"phase":"rotation","round":20,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2437,"elapsed_seconds":77.199583156,"goroutines":65,"heap_live_bytes":2645808,"phase":"rotation","round":21,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2453,"elapsed_seconds":80.443228021,"goroutines":65,"heap_live_bytes":2644160,"phase":"rotation","round":22,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2469,"elapsed_seconds":83.720399503,"goroutines":65,"heap_live_bytes":2645048,"phase":"rotation","round":23,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2485,"elapsed_seconds":87.404628668,"goroutines":65,"heap_live_bytes":2648472,"phase":"rotation","round":24,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2501,"elapsed_seconds":90.739705116,"goroutines":65,"heap_live_bytes":2650976,"phase":"rotation","round":25,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2517,"elapsed_seconds":93.928427624,"goroutines":65,"heap_live_bytes":2653560,"phase":"rotation","round":26,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2533,"elapsed_seconds":97.502064888,"goroutines":65,"heap_live_bytes":2657616,"phase":"rotation","round":27,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2549,"elapsed_seconds":102.233116943,"goroutines":65,"heap_live_bytes":2655576,"phase":"rotation","round":28,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2565,"elapsed_seconds":105.392634638,"goroutines":65,"heap_live_bytes":2658064,"phase":"rotation","round":29,"worker_bound":10,"workers":10}
+    soak_test.go:97: {"accepted_connections":10,"commands":2581,"elapsed_seconds":108.688827548,"goroutines":65,"heap_live_bytes":2659768,"phase":"rotation","round":30,"worker_bound":10,"workers":10}
+    soak_test.go:124: stopped baseline_goroutines=2 final_goroutines=2
+--- PASS: TestResourceSoak (108.69s)
+PASS
+ok  	myraft/raft	108.712s

@@ -181,9 +181,14 @@ func TestExperimentCancellationFinishesAndRetainsStatus(t *testing.T) {
 	if err != nil {
 		t.Skip("Python unavailable")
 	}
+	probeCtx, stopProbe := context.WithTimeout(context.Background(), dependencyProbeTimeout)
+	defer stopProbe()
+	if check := probeToolVersion(probeCtx, python, "python", "3.12"); !check.Ready {
+		t.Skip(check.Reason)
+	}
 	d, _, _ := testConsole(t)
 	source := t.TempDir()
-	if err := os.WriteFile(filepath.Join(source, "go.mod"), []byte("module experiment-fixture\n"), 0600); err != nil {
+	if err := os.WriteFile(filepath.Join(source, "go.mod"), []byte("module experiment-fixture\n\ngo 1.26.3\n"), 0600); err != nil {
 		t.Fatal(err)
 	}
 	if err := os.Mkdir(filepath.Join(source, "scripts"), 0700); err != nil {

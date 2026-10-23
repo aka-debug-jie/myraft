@@ -1,0 +1,26 @@
+Guest PID: 8548
+Stopped node 4. Configuration and data retained.
+Restarted node 4 using its original directory; use verify after catch-up.
+Stopped only the processes owned by this session. Data was retained.
+Stopped only the processes owned by this session. Data was retained.
+{
+    "owned_nodes_remaining":  0,
+    "checksums":  3330,
+    "python_on_path":  false,
+    "final_commands":  2102,
+    "result":  "PASS",
+    "checkpoint_x":  0,
+    "go_on_path":  false,
+    "commands":  2101,
+    "checkpoint_hash":  "6b5cd7c6aa68c274eaefd98a82f3b11c4b9e8c64d7e725a811fe24b15ca67b59",
+    "manual_visible_windows":  "NOT RUN",
+    "initial_processes":  11,
+    "package_sha256":  "2e706b27fb5fa8e1641475328fed5e2277fd75dfb82a8ad7a225f45c386090cf",
+    "restart_verified":  true,
+    "checkpoint_index":  2102,
+    "closed_leader":  4,
+    "source":  "fresh portable ZIP, original prebuilt EXEs"
+}
+PORTABLE_TERMINALS_AUTOMATED_PASS manual_visibility_not_run
+
+Guest result: {"exitcode": 0, "exited": true}

@@ -1,0 +1,14 @@
+2026/10/21 05:04:30.361478 node=1 term=0 role=Follower | node_recovered index=0 commit=0 applied=0 x=0
+2026/10/21 05:04:30.377776 node=1 term=0 role=Follower | started addr=127.0.0.1:60018 members=3 quorum=2
+2026/10/21 05:04:34.191876 node=1 term=1 role=Candidate | election_started
+2026/10/21 05:04:34.230144 node=1 term=1 role=Leader | leader_elected votes=2/3 election_ms=38.267 index=1
+2026/10/21 05:04:34.254856 node=1 term=1 role=Leader | log_committed index=1
+2026/10/21 05:04:34.254856 node=1 term=1 role=Leader | state_applied from=1 index=1 commands=0 x=0
+2026/10/21 05:04:34.268075 node=1 term=1 role=Leader | log_appended from=2 index=257 commands=256
+2026/10/21 05:04:34.286390 node=1 term=1 role=Leader | log_committed index=129
+2026/10/21 05:04:34.286390 node=1 term=1 role=Leader | state_applied from=2 index=129 commands=128 x=8
+2026/10/21 05:04:34.308777 node=1 term=1 role=Leader | log_committed index=257
+2026/10/21 05:04:34.308777 node=1 term=1 role=Leader | state_applied from=130 index=257 commands=256 x=-10
+2026/10/21 05:04:36.415451 node=1 term=1 role=Follower | state_applied from=1 index=257 commands=256 x=-10
+2026/10/21 05:04:36.454450 node=1 term=1 role=Follower | node_recovered index=257 commit=257 applied=257 x=-10
+2026/10/21 05:04:36.454450 node=1 term=1 role=Follower | started addr=127.0.0.1:60018 members=3 quorum=2

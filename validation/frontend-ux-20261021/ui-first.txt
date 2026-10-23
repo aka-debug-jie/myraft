@@ -1,0 +1,231 @@
+test_cancel_stop_confirmation_sends_no_post (__main__.DashboardBrowserTests.test_cancel_stop_confirmation_sends_no_post)
+Canceling a synthetic stop confirmation must issue zero POST requests. ... ERROR
+test_create_and_experiment_form_drafts_survive_blur_and_sse (__main__.DashboardBrowserTests.test_create_and_experiment_form_drafts_survive_blur_and_sse)
+Synthetic typing, blur, and SSE renders preserve both form drafts. ... ERROR
+test_create_submit_is_immediately_busy_and_ignores_double_click (__main__.DashboardBrowserTests.test_create_submit_is_immediately_busy_and_ignores_double_click)
+A delayed synthetic operations response must not allow a second create POST. ... ok
+test_experiment_chart_separates_requested_workloads (__main__.DashboardBrowserTests.test_experiment_chart_separates_requested_workloads)
+Rows with distinct requested command counts have separate chart groups. ... ok
+test_generate_confirmation_rejects_changed_generation (__main__.DashboardBrowserTests.test_generate_confirmation_rejects_changed_generation)
+A confirmation captured for an old generation must not send a write POST. ... ERROR
+test_live_console_read_only_tabs_and_screenshots (__main__.DashboardBrowserTests.test_live_console_read_only_tabs_and_screenshots)
+Capture the supplied live target; only GET traffic is allowed. ... skipped '--synthetic-only: no live console target was supplied'
+test_log_request_in_flight_then_session_generation_switch (__main__.DashboardBrowserTests.test_log_request_in_flight_then_session_generation_switch)
+A stale synthetic LogRange response must not leave the read button disabled. ... ok
+test_mobile_menu_keyboard_focus_theme_and_projection (__main__.DashboardBrowserTests.test_mobile_menu_keyboard_focus_theme_and_projection)
+Exercise mobile navigation and presentation controls without API writes. ... ok
+test_older_bootstrap_response_cannot_replace_current_scope_or_control (__main__.DashboardBrowserTests.test_older_bootstrap_response_cannot_replace_current_scope_or_control)
+Out-of-order synthetic bootstrap reads must preserve the newest session and permission. ... FAIL
+test_settings_draft_stays_but_create_disables_after_control_revoked (__main__.DashboardBrowserTests.test_settings_draft_stays_but_create_disables_after_control_revoked)
+A control-disabled synthetic frame must disable create after blur and retain the draft. ... ok
+test_stage_event_budget_fit_and_update_cost (__main__.DashboardBrowserTests.test_stage_event_budget_fit_and_update_cost)
+Synthetic rendering cost only; no claim about protocol or network timing. ... Task was destroyed but it is pending!
+task: <Task pending name='Task-200' coro=<Page._on_route() running at <home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_page.py:301> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[Connection.dispatch.<locals>._done_callback() at <home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_connection.py:466]>
+Task was destroyed but it is pending!
+task: <Task pending name='Task-203' coro=<Page._on_route() running at <home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_page.py:301> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[Connection.dispatch.<locals>._done_callback() at <home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_connection.py:466]>
+Task was destroyed but it is pending!
+task: <Task pending name='Task-206' coro=<Page._on_route() running at <home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_page.py:301> wait_for=<Future pending cb=[Task.task_wakeup()]> cb=[Connection.dispatch.<locals>._done_callback() at <home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_connection.py:466]>
+ok
+test_synthetic_empty_connection_error_and_stale_fixtures (__main__.DashboardBrowserTests.test_synthetic_empty_connection_error_and_stale_fixtures)
+Check empty, disconnected, and stale labels using intercepted fixtures. ... ok
+test_synthetic_loading_fixture (__main__.DashboardBrowserTests.test_synthetic_loading_fixture)
+Capture the shipped initial loading markup with app bootstrap intercepted. ... ok
+test_synthetic_stage_layout_counts_and_leader_stability (__main__.DashboardBrowserTests.test_synthetic_stage_layout_counts_and_leader_stability)
+Exercise the Stage DOM renderer with synthetic 11, 50, and 100 node fixtures. ... ok
+test_unknown_post_is_not_automatically_retried (__main__.DashboardBrowserTests.test_unknown_post_is_not_automatically_retried)
+A synthetic network error after POST must not trigger an automatic retry. ... ERROR
+test_unsafe_integer_api_and_sse_values_remain_exact (__main__.DashboardBrowserTests.test_unsafe_integer_api_and_sse_values_remain_exact)
+Raw JSON fixtures preserve unsafe integers in API responses and displayed SSE data. ... ok
+
+======================================================================
+ERROR: test_cancel_stop_confirmation_sends_no_post (__main__.DashboardBrowserTests.test_cancel_stop_confirmation_sends_no_post)
+Canceling a synthetic stop confirmation must issue zero POST requests.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/public/myraft/scripts/dashboard_ui_test.py", line 366, in test_cancel_stop_confirmation_sends_no_post
+    page.get_by_role("button", name="取消").click()
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 16196, in click
+    self._sync(
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_locator.py", line 162, in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 566, in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="取消")
+
+
+======================================================================
+ERROR: test_create_and_experiment_form_drafts_survive_blur_and_sse (__main__.DashboardBrowserTests.test_create_and_experiment_form_drafts_survive_blur_and_sse)
+Synthetic typing, blur, and SSE renders preserve both form drafts.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/public/myraft/scripts/dashboard_ui_test.py", line 654, in test_create_and_experiment_form_drafts_survive_blur_and_sse
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 16548, in fill
+    self._sync(
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_locator.py", line 215, in fill
+    return await self._frame.fill(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 607, in fill
+    await self._fill(**locals_to_params(locals()))
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 619, in _fill
+    await self._channel.send("fill", self._timeout, locals_to_params(locals()))
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Locator.fill: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#create-form [name=\"batch\"]")
+    - locator resolved to <input min="1" max="4096" value="128" required="" name="batch" type="number"/>
+    - fill("256")
+  - attempting fill action
+    2 × waiting for element to be visible, enabled and editable
+      - element is not visible
+    - retrying fill action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and editable
+      - element is not visible
+    - retrying fill action
+      - waiting 100ms
+    60 × waiting for element to be visible, enabled and editable
+       - element is not visible
+     - retrying fill action
+       - waiting 500ms
+
+
+======================================================================
+ERROR: test_generate_confirmation_rejects_changed_generation (__main__.DashboardBrowserTests.test_generate_confirmation_rejects_changed_generation)
+A confirmation captured for an old generation must not send a write POST.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/public/myraft/scripts/dashboard_ui_test.py", line 284, in test_generate_confirmation_rejects_changed_generation
+    page.evaluate("() => document.querySelector('#nav-actions [data-act=generate]').click()")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 16196, in click
+    self._sync(
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_locator.py", line 162, in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 566, in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#nav-actions [data-act=\"generate\"]")
+    - locator resolved to <button title="提交命令" class="btn primary" data-act="generate">提交命令</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - element is outside of the viewport
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - element is outside of the viewport
+    - retrying click action
+      - waiting 100ms
+    9 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - element is outside of the viewport
+    - retrying click action
+      - waiting 500ms
+    49 × waiting for element to be visible, enabled and stable
+       - element is not enabled
+     - retrying click action
+       - waiting 500ms
+
+
+======================================================================
+ERROR: test_unknown_post_is_not_automatically_retried (__main__.DashboardBrowserTests.test_unknown_post_is_not_automatically_retried)
+A synthetic network error after POST must not trigger an automatic retry.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/public/myraft/scripts/dashboard_ui_test.py", line 379, in test_unknown_post_is_not_automatically_retried
+    "unknown POST result was automatically retried")
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 16196, in click
+    self._sync(
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_locator.py", line 162, in click
+    return await self._frame._click(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 566, in _click
+    await self._channel.send("click", self._timeout, locals_to_params(locals()))
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 69, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<home>/miniconda3/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 559, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#nav-actions [data-act=\"generate\"]")
+    - locator resolved to <button title="提交命令" class="btn primary" data-act="generate">提交命令</button>
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - element is outside of the viewport
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is visible, enabled and stable
+      - scrolling into view if needed
+      - done scrolling
+      - element is outside of the viewport
+    - retrying click action
+      - waiting 100ms
+    11 × waiting for element to be visible, enabled and stable
+       - element is visible, enabled and stable
+       - scrolling into view if needed
+       - done scrolling
+       - element is outside of the viewport
+     - retrying click action
+       - waiting 500ms
+    47 × waiting for element to be visible, enabled and stable
+       - element is not enabled
+     - retrying click action
+       - waiting 500ms
+
+
+======================================================================
+FAIL: test_older_bootstrap_response_cannot_replace_current_scope_or_control (__main__.DashboardBrowserTests.test_older_bootstrap_response_cannot_replace_current_scope_or_control)
+Out-of-order synthetic bootstrap reads must preserve the newest session and permission.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>/public/myraft/scripts/dashboard_ui_test.py", line 336, in test_older_bootstrap_response_cannot_replace_current_scope_or_control
+    "older bootstrap replaced the current session list")
+AssertionError: 3 != 2 : expected two deferred bootstrap reads
+
+----------------------------------------------------------------------
+Ran 16 tests in 132.389s
+
+FAILED (failures=1, errors=4, skipped=1)
