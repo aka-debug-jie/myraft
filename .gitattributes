@@ -1,3 +1,6 @@
 # Preserve recorded file hashes, including the Windows evidence line endings.
 * -text
 * whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Vite output includes unmodified third-party license comment whitespace.
+cmd/dashboard/static/prototype/assets/* whitespace=-blank-at-eol
