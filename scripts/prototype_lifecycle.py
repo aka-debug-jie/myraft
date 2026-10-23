@@ -23,7 +23,10 @@ with sync_playwright() as p:
                     page.wait_for_function('(n)=>document.querySelectorAll("[data-node]").length===n',arg=200 if label=='并排比较' else 100)
                 page.get_by_role('button',name='SVG' if renderer=='svg' else 'React Flow',exact=True).click();settle()
             for _ in range(2):cycle()
+            missing=page.evaluate('''async()=>{const missing=[];for(let i=0;i<60;i++){const f=structuredClone(window.__fixture);f.snapshot.seq++;f.snapshot.completed_at=new Date().toISOString();f.snapshot.nodes.forEach(n=>n.status.revision++);window.__send(f);await new Promise(r=>requestAnimationFrame(r));const count=document.querySelectorAll('[data-relation]').length;if(count!==99)missing.push({frame:i,edges:count});}return missing;}''')
+            assert not missing,missing
             samples=[];record={'renderer':renderer,'warmup_cycles':2,'measured_cycles':8,'samples':samples};result['runs'].append(record)
+            record['missing_edges_in_60_updates']=missing
             for batch in range(9):
                 if batch:cycle()
                 cdp.send('HeapProfiler.collectGarbage');metrics={m['name']:m['value'] for m in cdp.send('Performance.getMetrics')['metrics']}

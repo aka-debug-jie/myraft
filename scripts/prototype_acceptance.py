@@ -13,13 +13,14 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--dashboard',type=Path,required=True);parser.add_argument('--node',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True);parser.add_argument('--counts',type=int,nargs='+',default=[11,100])
+    parser.add_argument('--renderers',nargs='+',choices=['svg','flow'],default=['svg','flow'])
     args=parser.parse_args();root=args.output.resolve();root.mkdir(parents=True,exist_ok=False)
     repo=Path(__file__).resolve().parents[1];result={'mode':'REAL','dashboard_sha256':hashlib.sha256(args.dashboard.read_bytes()).hexdigest(),'node_sha256':hashlib.sha256(args.node.read_bytes()).hexdigest(),'runs':[]}
     with sync_playwright() as pw:
         browser=pw.chromium.launch()
         try:
             for count in args.counts:
-                for renderer in ['svg','flow']:
+                for renderer in args.renderers:
                     folder=root/f'{renderer}-{count}';folder.mkdir();record={'nodes':count,'renderer':renderer,'result':'FAIL','views':[]};result['runs'].append(record)
                     output=(folder/'controller.txt').open('wb');env=os.environ.copy();env['GOMAXPROCS']='1'
                     controller=subprocess.Popen([str(args.dashboard.resolve()),'-listen','127.0.0.1:0','-data-root',str(folder/'sessions'),'-node-bin',str(args.node.resolve()),'-source-dir',str(repo),'-python',sys.executable,'-allow-control'],stdout=output,stderr=subprocess.STDOUT,env=env)
