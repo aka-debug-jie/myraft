@@ -1,7 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "./Icon";
 import { SvgCanvas } from "../renderers/SvgCanvas";
-import { FlowCanvas } from "../renderers/FlowCanvas";
+const FlowCanvas = lazy(() =>
+  import("../renderers/FlowCanvas").then((module) => ({
+    default: module.FlowCanvas,
+  })),
+);
 import {
   HOME,
   focusNode,
@@ -227,7 +231,15 @@ export function TopologyPanel({
         {renderer === "svg" ? (
           <SvgCanvas {...props} />
         ) : (
-          <FlowCanvas {...props} />
+          <Suspense
+            fallback={
+              <div className="center-notice" role="status">
+                正在加载 React Flow 画布…
+              </div>
+            }
+          >
+            <FlowCanvas {...props} />
+          </Suspense>
         )}
         {!center && (
           <div className="center-notice" role="status">
