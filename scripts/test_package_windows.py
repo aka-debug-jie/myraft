@@ -14,7 +14,7 @@ class WindowsPackageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)
             (root / 'docs').mkdir()
-            (root / 'docs/quick-start-zh.md').write_text('guide')
+            (root / 'docs/quick-start-zh.md').write_text('Start-Console.cmd then Open-Console.url; SVG prototype is the recommended entry.')
             (root / 'go.mod').write_text('module probe')
             node, console, receipt = (root / n for n in ['node.exe', 'console.exe', 'receipt.json'])
             node.write_bytes(b'tested-node')
@@ -50,7 +50,7 @@ class WindowsPackageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             root = Path(d)
             (root / 'docs').mkdir()
-            (root / 'docs/quick-start-zh.md').write_text('guide')
+            (root / 'docs/quick-start-zh.md').write_text('Start-Console.cmd then Open-Console.url; SVG prototype is the recommended entry.')
             (root / 'go.mod').write_text('module probe')
             node, console, receipt = (root / n for n in ['node.exe', 'console.exe', 'receipt.json'])
             node.write_bytes(b'tested-node'); console.write_bytes(b'tested-console')
@@ -88,6 +88,13 @@ class WindowsPackageTests(unittest.TestCase):
                 (evidence / 'run.log').write_bytes(b'actual evidence')
                 package.package(node, console, receipt, root / 'good.zip')
                 with zipfile.ZipFile(root / 'good.zip') as z:
+                    self.assertEqual(z.read('Open-Console.url'),
+                                     b'[InternetShortcut]\r\nURL=http://127.0.0.1:8080/prototype/?renderer=svg\r\n')
+                    self.assertIn(b'Recommended console: http://127.0.0.1:8080/prototype/?renderer=svg',
+                                  z.read('Start-Console.cmd'))
+                    quick_start = b'Start-Console.cmd then Open-Console.url; SVG prototype is the recommended entry.'
+                    self.assertEqual(z.read('project/docs/quick-start-zh.md'), quick_start)
+                    self.assertEqual(z.read('README-START.txt'), quick_start)
                     for line in z.read('SHA256SUMS.txt').decode().splitlines():
                         digest, name = line.split('  ', 1)
                         self.assertEqual(hashlib.sha256(z.read(name)).hexdigest(), digest)

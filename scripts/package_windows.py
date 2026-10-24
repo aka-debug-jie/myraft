@@ -43,7 +43,8 @@ def package(node, console, build_receipt, output):
             raise ValueError(f'untested executable differs from native build receipt: {name}')
         files[f'project/{name}'] = data
     files['Start-Terminals.cmd'] = b'@echo off\r\nsetlocal\r\nset "runDir=%~1"\r\nif not defined runDir set "runDir=%~dp0runs\\classroom"\r\npowershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0project\\scripts\\start.ps1" -UsePrebuilt -RunDir "%runDir%"\r\nset "result=%errorlevel%"\r\npause\r\nexit /b %result%\r\n'
-    files['Start-Console.cmd'] = b'@echo off\r\ncd /d "%~dp0project" || exit /b 1\r\nraft-console.exe -node-bin ".\\raft-node.exe" -source-dir "." -data-root "..\\runs\\console" -allow-control\r\npause\r\n'
+    files['Open-Console.url'] = b'[InternetShortcut]\r\nURL=http://127.0.0.1:8080/prototype/?renderer=svg\r\n'
+    files['Start-Console.cmd'] = b'@echo off\r\necho Recommended console: http://127.0.0.1:8080/prototype/?renderer=svg\r\ncd /d "%~dp0project" || exit /b 1\r\nraft-console.exe -node-bin ".\\raft-node.exe" -source-dir "." -data-root "..\\runs\\console" -allow-control\r\npause\r\n'
     files['Run-Experiments.cmd'] = b'@echo off\r\ncall "%~dp0project\\Run-Experiments.cmd"\r\n'
     files['README-START.txt'] = files['project/docs/quick-start-zh.md']
     commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
