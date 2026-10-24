@@ -833,7 +833,10 @@ export function App() {
             onCloseAutoFocus={(event) => {
               event.preventDefault();
               const origin = dialogOrigin.current;
-              (origin?.isConnected ? origin : sessionTrigger.current)?.focus({
+              (origin?.isConnected && !origin.matches(":disabled")
+                ? origin
+                : sessionTrigger.current
+              )?.focus({
                 preventScroll: true,
               });
             }}
