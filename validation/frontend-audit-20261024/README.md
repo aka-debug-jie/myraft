@@ -14,6 +14,8 @@
 - `performance-negative/`：人为禁用 SSE 更新后的预期 FAIL；`performance-negative.log` 表示检查器成功拒绝无更新反例，不是产品失败。
 - `memory-500.json`：两渲染器 500 次开关详情的 GC 后资源样本；`memory_probe.py` 中 URL 需替换为本地测试服务。
 - `raft-soak-100.txt`：首次额外资源检查因端口占用 FAIL；`port-collision.json` 给出并行实验竞争证据。
-- `raft-soak-100-diagnostic.txt`：隔离重跑 20 次恢复、180 秒 PASS；`soak-diagnostic.go` 仅在失败分支额外采集 `/proc/net/tcp`，断言不变。
+- `raft-soak-100-diagnostic.txt`：隔离重跑 20 次恢复、180 秒 PASS；`soak-diagnostic.go.txt` 仅在失败分支额外采集 `/proc/net/tcp`，断言不变。
 
 路径已脱敏为 `<WORKSPACE>` / `<HOME>`。完整原始数据、二进制、WAL 与实验目录仅保存在本机 `.tools/frontend-deep-audit-20261024/`。`SHA256SUMS.txt` 校验此目录全部其他文件，不能将本目录的合成 PASS 当成真实 Raft 或 Windows 验收。
+
+发布前将诊断源码快照保存为 .go.txt，避免被 go test ./... 当作独立 Go 包编译；文件内容保持不变。
