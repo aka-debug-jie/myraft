@@ -1,0 +1,120 @@
+{
+  "real": [
+    {
+      "nodes": 11,
+      "renderer": "svg",
+      "result": "PASS",
+      "values": {
+        "leader": "#6",
+        "term": "2",
+        "commit": "2",
+        "applied": "2",
+        "x": "0",
+        "rpc": "11.0"
+      },
+      "expected": {
+        "leader": "#6",
+        "term": "2",
+        "commit": "2",
+        "applied": "2",
+        "x": "0",
+        "rpc": "11.0"
+      },
+      "seq": 783
+    },
+    {
+      "nodes": 11,
+      "renderer": "flow",
+      "result": "PASS",
+      "values": {
+        "leader": "#6",
+        "term": "2",
+        "commit": "2",
+        "applied": "2",
+        "x": "0",
+        "rpc": "11.0"
+      },
+      "expected": {
+        "leader": "#6",
+        "term": "2",
+        "commit": "2",
+        "applied": "2",
+        "x": "0",
+        "rpc": "11.0"
+      },
+      "seq": 787
+    },
+    {
+      "nodes": 100,
+      "renderer": "svg",
+      "result": "PASS",
+      "values": {
+        "leader": "#62",
+        "term": "1",
+        "commit": "2102",
+        "applied": "2102",
+        "x": "0",
+        "rpc": "98.3"
+      },
+      "expected": {
+        "leader": "#62",
+        "term": "1",
+        "commit": "2102",
+        "applied": "2102",
+        "x": "0",
+        "rpc": "98.3"
+      },
+      "seq": 779
+    },
+    {
+      "nodes": 100,
+      "renderer": "flow",
+      "result": "PASS",
+      "values": {
+        "leader": "#62",
+        "term": "1",
+        "commit": "2102",
+        "applied": "2102",
+        "x": "0",
+        "rpc": "98.3"
+      },
+      "expected": {
+        "leader": "#62",
+        "term": "1",
+        "commit": "2102",
+        "applied": "2102",
+        "x": "0",
+        "rpc": "98.3"
+      },
+      "seq": 783
+    }
+  ],
+  "synthetic": [
+    {
+      "scenario": "empty",
+      "result": "PASS"
+    },
+    {
+      "scenario": "stale",
+      "result": "PASS"
+    },
+    {
+      "scenario": "multiple-leaders",
+      "result": "PASS"
+    },
+    {
+      "scenario": "identity",
+      "result": "PASS"
+    },
+    {
+      "scenario": "disconnected",
+      "result": "PASS"
+    },
+    {
+      "scenario": "loading",
+      "result": "PASS"
+    }
+  ],
+  "result": "PASS",
+  "page_errors": []
+}

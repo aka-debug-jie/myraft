@@ -1,0 +1,48 @@
+{
+  "mode": "SYNTHETIC",
+  "checks": [
+    {
+      "name": "session-menu-close-focus",
+      "result": "FAIL",
+      "error": "AssertionError: {'escape_closed': False, 'outside_closed': True, 'escape_focus': True}",
+      "url": "http://127.0.0.1:8080/prototype/?renderer=svg",
+      "body": "MyRaft\n拓扑工作台\n合成检查 · 11 节点\n⌘ K\n提交命令\n校验当前\nCLUSTER TOPOLOGY\nLeader #1\n11/11 可达\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\n01 / SVG\n11 个成员 · 10 条有效报告关系\n1\nLeader\nT1\n2\nFollower\nT1\n3\nFollower\nT1\n4\nFollower\nT1\n5\nFollower\nT1\n6\nFollower\nT1\n7\nFollower\nT1\n8\nFollower\nT1\n9\nFollower\nT1\n10\nFollower\nT1\n11\nFollower\nT1\n100%\n固定成员 · 连线仅表示观测到的报告关系\nREAL\n本机控制\n0.0s 前采样\n丢弃 0\n尚无任务"
+    },
+    {
+      "name": "mobile-navigation-escape-exclusive",
+      "result": "FAIL",
+      "error": "AssertionError: ",
+      "url": "http://127.0.0.1:8080/prototype/?renderer=svg",
+      "body": "MyRaft\n合成检查 · 11 节点\n提交命令\n校验当前\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\n01 / SVG\n11 个成员 · 10 条有效报告关系\n1\nLeader\nT1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n100%\n固定成员 · 连线仅表示观测到的报告关系\nREAL\n本机控制\n尚无任务\n会话控制\n×\n\n本机控制\n\n启用本机控制\n创建会话\n恢复会话\n停止全部自有节点\n完整会话管理 →\n集群总览\n日志实验室 · 原版\n故障实验 · 原版\n性能实验 · 原版\n一致性证据\n会话设置 · 原版"
+    },
+    {
+      "name": "cancel-restores-submit-focus",
+      "result": "FAIL",
+      "error": "AssertionError: ",
+      "url": "http://127.0.0.1:8080/prototype/?renderer=svg",
+      "body": "MyRaft\n拓扑工作台\n合成检查 · 11 节点\n⌘ K\n提交命令\n校验当前\nCLUSTER TOPOLOGY\nLeader #1\n11/11 可达\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\n01 / SVG\n11 个成员 · 10 条有效报告关系\n1\nLeader\nT1\n2\nFollower\nT1\n3\nFollower\nT1\n4\nFollower\nT1\n5\nFollower\nT1\n6\nFollower\nT1\n7\nFollower\nT1\n8\nFollower\nT1\n9\nFollower\nT1\n10\nFollower\nT1\n11\nFollower\nT1\n100%\n固定成员 · 连线仅表示观测到的报告关系\nREAL\n本机控制\n0.0s 前采样\n丢弃 0\n尚无任务"
+    },
+    {
+      "name": "evidence-single-verify-entry",
+      "result": "FAIL",
+      "error": "AssertionError: ",
+      "url": "http://127.0.0.1:8080/prototype/?renderer=svg",
+      "body": "MyRaft\n合成检查 · 11 节点\n提交命令\n校验当前\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\n01 / SVG\n11 个成员 · 10 条有效报告关系\n1\nLeader\nT1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n节点 #11\n报告 Leader #1\nT1 · 非复制确认\n100%\n固定成员 · 连线仅表示观测到的报告关系\n一致性证据\n提交与验证\n目标日志索引\n2102\n全体应用至目标\n已观察到\n当前完整校验\n未运行\n目标索引 —\n历史前缀校验\n未运行\n目标索引 —\n校验当前\n校验历史\n固定检查点\n\nindex — · x —\n\n尚未保存历史前缀\n保存检查点\n导出证据\n\n应用完成与完整一致性校验分别判断；检查点不会被更大的提交索引自动替换。\n\nREAL\n本机控制\n尚无任务"
+    },
+    {
+      "name": "compare-single-tab-stop-flow-focus",
+      "result": "FAIL",
+      "error": "AssertionError: {'tab_stops_before': 2, 'focus_transferred': True}",
+      "url": "http://127.0.0.1:8080/prototype/?renderer=compare",
+      "body": "MyRaft\n拓扑工作台\n合成检查 · 11 节点\n⌘ K\n提交命令\n校验当前\nCLUSTER TOPOLOGY\nLeader #1\n11/11 可达\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\n01 / SVG\n11 个成员 · 10 条有效报告关系\n1\nLeader\nT1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nLeader #1\n10 个同任期 Follower 报告 · 非多数派证明\n100%\n固定成员 · 连线仅表示观测到的报告关系\n02 / REACT FLOW\n11 个成员 · 10 条有效报告关系\n1\nLeader\nT1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nReact Flow\nLeader #1\n10 个同任期 Follower 报告 · 非多数派证明\n100%\n固定成员 · 连线仅表示观测到的报告关系\n节点检查器\n#1\nLeader\n\n当前可达 · 0.0s 前采样\n\nTerm\n1\n报告 Leader\n#1\nLastLogIndex\n2102\nCommitIndex\n2102\nLastApplied\n2102\n已提交\n2102 / 2102\n已应用\n2102 / 2102\n状态机 x\n0\n已应用算术命令 2101\n\n这是节点报告的本地角色。Follower 报告关系不代表复制 ACK 或多数派授权。\n\n进程操作\n停止节点\n恢复原节点\n\n仅控制本会话持有的进程；恢复使用原配置与数据。\n\n在日志实验室检查实际条目 →\nREAL\n本机控制\n0.0s 前采样\n丢弃 0\n尚无任务"
+    },
+    {
+      "name": "queued-receipt-sse-reconcile-no-resurrection",
+      "result": "FAIL",
+      "error": "AssertionError: {'taskbar_queued': True, 'list_queued': False, 'list_succeeded': True, 'no_old_queued': False, 'post_count': 1}",
+      "url": "http://127.0.0.1:8080/prototype/?renderer=svg",
+      "body": "MyRaft\n拓扑工作台\n合成检查 · 11 节点\n⌘ K\n提交命令\n校验当前\nCLUSTER TOPOLOGY\nLeader #1\n11/11 可达\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\n01 / SVG\n11 个成员 · 10 条有效报告关系\n1\nLeader\nT1\n2\nFollower\nT1\n3\nFollower\nT1\n4\nFollower\nT1\n5\nFollower\nT1\n6\nFollower\nT1\n7\nFollower\nT1\n8\nFollower\nT1\n9\nFollower\nT1\n10\nFollower\nT1\n11\nFollower\nT1\n100%\n固定成员 · 连线仅表示观测到的报告关系\n任务与事件\n×\nREAL\n本机控制\n0.0s 前采样\n丢弃 0\n提交命令 · 已登记"
+    }
+  ],
+  "result": "FAIL"
+}

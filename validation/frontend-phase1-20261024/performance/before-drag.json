@@ -1,0 +1,350 @@
+{
+  "mode": "SYNTHETIC",
+  "runs": [
+    {
+      "long_tasks": [
+        161,
+        52
+      ],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        }
+      ],
+      "heap": 10000000,
+      "nodes": 11,
+      "renderer": "svg",
+      "trial": 1,
+      "ready_ms": 382.37527798628435,
+      "first_inspector_ms": 618.739616998937,
+      "drag_frames": 82,
+      "drag_p50_ms": 16.699999999999818,
+      "drag_p95_ms": 16.700000000000273
+    },
+    {
+      "long_tasks": [],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        }
+      ],
+      "heap": 10000000,
+      "nodes": 11,
+      "renderer": "svg",
+      "trial": 2,
+      "ready_ms": 167.69653299706988,
+      "first_inspector_ms": 275.09229601128027,
+      "drag_frames": 81,
+      "drag_p50_ms": 16.700000000000045,
+      "drag_p95_ms": 16.700000000000045
+    },
+    {
+      "long_tasks": [
+        53
+      ],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        }
+      ],
+      "heap": 10000000,
+      "nodes": 11,
+      "renderer": "svg",
+      "trial": 3,
+      "ready_ms": 217.65651600435376,
+      "first_inspector_ms": 384.48578398674726,
+      "drag_frames": 81,
+      "drag_p50_ms": 16.700000000000045,
+      "drag_p95_ms": 16.800000000000182
+    },
+    {
+      "long_tasks": [
+        51,
+        54
+      ],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        },
+        {
+          "file": "FlowCanvas-C42_-p8i.js",
+          "bytes": 179885
+        },
+        {
+          "file": "FlowCanvas-DLioOiRN.css",
+          "bytes": 15413
+        }
+      ],
+      "heap": 10000000,
+      "nodes": 11,
+      "renderer": "flow",
+      "trial": 1,
+      "ready_ms": 265.44293900951743,
+      "first_inspector_ms": 476.6989260097034,
+      "drag_frames": 81,
+      "drag_p50_ms": 16.699999999999932,
+      "drag_p95_ms": 16.799999999999955
+    },
+    {
+      "long_tasks": [
+        53
+      ],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        },
+        {
+          "file": "FlowCanvas-C42_-p8i.js",
+          "bytes": 179885
+        },
+        {
+          "file": "FlowCanvas-DLioOiRN.css",
+          "bytes": 15413
+        }
+      ],
+      "heap": 10000000,
+      "nodes": 11,
+      "renderer": "flow",
+      "trial": 2,
+      "ready_ms": 244.22091300948523,
+      "first_inspector_ms": 417.9912880063057,
+      "drag_frames": 81,
+      "drag_p50_ms": 16.699999999999932,
+      "drag_p95_ms": 16.700000000000045
+    },
+    {
+      "long_tasks": [
+        51,
+        52
+      ],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        },
+        {
+          "file": "FlowCanvas-C42_-p8i.js",
+          "bytes": 179885
+        },
+        {
+          "file": "FlowCanvas-DLioOiRN.css",
+          "bytes": 15413
+        }
+      ],
+      "heap": 10000000,
+      "nodes": 11,
+      "renderer": "flow",
+      "trial": 3,
+      "ready_ms": 249.41995201515965,
+      "first_inspector_ms": 416.0776319913566,
+      "drag_frames": 82,
+      "drag_p50_ms": 16.700000000000045,
+      "drag_p95_ms": 16.800000000000182
+    },
+    {
+      "long_tasks": [
+        51
+      ],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        }
+      ],
+      "heap": 10000000,
+      "nodes": 100,
+      "renderer": "svg",
+      "trial": 1,
+      "ready_ms": 198.4320940100588,
+      "first_inspector_ms": 429.808471002616,
+      "drag_frames": 90,
+      "drag_p50_ms": 16.699999999999818,
+      "drag_p95_ms": 16.799999999999955
+    },
+    {
+      "long_tasks": [
+        50
+      ],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        }
+      ],
+      "heap": 10000000,
+      "nodes": 100,
+      "renderer": "svg",
+      "trial": 2,
+      "ready_ms": 226.49520399863832,
+      "first_inspector_ms": 439.0188060060609,
+      "drag_frames": 90,
+      "drag_p50_ms": 16.699999999999875,
+      "drag_p95_ms": 16.799999999999727
+    },
+    {
+      "long_tasks": [
+        52
+      ],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        }
+      ],
+      "heap": 10000000,
+      "nodes": 100,
+      "renderer": "svg",
+      "trial": 3,
+      "ready_ms": 187.14656998054124,
+      "first_inspector_ms": 397.7361040015239,
+      "drag_frames": 85,
+      "drag_p50_ms": 16.699999999999932,
+      "drag_p95_ms": 16.700000000000045
+    },
+    {
+      "long_tasks": [
+        53,
+        91,
+        50,
+        57
+      ],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        },
+        {
+          "file": "FlowCanvas-C42_-p8i.js",
+          "bytes": 179885
+        },
+        {
+          "file": "FlowCanvas-DLioOiRN.css",
+          "bytes": 15413
+        }
+      ],
+      "heap": 15200000,
+      "nodes": 100,
+      "renderer": "flow",
+      "trial": 1,
+      "ready_ms": 323.3878070022911,
+      "first_inspector_ms": 547.1839059900958,
+      "drag_frames": 130,
+      "drag_p50_ms": 16.699999999999932,
+      "drag_p95_ms": 33.30000000000018
+    },
+    {
+      "long_tasks": [
+        50,
+        89,
+        65,
+        52
+      ],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        },
+        {
+          "file": "FlowCanvas-C42_-p8i.js",
+          "bytes": 179885
+        },
+        {
+          "file": "FlowCanvas-DLioOiRN.css",
+          "bytes": 15413
+        }
+      ],
+      "heap": 20500000,
+      "nodes": 100,
+      "renderer": "flow",
+      "trial": 2,
+      "ready_ms": 287.8410349949263,
+      "first_inspector_ms": 594.2761840124149,
+      "drag_frames": 128,
+      "drag_p50_ms": 16.699999999999818,
+      "drag_p95_ms": 33.299999999999955
+    },
+    {
+      "long_tasks": [
+        88,
+        63
+      ],
+      "resources": [
+        {
+          "file": "index-DQ6LBsUR.js",
+          "bytes": 296524
+        },
+        {
+          "file": "index-B6OqdHJf.css",
+          "bytes": 23465
+        },
+        {
+          "file": "FlowCanvas-C42_-p8i.js",
+          "bytes": 179885
+        },
+        {
+          "file": "FlowCanvas-DLioOiRN.css",
+          "bytes": 15413
+        }
+      ],
+      "heap": 14300000,
+      "nodes": 100,
+      "renderer": "flow",
+      "trial": 3,
+      "ready_ms": 296.2055270036217,
+      "first_inspector_ms": 432.0112020068336,
+      "drag_frames": 127,
+      "drag_p50_ms": 16.699999999999818,
+      "drag_p95_ms": 33.30000000000018
+    }
+  ],
+  "result": "PASS"
+}

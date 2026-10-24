@@ -1,0 +1,148 @@
+{
+  "mode": "SYNTHETIC",
+  "runs": [
+    {
+      "renderer": "svg",
+      "warmup_cycles": 2,
+      "measured_cycles": 8,
+      "samples": [
+        {
+          "batch": 0,
+          "Nodes": 765,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5515052,
+          "sse": 1
+        },
+        {
+          "batch": 1,
+          "Nodes": 765,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5602544,
+          "sse": 1
+        },
+        {
+          "batch": 2,
+          "Nodes": 765,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5627724,
+          "sse": 1
+        },
+        {
+          "batch": 3,
+          "Nodes": 765,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5696796,
+          "sse": 1
+        },
+        {
+          "batch": 4,
+          "Nodes": 765,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5657276,
+          "sse": 1
+        },
+        {
+          "batch": 5,
+          "Nodes": 765,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5654504,
+          "sse": 1
+        },
+        {
+          "batch": 6,
+          "Nodes": 765,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5681388,
+          "sse": 1
+        },
+        {
+          "batch": 7,
+          "Nodes": 765,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5765380,
+          "sse": 1
+        },
+        {
+          "batch": 8,
+          "Nodes": 765,
+          "JSEventListeners": 294,
+          "JSHeapUsedSize": 5755696,
+          "sse": 1
+        }
+      ],
+      "missing_edges_in_60_updates": []
+    },
+    {
+      "renderer": "flow",
+      "warmup_cycles": 2,
+      "measured_cycles": 8,
+      "samples": [
+        {
+          "batch": 0,
+          "Nodes": 1275,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8366576,
+          "sse": 1
+        },
+        {
+          "batch": 1,
+          "Nodes": 1275,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8248180,
+          "sse": 1
+        },
+        {
+          "batch": 2,
+          "Nodes": 1275,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8438228,
+          "sse": 1
+        },
+        {
+          "batch": 3,
+          "Nodes": 1275,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8289132,
+          "sse": 1
+        },
+        {
+          "batch": 4,
+          "Nodes": 1275,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8269192,
+          "sse": 1
+        },
+        {
+          "batch": 5,
+          "Nodes": 1275,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8378372,
+          "sse": 1
+        },
+        {
+          "batch": 6,
+          "Nodes": 1275,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8468636,
+          "sse": 1
+        },
+        {
+          "batch": 7,
+          "Nodes": 1275,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8418368,
+          "sse": 1
+        },
+        {
+          "batch": 8,
+          "Nodes": 1275,
+          "JSEventListeners": 606,
+          "JSHeapUsedSize": 8472816,
+          "sse": 1
+        }
+      ],
+      "missing_edges_in_60_updates": []
+    }
+  ],
+  "result": "PASS"
+}
