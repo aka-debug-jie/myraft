@@ -156,6 +156,7 @@ def main():
                 session.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
                 page.wait_for_function('()=>parseInt(document.querySelector(".zoom-label").textContent)>100')
                 page.get_by_label('返回全景').click();page.get_by_label('搜索节点').fill('100');page.get_by_label('搜索节点').press('Enter')
+                page.get_by_label('查看节点详情').click()
                 page.get_by_label('节点 100 详情').wait_for();page.screenshot(path=str(a.output/f'synthetic-{renderer}-mobile-focus.png'))
                 page.get_by_label('关闭节点详情').click();page.keyboard.press('Escape');page.get_by_label('返回全景').click()
                 page.get_by_role('button',name='并排比较',exact=True).click()

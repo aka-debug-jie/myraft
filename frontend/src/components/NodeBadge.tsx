@@ -54,7 +54,12 @@ export function NodeBadge({
       role="img"
       aria-label={description}
       title={description}
-      style={{ "--node-id-size": `${fontSizes.id}px`, "--node-detail-size": `${fontSizes.detail}px` } as CSSProperties}
+      style={
+        {
+          "--node-id-size": `${fontSizes.id}px`,
+          "--node-detail-size": `${fontSizes.detail}px`,
+        } as CSSProperties
+      }
     >
       <span className="node-badge__id">{id}</span>
       {presentation === "detail" && (
@@ -65,9 +70,19 @@ export function NodeBadge({
           )}
         </span>
       )}
-      {availability === "offline" && <span className="node-badge__status" aria-hidden="true">×</span>}
-      {availability === "identity-error" && <span className="node-badge__status" aria-hidden="true">!</span>}
-      {presentation === "dot" && <span className="node-badge__dot" aria-hidden="true" />}
+      {availability === "offline" && (
+        <span className="node-badge__status" aria-hidden="true">
+          ×
+        </span>
+      )}
+      {availability === "identity-error" && (
+        <span className="node-badge__status" aria-hidden="true">
+          !
+        </span>
+      )}
+      {presentation === "dot" && (
+        <span className="node-badge__dot" aria-hidden="true" />
+      )}
     </div>
   );
 }

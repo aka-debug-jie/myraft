@@ -17,7 +17,9 @@
   font-variant-numeric: tabular-nums;
   user-select: none;
   overflow: hidden;
-  transition: color 180ms ease, opacity 180ms ease;
+  transition:
+    color 180ms ease,
+    opacity 180ms ease;
 }
 
 .node-badge--leader {
@@ -127,10 +129,23 @@
 .node-badge--detail .node-badge__id {
   color: var(--shell-text);
 }
-.node-badge--detail { flex-direction: column; gap: 5px; }
-.node-badge--leader .node-badge__id { color: var(--shell-gold); }
+.node-badge--detail {
+  flex-direction: column;
+  gap: 5px;
+}
+.node-badge--leader .node-badge__id {
+  color: var(--shell-gold);
+}
 .node-badge--dot .node-badge__id,
 .node-badge--dot .node-badge__status,
-.node-badge--dot::before { display: none; }
-.node-badge--dot.node-badge--identity-error { border-radius: 25%; border-width: 2px; }
-.node-badge--offline .node-badge__dot { background: transparent; border: 1px solid currentColor; }
+.node-badge--dot::before {
+  display: none;
+}
+.node-badge--dot.node-badge--identity-error {
+  border-radius: 25%;
+  border-width: 2px;
+}
+.node-badge--offline .node-badge__dot {
+  background: transparent;
+  border: 1px solid currentColor;
+}

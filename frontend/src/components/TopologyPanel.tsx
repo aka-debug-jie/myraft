@@ -29,6 +29,8 @@ interface Props {
   scope: string;
   onSelect: (id: number | null) => void;
   focusRequest: number;
+  showDetails: boolean;
+  onDetails: (origin: HTMLElement) => void;
 }
 export function TopologyPanel({
   keyboardActive,
@@ -41,6 +43,8 @@ export function TopologyPanel({
   scope,
   onSelect,
   focusRequest,
+  showDetails,
+  onDetails,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 800, height: 600 });
@@ -127,9 +131,12 @@ export function TopologyPanel({
   }, []);
   const focusedEdge =
     (edges.some((e) => e.id === hover) ? hover : null) ||
-    edges.find((e) => e.from === (nodeHover ?? selected))?.id || null;
+    edges.find((e) => e.from === (nodeHover ?? selected))?.id ||
+    null;
   const focused = edges.find((e) => e.id === focusedEdge);
-  const inspectedNode = observation.nodes.find((n) => n.id === (nodeHover ?? selected));
+  const inspectedNode = observation.nodes.find(
+    (n) => n.id === (nodeHover ?? selected),
+  );
   const filtered = observation.nodes.filter(
     (n) =>
       filter === "all" ||
@@ -238,9 +245,21 @@ export function TopologyPanel({
           setNodeHover(null);
         }}
       >
-        <svg className="orbit-layer" width={size.width} height={size.height} aria-hidden="true">
-          <g transform={`translate(${viewport.x} ${viewport.y}) scale(${viewport.zoom})`}>
-            <ellipse cx={layout.cx} cy={layout.cy} rx={layout.rx} ry={layout.ry} />
+        <svg
+          className="orbit-layer"
+          width={size.width}
+          height={size.height}
+          aria-hidden="true"
+        >
+          <g
+            transform={`translate(${viewport.x} ${viewport.y}) scale(${viewport.zoom})`}
+          >
+            <ellipse
+              cx={layout.cx}
+              cy={layout.cy}
+              rx={layout.rx}
+              ry={layout.ry}
+            />
           </g>
         </svg>
         {renderer === "svg" ? (
@@ -274,17 +293,33 @@ export function TopologyPanel({
         )}
         {!focused && inspectedNode && (
           <div className="relation-caption">
-            <span>{inspectedNode.role === "Leader" ? "Leader" : "节点"} #{inspectedNode.id}</span>
+            <span>
+              {inspectedNode.role === "Leader" ? "Leader" : "节点"} #
+              {inspectedNode.id}
+            </span>
             <small>
               {inspectedNode.role === "Leader"
                 ? `${observation.relations.filter((e) => e.to === inspectedNode.id).length} 个同任期 Follower 报告 · 非多数派证明`
-                : inspectedNode.availability === "offline" ? "节点不可达，当前关系未知"
-                : inspectedNode.availability === "identity-error" ? "身份异常，关系不采信"
-                : inspectedNode.availability === "unknown" ? "尚无新鲜有效观测"
-                : inspectedNode.role === "Candidate" ? "候选节点，尚无有效 Leader 报告关系"
-                : "尚无同任期有效 Leader 报告关系"}
+                : inspectedNode.availability === "offline"
+                  ? "节点不可达，当前关系未知"
+                  : inspectedNode.availability === "identity-error"
+                    ? "身份异常，关系不采信"
+                    : inspectedNode.availability === "unknown"
+                      ? "尚无新鲜有效观测"
+                      : inspectedNode.role === "Candidate"
+                        ? "候选节点，尚无有效 Leader 报告关系"
+                        : "尚无同任期有效 Leader 报告关系"}
             </small>
           </div>
+        )}
+        {showDetails && selected !== null && (
+          <button
+            className="mobile-details-trigger"
+            aria-label="查看节点详情"
+            onClick={(event) => onDetails(event.currentTarget)}
+          >
+            查看详情
+          </button>
         )}
         <div className="canvas-tools" aria-label="画布工具">
           <button

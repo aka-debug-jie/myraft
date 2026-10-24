@@ -477,7 +477,7 @@ button[aria-pressed="true"] {
   overflow-wrap: anywhere;
 }
 .eyebrow {
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 1.6px;
   font-weight: 600;
   color: var(--muted);
@@ -558,7 +558,7 @@ button[aria-pressed="true"] {
   justify-content: space-between;
   gap: 10px;
   padding: 12px 24px 0;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   pointer-events: none;
 }
@@ -625,14 +625,20 @@ button[aria-pressed="true"] {
   stroke-width: 1;
   opacity: 0.45;
 }
-.orbit-layer ellipse { vector-effect: non-scaling-stroke; }
-.topology-node:focus-visible { outline-offset: -3px; }
+.orbit-layer ellipse {
+  vector-effect: non-scaling-stroke;
+}
+.topology-node:focus-visible {
+  outline-offset: -3px;
+}
 .relation {
   fill: none;
   stroke: var(--shell-muted);
   stroke-width: 0.8;
   opacity: 0.26;
-  transition: stroke 180ms, opacity 180ms;
+  transition:
+    stroke 180ms,
+    opacity 180ms;
   pointer-events: none;
 }
 .relation.is-focused {
@@ -710,7 +716,7 @@ button[aria-pressed="true"] {
 }
 .zoom-label {
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   min-width: 38px;
   text-align: center;
@@ -719,7 +725,7 @@ button[aria-pressed="true"] {
   position: absolute;
   bottom: 12px;
   left: 24px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   pointer-events: none;
 }
@@ -755,7 +761,7 @@ button[aria-pressed="true"] {
   pointer-events: none;
 }
 .react-flow__attribution {
-  font-size: 11px;
+  font-size: 12px;
   background: transparent;
   opacity: 0.6;
   bottom: 10px;
@@ -792,21 +798,21 @@ button[aria-pressed="true"] {
   margin: 8px 0;
 }
 .role-tag {
-  font-size: 11px;
+  font-size: 12px;
   padding: 4px 7px;
   border: 1px solid var(--line);
   border-radius: 4px;
   color: var(--muted);
 }
 .role-tag.leader {
-  color: var(--accent);
-  border-color: var(--accent);
+  color: var(--shell-gold);
+  border-color: var(--shell-gold);
 }
 .role-tag.candidate {
   color: var(--warning);
 }
 .node-availability {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   margin: 12px 0 24px;
 }
@@ -832,7 +838,7 @@ button[aria-pressed="true"] {
   margin-top: 12px;
 }
 .index-progress label {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   display: flex;
   justify-content: space-between;
@@ -863,7 +869,7 @@ progress::-webkit-progress-value {
 }
 .state-value > span,
 .state-value small {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
 }
 .state-value strong {
@@ -882,7 +888,7 @@ progress::-webkit-progress-value {
   margin: 12px 0;
 }
 .footnote {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   line-height: 1.8;
 }
@@ -908,7 +914,7 @@ progress::-webkit-progress-value {
 }
 .verification small {
   grid-column: 1/-1;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
 }
 .good {
@@ -922,7 +928,7 @@ progress::-webkit-progress-value {
 }
 .checkpoint code {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   overflow-wrap: anywhere;
   color: var(--muted);
   margin: 12px 0 20px;
@@ -933,7 +939,7 @@ progress::-webkit-progress-value {
   align-items: center;
   gap: 14px;
   padding: 0 20px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   border-top: 1px solid var(--line);
   background: var(--surface);
@@ -944,7 +950,7 @@ progress::-webkit-progress-value {
   background: transparent;
   min-height: 26px;
   padding: 2px 0;
-  font-size: 11px;
+  font-size: 12px;
 }
 .task-panel {
   grid-row: 4;
@@ -977,34 +983,39 @@ progress::-webkit-progress-value {
   margin-top: 12px;
 }
 .task-receipt {
-  padding: 12px 0;
-  border-bottom: 1px solid var(--line);
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--shell-radius);
+  background: var(--shell-raised);
   font-size: 12px;
 }
 .task-receipt > div {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   justify-content: space-between;
 }
 .task-receipt p {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
 }
 summary {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   cursor: pointer;
 }
 pre {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-  font-size: 11px;
+  font-size: 12px;
   font-family: var(--mono);
 }
 .event-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: 11px;
+  font-size: 12px;
 }
 .event-list li {
   display: flex;
@@ -1237,13 +1248,6 @@ pre {
     grid-template-rows: auto auto minmax(320px, 1fr);
     overflow-y: auto;
   }
-  .workspace.with-inspector {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto minmax(360px, 1fr) 260px;
-  }
-  .workspace.with-tasks {
-    grid-template-rows: auto auto minmax(360px, 1fr) 230px;
-  }
   .workspace-bar {
     align-items: stretch;
     flex-direction: column;
@@ -1291,10 +1295,10 @@ pre {
   .canvas-caption {
     padding: 10px 12px 0;
     height: 30px;
-    font-size: 11px;
+    font-size: 12px;
   }
   .canvas-caption > span:last-child {
-    font-size: 11px;
+    font-size: 12px;
   }
   .canvas-tools {
     left: 12px;
@@ -1302,7 +1306,7 @@ pre {
   }
   .canvas-footnote {
     left: 12px;
-    font-size: 11px;
+    font-size: 12px;
     max-width: calc(100% - 24px);
   }
   .mini-map {
@@ -1338,7 +1342,7 @@ pre {
   .statusbar {
     gap: 9px;
     padding: 0 12px;
-    font-size: 11px;
+    font-size: 12px;
   }
   .gap-status {
     display: none;
@@ -1346,7 +1350,7 @@ pre {
   .task-trigger {
     max-width: 150px;
     overflow: hidden;
-    font-size: 11px;
+    font-size: 12px;
   }
   .statusbar > .header-space {
     display: none;
@@ -1386,7 +1390,7 @@ pre {
   }
   .comparison .canvas-caption {
     height: 22px;
-    font-size: 11px;
+    font-size: 12px;
     padding: 5px 10px 0;
   }
   .relation-caption {
@@ -1397,4 +1401,116 @@ pre {
   .relation-caption small {
     font-size: 12px;
   }
+}
+
+/* Detail surfaces share the shell palette; no filters are applied to nodes. */
+.inspector,
+.task-panel,
+.statusbar,
+.dialog-content {
+  --surface: var(--shell-surface);
+  --raised: var(--shell-raised);
+  --line: var(--shell-line);
+  --text: var(--shell-text);
+  --muted: var(--shell-muted);
+  --accent: var(--shell-accent);
+  color: var(--text);
+}
+.inspector {
+  background: var(--shell-surface);
+}
+@supports (backdrop-filter: blur(8px)) {
+  .inspector {
+    background: var(--shell-glass);
+    backdrop-filter: blur(8px);
+  }
+}
+.inspector h3 {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 18px;
+}
+.progress-unknown,
+.empty-panel {
+  color: var(--shell-muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.node-fields dd {
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+.relation-caption button {
+  pointer-events: auto;
+  min-height: 44px;
+}
+.mobile-details-trigger {
+  position: absolute;
+  right: 12px;
+  bottom: 34px;
+  min-height: 44px;
+  z-index: 3;
+}
+.mobile-detail-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 16;
+  background: var(--shell-bg);
+}
+.mobile-detail {
+  position: fixed;
+  inset: 0;
+  z-index: 17;
+  background: var(--shell-bg);
+  color: var(--shell-text);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.mobile-detail-header {
+  flex: none;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--shell-line);
+  background: var(--shell-surface);
+}
+.mobile-detail-header h2 {
+  font-size: 16px;
+  margin: 0;
+}
+.mobile-detail button {
+  min-height: 44px;
+}
+.mobile-detail .inspector,
+.mobile-detail .task-panel {
+  flex: 1;
+  min-height: auto;
+  overflow: visible;
+  border: 0;
+  padding: 18px 20px;
+}
+.mobile-detail .task-columns {
+  overflow: visible;
+  display: block;
+}
+.mobile-detail .event-list {
+  margin-top: 24px;
+}
+.mobile-detail .node-fields {
+  display: block;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

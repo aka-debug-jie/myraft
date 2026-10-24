@@ -67,7 +67,9 @@ def main():
                             page.wait_for_timeout(150);page.screenshot(path=str(folder/f'overview-{width}.png'))
                             stats=page.locator('[data-node]').evaluate_all('''ns=>({members:ns.length,hit:ns.filter(n=>{const r=n.getBoundingClientRect();return n.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))}).length})''')
                             assert stats['hit']==count,stats;record['views'].append({'viewport':[width,height],**stats})
-                            page.get_by_label('搜索节点').fill(str(count));page.get_by_label('搜索节点').press('Enter');page.get_by_label(f'节点 {count} 详情').wait_for();page.screenshot(path=str(folder/f'focus-{width}.png'))
+                            page.get_by_label('搜索节点').fill(str(count));page.get_by_label('搜索节点').press('Enter')
+                            if width <= 700: page.get_by_label('查看节点详情').click()
+                            page.get_by_label(f'节点 {count} 详情').wait_for();page.screenshot(path=str(folder/f'focus-{width}.png'))
                             page.get_by_label('关闭节点详情').click();page.keyboard.press('Escape');page.get_by_label('返回全景').click()
                         page.set_viewport_size({'width':1440,'height':900});page.wait_for_timeout(100)
                         leader=next(n['id'] for n in frame()['snapshot']['nodes'] if n.get('status',{}).get('state')=='Leader');record['old_leader']=leader

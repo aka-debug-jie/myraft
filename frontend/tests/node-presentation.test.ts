@@ -1,5 +1,8 @@
 import { expect, it } from "vitest";
-import { getNodeFontSizes, getNodePresentation } from "../src/components/nodePresentation";
+import {
+  getNodeFontSizes,
+  getNodePresentation,
+} from "../src/components/nodePresentation";
 
 it("selects node detail from screen diameter", () => {
   expect(getNodePresentation(100, 0.72)).toBe("detail");

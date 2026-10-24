@@ -73,14 +73,27 @@ export function App() {
   const [mode, setMode] = useState<RendererKind>(modeFromURL),
     [now, setNow] = useState(Date.now());
   const [selected, setSelected] = useState<number | null>(null),
-    [detail, setDetail] = useState(false),
     [filter, setFilter] = useState("all");
   const [focusRequest, setFocusRequest] = useState(0),
     [search, setSearch] = useState(""),
     [error, setError] = useState("");
-  const [dialog, setDialog] = useState<Confirmation | null>(null),
-    [tasks, setTasks] = useState(false),
-    [evidence, setEvidence] = useState(false);
+  const [dialog, setDialog] = useState<Confirmation | null>(null);
+  const [panel, setPanel] = useState<"node" | "evidence" | "tasks" | null>(
+    null,
+  );
+  const [mobile, setMobile] = useState(
+    () => matchMedia("(max-width:700px)").matches,
+  );
+  const detail = panel === "node",
+    evidence = panel === "evidence",
+    tasks = panel === "tasks";
+  const panelOrigin = useRef<HTMLElement | null>(null);
+  const panelNode = useRef<{
+    id: number | null;
+    renderer: "svg" | "flow";
+    scope: string;
+  } | null>(null);
+  const mobileContent = useRef<HTMLDivElement>(null);
   const [theme, setTheme] = useState(
       () => localStorage.getItem("myraft-prototype-theme") || "dark",
     ),
@@ -124,31 +137,48 @@ export function App() {
   }, [present]);
   useEffect(() => {
     setSelected(null);
-    setDetail(false);
+    setPanel(null);
     setDialog(null);
     setMenu(null);
-    setEvidence(false);
     setKeyboardOwner("svg");
     setError("");
     setFilter("all");
     setSearch("");
-    setTasks(false);
   }, [key]);
   useEffect(() => {
-    if (
-      !tasks &&
-      !((detail || evidence) && window.matchMedia("(max-width:700px)").matches)
-    )
-      return;
-    const frame = requestAnimationFrame(() =>
-      document
-        .querySelector<HTMLElement>(
-          tasks ? ".task-panel" : ".workspace .inspector",
-        )
-        ?.scrollIntoView({ block: "nearest" }),
+    const media = matchMedia("(max-width:700px)");
+    const changed = () => setMobile(media.matches);
+    media.addEventListener("change", changed);
+    return () => media.removeEventListener("change", changed);
+  }, []);
+  function restorePanelFocus() {
+    const sameScope = panelNode.current?.scope === key;
+    const origin = sameScope ? panelOrigin.current : null;
+    const node = document.querySelector<HTMLElement>(
+      `[data-renderer="${panelNode.current?.renderer}"] [data-node="${sameScope ? panelNode.current?.id : null}"]`,
     );
-    return () => cancelAnimationFrame(frame);
-  }, [tasks, detail, evidence]);
+    (origin?.isConnected &&
+    !origin.matches(":disabled") &&
+    origin.getClientRects().length
+      ? origin
+      : node || sessionTrigger.current
+    )?.focus({ preventScroll: true });
+  }
+  function closePanel(clearSelection = false) {
+    setPanel(null);
+    if (clearSelection) setSelected(null);
+    if (!mobile) requestAnimationFrame(restorePanelFocus);
+  }
+  function openPanel(
+    kind: "node" | "evidence" | "tasks",
+    origin?: HTMLElement,
+    id = selected,
+  ) {
+    panelOrigin.current = origin || (document.activeElement as HTMLElement);
+    panelNode.current = { id, renderer: keyboardOwner, scope: key };
+    setMenu(null);
+    setPanel(kind);
+  }
   function closeMenu(restore = false) {
     const trigger =
       menu === "session" ? sessionTrigger.current : navigationTrigger.current;
@@ -182,29 +212,27 @@ export function App() {
     const keydown = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
+        if (dialog || (mobile && panel)) return;
         searchRef.current?.focus();
         searchRef.current?.select();
       }
-      if (event.key === "Escape" && !dialog) {
+      if (event.key === "Escape" && !dialog && !(mobile && panel)) {
         if (menu) {
           event.preventDefault();
           closeMenu(true);
           return;
         }
         setSelected(null);
-        setDetail(false);
-        setTasks(false);
-        setEvidence(false);
+        closePanel();
       }
     };
     window.addEventListener("keydown", keydown);
     return () => window.removeEventListener("keydown", keydown);
-  }, [dialog, menu]);
+  }, [dialog, menu, mobile, panel, selected, keyboardOwner]);
   function select(id: number | null) {
     setSelected(id);
-    setDetail(id !== null);
-    setEvidence(false);
-    setTasks(false);
+    if (id !== null && !mobile) openPanel("node", undefined, id);
+    else setPanel(null);
   }
   function changeMode(value: RendererKind) {
     setMode(value);
@@ -287,6 +315,210 @@ export function App() {
       : state.frame?.control_enabled
         ? "本机控制"
         : "只读 · 可启用控制";
+  const errorNotice = (state.error || error) && (
+    <div className="notice-error" role="alert">
+      <div>
+        <strong>
+          {state.unknownWrite
+            ? "结果未知，请先核查回执，勿重复发送。"
+            : "操作未完成"}
+        </strong>
+        <details>
+          <summary>查看原因</summary>
+          <p>{error || state.error}</p>
+        </details>
+      </div>
+      {!state.unknownWrite && (
+        <button
+          aria-label="关闭错误提示"
+          onClick={() => {
+            setError("");
+            client.dismissError();
+          }}
+        >
+          ×
+        </button>
+      )}
+    </div>
+  );
+  const panelContent = (
+    <>
+      {detail && selectedNode && (
+        <Inspector
+          node={selectedNode}
+          state={state}
+          age={age}
+          onClose={() => {
+            closePanel();
+          }}
+          actions={
+            <>
+              {button("stop", "停止节点", "danger", selectedNode.id)}
+              {button("restart", "恢复原节点", "", selectedNode.id)}
+            </>
+          }
+        />
+      )}
+      {evidence && (
+        <aside className="inspector evidence-inspector">
+          <div className="inspector-heading">
+            <span className="eyebrow">一致性证据</span>
+            <button
+              className="icon-button"
+              aria-label="关闭证据"
+              onClick={() => closePanel()}
+            >
+              <Icon name="close" />
+            </button>
+          </div>
+          <h2>提交与验证</h2>
+          <p className="footnote">
+            以下状态属于当前会话观测，不代表每一条历史任务的结果。
+          </p>
+          <div className="evidence-step">
+            <span>目标日志索引</span>
+            <b>{state.frame?.target || "—"}</b>
+          </div>
+          <div className="evidence-step">
+            <span>全体应用至目标</span>
+            <b>{done ? "已观察到" : "尚未确认"}</b>
+          </div>
+          {(["current_verification", "history_verification"] as const).map(
+            (field) => {
+              const verification = state.frame?.[field];
+              const status =
+                !fresh(state) && verification?.state === "passed"
+                  ? "stale"
+                  : verification?.state || "not_run";
+              return (
+                <div className="verification" key={field}>
+                  <span>
+                    {field === "current_verification"
+                      ? "当前完整校验"
+                      : "历史前缀校验"}
+                  </span>
+                  <b
+                    data-verification={field}
+                    className={status === "passed" ? "good" : ""}
+                  >
+                    {checks[status] || status}
+                  </b>
+                  <small>
+                    {verification?.error ||
+                      `目标索引 ${verification?.target || "—"}`}
+                  </small>
+                </div>
+              );
+            },
+          )}
+          <div className="actions">{button("verify_history")}</div>
+          <div className="checkpoint">
+            <span className="eyebrow">固定检查点</span>
+            <p>
+              index <b>{state.frame?.checkpoint?.index || "—"}</b> · x{" "}
+              {state.frame?.checkpoint?.x ?? "—"}
+            </p>
+            <code>{state.frame?.checkpoint?.hash || "尚未保存历史前缀"}</code>
+            {button("checkpoint")}
+          </div>
+          {button("export")}
+          <p className="footnote">
+            应用完成与完整一致性校验分别判断；检查点不会被更大的提交索引自动替换。
+          </p>
+        </aside>
+      )}
+      {tasks && (
+        <section className="task-panel" aria-label="任务回执">
+          <div className="task-panel-head">
+            <b>任务与事件</b>
+            <button aria-label="收起任务" onClick={() => closePanel()}>
+              ×
+            </button>
+          </div>
+          <div className="task-columns">
+            <div>
+              {[...operations]
+                .reverse()
+                .slice(0, 8)
+                .map((op) => (
+                  <article
+                    className="task-receipt"
+                    key={op.id}
+                    data-operation={op.id}
+                  >
+                    <div>
+                      <strong>{labels[op.kind]}</strong>
+                      <span>{phases[op.state] || op.state}</span>
+                    </div>
+                    {op.kind === "generate" && (
+                      <p>
+                        {op.accepted === true
+                          ? "已受理"
+                          : op.accepted === false
+                            ? "未受理"
+                            : "受理未知"}{" "}
+                        ·{" "}
+                        {op.committed === true
+                          ? "提交已确认"
+                          : op.committed === false
+                            ? "本次未确认提交"
+                            : "提交状态未知"}
+                      </p>
+                    )}
+                    {op.kind === "restart" && <p>进程恢复后仍需追赶与校验。</p>}
+                    {op.error && (
+                      <details className="error-text">
+                        <summary>查看任务原因</summary>
+                        <p>{op.error}</p>
+                      </details>
+                    )}
+                    <details>
+                      <summary>原始回执</summary>
+                      <pre>{JSON.stringify(op, null, 2)}</pre>
+                    </details>
+                    {op.kind === "export" &&
+                      typeof op.result?.url === "string" && (
+                        <a href={op.result.url}>下载证据</a>
+                      )}
+                  </article>
+                ))}
+              {operations.length === 0 && (
+                <p className="empty-panel">
+                  尚无任务。提交、校验等操作的回执会出现在这里。
+                </p>
+              )}
+            </div>
+            <ol className="event-list">
+              {state.events.length === 0 && (
+                <li className="empty-panel">尚未收到事件</li>
+              )}
+              {state.events
+                .slice(-30)
+                .reverse()
+                .map((event) => (
+                  <li key={event.seq}>
+                    <time>
+                      {new Date(event.received_at).toLocaleTimeString("zh-CN", {
+                        hour12: false,
+                      })}
+                    </time>
+                    <span>
+                      {event.source === "node"
+                        ? "节点"
+                        : event.source === "control"
+                          ? "操作"
+                          : "观测"}{" "}
+                      {event.node_id ? `#${event.node_id}` : ""}
+                    </span>
+                    <code>{event.name}</code>
+                  </li>
+                ))}
+            </ol>
+          </div>
+        </section>
+      )}
+    </>
+  );
   return (
     <div className="workbench">
       <header className="topbar">
@@ -398,8 +630,8 @@ export function App() {
           aria-label="一致性证据"
           aria-pressed={evidence}
           onClick={() => {
-            setEvidence(!evidence);
-            setDetail(false);
+            if (evidence) closePanel();
+            else openPanel("evidence");
           }}
         >
           <Icon name="shield" />
@@ -414,7 +646,7 @@ export function App() {
         </a>
       </nav>
       <main
-        className={`workspace ${detail || evidence ? "with-inspector" : ""} ${tasks ? "with-tasks" : ""}`}
+        className={`workspace ${!mobile && (detail || evidence) ? "with-inspector" : ""} ${!mobile && tasks ? "with-tasks" : ""}`}
       >
         <section className="cluster-overview" aria-label="集群摘要">
           <div className="workspace-bar cluster-hero">
@@ -549,25 +781,7 @@ export function App() {
             <span>监控速率：相邻完整采样的请求尝试。</span>
           </p>
         </section>
-        {(state.error || error) && (
-          <div className="notice-error" role="alert">
-            <span>
-              {state.unknownWrite
-                ? "结果未知，请先核查回执，勿重复发送。 "
-                : ""}
-              {error || state.error}
-            </span>
-            <button
-              aria-label="关闭错误提示"
-              onClick={() => {
-                setError("");
-                client.dismissError();
-              }}
-            >
-              ×
-            </button>
-          </div>
-        )}
+        {!(mobile && panel) && errorNotice}
         <div className={`stage-area ${mode === "compare" ? "comparison" : ""}`}>
           {(mode === "compare" ? (["svg", "flow"] as const) : [mode]).map(
             (renderer) => (
@@ -585,171 +799,15 @@ export function App() {
                 }
                 onActivate={() => setKeyboardOwner(renderer)}
                 focusRequest={focusRequest}
+                showDetails={
+                  mobile && (mode !== "compare" || keyboardOwner === renderer)
+                }
+                onDetails={(origin) => openPanel("node", origin)}
               />
             ),
           )}
         </div>
-        {detail && selectedNode && (
-          <Inspector
-            node={selectedNode}
-            state={state}
-            age={age}
-            onClose={() => {
-              setDetail(false);
-              requestAnimationFrame(() =>
-                document
-                  .querySelector<HTMLElement>(`[data-node="${selected}"]`)
-                  ?.focus({ preventScroll: true }),
-              );
-            }}
-            actions={
-              <>
-                {button("stop", "停止节点", "danger", selectedNode.id)}
-                {button("restart", "恢复原节点", "", selectedNode.id)}
-              </>
-            }
-          />
-        )}
-        {evidence && (
-          <aside className="inspector evidence-inspector">
-            <div className="inspector-heading">
-              <span className="eyebrow">一致性证据</span>
-              <button
-                className="icon-button"
-                aria-label="关闭证据"
-                onClick={() => setEvidence(false)}
-              >
-                <Icon name="close" />
-              </button>
-            </div>
-            <h2>提交与验证</h2>
-            <div className="evidence-step">
-              <span>目标日志索引</span>
-              <b>{state.frame?.target || "—"}</b>
-            </div>
-            <div className="evidence-step">
-              <span>全体应用至目标</span>
-              <b>{done ? "已观察到" : "尚未确认"}</b>
-            </div>
-            {(["current_verification", "history_verification"] as const).map(
-              (field) => {
-                const verification = state.frame?.[field];
-                const status =
-                  !fresh(state) && verification?.state === "passed"
-                    ? "stale"
-                    : verification?.state || "not_run";
-                return (
-                  <div className="verification" key={field}>
-                    <span>
-                      {field === "current_verification"
-                        ? "当前完整校验"
-                        : "历史前缀校验"}
-                    </span>
-                    <b
-                      data-verification={field}
-                      className={status === "passed" ? "good" : ""}
-                    >
-                      {checks[status] || status}
-                    </b>
-                    <small>
-                      {verification?.error ||
-                        `目标索引 ${verification?.target || "—"}`}
-                    </small>
-                  </div>
-                );
-              },
-            )}
-            <div className="actions">{button("verify_history")}</div>
-            <div className="checkpoint">
-              <span className="eyebrow">固定检查点</span>
-              <p>
-                index <b>{state.frame?.checkpoint?.index || "—"}</b> · x{" "}
-                {state.frame?.checkpoint?.x ?? "—"}
-              </p>
-              <code>{state.frame?.checkpoint?.hash || "尚未保存历史前缀"}</code>
-              {button("checkpoint")}
-            </div>
-            {button("export")}
-            <p className="footnote">
-              应用完成与完整一致性校验分别判断；检查点不会被更大的提交索引自动替换。
-            </p>
-          </aside>
-        )}
-        {tasks && (
-          <section className="task-panel" aria-label="任务回执">
-            <div className="task-panel-head">
-              <b>任务与事件</b>
-              <button aria-label="收起任务" onClick={() => setTasks(false)}>
-                ×
-              </button>
-            </div>
-            <div className="task-columns">
-              <div>
-                {[...operations]
-                  .reverse()
-                  .slice(0, 8)
-                  .map((op) => (
-                    <article
-                      className="task-receipt"
-                      key={op.id}
-                      data-operation={op.id}
-                    >
-                      <div>
-                        <strong>{labels[op.kind]}</strong>
-                        <span>{phases[op.state] || op.state}</span>
-                      </div>
-                      {op.kind === "generate" && (
-                        <p>
-                          {op.accepted === true
-                            ? "已受理"
-                            : op.accepted === false
-                              ? "未受理"
-                              : "受理未知"}{" "}
-                          · {op.committed === true ? "已提交" : "提交未确认"}
-                        </p>
-                      )}
-                      {op.kind === "restart" && (
-                        <p>进程恢复后仍需追赶与校验。</p>
-                      )}
-                      {op.error && <p className="error-text">{op.error}</p>}
-                      <details>
-                        <summary>原始回执</summary>
-                        <pre>{JSON.stringify(op, null, 2)}</pre>
-                      </details>
-                      {op.kind === "export" &&
-                        typeof op.result?.url === "string" && (
-                          <a href={op.result.url}>下载证据</a>
-                        )}
-                    </article>
-                  ))}
-              </div>
-              <ol className="event-list">
-                {state.events
-                  .slice(-30)
-                  .reverse()
-                  .map((event) => (
-                    <li key={event.seq}>
-                      <time>
-                        {new Date(event.received_at).toLocaleTimeString(
-                          "zh-CN",
-                          { hour12: false },
-                        )}
-                      </time>
-                      <span>
-                        {event.source === "node"
-                          ? "节点"
-                          : event.source === "control"
-                            ? "操作"
-                            : "观测"}{" "}
-                        {event.node_id ? `#${event.node_id}` : ""}
-                      </span>
-                      <code>{event.name}</code>
-                    </li>
-                  ))}
-              </ol>
-            </div>
-          </section>
-        )}
+        {!mobile && panelContent}
       </main>
       <footer className="statusbar">
         <span className={`status-dot ${observation.fresh ? "" : "offline"}`} />
@@ -768,9 +826,8 @@ export function App() {
           className="task-trigger"
           aria-expanded={tasks}
           onClick={() => {
-            setTasks(!tasks);
-            setDetail(false);
-            setEvidence(false);
+            if (tasks) closePanel();
+            else openPanel("tasks");
           }}
         >
           {latest
@@ -812,9 +869,7 @@ export function App() {
           <a href="/#experiments">性能实验 · 原版</a>
           <button
             onClick={() => {
-              setEvidence(true);
-              setDetail(false);
-              closeMenu(true);
+              openPanel("evidence", navigationTrigger.current || undefined);
             }}
           >
             一致性证据
@@ -822,6 +877,44 @@ export function App() {
           <a href="/#settings">会话设置 · 原版</a>
         </nav>
       )}
+      <Dialog.Root
+        open={mobile && panel !== null}
+        onOpenChange={(open) => !open && closePanel()}
+      >
+        <Dialog.Portal>
+          <Dialog.Overlay className="mobile-detail-overlay" />
+          <Dialog.Content
+            className="mobile-detail"
+            ref={mobileContent}
+            onCloseAutoFocus={(event) => {
+              event.preventDefault();
+              restorePanelFocus();
+            }}
+            onEscapeKeyDown={(event) => {
+              if (dialog) return;
+              event.preventDefault();
+              event.stopPropagation();
+              closePanel(true);
+            }}
+          >
+            <header className="mobile-detail-header">
+              <button onClick={() => closePanel()}>返回拓扑</button>
+              <Dialog.Title>
+                {detail
+                  ? `节点 #${selected}`
+                  : evidence
+                    ? "一致性证据"
+                    : "任务与事件"}
+              </Dialog.Title>
+            </header>
+            <Dialog.Description className="visually-hidden">
+              返回后保留原拓扑视角。Escape 关闭详情并取消节点选择。
+            </Dialog.Description>
+            {errorNotice}
+            {panelContent}
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
       <Dialog.Root
         open={!!dialog}
         onOpenChange={(open) => !open && setDialog(null)}
@@ -835,7 +928,9 @@ export function App() {
               const origin = dialogOrigin.current;
               (origin?.isConnected && !origin.matches(":disabled")
                 ? origin
-                : sessionTrigger.current
+                : mobileContent.current?.querySelector<HTMLElement>(
+                    "button:not([disabled])",
+                  ) || sessionTrigger.current
               )?.focus({
                 preventScroll: true,
               });
@@ -1028,20 +1123,29 @@ function Inspector({
         ))}
       </dl>
       <div className="index-progress">
+        <h3>日志与应用进度</h3>
         <label>
           已提交
           <span>
-            {status?.commit_index ?? "—"} / {last || "—"}
+            {status?.commit_index ?? "—"} / {status ? last : "—"}
           </span>
         </label>
-        <progress max={Math.max(1, last)} value={status?.commit_index || 0} />
+        {status ? (
+          <progress max={Math.max(1, last)} value={status.commit_index} />
+        ) : (
+          <p className="progress-unknown">尚无有效提交观测</p>
+        )}
         <label>
           已应用
           <span>
-            {status?.last_applied ?? "—"} / {last || "—"}
+            {status?.last_applied ?? "—"} / {status ? last : "—"}
           </span>
         </label>
-        <progress max={Math.max(1, last)} value={status?.last_applied || 0} />
+        {status ? (
+          <progress max={Math.max(1, last)} value={status.last_applied} />
+        ) : (
+          <p className="progress-unknown">尚无有效应用观测</p>
+        )}
       </div>
       <div className="state-value">
         <span>状态机 x</span>
