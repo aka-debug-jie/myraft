@@ -26,7 +26,8 @@ def package(node, console, build_receipt, output):
     # Evidence listed by a provenance manifest must survive gitignore and packaging.
     for name, data in files.items():
         if name.startswith('project/validation/') and name.endswith('/provenance.json'):
-            for entry in json.loads(data)['files']:
+            manifest = json.loads(data)
+            for entry in manifest['files'] if 'files' in manifest else manifest['copies']:
                 target = name.rsplit('/', 1)[0] + '/' + entry['file']
                 payload = files.get(target)
                 if payload is None or sha(payload) != entry['delivered_sha256']:

@@ -100,6 +100,14 @@ class WindowsPackageTests(unittest.TestCase):
                         self.assertEqual(hashlib.sha256(z.read(name)).hexdigest(), digest)
                 with self.assertRaises(FileExistsError):
                     package.package(node, console, receipt, root / 'good.zip')
+                # Earlier frontend evidence uses "copies" for the same digest records.
+                (evidence / 'provenance.json').write_text(json.dumps({'copies': [
+                    {'file': 'run.log', 'delivered_sha256': package.sha(b'actual evidence')}
+                ]}))
+                package.package(node, console, receipt, root / 'copies-good.zip')
+                (evidence / 'run.log').write_bytes(b'tampered copy')
+                with self.assertRaisesRegex(ValueError, 'evidence'):
+                    package.package(node, console, receipt, root / 'copies-bad.zip')
 
 
 if __name__ == '__main__':
