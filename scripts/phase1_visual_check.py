@@ -20,11 +20,11 @@ with sync_playwright() as p:
                 for width,height in [(1440,900),(1920,1080),(390,844)]:
                     page.set_viewport_size({'width':width,'height':height});page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))')
                     assert page.evaluate('()=>document.documentElement.scrollWidth<=innerWidth')
-                    page.screenshot(path=str(a.output/f'real-{renderer}-{count}-{width}-dark.png'))
-                page.set_viewport_size({'width':1440,'height':900});page.get_by_label('切换主题').click();page.wait_for_function('()=>document.documentElement.dataset.theme==="light"');page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');page.screenshot(path=str(a.output/f'real-{renderer}-{count}-light.png'))
-                page.get_by_label('切换投影模式').click();page.wait_for_function('()=>document.documentElement.dataset.present==="true"');page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');page.screenshot(path=str(a.output/f'real-{renderer}-{count}-projection.png'))
+                    page.screenshot(animations='disabled',path=str(a.output/f'real-{renderer}-{count}-{width}-dark.png'))
+                page.set_viewport_size({'width':1440,'height':900});page.get_by_label('切换主题').click();page.wait_for_function('()=>document.documentElement.dataset.theme==="light"');page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');page.screenshot(animations='disabled',path=str(a.output/f'real-{renderer}-{count}-light.png'))
+                page.get_by_label('切换投影模式').click();page.wait_for_function('()=>document.documentElement.dataset.present==="true"');page.evaluate('()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');page.screenshot(animations='disabled',path=str(a.output/f'real-{renderer}-{count}-projection.png'))
                 page.get_by_label('切换投影模式').click();page.get_by_label('切换主题').click();page.wait_for_function('()=>document.documentElement.dataset.theme==="dark"')
-                page.get_by_label('搜索节点').fill(str(count));page.get_by_label('搜索节点').press('Enter');page.get_by_label(f'节点 {count} 详情').wait_for();page.screenshot(path=str(a.output/f'real-{renderer}-{count}-inspector.png'))
+                page.get_by_label('搜索节点').fill(str(count));page.get_by_label('搜索节点').press('Enter');page.get_by_label(f'节点 {count} 详情').wait_for();page.screenshot(animations='disabled',path=str(a.output/f'real-{renderer}-{count}-inspector.png'))
                 result['real'].append({'nodes':count,'renderer':renderer,'result':'PASS',**check});page.close()
         for scenario in ['empty','stale','multiple-leaders','identity','disconnected','loading']:
             frame,bootstrap=fixture(11);context=browser.new_context(viewport={'width':1440,'height':900},reduced_motion='reduce')
@@ -36,7 +36,7 @@ with sync_playwright() as p:
                 page.evaluate('''kind=>{const f=structuredClone(window.__fixture);f.snapshot.seq++;if(kind==='empty'){f.session=null;f.snapshot.nodes=[]}if(kind==='stale')f.snapshot.completed_at=new Date(0).toISOString();if(kind==='multiple-leaders')f.snapshot.nodes[1].status.state='Leader';if(kind==='identity')f.snapshot.nodes[0].identity_ok=false;if(kind==='disconnected'){for(const s of window.__streams)s.onerror?.(new Event('error'));return;}window.__send(f);}''',scenario)
                 expected={'empty':'无活跃会话','stale':'采样过期','multiple-leaders':'观察到多个本地 Leader','identity':'身份异常','disconnected':'连接中断'}[scenario]
                 page.wait_for_function('(label)=>document.querySelector("[data-observation-state]").textContent===label',arg=expected)
-            page.screenshot(path=str(a.output/f'synthetic-{scenario}.png'));result['synthetic'].append({'scenario':scenario,'result':'PASS'})
+            page.screenshot(animations='disabled',path=str(a.output/f'synthetic-{scenario}.png'));result['synthetic'].append({'scenario':scenario,'result':'PASS'})
             gate['hold']=False
             for route in pending:route.fulfill(json=bootstrap)
             if pending:page.wait_for_function('()=>window.__streams.size===1')

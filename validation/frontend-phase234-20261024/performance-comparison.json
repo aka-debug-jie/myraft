@@ -1,0 +1,138 @@
+{
+  "baseline": "55f37ea",
+  "implementation": "0fb03aa",
+  "mode": "same-host SYNTHETIC no-preference",
+  "rows": [
+    {
+      "nodes": 11,
+      "renderer": "svg",
+      "round": 1,
+      "drag_before": 16.700000000000045,
+      "drag_after": 16.700000000000045,
+      "drag_ratio": 1.0
+    },
+    {
+      "nodes": 11,
+      "renderer": "svg",
+      "round": 2,
+      "drag_before": 16.700000000000045,
+      "drag_after": 16.799999999999955,
+      "drag_ratio": 1.0059880239520904
+    },
+    {
+      "nodes": 11,
+      "renderer": "svg",
+      "round": 3,
+      "drag_before": 16.700000000000045,
+      "drag_after": 16.700000000000045,
+      "drag_ratio": 1.0
+    },
+    {
+      "nodes": 11,
+      "renderer": "flow",
+      "round": 1,
+      "drag_before": 16.700000000000045,
+      "drag_after": 16.700000000000045,
+      "drag_ratio": 1.0
+    },
+    {
+      "nodes": 11,
+      "renderer": "flow",
+      "round": 2,
+      "drag_before": 16.700000000000045,
+      "drag_after": 16.700000000000045,
+      "drag_ratio": 1.0
+    },
+    {
+      "nodes": 11,
+      "renderer": "flow",
+      "round": 3,
+      "drag_before": 16.700000000000045,
+      "drag_after": 16.700000000000045,
+      "drag_ratio": 1.0
+    },
+    {
+      "nodes": 100,
+      "renderer": "svg",
+      "round": 1,
+      "drag_before": 16.700000000000728,
+      "drag_after": 16.800000000000182,
+      "drag_ratio": 1.0059880239520629,
+      "update_before": 32.19999998807907,
+      "update_after": 32.20000001788139,
+      "update_ratio": 1.0000000009255379
+    },
+    {
+      "nodes": 100,
+      "renderer": "svg",
+      "round": 2,
+      "drag_before": 16.700000000000728,
+      "drag_after": 16.700000000000728,
+      "drag_ratio": 1.0,
+      "update_before": 32.20000001788139,
+      "update_after": 32.20000001788139,
+      "update_ratio": 1.0
+    },
+    {
+      "nodes": 100,
+      "renderer": "svg",
+      "round": 3,
+      "drag_before": 16.799999999999272,
+      "drag_after": 16.800000000000182,
+      "drag_ratio": 1.0000000000000542,
+      "update_before": 32.39999997615814,
+      "update_after": 32.30000001192093,
+      "update_ratio": 0.9969135813484321
+    },
+    {
+      "nodes": 100,
+      "renderer": "flow",
+      "round": 1,
+      "drag_before": 16.700000000000728,
+      "drag_after": 16.800000000000182,
+      "drag_ratio": 1.0059880239520629,
+      "update_before": 32.599999994039536,
+      "update_after": 33.30000001192093,
+      "update_ratio": 1.0214723931904717
+    },
+    {
+      "nodes": 100,
+      "renderer": "flow",
+      "round": 2,
+      "drag_before": 16.700000000000728,
+      "drag_after": 16.700000000000728,
+      "drag_ratio": 1.0,
+      "update_before": 34.599999994039536,
+      "update_after": 32.69999998807907,
+      "update_ratio": 0.9450867050205846
+    },
+    {
+      "nodes": 100,
+      "renderer": "flow",
+      "round": 3,
+      "drag_before": 16.700000000000728,
+      "drag_after": 16.800000000000182,
+      "drag_ratio": 1.0059880239520629,
+      "update_before": 32.599999994039536,
+      "update_after": 32.60000002384186,
+      "update_ratio": 1.0000000009141816
+    }
+  ],
+  "budget": {
+    "11-svg": {
+      "drag_ratio": 0
+    },
+    "11-flow": {
+      "drag_ratio": 0
+    },
+    "100-svg": {
+      "drag_ratio": 0,
+      "update_ratio": 0
+    },
+    "100-flow": {
+      "drag_ratio": 0,
+      "update_ratio": 0
+    }
+  },
+  "result": "PASS"
+}

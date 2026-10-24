@@ -1,0 +1,75 @@
+{
+  "source": "0fb03aa",
+  "typescript_build": "PASS",
+  "frontend_unit": {
+    "pass": 28
+  },
+  "layout": {
+    "pass": 30,
+    "legacy_interaction_groups": 7
+  },
+  "phase1_interactions": {
+    "pass": 12
+  },
+  "phase234_interactions": {
+    "pass": 9,
+    "panel_cycles_per_renderer": 40
+  },
+  "medium_and_legacy": {
+    "pass": 20
+  },
+  "real_kpi": {
+    "pass": 4
+  },
+  "synthetic_exception_states": {
+    "pass": 6
+  },
+  "lifecycle": {
+    "modes": [
+      "reduce",
+      "no-preference"
+    ],
+    "renderers": [
+      "svg",
+      "flow"
+    ],
+    "updates_per_case": 60,
+    "transition_frames_per_case": 60,
+    "missing_frames": 0
+  },
+  "go": {
+    "format_vet_build": "PASS",
+    "normal": {
+      "top_pass": 90,
+      "sub_pass": 52,
+      "long_soak_skip": 1
+    },
+    "race": {
+      "top_pass": 90,
+      "sub_pass": 52,
+      "long_soak_skip": 1
+    }
+  },
+  "python": {
+    "pass": 44
+  },
+  "real_clusters": {
+    "pass": 4,
+    "independent_arithmetic_nodes": 222,
+    "counts": [
+      11,
+      100
+    ],
+    "renderers": [
+      "svg",
+      "flow"
+    ]
+  },
+  "performance_budget": "PASS",
+  "not_run": [
+    "Windows native",
+    "Safari/Firefox",
+    "physical phone",
+    "long-duration soak"
+  ]
+}

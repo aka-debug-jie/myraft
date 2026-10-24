@@ -1,0 +1,24 @@
+{
+  "mode": "SYNTHETIC_LOCAL_FILES_ONLY",
+  "reported_by": "independent reviewer agent",
+  "checks": 16,
+  "passed": 16,
+  "failed": 0,
+  "page_errors": 0,
+  "real_business_requests": 0,
+  "sse_created_per_context": 1,
+  "sse_active_per_context": 1,
+  "reviewed_app_sha256": "f2e3a1f03962f5bf51bbef5be092a0de68c3d625aba60520dec0cc92dc73a880",
+  "reviewed_index_sha256": "ea501b38d0d07248ef0d4a8fad1de2250cf710ac463afe34336a36e0154d3af4",
+  "checks_described": [
+    "svg/flow/compare: Escape restores node and renderer",
+    "svg/flow/compare: uncertain write visible in mobile detail, cannot dismiss, one aborted POST",
+    "svg/flow/compare: disabled confirmation origin falls back to return button",
+    "svg/flow/compare: session scope change clears panels/selection/errors",
+    "svg/flow: canvas dimensions and transform preserved on detail return",
+    "svg/flow: accepted and committed true/false/missing presented separately"
+  ],
+  "limitations": "Targeted diff review and synthetic browser checks; not real cluster acceptance. Reviewer returned summary, primary runnable scripts and raw outputs retained separately.",
+  "current_app_sha256": "7010cfbcf710c984084b6e63d6201f83111073985787b83285d719cec1675edd",
+  "reviewed_bundle_matches_final": true
+}

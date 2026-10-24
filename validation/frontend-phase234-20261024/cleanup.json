@@ -1,0 +1,36 @@
+{
+  "stopped_owned_controllers": [
+    {
+      "pid": 1401184,
+      "listen": "127.0.0.1:18140",
+      "binary": "raft-console-baseline"
+    },
+    {
+      "pid": 1416937,
+      "listen": "127.0.0.1:18141",
+      "binary": "raft-console-phase2"
+    },
+    {
+      "pid": 1439961,
+      "listen": "127.0.0.1:18142",
+      "binary": "raft-console-phase3"
+    },
+    {
+      "pid": 1453657,
+      "listen": "127.0.0.1:18143",
+      "binary": "raft-console-phase3-final"
+    },
+    {
+      "pid": 1462786,
+      "listen": "127.0.0.1:18144",
+      "binary": "raft-console-final"
+    }
+  ],
+  "remaining_test_http_listeners": [],
+  "real_cluster_cleanup_evidence": "real-clusters/results.json per-run remaining_listeners=[]",
+  "preserved_preview_nodes": 111,
+  "preserved_preview_controllers": [
+    8080,
+    18082
+  ]
+}

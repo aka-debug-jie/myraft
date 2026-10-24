@@ -86,10 +86,12 @@ def main():
                   return {bbox:{x:r.x,y:r.y,width:r.width,height:r.height},transform:getComputedStyle(viewport).transform};
                 }''')
                 sse_before = page.evaluate('()=>window.__streams.size')
+                page.screenshot(path=str(args.output / f'{page.url.split("renderer=")[-1]}-mobile-relation.png'))
                 detail_trigger.click()
                 dialog = page.locator('.mobile-detail')
                 assert dialog.is_visible() and dialog.get_attribute('role') == 'dialog'
                 assert dialog.get_by_label('节点 3 详情').is_visible()
+                page.screenshot(path=str(args.output / f'{page.url.split("renderer=")[-1]}-mobile-detail.png'))
 
                 page.keyboard.press('Control+k')
                 assert dialog.evaluate('(e)=>e.contains(document.activeElement)'), 'Ctrl+K moved focus behind the modal detail'
@@ -220,6 +222,28 @@ def main():
                     assert text in page.locator(f'[data-operation="receipt-{index}"]').inner_text()
                 assert page.locator('[data-verification]').count() == 0
             run_check('receipt-commit-three-states', receipt_states)
+
+            def panel_lifecycle(page, context, _operations):
+                cdp=context.new_cdp_session(page);cdp.send('Performance.enable')
+                page.locator('[data-node="3"]').click()
+                def cycle():
+                    page.evaluate('()=>{const f=structuredClone(window.__fixture);f.snapshot.seq++;f.snapshot.completed_at=new Date().toISOString();window.__send(f)}')
+                    page.get_by_label('查看节点详情').click()
+                    page.get_by_role('button',name='返回拓扑',exact=True).click()
+                    page.wait_for_function("()=>document.activeElement.getAttribute('aria-label')==='查看节点详情'")
+                cycle();cycle();samples=[]
+                for i in range(9):
+                    if i:
+                        for _ in range(5):cycle()
+                    cdp.send('HeapProfiler.collectGarbage')
+                    metrics={m['name']:m['value'] for m in cdp.send('Performance.getMetrics')['metrics']}
+                    samples.append({key:metrics[key] for key in ['Nodes','JSEventListeners','JSHeapUsedSize']})
+                result.setdefault('panel_lifecycle',[]).append({'renderer':page.url.split('renderer=')[-1],'samples':samples,'warmup_cycles':2,'measured_cycles':40})
+                assert samples[-1]['JSEventListeners']==samples[0]['JSEventListeners'],samples
+                assert samples[-1]['Nodes']==samples[0]['Nodes'],samples
+                assert page.evaluate('()=>window.__streams.size===1&&window.__created===1')
+            for renderer in ('svg','flow'):
+                run_check(f'mobile-panel-lifecycle-{renderer}',panel_lifecycle,count=11,viewport=(390,844),renderer=renderer)
 
             result['page_errors'] = page_errors
             result['result'] = 'PASS' if all(item['result'] == 'PASS' for item in result['checks']) and not page_errors else 'FAIL'

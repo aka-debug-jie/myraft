@@ -43,7 +43,17 @@ window.__long=[];new PerformanceObserver(list=>window.__long.push(...list.getEnt
 GEOMETRY="""()=>{
 const host=document.querySelector('.canvas-host'),box=host.getBoundingClientRect();
 const nodes=[...host.querySelectorAll('[data-node]')].map(e=>{const r=e.getBoundingClientRect();return {id:+e.dataset.node,x:r.x+r.width/2,y:r.y+r.height/2,r:r.width/2,hit:e.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)),label:getComputedStyle(e.querySelector('.node-badge__id')).display!=='none'};});
-let overlap=[],outside=[],crossings=[],edge_crossings=[];
+let overlap=[],outside=[],crossings=[],edge_crossings=[],visual_errors=[];
+for(const node of host.querySelectorAll('[data-node]')){
+ const badge=node.querySelector('.node-badge'),style=getComputedStyle(badge);
+ if(style.overflow!=='hidden')visual_errors.push({id:node.dataset.node,kind:'unbounded-decoration'});
+ for(const label of badge.querySelectorAll('.node-badge__id,.node-badge__role,.node-badge__term')){
+  if(!label.getClientRects().length)continue;
+  if(parseFloat(getComputedStyle(label).fontSize)<12)visual_errors.push({id:node.dataset.node,kind:'small-default-label'});
+  const a=label.getBoundingClientRect(),b=node.getBoundingClientRect();
+  if(a.left<b.left-.5||a.right>b.right+.5||a.top<b.top-.5||a.bottom>b.bottom+.5)visual_errors.push({id:node.dataset.node,kind:'label-outside'});
+ }
+}
 for(let i=0;i<nodes.length;i++){const a=nodes[i];if(a.x-a.r<box.x-1||a.y-a.r<box.y-1||a.x+a.r>box.right+1||a.y+a.r>box.bottom+1)outside.push(a.id);
  for(let j=i+1;j<nodes.length;j++){const b=nodes[j];if(Math.hypot(a.x-b.x,a.y-b.y)+.2<a.r+b.r)overlap.push([a.id,b.id]);}}
 const edges=[...host.querySelectorAll('[data-relation]')];
@@ -53,7 +63,7 @@ for(let i=0;i<segments.length;i++)for(let j=i+1;j<segments.length;j++){const a=s
 for(const edge of edges){const [from,to]=edge.dataset.relation.split('/').map(Number),length=edge.getTotalLength(),matrix=edge.getScreenCTM();
  for(let i=1;i<30;i++){const point=edge.getPointAtLength(length*i/30);const p=new DOMPoint(point.x,point.y).matrixTransform(matrix);
  for(const n of nodes)if(n.id!==from&&n.id!==to&&Math.hypot(n.x-p.x,n.y-p.y)<n.r-1)crossings.push([from,to,n.id]);}}
-return {members:nodes.length,visible:nodes.filter(n=>n.x>=box.x&&n.x<=box.right&&n.y>=box.y&&n.y<=box.bottom).length,hit:nodes.filter(n=>n.hit).length,labels:nodes.filter(n=>n.label).length,drawn:edges.filter(e=>getComputedStyle(e).visibility!=='hidden'&&Number(getComputedStyle(e).opacity)>.01).length,relations:+host.dataset.relations,overlap,outside,crossings,edge_crossings,tab_stops:host.querySelectorAll('[data-node][tabindex="0"]').length};
+return {members:nodes.length,visible:nodes.filter(n=>n.x>=box.x&&n.x<=box.right&&n.y>=box.y&&n.y<=box.bottom).length,hit:nodes.filter(n=>n.hit).length,labels:nodes.filter(n=>n.label).length,drawn:edges.filter(e=>getComputedStyle(e).visibility!=='hidden'&&Number(getComputedStyle(e).opacity)>.01).length,relations:+host.dataset.relations,overlap,outside,crossings,edge_crossings,visual_errors,tab_stops:host.querySelectorAll('[data-node][tabindex="0"]').length};
 }"""
 
 
@@ -80,7 +90,7 @@ def main():
                         page.mouse.move(0,0);page.wait_for_timeout(120)
                         stats=page.evaluate(GEOMETRY);record={'nodes':count,'renderer':renderer,'viewport':viewport,**stats};result['cases'].append(record)
                         assert stats['visible']==count and stats['hit']==count,record
-                        assert not stats['overlap'] and not stats['outside'] and not stats['crossings'] and not stats['edge_crossings'],record
+                        assert not stats['overlap'] and not stats['outside'] and not stats['crossings'] and not stats['edge_crossings'] and not stats['visual_errors'],record
                         assert stats['drawn']==count-1 and stats['relations']==count-1 and stats['tab_stops']==1,record
                         if count in [11,100]:page.screenshot(path=str(a.output/f'synthetic-{renderer}-{count}-{viewport[0]}.png'))
                         context.close()

@@ -5,12 +5,13 @@ from playwright.sync_api import sync_playwright
 from prototype_ui_test import fixture,SETUP
 
 parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--url',required=True);parser.add_argument('--output',type=Path,required=True)
-args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=False);result={'mode':'SYNTHETIC','runs':[]}
+parser.add_argument('--motion', choices=['reduce','no-preference'], default='reduce')
+args=parser.parse_args();args.output.mkdir(parents=True,exist_ok=False);result={'mode':'SYNTHETIC','motion':args.motion,'runs':[]}
 with sync_playwright() as p:
     browser=p.chromium.launch()
     try:
         for renderer in ['svg','flow']:
-            frame,bootstrap=fixture(100);context=browser.new_context(viewport={'width':1440,'height':900},reduced_motion='reduce')
+            frame,bootstrap=fixture(100);context=browser.new_context(viewport={'width':1440,'height':900},reduced_motion=args.motion)
             context.add_init_script('('+SETUP+')('+json.dumps(frame)+')');context.route('**/api/session',lambda route:route.fulfill(json=bootstrap));page=context.new_page()
             page.goto(args.url.rstrip('/')+f'/prototype/?renderer={renderer}');cdp=context.new_cdp_session(page);cdp.send('Performance.enable')
             def settle():
@@ -27,6 +28,22 @@ with sync_playwright() as p:
             assert not missing,missing
             samples=[];record={'renderer':renderer,'warmup_cycles':2,'measured_cycles':8,'samples':samples};result['runs'].append(record)
             record['missing_edges_in_60_updates']=missing
+            changes=page.evaluate("""async()=>{
+              const template=structuredClone(window.__fixture),errors=[];
+              for(let i=0;i<60;i++){
+                const f=structuredClone(template),leader=Math.floor(i/6)%100+1,term=Math.floor(i/6)+2,phase=i%6;
+                f.snapshot.seq=window.__fixture.snapshot.seq+1;f.snapshot.completed_at=new Date().toISOString();
+                f.snapshot.nodes.forEach(n=>{n.status.state=n.id===leader?'Leader':'Follower';n.status.term=term;n.status.leader_id=leader;});
+                let expected=99;
+                if(phase===2){const n=f.snapshot.nodes.find(n=>n.id!==leader);n.reachable=false;n.identity_ok=false;n.status=null;expected=98;}
+                if(phase===4){f.snapshot.nodes.forEach(n=>{n.status.state=n.id===leader?'Candidate':'Follower';n.status.leader_id=0});expected=0;}
+                window.__send(f);await new Promise(r=>requestAnimationFrame(r));
+                const nodes=[...document.querySelectorAll('[data-node]')],edges=document.querySelectorAll('[data-relation]').length;
+                if(nodes.length!==100||edges!==expected||nodes.some(n=>n.dataset.role!==(f.snapshot.nodes.find(x=>x.id===+n.dataset.node).status?.state||'unknown')))errors.push({frame:i,edges,expected});
+              }return errors;
+            }""")
+            record['transition_frames']=60;record['transition_errors']=changes
+            assert not changes,changes
             for batch in range(9):
                 if batch:cycle()
                 cdp.send('HeapProfiler.collectGarbage');metrics={m['name']:m['value'] for m in cdp.send('Performance.getMetrics')['metrics']}

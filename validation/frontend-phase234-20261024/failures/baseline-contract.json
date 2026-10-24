@@ -1,0 +1,51 @@
+{
+  "mode": "SYNTHETIC",
+  "checks": [
+    {
+      "name": "mobile-node-detail-svg",
+      "result": "FAIL",
+      "error": "AssertionError: selecting a mobile node must not immediately show its details",
+      "operations": [],
+      "url": "http://127.0.0.1:18140/prototype/?renderer=svg",
+      "body": "MyRaft\n合成检查 · 3 节点\n提交命令\n校验当前\n合成检查 · 3 节点\n观察到 Leader\n#1 · Term 1\n3 / 3 可达\n采样 0.0s 前\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\nLeader\n#1\nTerm\n1\nCommit\n2102\nApplied\n2102\nState x\n0\n监控 RPC/s\n—\n\n前五项来自 Leader #1 的本地观测，非全体一致结论。\n监控速率：相邻完整采样的请求尝试。\n\n01 / SVG\n3 个成员 · 2 条有效报告关系\n1\nLeader\nT1\n2\n3\n节点 #3\n报告 Leader #1\nT1 · 非复制确认\n100%\n固定成员 · 连线仅表示观测到的报告关系\n节点检查器\n#3\nFollower\n\n当前可达 · 0.0s 前采样\n\nTerm\n1\n报告 Leader\n#1\nLastLogIndex\n2102\nCommitIndex\n2102\nLastApplied\n2102\n已提交\n2102 / 2102\n已应用\n2102 / 2102\n状态机 x\n0\n已应用算术命令 2101\n进程操作\n停止节点\n恢复原节点\n\n仅控制本会话持有的进程；恢复使用原配置与数据。\n\n在日志实验室检查实际条目 →\nREAL\n本机控制\n尚无任务"
+    },
+    {
+      "name": "mobile-node-detail-flow",
+      "result": "FAIL",
+      "error": "AssertionError: selecting a mobile node must not immediately show its details",
+      "operations": [],
+      "url": "http://127.0.0.1:18140/prototype/?renderer=flow",
+      "body": "MyRaft\n合成检查 · 3 节点\n提交命令\n校验当前\n合成检查 · 3 节点\n观察到 Leader\n#1 · Term 1\n3 / 3 可达\n采样 0.0s 前\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\nLeader\n#1\nTerm\n1\nCommit\n2102\nApplied\n2102\nState x\n0\n监控 RPC/s\n—\n\n前五项来自 Leader #1 的本地观测，非全体一致结论。\n监控速率：相邻完整采样的请求尝试。\n\n02 / REACT FLOW\n3 个成员 · 2 条有效报告关系\n1\nLeader\nT1\n2\n3\nReact Flow\n节点 #3\n报告 Leader #1\nT1 · 非复制确认\n100%\n固定成员 · 连线仅表示观测到的报告关系\n节点检查器\n#3\nFollower\n\n当前可达 · 0.0s 前采样\n\nTerm\n1\n报告 Leader\n#1\nLastLogIndex\n2102\nCommitIndex\n2102\nLastApplied\n2102\n已提交\n2102 / 2102\n已应用\n2102 / 2102\n状态机 x\n0\n已应用算术命令 2101\n进程操作\n停止节点\n恢复原节点\n\n仅控制本会话持有的进程；恢复使用原配置与数据。\n\n在日志实验室检查实际条目 →\nREAL\n本机控制\n尚无任务"
+    },
+    {
+      "name": "mobile-navigation-evidence-tasks-exclusive",
+      "result": "FAIL",
+      "error": "AssertionError: ",
+      "operations": [],
+      "url": "http://127.0.0.1:18140/prototype/?renderer=svg",
+      "body": "MyRaft\n合成检查 · 11 节点\n提交命令\n校验当前\n合成检查 · 11 节点\n观察到 Leader\n#1 · Term 1\n11 / 11 可达\n采样 0.0s 前\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\nLeader\n#1\nTerm\n1\nCommit\n2102\nApplied\n2102\nState x\n0\n监控 RPC/s\n—\n\n前五项来自 Leader #1 的本地观测，非全体一致结论。\n监控速率：相邻完整采样的请求尝试。\n\n01 / SVG\n11 个成员 · 10 条有效报告关系\n1\nLeader\nT1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n100%\n固定成员 · 连线仅表示观测到的报告关系\n任务与事件\n×\nREAL\n本机控制\n尚无任务\n集群总览\n日志实验室 · 原版\n故障实验 · 原版\n性能实验 · 原版\n一致性证据\n会话设置 · 原版"
+    },
+    {
+      "name": "compare-flow-detail-return-focus-owner",
+      "result": "FAIL",
+      "error": "TimeoutError: Locator.click: Timeout 4500ms exceeded.\nCall log:\n  - waiting for get_by_label(\"查看节点详情\")\n",
+      "operations": [],
+      "url": "http://127.0.0.1:18140/prototype/?renderer=compare",
+      "body": "MyRaft\n合成检查 · 11 节点\n提交命令\n校验当前\n合成检查 · 11 节点\n观察到 Leader\n#1 · Term 1\n11 / 11 可达\n采样 3.9s 前\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\nLeader\n#1\nTerm\n1\nCommit\n2102\nApplied\n2102\nState x\n0\n监控 RPC/s\n—\n\n前五项来自 Leader #1 的本地观测，非全体一致结论。\n监控速率：相邻完整采样的请求尝试。\n\n01 / SVG\n1\nLeader\nT1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nLeader #1\n10 个同任期 Follower 报告 · 非多数派证明\n100%\n固定成员 · 连线仅表示观测到的报告关系\n02 / REACT FLOW\n1\nLeader\nT1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nReact Flow\nLeader #1\n10 个同任期 Follower 报告 · 非多数派证明\n100%\n固定成员 · 连线仅表示观测到的报告关系\n节点检查器\n#1\nLeader\n\n当前可达 · 3.9s 前采样\n\nTerm\n1\n报告 Leader\n#1\nLastLogIndex\n2102\nCommitIndex\n2102\nLastApplied\n2102\n已提交\n2102 / 2102\n已应用\n2102 / 2102\n状态机 x\n0\n已应用算术命令 2101\n\n这是节点报告的本地角色。Follower 报告关系不代表复制 ACK 或多数派授权。\n\n进程操作\n停止节点\n恢复原节点\n\n仅控制本会话持有的进程；恢复使用原配置与数据。\n\n在日志实验室检查实际条目 →\nREAL\n本机控制\n尚无任务"
+    },
+    {
+      "name": "desktop-leader-summary-focus-edge",
+      "result": "FAIL",
+      "error": "TimeoutError: Page.wait_for_function: Timeout 4500ms exceeded.",
+      "operations": [],
+      "url": "http://127.0.0.1:18140/prototype/?renderer=svg",
+      "body": "MyRaft\n拓扑工作台\n合成检查 · 11 节点\n⌘ K\n提交命令\n校验当前\n\nCLUSTER OBSERVATORY\n\n合成检查 · 11 节点\n观察到 Leader\n#1 · Term 1\n11 / 11 可达\n采样 3.9s 前\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\nLeader\n#1\nTerm\n1\nCommit\n2102\nApplied\n2102\nState x\n0\n监控 RPC/s\n—\n\n前五项来自 Leader #1 的本地观测，非全体一致结论。\n监控速率：相邻完整采样的请求尝试。\n\n01 / SVG\n11 个成员 · 10 条有效报告关系\n1\nLeader\nT1\n2\nFollower\nT1\n3\nFollower\nT1\n4\nFollower\nT1\n5\nFollower\nT1\n6\nFollower\nT1\n7\nFollower\nT1\n8\nFollower\nT1\n9\nFollower\nT1\n10\nFollower\nT1\n11\nFollower\nT1\nLeader #1\n10 个同任期 Follower 报告 · 非多数派证明\n100%\n固定成员 · 连线仅表示观测到的报告关系\n节点检查器\n#1\nLeader\n\n当前可达 · 3.9s 前采样\n\nTerm\n1\n报告 Leader\n#1\nLastLogIndex\n2102\nCommitIndex\n2102\nLastApplied\n2102\n已提交\n2102 / 2102\n已应用\n2102 / 2102\n状态机 x\n0\n已应用算术命令 2101\n\n这是节点报告的本地角色。Follower 报告关系不代表复制 ACK 或多数派授权。\n\n进程操作\n停止节点\n恢复原节点\n\n仅控制本会话持有的进程；恢复使用原配置与数据。\n\n在日志实验室检查实际条目 →\nREAL\n本机控制\n3.9s 前采样\n丢弃 0\n尚无任务"
+    },
+    {
+      "name": "hundred-node-label-level-restores-after-resize",
+      "result": "PASS"
+    }
+  ],
+  "result": "FAIL",
+  "page_errors": []
+}

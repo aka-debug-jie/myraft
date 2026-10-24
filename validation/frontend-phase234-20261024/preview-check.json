@@ -1,0 +1,28 @@
+[
+  {
+    "url": "http://100.108.139.80:8081/prototype/?renderer=svg&review=phase234",
+    "nodes": 11,
+    "same_instances": true,
+    "same_config": true,
+    "index_sha256": "ea501b38d0d07248ef0d4a8fad1de2250cf710ac463afe34336a36e0154d3af4",
+    "read_only_header": "1",
+    "denied_methods": {
+      "POST": 403,
+      "PUT": 403,
+      "DELETE": 403
+    }
+  },
+  {
+    "url": "http://100.108.139.80:8082/prototype/?renderer=svg&review=phase234",
+    "nodes": 100,
+    "same_instances": true,
+    "same_config": true,
+    "index_sha256": "ea501b38d0d07248ef0d4a8fad1de2250cf710ac463afe34336a36e0154d3af4",
+    "read_only_header": "1",
+    "denied_methods": {
+      "POST": 403,
+      "PUT": 403,
+      "DELETE": 403
+    }
+  }
+]

@@ -1,0 +1,60 @@
+{
+  "baseline": "55f37ea",
+  "production_commit": "0fb03aa",
+  "phase2_commit": "6db7b46",
+  "source_hashes": {
+    "frontend/src/receipts.ts": "80009a5c9b309c32a52f01c4b26b2e6f2de9b15a386888ba6dae2106f04597eb",
+    "frontend/src/geometry.ts": "d6695a9f9053c533b493f33febe37e1410165cbeed77515bad962e6145fc18a2",
+    "frontend/src/summary.ts": "f79eea9ae1c7ae239f3a6d1a3c234eb867db5488e4f779fb92deb724e20c1dc9",
+    "frontend/src/api.ts": "fe044aed679ecd90cec776988acbd6600f04465b2428a0a609556c0824d93b63",
+    "frontend/src/types.ts": "84d765e967875eda7b3b94060532901b6c545494e42fae10c8a0e8ada2ced66a",
+    "frontend/src/App.tsx": "7010cfbcf710c984084b6e63d6201f83111073985787b83285d719cec1675edd",
+    "frontend/src/app.css": "b00b53511acd82c4d6048c7e5c3eb1cf8c4453264d8e6464b3e2d2ce3f81ae8d",
+    "frontend/src/client.ts": "22b86d2b2a9ac0bb44bc7f868323d03ccc5b88a0399438c0b337ac4f3a932037",
+    "frontend/src/main.tsx": "b1aaf39f45337599008e606130eff974197f26aa16f0719a6b95df3573c72ef9",
+    "frontend/src/model.ts": "0e5958257e6273c9cb215a31e679b8cdf479b09ee1275b778deed051a17b1742",
+    "frontend/src/theme.css": "2b9ab866924d4494079e0ee5e1e3edb688cf95ca82865154ff5830821f42c0a4",
+    "frontend/src/actions.ts": "3dda54c2abda0705257ccdced1fb9860803b25da2de9cd170fe79098178ffef0",
+    "frontend/src/renderers/types.ts": "46ba43279e4b4d181c3d497fb2930f938b2826b4bc9711aeb547d558f5db6432",
+    "frontend/src/renderers/FlowCanvas.tsx": "34e94ac5940e4cf6c8014c1599226c0622c20276d1ab8994043a2f3d9bc07c0b",
+    "frontend/src/renderers/SvgCanvas.tsx": "c69f9d9baea1adca7d421f701afa2aa1fe43aca8bd2d8b0db1e1345df99eceb0",
+    "frontend/src/components/Icon.tsx": "bd435475961f1b5338006e9018afaa6911c4369df6cb698398f20baab1d1d1ae",
+    "frontend/src/components/node-badge.css": "3204bd250fcf02560ba790cff7df8ac5b1cb63b6bc960f9b03763aa4fcd6892a",
+    "frontend/src/components/TopologyPanel.tsx": "689a5cfeb863411689273538ef8645cdd15853b8e130b33375288443b69362a4",
+    "frontend/src/components/nodePresentation.ts": "84591050ea4410dcdb9504e3b368bebf54bf1d28f2965cf6e69e7443d37af564",
+    "frontend/src/components/RendererBoundary.tsx": "14bd2375c88af69a19de4bfc7a3f5e1c6360ee379b21660ff728d4d187f74a4a",
+    "frontend/src/components/NodeBadge.tsx": "4acca9766cbb8005f0050b5ad9544b339947826e73b08678f811adb3beb92cc3",
+    "cmd/dashboard/static/prototype/index.html": "ea501b38d0d07248ef0d4a8fad1de2250cf710ac463afe34336a36e0154d3af4",
+    "cmd/dashboard/static/prototype/third-party-notices.txt": "8d411d57a15f4d56f754f99feacc7209b92084f4141030c1fa1b2db726989381",
+    "cmd/dashboard/static/prototype/assets/FlowCanvas-DLioOiRN.css": "b0cb7bd6fec5951c9c8f5808821438206604b1629a912c96009ac427f38e7d69",
+    "cmd/dashboard/static/prototype/assets/FlowCanvas-D1vreTKy.js": "aedc95eae87f8a6ca196a646b8c8dda1a173cf8c891b99e74a7d836b68071558",
+    "cmd/dashboard/static/prototype/assets/index-BVFGkNph.css": "7a800138090ca737b4b5fdb3dcbd92fe95e187d9a8491ce9775e3a788913a7ee",
+    "cmd/dashboard/static/prototype/assets/index-CspYx8lR.js": "22c49670f4f32ebf6fc9db1f1c8e2a11518ed2b002f85291e2ca956a1fc303c5",
+    "frontend/package.json": "61d2b55ab1a74f48422b592f3abd15514dde9c3b39c41219a2820e4d4b8e784b",
+    "frontend/package-lock.json": "15e82e2808a358595fbad1df916c75c1b3e6a495d50b8530d1eb90dc7a3906e0"
+  },
+  "go_api_geometry_model_unchanged": true,
+  "user_design_unchanged": true,
+  "tools": {
+    "go": "go version go1.27.2 linux/amd64",
+    "node": "v24.22.1",
+    "python": "Python 3.12.7"
+  },
+  "binaries": {
+    "raft-console-baseline": {
+      "bytes": 12794623,
+      "sha256": "0c0707bb16c31e391732d1cb06f0ccdbba9dd7691e0918da466178ca272d8bf9"
+    },
+    "raft-console-final": {
+      "bytes": 12798711,
+      "sha256": "180d7fd4a69da00692fa42f47bcc675b221aed7e987c8104f5669d68fcb2db1f"
+    },
+    "raft-node": {
+      "bytes": 10057523,
+      "sha256": "e2b01fc02c40df2e59f4fe80605269db88ba2369abb2649c283d711c34aba5ad"
+    }
+  },
+  "system": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "logical_cpus": 128,
+  "dirty_scope": "Phase4 test/docs additions and user untracked design; production implementation committed separately."
+}

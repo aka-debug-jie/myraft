@@ -1,0 +1,43 @@
+{
+  "mode": "SYNTHETIC",
+  "checks": [
+    {
+      "name": "mobile-node-detail-svg",
+      "result": "FAIL",
+      "error": "AssertionError: ",
+      "operations": [],
+      "url": "http://127.0.0.1:18143/prototype/?renderer=svg",
+      "body": "MyRaft\n合成检查 · 11 节点\n提交命令\n校验当前\n合成检查 · 11 节点\n观察到 Leader\n#1 · Term 1\n11 / 11 可达\n采样 0.0s 前\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\nLeader\n#1\nTerm\n1\nCommit\n2102\nApplied\n2102\nState x\n0\n监控 RPC/s\n—\n\n前五项来自 Leader #1 的本地观测，非全体一致结论。\n监控速率：相邻完整采样的请求尝试。\n\n01 / SVG\n11 个成员 · 10 条有效报告关系\n1\nLeader\nT1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n100%\n固定成员 · 连线仅表示观测到的报告关系\nREAL\n本机控制\n尚无任务"
+    },
+    {
+      "name": "mobile-node-detail-flow",
+      "result": "FAIL",
+      "error": "AssertionError: ",
+      "operations": [],
+      "url": "http://127.0.0.1:18143/prototype/?renderer=flow",
+      "body": "MyRaft\n合成检查 · 11 节点\n提交命令\n校验当前\n合成检查 · 11 节点\n观察到 Leader\n#1 · Term 1\n11 / 11 可达\n采样 0.0s 前\nSVG\nReact Flow\n并排比较\n全部状态\nLeader\nFollower\nCandidate\n不可达 / 未知\n例外\nLeader\n#1\nTerm\n1\nCommit\n2102\nApplied\n2102\nState x\n0\n监控 RPC/s\n—\n\n前五项来自 Leader #1 的本地观测，非全体一致结论。\n监控速率：相邻完整采样的请求尝试。\n\n02 / REACT FLOW\n11 个成员 · 10 条有效报告关系\n1\nLeader\nT1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\nReact Flow\n100%\n固定成员 · 连线仅表示观测到的报告关系\nREAL\n本机控制\n尚无任务"
+    },
+    {
+      "name": "mobile-navigation-evidence-tasks-exclusive",
+      "result": "PASS"
+    },
+    {
+      "name": "compare-flow-detail-return-focus-owner",
+      "result": "PASS"
+    },
+    {
+      "name": "desktop-leader-summary-focus-edge",
+      "result": "PASS"
+    },
+    {
+      "name": "hundred-node-label-level-restores-after-resize",
+      "result": "PASS"
+    },
+    {
+      "name": "receipt-commit-three-states",
+      "result": "PASS"
+    }
+  ],
+  "result": "FAIL",
+  "page_errors": []
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "renderer": "svg",
+    "cycles": 200,
+    "nodes_constant": 352,
+    "listeners_after_first_portal": 348,
+    "first_portal_listener_increase": 143,
+    "heap_growth_bytes_after_20_cycles": 585664,
+    "limitation": "Finite test: heap rises during warmup and later samples; no zero-leak or long-term certification."
+  },
+  {
+    "renderer": "flow",
+    "cycles": 200,
+    "nodes_constant": 418,
+    "listeners_after_first_portal": 395,
+    "first_portal_listener_increase": 143,
+    "heap_growth_bytes_after_20_cycles": 812492,
+    "limitation": "Finite test: heap rises during warmup and later samples; no zero-leak or long-term certification."
+  }
+]

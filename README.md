@@ -2,6 +2,8 @@
 
 新增可选的 [React 双拓扑原型](frontend/README.md)：`/prototype/?renderer=svg`、`renderer=flow` 和 `renderer=compare`。原六页入口与 Go 后端保留；[本轮对比与验收说明](docs/react-prototype-comparison.md)。
 
+2026-10-24 Phase 2–4：暖金 Leader、按屏幕尺寸分级的节点标签、单条报告关系聚焦，以及手机“先看关系→全屏详情→返回原视角”。真实 11/100 节点的 SVG/Flow 流程均通过；[实现、截图与测试说明](docs/frontend-phase2-4.md)。本轮未推送或发布 Windows 包，Windows 原生测试仍为 NOT RUN。
+
 2026-10-23 交互收尾：修复任务遮挡、导航误触、离线身份误报和取消选择；顶栏动作、独立检查器、可读分组和CSS统一已完成。实际35组合、12项交互回归和真实五规模结果见 [交互修复说明](docs/frontend-interactions.md)。
 
 2026-10-23 前端深度修订：有序密集布线、单关系精确追踪、手机竖向布局、焦点/滚动保持和紧凑实验图表。已完成本轮真实3/11/20/50/100节点与三视口验收；详情、截图、复现和限制见 [前端深度修订](docs/frontend-polish.md)。本轮 Windows 尚未执行。
