@@ -126,9 +126,10 @@ export function TopologyPanel({
     return () => host.removeEventListener("wheel", wheel, true);
   }, []);
   const focusedEdge =
-    hover || edges.find((e) => e.from === (nodeHover ?? selected))?.id || null;
+    (edges.some((e) => e.id === hover) ? hover : null) ||
+    edges.find((e) => e.from === (nodeHover ?? selected))?.id || null;
   const focused = edges.find((e) => e.id === focusedEdge);
-  const selectedNode = observation.nodes.find((n) => n.id === selected);
+  const inspectedNode = observation.nodes.find((n) => n.id === (nodeHover ?? selected));
   const filtered = observation.nodes.filter(
     (n) =>
       filter === "all" ||
@@ -237,6 +238,11 @@ export function TopologyPanel({
           setNodeHover(null);
         }}
       >
+        <svg className="orbit-layer" width={size.width} height={size.height} aria-hidden="true">
+          <g transform={`translate(${viewport.x} ${viewport.y}) scale(${viewport.zoom})`}>
+            <ellipse cx={layout.cx} cy={layout.cy} rx={layout.rx} ry={layout.ry} />
+          </g>
+        </svg>
         {renderer === "svg" ? (
           <SvgCanvas {...props} />
         ) : (
@@ -266,15 +272,17 @@ export function TopologyPanel({
             <small>T{focused.term} · 非复制确认</small>
           </div>
         )}
-        {!focused && selectedNode?.role === "Leader" && (
+        {!focused && inspectedNode && (
           <div className="relation-caption">
-            <span>Leader #{selectedNode.id}</span>
+            <span>{inspectedNode.role === "Leader" ? "Leader" : "节点"} #{inspectedNode.id}</span>
             <small>
-              {
-                observation.relations.filter((e) => e.to === selectedNode.id)
-                  .length
-              }{" "}
-              个同任期 Follower 报告 · 非多数派证明
+              {inspectedNode.role === "Leader"
+                ? `${observation.relations.filter((e) => e.to === inspectedNode.id).length} 个同任期 Follower 报告 · 非多数派证明`
+                : inspectedNode.availability === "offline" ? "节点不可达，当前关系未知"
+                : inspectedNode.availability === "identity-error" ? "身份异常，关系不采信"
+                : inspectedNode.availability === "unknown" ? "尚无新鲜有效观测"
+                : inspectedNode.role === "Candidate" ? "候选节点，尚无有效 Leader 报告关系"
+                : "尚无同任期有效 Leader 报告关系"}
             </small>
           </div>
         )}

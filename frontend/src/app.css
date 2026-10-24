@@ -616,15 +616,27 @@ button[aria-pressed="true"] {
     border-color 180ms,
     background 180ms;
 }
+.orbit-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--shell-line);
+  stroke-width: 1;
+  opacity: 0.45;
+}
+.orbit-layer ellipse { vector-effect: non-scaling-stroke; }
+.topology-node:focus-visible { outline-offset: -3px; }
 .relation {
   fill: none;
-  stroke: #718794;
+  stroke: var(--shell-muted);
   stroke-width: 0.8;
-  opacity: 0.3;
+  opacity: 0.26;
+  transition: stroke 180ms, opacity 180ms;
   pointer-events: none;
 }
 .relation.is-focused {
-  stroke: var(--accent);
+  stroke: var(--shell-accent);
   stroke-width: 1.8;
   opacity: 1;
 }
@@ -673,7 +685,7 @@ button[aria-pressed="true"] {
   z-index: 2;
 }
 .relation-caption small {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
 }
 .canvas-tools {
@@ -1378,11 +1390,11 @@ pre {
     padding: 5px 10px 0;
   }
   .relation-caption {
-    font-size: 11px;
+    font-size: 12px;
     padding: 5px 8px;
     gap: 5px;
   }
   .relation-caption small {
-    font-size: 11px;
+    font-size: 12px;
   }
 }

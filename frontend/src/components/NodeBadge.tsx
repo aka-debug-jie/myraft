@@ -1,4 +1,6 @@
 import "./node-badge.css";
+import type { CSSProperties } from "react";
+import { getNodeFontSizes, getNodePresentation } from "./nodePresentation";
 
 export type NodeBadgeProps = {
   id: number;
@@ -6,8 +8,8 @@ export type NodeBadgeProps = {
   availability: "online" | "offline" | "unknown" | "identity-error";
   term?: number;
   selected?: boolean;
-  compact?: boolean;
-  label?: boolean;
+  diameter: number;
+  zoom: number;
 };
 
 export function NodeBadge({
@@ -16,16 +18,17 @@ export function NodeBadge({
   availability,
   term,
   selected = false,
-  compact = false,
-  label = true,
+  diameter,
+  zoom,
 }: NodeBadgeProps) {
+  const presentation = getNodePresentation(diameter, zoom);
+  const fontSizes = getNodeFontSizes(zoom, diameter);
   const classes = [
     "node-badge",
     `node-badge--${role.toLowerCase()}`,
     `node-badge--${availability}`,
-    compact && "node-badge--compact",
+    `node-badge--${presentation}`,
     selected && "node-badge--selected",
-    !label && "node-badge--icon-only",
   ]
     .filter(Boolean)
     .join(" ");
@@ -51,9 +54,10 @@ export function NodeBadge({
       role="img"
       aria-label={description}
       title={description}
+      style={{ "--node-id-size": `${fontSizes.id}px`, "--node-detail-size": `${fontSizes.detail}px` } as CSSProperties}
     >
       <span className="node-badge__id">{id}</span>
-      {label && (
+      {presentation === "detail" && (
         <span className="node-badge__meta">
           <span className="node-badge__role">{visibleRole}</span>
           {term !== undefined && (
@@ -61,6 +65,9 @@ export function NodeBadge({
           )}
         </span>
       )}
+      {availability === "offline" && <span className="node-badge__status" aria-hidden="true">×</span>}
+      {availability === "identity-error" && <span className="node-badge__status" aria-hidden="true">!</span>}
+      {presentation === "dot" && <span className="node-badge__dot" aria-hidden="true" />}
     </div>
   );
 }

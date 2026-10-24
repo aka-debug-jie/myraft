@@ -118,6 +118,8 @@ export const SvgCanvas = memo(function SvgCanvas(p: CanvasProps) {
             }}
             onMouseEnter={() => p.onNodeHover(n.id)}
             onMouseLeave={() => p.onNodeHover(null)}
+            onFocus={() => p.onNodeHover(n.id)}
+            onBlur={() => p.onNodeHover(null)}
           >
             <NodeBadge
               id={n.id}
@@ -125,8 +127,8 @@ export const SvgCanvas = memo(function SvgCanvas(p: CanvasProps) {
               availability={n.availability}
               term={n.status?.term}
               selected={n.id === p.selected}
-              compact={n.r < 32}
-              label={n.r * 2 * v.zoom >= 22}
+              diameter={n.r * 2}
+              zoom={v.zoom}
             />
           </button>
         ))}

@@ -19,8 +19,9 @@ type RaftNode = Node<
     node: PlacedNode;
     chosen: boolean;
     tab: boolean;
-    label: boolean;
+    zoom: number;
     filtered: boolean;
+    onHover: (id: number | null) => void;
   },
   "raft"
 >;
@@ -41,6 +42,8 @@ const FlowNode = memo(function FlowNode({ data }: NodeProps<RaftNode>) {
         aria-label={`节点 ${n.id}，${n.role === "unknown" ? "未知" : n.role}`}
         aria-pressed={data.chosen}
         tabIndex={data.tab ? 0 : -1}
+        onFocus={() => data.onHover(n.id)}
+        onBlur={() => data.onHover(null)}
       >
         <NodeBadge
           id={n.id}
@@ -48,8 +51,8 @@ const FlowNode = memo(function FlowNode({ data }: NodeProps<RaftNode>) {
           availability={n.availability}
           term={n.status?.term}
           selected={data.chosen}
-          compact={n.r < 32}
-          label={data.label}
+          diameter={n.r * 2}
+          zoom={data.zoom}
         />
       </button>
       <Handle
@@ -107,8 +110,9 @@ export const FlowCanvas = memo(function FlowCanvas(p: CanvasProps) {
           node: n,
           chosen: n.id === p.selected,
           tab: n.id === p.tabID,
-          label: n.r * 2 * p.viewport.zoom >= 22,
+          zoom: p.viewport.zoom,
           filtered: isMuted(p.filter, n.role, n.availability),
+          onHover: p.onNodeHover,
         },
       })),
     [p.layout, p.selected, p.tabID, p.viewport.zoom, p.filter],
