@@ -1,0 +1,101 @@
+{
+  "cases": [
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "svg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "result": "FAIL",
+      "error": "AssertionError: Locator expected to contain text '等待首次采样'\nActual value: 无活跃会话可达性未知上次采样 63928438040.8s 前 \nCall log:\n  - Expect \"to_contain_text\" with timeout 5000ms\n  - waiting for locator(\".hero-status\")\n    4 × locator resolved to <div class=\"hero-status\">…</div>\n      - unexpected value \"无活跃会话可达性未知上次采样 63928438036.8s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438037.8s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438038.8s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438039.8s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438040.8s 前\"\n",
+      "screenshot": "empty-svg-1440.png",
+      "hero": "无活跃会话\n可达性未知\n上次采样 63928438041.8s 前",
+      "footer": "63928438041.8s 前采样"
+    },
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "svg",
+      "viewport": [
+        390,
+        844
+      ],
+      "result": "FAIL",
+      "error": "AssertionError: Locator expected to contain text '等待首次采样'\nActual value: 无活跃会话可达性未知上次采样 63928438046.3s 前 \nCall log:\n  - Expect \"to_contain_text\" with timeout 5000ms\n  - waiting for locator(\".hero-status\")\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"等待首次观测可达性未知等待采样\"\n    4 × locator resolved to <div class=\"hero-status\">…</div>\n      - unexpected value \"无活跃会话可达性未知上次采样 63928438042.3s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438043.3s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438044.3s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438046.3s 前\"\n",
+      "screenshot": "empty-svg-390.png",
+      "hero": "无活跃会话\n可达性未知\n上次采样 63928438047.3s 前",
+      "footer": "63928438047.3s 前采样"
+    },
+    {
+      "mode": "SYNTHETIC_INVALID_AND_STALE",
+      "renderer": "svg",
+      "result": "FAIL",
+      "error": "AssertionError: Locator expected to contain text '等待首次采样'\nActual value: 采样过期可达性未知等待采样 \nCall log:\n  - Expect \"to_contain_text\" with timeout 5000ms\n  - waiting for locator(\".hero-status\")\n    9 × locator resolved to <div class=\"hero-status\">…</div>\n      - unexpected value \"采样过期可达性未知等待采样\"\n"
+    },
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "flow",
+      "viewport": [
+        1440,
+        900
+      ],
+      "result": "FAIL",
+      "error": "AssertionError: Locator expected to contain text '等待首次采样'\nActual value: 无活跃会话可达性未知上次采样 63928438056.9s 前 \nCall log:\n  - Expect \"to_contain_text\" with timeout 5000ms\n  - waiting for locator(\".hero-status\")\n    2 × locator resolved to <div class=\"hero-status\">…</div>\n      - unexpected value \"等待首次观测可达性未知等待采样\"\n    3 × locator resolved to <div class=\"hero-status\">…</div>\n      - unexpected value \"无活跃会话可达性未知上次采样 63928438052.9s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438053.9s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438055.9s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438056.9s 前\"\n",
+      "screenshot": "empty-flow-1440.png",
+      "hero": "无活跃会话\n可达性未知\n上次采样 63928438057.9s 前",
+      "footer": "63928438057.9s 前采样"
+    },
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "flow",
+      "viewport": [
+        390,
+        844
+      ],
+      "result": "FAIL",
+      "error": "AssertionError: Locator expected to contain text '等待首次采样'\nActual value: 无活跃会话可达性未知上次采样 63928438061.3s 前 \nCall log:\n  - Expect \"to_contain_text\" with timeout 5000ms\n  - waiting for locator(\".hero-status\")\n    2 × locator resolved to <div class=\"hero-status\">…</div>\n      - unexpected value \"等待首次观测可达性未知等待采样\"\n    3 × locator resolved to <div class=\"hero-status\">…</div>\n      - unexpected value \"无活跃会话可达性未知上次采样 63928438058.3s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438059.3s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438060.3s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438061.3s 前\"\n",
+      "screenshot": "empty-flow-390.png",
+      "hero": "无活跃会话\n可达性未知\n上次采样 63928438063.3s 前",
+      "footer": "63928438063.3s 前采样"
+    },
+    {
+      "mode": "SYNTHETIC_INVALID_AND_STALE",
+      "renderer": "flow",
+      "result": "FAIL",
+      "error": "AssertionError: Locator expected to contain text '等待首次采样'\nActual value: 采样过期可达性未知等待采样 \nCall log:\n  - Expect \"to_contain_text\" with timeout 5000ms\n  - waiting for locator(\".hero-status\")\n    9 × locator resolved to <div class=\"hero-status\">…</div>\n      - unexpected value \"采样过期可达性未知等待采样\"\n"
+    },
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "compare",
+      "viewport": [
+        1440,
+        900
+      ],
+      "result": "FAIL",
+      "error": "AssertionError: Locator expected to contain text '等待首次采样'\nActual value: 无活跃会话可达性未知上次采样 63928438073.0s 前 \nCall log:\n  - Expect \"to_contain_text\" with timeout 5000ms\n  - waiting for locator(\".hero-status\")\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"正在连接控制器可达性未知等待采样\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"等待首次观测可达性未知等待采样\"\n    3 × locator resolved to <div class=\"hero-status\">…</div>\n      - unexpected value \"无活跃会话可达性未知上次采样 63928438068.9s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438070.0s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438072.0s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438073.0s 前\"\n",
+      "screenshot": "empty-compare-1440.png",
+      "hero": "无活跃会话\n可达性未知\n上次采样 63928438074.0s 前",
+      "footer": "63928438074.0s 前采样"
+    },
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "compare",
+      "viewport": [
+        390,
+        844
+      ],
+      "result": "FAIL",
+      "error": "AssertionError: Locator expected to contain text '等待首次采样'\nActual value: 无活跃会话可达性未知上次采样 63928438078.4s 前 \nCall log:\n  - Expect \"to_contain_text\" with timeout 5000ms\n  - waiting for locator(\".hero-status\")\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"等待首次观测可达性未知等待采样\"\n    4 × locator resolved to <div class=\"hero-status\">…</div>\n      - unexpected value \"无活跃会话可达性未知上次采样 63928438074.4s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438076.4s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438077.4s 前\"\n    - locator resolved to <div class=\"hero-status\">…</div>\n    - unexpected value \"无活跃会话可达性未知上次采样 63928438078.4s 前\"\n",
+      "screenshot": "empty-compare-390.png",
+      "hero": "无活跃会话\n可达性未知\n上次采样 63928438079.4s 前",
+      "footer": "63928438079.4s 前采样"
+    },
+    {
+      "mode": "SYNTHETIC_INVALID_AND_STALE",
+      "renderer": "compare",
+      "result": "FAIL",
+      "error": "AssertionError: Locator expected to contain text '等待首次采样'\nActual value: 采样过期可达性未知等待采样 \nCall log:\n  - Expect \"to_contain_text\" with timeout 5000ms\n  - waiting for locator(\".hero-status\")\n    9 × locator resolved to <div class=\"hero-status\">…</div>\n      - unexpected value \"采样过期可达性未知等待采样\"\n"
+    }
+  ],
+  "result": "FAIL"
+}

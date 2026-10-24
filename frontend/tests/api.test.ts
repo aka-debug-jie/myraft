@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { actionReason, fresh, scopeOf, scopeKey } from "../src/actions";
+import { actionReason, fresh, sampleAge, scopeOf, scopeKey } from "../src/actions";
 import { operate, parseJSON, request } from "../src/api";
 import type { Bootstrap, ClientState, Frame } from "../src/types";
 
@@ -128,6 +128,31 @@ describe("action boundaries", () => {
         "generate",
       ),
     ).toBe("当前预览入口只允许查看，操作请使用本机控制台");
+  });
+
+  it("treats missing, invalid, and Go zero timestamps as waiting for a sample", () => {
+    expect(sampleAge(undefined, 1_000_000)).toBeNull();
+    expect(sampleAge("", 1_000_000)).toBeNull();
+    expect(sampleAge("not-a-time", 1_000_000)).toBeNull();
+    expect(sampleAge("0001-01-01T00:00:00Z", 1_000_000)).toBeNull();
+    expect(
+      fresh(
+        {
+          ...state,
+          frame: {
+            ...frame,
+            snapshot: { ...frame.snapshot, completed_at: "0001-01-01T00:00:00Z" },
+          },
+        },
+        1_000_000,
+      ),
+    ).toBe(false);
+  });
+
+  it("keeps ages for valid past samples so stale observations remain visible", () => {
+    expect(sampleAge(new Date(0).toISOString(), 1_000_000)).toBe(1000);
+    expect(sampleAge(new Date(1_000_000).toISOString(), 1_006_000)).toBe(6);
+    expect(fresh(state, 1_006_000)).toBe(false);
   });
 });
 

@@ -1,0 +1,95 @@
+{
+  "cases": [
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "svg",
+      "viewport": [
+        1440,
+        900
+      ],
+      "result": "PASS",
+      "screenshot": "empty-svg-1440.png",
+      "hero": "无活跃会话\n可达性未知\n等待首次采样",
+      "footer": "等待首次采样"
+    },
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "svg",
+      "viewport": [
+        390,
+        844
+      ],
+      "result": "PASS",
+      "screenshot": "empty-svg-390.png",
+      "hero": "无活跃会话\n可达性未知\n等待首次采样",
+      "footer": "等待首次采样"
+    },
+    {
+      "mode": "SYNTHETIC_INVALID_AND_STALE",
+      "renderer": "svg",
+      "result": "PASS",
+      "single_subscription": true
+    },
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "flow",
+      "viewport": [
+        1440,
+        900
+      ],
+      "result": "PASS",
+      "screenshot": "empty-flow-1440.png",
+      "hero": "无活跃会话\n可达性未知\n等待首次采样",
+      "footer": "等待首次采样"
+    },
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "flow",
+      "viewport": [
+        390,
+        844
+      ],
+      "result": "PASS",
+      "screenshot": "empty-flow-390.png",
+      "hero": "无活跃会话\n可达性未知\n等待首次采样",
+      "footer": "等待首次采样"
+    },
+    {
+      "mode": "SYNTHETIC_INVALID_AND_STALE",
+      "renderer": "flow",
+      "result": "PASS",
+      "single_subscription": true
+    },
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "compare",
+      "viewport": [
+        1440,
+        900
+      ],
+      "result": "PASS",
+      "screenshot": "empty-compare-1440.png",
+      "hero": "无活跃会话\n可达性未知\n等待首次采样",
+      "footer": "等待首次采样"
+    },
+    {
+      "mode": "REAL_EMPTY_CONTROLLER",
+      "renderer": "compare",
+      "viewport": [
+        390,
+        844
+      ],
+      "result": "PASS",
+      "screenshot": "empty-compare-390.png",
+      "hero": "无活跃会话\n可达性未知\n等待首次采样",
+      "footer": "等待首次采样"
+    },
+    {
+      "mode": "SYNTHETIC_INVALID_AND_STALE",
+      "renderer": "compare",
+      "result": "PASS",
+      "single_subscription": true
+    }
+  ],
+  "result": "PASS"
+}

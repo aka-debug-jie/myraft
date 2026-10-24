@@ -1,0 +1,37 @@
+
+> myraft-topology-prototypes@0.1.0 typecheck
+> tsc --noEmit
+
+
+> myraft-topology-prototypes@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.12 <workspace>/public/myraft-react/frontend
+
+
+ Test Files  8 passed (8)
+      Tests  36 passed (36)
+   Start at  19:28:09
+   Duration  643ms (transform 660ms, setup 0ms, import 1.08s, tests 393ms, environment 1ms)
+
+
+> myraft-topology-prototypes@0.1.0 build
+> npm run typecheck && vite build
+
+
+> myraft-topology-prototypes@0.1.0 typecheck
+> tsc --noEmit
+
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 243 modules transformed.
+rendering chunks...
+computing gzip size...
+../cmd/dashboard/static/prototype/index.html                        0.44 kB │ gzip:  0.32 kB
+../cmd/dashboard/static/prototype/assets/FlowCanvas-DLioOiRN.css   15.41 kB │ gzip:  2.56 kB
+../cmd/dashboard/static/prototype/assets/index-BVFGkNph.css        28.29 kB │ gzip:  6.64 kB
+../cmd/dashboard/static/prototype/assets/FlowCanvas-BcxVPs02.js   179.94 kB │ gzip: 58.06 kB
+../cmd/dashboard/static/prototype/assets/index-CtkY305y.js        306.76 kB │ gzip: 98.08 kB
+
+✓ built in 373ms

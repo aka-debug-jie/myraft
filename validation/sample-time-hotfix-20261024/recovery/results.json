@@ -1,0 +1,70 @@
+{
+  "mode": "SYNTHETIC",
+  "cases": [
+    {
+      "name": "controller-recovery",
+      "renderer": "svg",
+      "result": "PASS",
+      "details": {
+        "bootstrap_requests": 1,
+        "recovery_ms": 373.2,
+        "stream_still_open": true
+      }
+    },
+    {
+      "name": "unknown-write",
+      "renderer": "svg",
+      "result": "PASS",
+      "details": {
+        "generate_posts": 1,
+        "verify_posts": 2,
+        "unknown_warning_persistent": true,
+        "close_button_absent": true
+      }
+    },
+    {
+      "name": "evicted-receipt",
+      "renderer": "svg",
+      "result": "PASS",
+      "details": {
+        "pending_operation": "audit-old",
+        "evicting_operations": 20,
+        "footer_keeps_latest_verify": true,
+        "stale_receipt_absent": true
+      }
+    },
+    {
+      "name": "controller-recovery",
+      "renderer": "flow",
+      "result": "PASS",
+      "details": {
+        "bootstrap_requests": 1,
+        "recovery_ms": 386.8,
+        "stream_still_open": true
+      }
+    },
+    {
+      "name": "unknown-write",
+      "renderer": "flow",
+      "result": "PASS",
+      "details": {
+        "generate_posts": 1,
+        "verify_posts": 2,
+        "unknown_warning_persistent": true,
+        "close_button_absent": true
+      }
+    },
+    {
+      "name": "evicted-receipt",
+      "renderer": "flow",
+      "result": "PASS",
+      "details": {
+        "pending_operation": "audit-old",
+        "evicting_operations": 20,
+        "footer_keeps_latest_verify": true,
+        "stale_receipt_absent": true
+      }
+    }
+  ],
+  "result": "PASS"
+}

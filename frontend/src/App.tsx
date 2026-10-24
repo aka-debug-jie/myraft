@@ -7,7 +7,7 @@ import {
 } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ConsoleClient } from "./client";
-import { actionReason, fresh, scopeKey, scopeOf } from "./actions";
+import { actionReason, fresh, sampleAge, scopeKey, scopeOf } from "./actions";
 import { initialCenter, observe, updateCenter, type ViewNode } from "./model";
 import { TopologyPanel } from "./components/TopologyPanel";
 import { Icon } from "./components/Icon";
@@ -299,9 +299,7 @@ export function App() {
     );
   }
   const latest = operations.at(-1);
-  const age = state.frame?.snapshot.completed_at
-    ? (now - Date.parse(state.frame.snapshot.completed_at)) / 1000
-    : Infinity;
+  const age = sampleAge(state.frame?.snapshot.completed_at, now) ?? Infinity;
   const done =
     observation.fresh &&
     !!state.frame?.target &&
@@ -678,7 +676,7 @@ export function App() {
                 <span>
                   {Number.isFinite(age)
                     ? `${observation.fresh ? "采样" : "上次采样"} ${Math.max(0, age).toFixed(1)}s 前`
-                    : "等待采样"}
+                    : "等待首次采样"}
                 </span>
               </div>
             </div>
@@ -819,7 +817,7 @@ export function App() {
         <span className="sample-age">
           {Number.isFinite(age)
             ? `${Math.max(0, age).toFixed(1)}s 前采样`
-            : "等待数据"}
+            : "等待首次采样"}
         </span>
         <span className="gap-status">
           {state.gap ? "历史事件有缺口 · " : ""}丢弃 {state.dropped}

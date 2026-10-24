@@ -1,0 +1,28 @@
+=== RUN   TestReadOnlyCreateScopeRejections
+=== RUN   TestReadOnlyCreateScopeRejections/empty
+=== RUN   TestReadOnlyCreateScopeRejections/empty/valid
+=== RUN   TestReadOnlyCreateScopeRejections/empty/controller_id
+=== RUN   TestReadOnlyCreateScopeRejections/empty/generation
+=== RUN   TestReadOnlyCreateScopeRejections/empty/session_id
+=== RUN   TestReadOnlyCreateScopeRejections/empty/missing
+=== RUN   TestReadOnlyCreateScopeRejections/attached
+=== RUN   TestReadOnlyCreateScopeRejections/attached/valid
+=== RUN   TestReadOnlyCreateScopeRejections/attached/controller_id
+=== RUN   TestReadOnlyCreateScopeRejections/attached/generation
+=== RUN   TestReadOnlyCreateScopeRejections/attached/session_id
+=== RUN   TestReadOnlyCreateScopeRejections/attached/missing
+--- PASS: TestReadOnlyCreateScopeRejections (0.02s)
+    --- PASS: TestReadOnlyCreateScopeRejections/empty (0.01s)
+        --- PASS: TestReadOnlyCreateScopeRejections/empty/valid (0.00s)
+        --- PASS: TestReadOnlyCreateScopeRejections/empty/controller_id (0.00s)
+        --- PASS: TestReadOnlyCreateScopeRejections/empty/generation (0.00s)
+        --- PASS: TestReadOnlyCreateScopeRejections/empty/session_id (0.01s)
+        --- PASS: TestReadOnlyCreateScopeRejections/empty/missing (0.00s)
+    --- PASS: TestReadOnlyCreateScopeRejections/attached (0.01s)
+        --- PASS: TestReadOnlyCreateScopeRejections/attached/valid (0.00s)
+        --- PASS: TestReadOnlyCreateScopeRejections/attached/controller_id (0.00s)
+        --- PASS: TestReadOnlyCreateScopeRejections/attached/generation (0.00s)
+        --- PASS: TestReadOnlyCreateScopeRejections/attached/session_id (0.00s)
+        --- PASS: TestReadOnlyCreateScopeRejections/attached/missing (0.00s)
+PASS
+ok  	myraft/cmd/dashboard	0.029s

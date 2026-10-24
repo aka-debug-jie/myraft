@@ -12,10 +12,14 @@ export function scopeKey(scope: Scope): string {
   return [scope.controller_id, scope.session_id, scope.generation].join("/");
 }
 
+export function sampleAge(completedAt?: string, now = Date.now()): number | null {
+  if (!completedAt || completedAt.startsWith("0001")) return null;
+  const at = Date.parse(completedAt);
+  return Number.isFinite(at) ? (now - at) / 1000 : null;
+}
+
 export function fresh(s: ClientState, now = Date.now()): boolean {
-  const at = s.frame?.snapshot?.completed_at;
-  const age =
-    at && !at.startsWith("0001") ? (now - Date.parse(at)) / 1000 : Infinity;
+  const age = sampleAge(s.frame?.snapshot?.completed_at, now) ?? Infinity;
   return (
     s.connected &&
     age < Math.max(5, ((s.bootstrap?.poll_ms || 1000) / 1000) * 3)
