@@ -48,7 +48,7 @@ export interface Snapshot {
   completed_at: string;
   nodes: NodeSample[] | null;
   fingerprint: string;
-  monitor_rpcs: number;
+  monitor_rpcs: Integer;
 }
 export interface Checkpoint {
   index: number;

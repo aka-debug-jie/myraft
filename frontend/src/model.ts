@@ -129,8 +129,8 @@ export function updateCenter(
   else if (seq > result.seq)
     result = { ...result, count: result.count + 1, seq };
   if (result.count >= 2) result.confirmed = leader.id;
-  // Only the first view may seed a center. Later terms require two distinct
-  // snapshots; an invalid former leader never remains in the center meanwhile.
+  // A later term/instance still needs two distinct snapshots for confirmation.
+  // The same valid node may keep its position; placement is not confirmation.
   result.display =
     !result.seeded ||
     result.confirmed === leader.id ||

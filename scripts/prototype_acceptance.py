@@ -50,6 +50,7 @@ def main():
                             return op
                         page=browser.new_page(viewport={'width':1440,'height':900},reduced_motion='reduce');pages.append(page);page.on('pageerror',lambda e:errors.append(str(e)))
                         page.goto(url+f'/prototype/?renderer={renderer}');page.get_by_label('会话操作').click();page.locator('[data-act=enable_control]').click();page.get_by_test_id('confirm').click()
+                        page.get_by_label('会话操作').click()
                         expect(page.locator('[data-act=create_session]')).to_be_enabled(timeout=15000);page.locator('[data-act=create_session]').click();page.locator('[name=nodes]').select_option(str(count));page.locator('[name=name]').fill(f'真实 {count} 节点 · {renderer}');page.get_by_test_id('confirm').click()
                         until(lambda f:len(f['snapshot']['nodes'] or [])==count and all(n['reachable'] for n in f['snapshot']['nodes']) and sum(n.get('status',{}).get('state')=='Leader' for n in f['snapshot']['nodes'] if n.get('status'))==1 and not f['busy'])
                         session=frame()['session'];ports=[int(n['addr'].rsplit(':',1)[1]) for n in session['config']['nodes']]

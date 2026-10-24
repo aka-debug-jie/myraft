@@ -11,6 +11,8 @@ import { actionReason, fresh, scopeKey, scopeOf } from "./actions";
 import { initialCenter, observe, updateCenter, type ViewNode } from "./model";
 import { TopologyPanel } from "./components/TopologyPanel";
 import { Icon } from "./components/Icon";
+import { deriveSummary, updateRate, type RateWindow } from "./summary";
+import { mergeReceipts, type ReceiptView } from "./receipts";
 import type {
   ClientState,
   OperationKind,
@@ -83,13 +85,24 @@ export function App() {
       () => localStorage.getItem("myraft-prototype-theme") || "dark",
     ),
     [present, setPresent] = useState(false);
-  const [sessionOpen, setSessionOpen] = useState(false);
-  const [navigationOpen, setNavigationOpen] = useState(false);
+  const [menu, setMenu] = useState<"session" | "navigation" | null>(null);
+  const [keyboardOwner, setKeyboardOwner] = useState<"svg" | "flow">("svg");
+  const sessionTrigger = useRef<HTMLButtonElement>(null),
+    navigationTrigger = useRef<HTMLButtonElement>(null);
+  const sessionPanel = useRef<HTMLDivElement>(null),
+    navigationPanel = useRef<HTMLElement>(null);
+  const dialogOrigin = useRef<HTMLElement | null>(null);
+  const rateRef = useRef<RateWindow | null>(null),
+    receiptsRef = useRef<ReceiptView | null>(null);
   const searchRef = useRef<HTMLInputElement>(null),
     centerRef = useRef(initialCenter());
   const scope = scopeOf(state),
     key = scopeKey(scope);
   const observation = useMemo(() => observe(state, now), [state, now]);
+  rateRef.current = updateRate(rateRef.current, state, now);
+  const summary = deriveSummary(state, now, rateRef.current, observation);
+  receiptsRef.current = mergeReceipts(receiptsRef.current, state);
+  const operations = receiptsRef.current.operations;
   centerRef.current = updateCenter(
     centerRef.current,
     observation,
@@ -113,12 +126,58 @@ export function App() {
     setSelected(null);
     setDetail(false);
     setDialog(null);
-    setSessionOpen(false);
+    setMenu(null);
+    setEvidence(false);
+    setKeyboardOwner("svg");
     setError("");
     setFilter("all");
     setSearch("");
     setTasks(false);
   }, [key]);
+  useEffect(() => {
+    if (
+      !tasks &&
+      !((detail || evidence) && window.matchMedia("(max-width:700px)").matches)
+    )
+      return;
+    const frame = requestAnimationFrame(() =>
+      document
+        .querySelector<HTMLElement>(
+          tasks ? ".task-panel" : ".workspace .inspector",
+        )
+        ?.scrollIntoView({ block: "nearest" }),
+    );
+    return () => cancelAnimationFrame(frame);
+  }, [tasks, detail, evidence]);
+  function closeMenu(restore = false) {
+    const trigger =
+      menu === "session" ? sessionTrigger.current : navigationTrigger.current;
+    setMenu(null);
+    if (restore) trigger?.focus({ preventScroll: true });
+  }
+  useEffect(() => {
+    if (!menu) return;
+    const content =
+      menu === "session" ? sessionPanel.current : navigationPanel.current;
+    const trigger =
+      menu === "session" ? sessionTrigger.current : navigationTrigger.current;
+    const dismiss = (event: Event) => {
+      if (
+        !content?.contains(event.target as Node) &&
+        !trigger?.contains(event.target as Node)
+      )
+        setMenu(null);
+    };
+    document.addEventListener("pointerdown", dismiss, true);
+    document.addEventListener("focusin", dismiss);
+    content
+      ?.querySelector<HTMLElement>("button:not([disabled]),a[href]")
+      ?.focus({ preventScroll: true });
+    return () => {
+      document.removeEventListener("pointerdown", dismiss, true);
+      document.removeEventListener("focusin", dismiss);
+    };
+  }, [menu]);
   useEffect(() => {
     const keydown = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
@@ -127,6 +186,11 @@ export function App() {
         searchRef.current?.select();
       }
       if (event.key === "Escape" && !dialog) {
+        if (menu) {
+          event.preventDefault();
+          closeMenu(true);
+          return;
+        }
         setSelected(null);
         setDetail(false);
         setTasks(false);
@@ -135,7 +199,7 @@ export function App() {
     };
     window.addEventListener("keydown", keydown);
     return () => window.removeEventListener("keydown", keydown);
-  }, [dialog]);
+  }, [dialog, menu]);
   function select(id: number | null) {
     setSelected(id);
     setDetail(id !== null);
@@ -144,6 +208,7 @@ export function App() {
   }
   function changeMode(value: RendererKind) {
     setMode(value);
+    if (value !== "compare") setKeyboardOwner(value);
     const url = new URL(location.href);
     url.searchParams.set("renderer", value);
     history.replaceState(null, "", url);
@@ -161,12 +226,16 @@ export function App() {
         setError((e as Error).message);
     }
   }
-  function action(kind: OperationKind, nodeID?: number) {
+  function action(kind: OperationKind, nodeID?: number, trigger?: HTMLElement) {
     const reason = actionReason(state, kind, nodeID);
     if (reason) {
       setError(reason);
       return;
     }
+    dialogOrigin.current = trigger?.closest(".session-popover")
+      ? sessionTrigger.current
+      : trigger || (document.activeElement as HTMLElement);
+    setMenu(null);
     if (
       [
         "enable_control",
@@ -195,20 +264,13 @@ export function App() {
         data-act={kind}
         disabled={!!reason}
         title={reason || title}
-        onClick={() => action(kind, nodeID)}
+        onClick={(event) => action(kind, nodeID, event.currentTarget)}
       >
         {title}
       </button>
     );
   }
-  const reachable = observation.nodes.filter(
-    (n) => observation.fresh && n.sample?.reachable,
-  ).length;
-  const latest =
-    state.receipt &&
-    !state.frame?.operations.some((o) => o.id === state.receipt!.id)
-      ? state.receipt
-      : state.frame?.operations.at(-1);
+  const latest = operations.at(-1);
   const age = state.frame?.snapshot.completed_at
     ? (now - Date.parse(state.frame.snapshot.completed_at)) / 1000
     : Infinity;
@@ -230,9 +292,15 @@ export function App() {
       <header className="topbar">
         <button
           className="icon-button mobile-menu"
+          ref={navigationTrigger}
           aria-label="打开工作区导航"
-          aria-expanded={navigationOpen}
-          onClick={() => setNavigationOpen(!navigationOpen)}
+          aria-controls="navigation-popover"
+          aria-expanded={menu === "navigation"}
+          onClick={() =>
+            setMenu((current) =>
+              current === "navigation" ? null : "navigation",
+            )
+          }
         >
           <Icon name="menu" />
         </button>
@@ -247,8 +315,13 @@ export function App() {
         </a>
         <button
           className="session-switch"
+          ref={sessionTrigger}
           aria-label="会话操作"
-          onClick={() => setSessionOpen(!sessionOpen)}
+          aria-controls="session-popover"
+          aria-expanded={menu === "session"}
+          onClick={() =>
+            setMenu((current) => (current === "session" ? null : "session"))
+          }
         >
           <span className={`status-dot ${state.connected ? "" : "offline"}`} />
           <span>{state.frame?.session?.name || "尚无会话"}</span>
@@ -343,51 +416,139 @@ export function App() {
       <main
         className={`workspace ${detail || evidence ? "with-inspector" : ""} ${tasks ? "with-tasks" : ""}`}
       >
-        <div className="workspace-bar">
-          <div className="context-summary">
-            <span className="eyebrow">CLUSTER TOPOLOGY</span>
-            <span className="cluster-summary">
-              {observation.leaders.length === 1
-                ? `Leader #${observation.leaders[0].id}`
-                : observation.leaders.length > 1
-                  ? "多个本地 Leader"
-                  : "等待 Leader"}
-              <i />{" "}
-              {observation.fresh
-                ? `${reachable}/${observation.nodes.length} 可达`
-                : "可达性未知"}
-            </span>
-          </div>
-          <div className="renderer-switch" aria-label="原型渲染器">
-            {(["svg", "flow", "compare"] as const).map((m) => (
-              <button
-                key={m}
-                aria-pressed={mode === m}
-                onClick={() => changeMode(m)}
+        <section className="cluster-overview" aria-label="集群摘要">
+          <div className="workspace-bar cluster-hero">
+            <div className="hero-heading">
+              <p className="eyebrow">CLUSTER OBSERVATORY</p>
+              <h1 title={state.frame?.session?.name}>
+                {state.frame?.session?.name || "集群工作台"}
+              </h1>
+              <div className="hero-status">
+                <span
+                  className={`observation-badge ${summary.tone}`}
+                  data-observation-state
+                >
+                  {summary.label}
+                </span>
+                {summary.leader && (
+                  <span>
+                    #{summary.leader.id} · Term {summary.leader.status?.term}
+                  </span>
+                )}
+                <span>
+                  {summary.reachable === null
+                    ? "可达性未知"
+                    : `${summary.reachable} / ${summary.total} 可达`}
+                </span>
+                <span>
+                  {Number.isFinite(age)
+                    ? `${observation.fresh ? "采样" : "上次采样"} ${Math.max(0, age).toFixed(1)}s 前`
+                    : "等待采样"}
+                </span>
+              </div>
+            </div>
+            <div className="hero-controls">
+              <div className="renderer-switch" aria-label="原型渲染器">
+                {(["svg", "flow", "compare"] as const).map((m) => (
+                  <button
+                    key={m}
+                    aria-pressed={mode === m}
+                    onClick={() => changeMode(m)}
+                  >
+                    {m === "svg"
+                      ? "SVG"
+                      : m === "flow"
+                        ? "React Flow"
+                        : "并排比较"}
+                  </button>
+                ))}
+              </div>
+              <select
+                aria-label="节点状态筛选"
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)}
               >
-                {m === "svg" ? "SVG" : m === "flow" ? "React Flow" : "并排比较"}
-              </button>
-            ))}
+                {[
+                  ["all", "全部状态"],
+                  ["Leader", "Leader"],
+                  ["Follower", "Follower"],
+                  ["Candidate", "Candidate"],
+                  ["offline", "不可达 / 未知"],
+                  ["exception", "例外"],
+                ].map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <select
-            aria-label="节点状态筛选"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
+          <div
+            className="kpi-strip"
+            role="region"
+            aria-label="Leader观测指标，窄屏可横向滚动"
+            tabIndex={0}
           >
             {[
-              ["all", "全部状态"],
-              ["Leader", "Leader"],
-              ["Follower", "Follower"],
-              ["Candidate", "Candidate"],
-              ["offline", "不可达 / 未知"],
-              ["exception", "例外"],
-            ].map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
+              [
+                "leader",
+                "Leader",
+                summary.leader ? `#${summary.leader.id}` : "—",
+                summary.leader ? "唯一有效本地角色观测" : "无唯一有效 Leader",
+              ],
+              [
+                "term",
+                "Term",
+                summary.leader?.status?.term ?? "—",
+                "Leader 当前任期",
+              ],
+              [
+                "commit",
+                "Commit",
+                summary.leader?.status?.commit_index ?? "—",
+                "Leader 已提交日志索引",
+              ],
+              [
+                "applied",
+                "Applied",
+                summary.leader?.status?.last_applied ?? "—",
+                "Leader 已应用日志索引",
+              ],
+              [
+                "x",
+                "State x",
+                summary.leader?.status?.x ?? "—",
+                "Leader 的精确整数状态",
+              ],
+              [
+                "rpc",
+                "监控 RPC/s",
+                summary.rate === null ? "—" : summary.rate.toFixed(1),
+                "控制台观测与校验请求尝试；不代表 Raft 通信吞吐",
+              ],
+            ].map(([id, label, value, description]) => (
+              <div
+                className={`kpi kpi-${id}`}
+                key={id}
+                title={String(description)}
+              >
+                <span className="kpi-label">{label}</span>
+                <strong
+                  className={String(value).length > 12 ? "long-value" : ""}
+                  data-kpi={id}
+                >
+                  {value}
+                </strong>
+              </div>
             ))}
-          </select>
-        </div>
+          </div>
+          <p className="kpi-context">
+            {summary.leader
+              ? `前五项来自 Leader #${summary.leader.id} 的本地观测，非全体一致结论。`
+              : "没有唯一有效 Leader，前五项显示未知。"}
+            <span>监控速率：相邻完整采样的请求尝试。</span>
+          </p>
+        </section>
         {(state.error || error) && (
           <div className="notice-error" role="alert">
             <span>
@@ -419,6 +580,10 @@ export function App() {
                 selected={selected}
                 filter={filter}
                 onSelect={select}
+                keyboardActive={
+                  mode !== "compare" || keyboardOwner === renderer
+                }
+                onActivate={() => setKeyboardOwner(renderer)}
                 focusRequest={focusRequest}
               />
             ),
@@ -494,10 +659,7 @@ export function App() {
                 );
               },
             )}
-            <div className="actions">
-              {button("verify")}
-              {button("verify_history")}
-            </div>
+            <div className="actions">{button("verify_history")}</div>
             <div className="checkpoint">
               <span className="eyebrow">固定检查点</span>
               <p>
@@ -523,7 +685,7 @@ export function App() {
             </div>
             <div className="task-columns">
               <div>
-                {[...(state.frame?.operations || [])]
+                {[...operations]
                   .reverse()
                   .slice(0, 8)
                   .map((op) => (
@@ -617,14 +779,15 @@ export function App() {
           <Icon name="chevron" size={14} />
         </button>
       </footer>
-      {sessionOpen && (
-        <div className="session-popover">
+      {menu === "session" && (
+        <div
+          className="session-popover"
+          id="session-popover"
+          ref={sessionPanel}
+        >
           <div>
             <b>会话控制</b>
-            <button
-              aria-label="关闭会话菜单"
-              onClick={() => setSessionOpen(false)}
-            >
+            <button aria-label="关闭会话菜单" onClick={() => closeMenu(true)}>
               ×
             </button>
           </div>
@@ -636,9 +799,14 @@ export function App() {
           <a href="/#settings">完整会话管理 →</a>
         </div>
       )}
-      {navigationOpen && (
-        <nav className="mobile-navigation" aria-label="手机工作区">
-          <button onClick={() => setNavigationOpen(false)}>集群总览</button>
+      {menu === "navigation" && (
+        <nav
+          className="mobile-navigation"
+          id="navigation-popover"
+          ref={navigationPanel}
+          aria-label="手机工作区"
+        >
+          <button onClick={() => closeMenu(true)}>集群总览</button>
           <a href="/#logs">日志实验室 · 原版</a>
           <a href="/#faults">故障实验 · 原版</a>
           <a href="/#experiments">性能实验 · 原版</a>
@@ -646,7 +814,7 @@ export function App() {
             onClick={() => {
               setEvidence(true);
               setDetail(false);
-              setNavigationOpen(false);
+              closeMenu(true);
             }}
           >
             一致性证据
@@ -660,7 +828,16 @@ export function App() {
       >
         <Dialog.Portal>
           <Dialog.Overlay className="dialog-overlay" />
-          <Dialog.Content className="dialog-content">
+          <Dialog.Content
+            className="dialog-content"
+            onCloseAutoFocus={(event) => {
+              event.preventDefault();
+              const origin = dialogOrigin.current;
+              (origin?.isConnected ? origin : sessionTrigger.current)?.focus({
+                preventScroll: true,
+              });
+            }}
+          >
             <Dialog.Title>
               {dialog ? labels[dialog.kind] : ""}
               {dialog?.nodeID !== undefined ? ` #${dialog.nodeID}` : ""}

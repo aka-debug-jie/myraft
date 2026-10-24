@@ -19,6 +19,8 @@ import {
 import type { Observation } from "../model";
 
 interface Props {
+  keyboardActive: boolean;
+  onActivate: () => void;
   renderer: "svg" | "flow";
   observation: Observation;
   center: number | null;
@@ -29,6 +31,8 @@ interface Props {
   focusRequest: number;
 }
 export function TopologyPanel({
+  keyboardActive,
+  onActivate,
   renderer,
   observation,
   center,
@@ -148,7 +152,7 @@ export function TopologyPanel({
     viewport,
     selected,
     filter,
-    tabID: activeID,
+    tabID: keyboardActive ? activeID : null,
     focusedEdge,
     onViewport: setViewport,
     onSelect,
@@ -160,6 +164,10 @@ export function TopologyPanel({
       className="topology-panel"
       data-renderer={renderer}
       aria-label={`${renderer === "svg" ? "SVG" : "React Flow"} 拓扑`}
+      onPointerDownCapture={onActivate}
+      onFocusCapture={(event) => {
+        if ((event.target as Element).closest("[data-node]")) onActivate();
+      }}
     >
       <div className="canvas-caption">
         <span className="renderer-label">
