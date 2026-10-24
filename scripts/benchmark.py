@@ -195,20 +195,28 @@ class Cluster:
 
     def close(self):
         errors = []
-        for node_id, p in list(self.processes.items()):
+        processes = list(self.processes.items())
+        for node_id, p in processes:
             try:
                 if p.poll() is None:
                     p.kill()
+            except Exception as exc:
+                errors.append(f'{node_id}: {exc}')
+        for node_id, p in processes:
+            try:
                 try:
                     p.wait(timeout=10)
                 except subprocess.TimeoutExpired:
-                    p.kill()
+                    try:
+                        p.kill()
+                    except Exception as exc:
+                        errors.append(f'{node_id}: {exc}')
                     p.wait(timeout=30)
+                self.processes.pop(node_id, None)
             except Exception as exc:
                 errors.append(f'{node_id}: {exc}')
         for out in self.outputs:
             out.close()
-        self.processes.clear()
         if errors:
             raise RuntimeError('process cleanup failed: ' + '; '.join(errors))
 

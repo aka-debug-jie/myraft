@@ -15,18 +15,31 @@ from benchmark import Cluster, consistent, summarize
 
 
 class FakeProcess:
-    def __init__(self):
+    def __init__(self, *, kill_error=False, wait_success=False, wait_failure=False, wait_hook=None):
         self.kill_calls = self.wait_calls = 0
         self.exited = False
+        self.kill_error = kill_error
+        self.wait_success = wait_success
+        self.wait_failure = wait_failure
+        self.wait_hook = wait_hook
 
     def kill(self):
         self.kill_calls += 1
+        if self.kill_error:
+            raise OSError('injected kill failure')
 
     def poll(self):
         return 0 if self.exited else None
 
     def wait(self, timeout):
         self.wait_calls += 1
+        if self.wait_hook:
+            self.wait_hook()
+        if self.wait_success:
+            self.exited = True
+            return 0
+        if self.wait_failure:
+            raise subprocess.TimeoutExpired('owned node', timeout)
         if self.wait_calls == 1:
             raise subprocess.TimeoutExpired('owned node', timeout)
         self.exited = True
@@ -110,6 +123,41 @@ class BenchmarkTests(unittest.TestCase):
         self.assertEqual(node.kill_calls, 2)
         self.assertEqual(node.wait_calls, 2)
         self.assertEqual(c.processes, {})
+
+    def test_close_kills_every_owned_process_before_first_wait(self):
+        processes = {node_id: FakeProcess() for node_id in (1, 2, 3)}
+        nodes = tuple(processes.values())
+        observed_kills = []
+        processes[1].wait_hook = lambda: observed_kills.append(
+            tuple(process.kill_calls for process in nodes)
+        )
+        c = Cluster.__new__(Cluster)
+        c.processes = processes
+        c.outputs = []
+
+        c.close()
+
+        self.assertTrue(observed_kills)
+        self.assertEqual(observed_kills[0], (1, 1, 1))
+
+    def test_close_still_waits_all_handles_after_kill_failure(self):
+        processes = {
+            1: FakeProcess(kill_error=True, wait_failure=True),
+            2: FakeProcess(wait_success=True),
+        }
+        first, second = processes.values()
+        c = Cluster.__new__(Cluster)
+        c.processes = processes
+        c.outputs = []
+
+        with self.assertRaisesRegex(RuntimeError, 'process cleanup failed'):
+            c.close()
+
+        self.assertGreater(first.wait_calls, 0)
+        self.assertGreater(second.kill_calls, 0)
+        self.assertGreater(second.wait_calls, 0)
+        self.assertIs(c.processes[1], first)
+        self.assertNotIn(2, c.processes)
 
     def test_failed_trials_do_not_enter_timing_mean(self):
         rows = [{'nodes': 10, 'scenario': 'election', 'result': 'PASS', 'elapsed_seconds': 2},

@@ -1,0 +1,151 @@
+{
+  "mode": "SYNTHETIC",
+  "method": "in-page DOM clicks and two RAF per state change, CDP GC per 50 cycles; removes per-click driver allocations",
+  "runs": [
+    {
+      "renderer": "svg",
+      "samples": [
+        {
+          "cycles": 0,
+          "Nodes": 352,
+          "JSEventListeners": 205,
+          "JSHeapUsedSize": 3371328
+        },
+        {
+          "cycles": 50,
+          "Nodes": 352,
+          "JSEventListeners": 348,
+          "JSHeapUsedSize": 4335396
+        },
+        {
+          "cycles": 100,
+          "Nodes": 352,
+          "JSEventListeners": 348,
+          "JSHeapUsedSize": 4397012
+        },
+        {
+          "cycles": 150,
+          "Nodes": 352,
+          "JSEventListeners": 348,
+          "JSHeapUsedSize": 4477408
+        },
+        {
+          "cycles": 200,
+          "Nodes": 352,
+          "JSEventListeners": 348,
+          "JSHeapUsedSize": 4760000
+        },
+        {
+          "cycles": 250,
+          "Nodes": 352,
+          "JSEventListeners": 348,
+          "JSHeapUsedSize": 4768276
+        },
+        {
+          "cycles": 300,
+          "Nodes": 352,
+          "JSEventListeners": 348,
+          "JSHeapUsedSize": 4803176
+        },
+        {
+          "cycles": 350,
+          "Nodes": 352,
+          "JSEventListeners": 348,
+          "JSHeapUsedSize": 4813084
+        },
+        {
+          "cycles": 400,
+          "Nodes": 352,
+          "JSEventListeners": 348,
+          "JSHeapUsedSize": 4817952
+        },
+        {
+          "cycles": 450,
+          "Nodes": 352,
+          "JSEventListeners": 348,
+          "JSHeapUsedSize": 4834544
+        },
+        {
+          "cycles": 500,
+          "Nodes": 352,
+          "JSEventListeners": 348,
+          "JSHeapUsedSize": 4868160
+        }
+      ],
+      "sse": 1
+    },
+    {
+      "renderer": "flow",
+      "samples": [
+        {
+          "cycles": 0,
+          "Nodes": 418,
+          "JSEventListeners": 252,
+          "JSHeapUsedSize": 4420712
+        },
+        {
+          "cycles": 50,
+          "Nodes": 418,
+          "JSEventListeners": 395,
+          "JSHeapUsedSize": 5685540
+        },
+        {
+          "cycles": 100,
+          "Nodes": 418,
+          "JSEventListeners": 395,
+          "JSHeapUsedSize": 5705232
+        },
+        {
+          "cycles": 150,
+          "Nodes": 418,
+          "JSEventListeners": 395,
+          "JSHeapUsedSize": 5796020
+        },
+        {
+          "cycles": 200,
+          "Nodes": 418,
+          "JSEventListeners": 395,
+          "JSHeapUsedSize": 6223032
+        },
+        {
+          "cycles": 250,
+          "Nodes": 418,
+          "JSEventListeners": 395,
+          "JSHeapUsedSize": 6240872
+        },
+        {
+          "cycles": 300,
+          "Nodes": 418,
+          "JSEventListeners": 395,
+          "JSHeapUsedSize": 6281496
+        },
+        {
+          "cycles": 350,
+          "Nodes": 418,
+          "JSEventListeners": 395,
+          "JSHeapUsedSize": 6296812
+        },
+        {
+          "cycles": 400,
+          "Nodes": 418,
+          "JSEventListeners": 395,
+          "JSHeapUsedSize": 6288256
+        },
+        {
+          "cycles": 450,
+          "Nodes": 418,
+          "JSEventListeners": 395,
+          "JSHeapUsedSize": 6347720
+        },
+        {
+          "cycles": 500,
+          "Nodes": 418,
+          "JSEventListeners": 395,
+          "JSHeapUsedSize": 6379708
+        }
+      ],
+      "sse": 1
+    }
+  ],
+  "result": "PASS"
+}

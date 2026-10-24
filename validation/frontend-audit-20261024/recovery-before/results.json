@@ -1,0 +1,48 @@
+{
+  "mode": "SYNTHETIC",
+  "cases": [
+    {
+      "name": "controller-recovery",
+      "renderer": "svg",
+      "result": "FAIL",
+      "error": "TimeoutError: Page.wait_for_function: Timeout 1400ms exceeded.",
+      "screenshot": "failure-controller-recovery-svg.png"
+    },
+    {
+      "name": "unknown-write",
+      "renderer": "svg",
+      "result": "FAIL",
+      "error": "AssertionError: ",
+      "screenshot": "failure-unknown-write-svg.png"
+    },
+    {
+      "name": "evicted-receipt",
+      "renderer": "svg",
+      "result": "FAIL",
+      "error": "AssertionError: 提交命令 · 已登记",
+      "screenshot": "failure-evicted-receipt-svg.png"
+    },
+    {
+      "name": "controller-recovery",
+      "renderer": "flow",
+      "result": "FAIL",
+      "error": "TimeoutError: Page.wait_for_function: Timeout 1400ms exceeded.",
+      "screenshot": "failure-controller-recovery-flow.png"
+    },
+    {
+      "name": "unknown-write",
+      "renderer": "flow",
+      "result": "FAIL",
+      "error": "AssertionError: ",
+      "screenshot": "failure-unknown-write-flow.png"
+    },
+    {
+      "name": "evicted-receipt",
+      "renderer": "flow",
+      "result": "FAIL",
+      "error": "AssertionError: 提交命令 · 已登记",
+      "screenshot": "failure-evicted-receipt-flow.png"
+    }
+  ],
+  "result": "FAIL"
+}

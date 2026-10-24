@@ -1,0 +1,79 @@
+
+> myraft-topology-prototypes@0.1.0 test
+> vitest run tests/client-recovery.test.ts
+
+
+ RUN  v4.1.12 <WORKSPACE>/public/myraft-react/frontend
+
+ ❯ tests/client-recovery.test.ts (5 tests | 3 failed) 36ms
+   × shares a pending identity refresh across faster SSE frames 17ms
+   × keeps an unresolved write warning after unrelated verification fails or succeeds 10ms
+   × does not revive a delayed HTTP receipt already observed and evicted by SSE 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/client-recovery.test.ts > shares a pending identity refresh across faster SSE frames
+AssertionError: expected "bootstrap" to be called 1 times, but got 12 times
+ ❯ tests/client-recovery.test.ts:17:17
+     15|     client.receive(f);
+     16|   }
+     17|   expect(fetch).toHaveBeenCalledTimes(1);
+       |                 ^
+     18|   resolve(bootstrap());
+     19|   await Promise.resolve();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/client-recovery.test.ts > keeps an unresolved write warning after unrelated verification fails or succeeds
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ tests/client-recovery.test.ts:61:45
+     59|   operate.mockRejectedValueOnce(new api.HttpError("verify refused", 40…
+     60|   await expect(client.execute("verify")).rejects.toThrow();
+     61|   expect(client.getSnapshot().unknownWrite).toBe(true);
+       |                                             ^
+     62|   operate.mockResolvedValueOnce({id:"verify",session_id:"session-a",ge…
+     63|   await client.execute("verify");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/client-recovery.test.ts > does not revive a delayed HTTP receipt already observed and evicted by SSE
+AssertionError: expected { id: 'slow', …(7) } to be null
+
+- Expected:
+null
+
++ Received:
+{
+  "accepted": null,
+  "committed": null,
+  "created_at": "",
+  "generation": 1,
+  "id": "slow",
+  "kind": "generate",
+  "session_id": "session-a",
+  "state": "queued",
+}
+
+ ❯ tests/client-recovery.test.ts:86:40
+     84|   resolve(receipt);
+     85|   await pending;
+     86|   expect(client.getSnapshot().receipt).toBeNull();
+       |                                        ^
+     87|   expect(client.getSnapshot().pending).toBe(false);
+     88| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 2 passed (5)
+   Start at  14:18:31
+   Duration  369ms (transform 120ms, setup 0ms, import 140ms, tests 36ms, environment 0ms)
+

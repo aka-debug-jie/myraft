@@ -1,5 +1,5 @@
 import "./node-badge.css";
-import type { CSSProperties } from "react";
+import { memo, type CSSProperties } from "react";
 import { getNodeFontSizes, getNodePresentation } from "./nodePresentation";
 
 export type NodeBadgeProps = {
@@ -12,7 +12,7 @@ export type NodeBadgeProps = {
   zoom: number;
 };
 
-export function NodeBadge({
+export const NodeBadge = memo(function NodeBadge({
   id,
   role,
   availability,
@@ -85,4 +85,4 @@ export function NodeBadge({
       )}
     </div>
   );
-}
+});

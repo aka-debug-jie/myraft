@@ -161,6 +161,7 @@ export interface ClientState {
   pendingKind: OperationKind | null;
   error: string;
   unknownWrite: boolean;
+  unknownWriteError: string;
   receipt: Operation | null;
   events: ConsoleEvent[];
   gap: boolean;

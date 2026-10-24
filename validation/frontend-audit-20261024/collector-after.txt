@@ -1,0 +1,12 @@
+=== RUN   TestCollectorSlowPrefixCannotStarveHealthyTail
+    collector_fairness_test.go:49: round=0 healthy calls=0 reachable=false error="dial tcp 127.0.0.1:39179: i/o timeout"
+    collector_fairness_test.go:49: round=1 healthy calls=1 reachable=true error=""
+--- PASS: TestCollectorSlowPrefixCannotStarveHealthyTail (4.01s)
+=== RUN   TestFailedEventReadDoesNotAdvanceCursor
+--- PASS: TestFailedEventReadDoesNotAdvanceCursor (0.01s)
+=== RUN   TestSharedCollectorDoesNotMultiplyRPCWithBrowsers
+--- PASS: TestSharedCollectorDoesNotMultiplyRPCWithBrowsers (0.03s)
+=== RUN   TestSlowSSEWriteDoesNotBlockCollectorAndExpires
+--- PASS: TestSlowSSEWriteDoesNotBlockCollectorAndExpires (2.01s)
+PASS
+ok  	myraft/cmd/dashboard	6.077s

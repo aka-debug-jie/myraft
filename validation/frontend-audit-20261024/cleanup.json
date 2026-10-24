@@ -1,0 +1,27 @@
+{
+  "owned_test_controllers": [
+    {
+      "port": 18150,
+      "listening_after_stop": false
+    },
+    {
+      "port": 18151,
+      "listening_after_stop": false
+    }
+  ],
+  "previews": [
+    {
+      "port": 8080,
+      "members": 11,
+      "reachable": 11,
+      "control_enabled": false
+    },
+    {
+      "port": 18082,
+      "members": 100,
+      "reachable": 100,
+      "control_enabled": false
+    }
+  ],
+  "remaining_owned_processes": []
+}

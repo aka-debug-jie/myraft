@@ -315,7 +315,7 @@ export function App() {
       : state.frame?.control_enabled
         ? "本机控制"
         : "只读 · 可启用控制";
-  const errorNotice = (state.error || error) && (
+  const errorNotice = (state.unknownWrite || state.error || error) && (
     <div className="notice-error" role="alert">
       <div>
         <strong>
@@ -325,7 +325,10 @@ export function App() {
         </strong>
         <details>
           <summary>查看原因</summary>
-          <p>{error || state.error}</p>
+          {state.unknownWrite && (
+            <p>尚未核清的请求：{state.unknownWriteError}</p>
+          )}
+          {(error || state.error) && <p>{error || state.error}</p>}
         </details>
       </div>
       {!state.unknownWrite && (

@@ -1,0 +1,11 @@
+=== RUN   TestCollectorSlowPrefixCannotStarveHealthyTail
+    collector_fairness_test.go:49: round=0 healthy calls=0 reachable=false error="dial tcp 127.0.0.1:42439: i/o timeout"
+    collector_fairness_test.go:49: round=1 healthy calls=0 reachable=false error="dial tcp 127.0.0.1:42439: i/o timeout"
+    collector_fairness_test.go:49: round=2 healthy calls=0 reachable=false error="dial tcp 127.0.0.1:42439: i/o timeout"
+    collector_fairness_test.go:49: round=3 healthy calls=0 reachable=false error="dial tcp 127.0.0.1:42439: i/o timeout"
+    collector_fairness_test.go:49: round=4 healthy calls=0 reachable=false error="dial tcp 127.0.0.1:42439: i/o timeout"
+    collector_fairness_test.go:57: healthy tail was never sampled
+--- FAIL: TestCollectorSlowPrefixCannotStarveHealthyTail (10.03s)
+FAIL
+FAIL	myraft/cmd/dashboard	10.043s
+FAIL

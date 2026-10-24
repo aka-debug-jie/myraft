@@ -1,0 +1,32 @@
+FF
+======================================================================
+FAIL: test_close_kills_every_owned_process_before_first_wait (test_benchmark.BenchmarkTests.test_close_kills_every_owned_process_before_first_wait)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>/public/myraft-react/scripts/test_benchmark.py", line 138, in test_close_kills_every_owned_process_before_first_wait
+    self.assertEqual(observed_kills[0], (1, 1, 1))
+AssertionError: Tuples differ: (1, 0, 0) != (1, 1, 1)
+
+First differing element 1:
+0
+1
+
+- (1, 0, 0)
+?     ^  ^
+
++ (1, 1, 1)
+?     ^  ^
+
+
+======================================================================
+FAIL: test_close_still_waits_all_handles_after_kill_failure (test_benchmark.BenchmarkTests.test_close_still_waits_all_handles_after_kill_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>/public/myraft-react/scripts/test_benchmark.py", line 153, in test_close_still_waits_all_handles_after_kill_failure
+    self.assertGreater(first.wait_calls, 0)
+AssertionError: 0 not greater than 0
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=2)

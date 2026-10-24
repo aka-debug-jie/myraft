@@ -15,6 +15,7 @@ export const initialState = (): ClientState => ({
   pendingKind: null,
   error: "",
   unknownWrite: false,
+  unknownWriteError: "",
   receipt: null,
   events: [],
   gap: false,
@@ -29,6 +30,8 @@ export class ConsoleClient {
   private retry: ReturnType<typeof setTimeout> | undefined;
   private epoch = 0;
   private bootstrapRequest = 0;
+  private refreshingController: string | null = null;
+  private pendingSeen: Set<string> | null = null;
   private lastDrop = 0;
   subscribe = (listener: () => void) => {
     this.listeners.add(listener);
@@ -74,6 +77,7 @@ export class ConsoleClient {
     return () => {
       ++this.epoch;
       ++this.bootstrapRequest;
+      this.refreshingController = null;
       clearTimeout(this.retry);
       this.stream?.close();
       this.stream = null;
@@ -81,6 +85,8 @@ export class ConsoleClient {
     };
   }
   private async refreshBootstrap(controller: string) {
+    if (this.refreshingController === controller) return;
+    this.refreshingController = controller;
     const request = ++this.bootstrapRequest;
     try {
       const bootstrap = await api.bootstrap();
@@ -96,6 +102,8 @@ export class ConsoleClient {
         this.state.frame?.controller_id === controller
       )
         this.set({ error: (error as Error).message });
+    } finally {
+      if (request === this.bootstrapRequest) this.refreshingController = null;
     }
   }
   receive(frame: Frame) {
@@ -122,6 +130,8 @@ export class ConsoleClient {
         known.add(event.seq);
       }
     const dropped = frame.stream_dropped || 0;
+    // Only retain IDs during the bounded HTTP request, not a session-long history.
+    for (const op of frame.operations || []) this.pendingSeen?.add(op.id);
     this.set({
       frame,
       connected: true,
@@ -130,7 +140,14 @@ export class ConsoleClient {
       dropped:
         (changed ? 0 : this.state.dropped) +
         (dropped >= this.lastDrop ? dropped - this.lastDrop : dropped),
-      ...(changed ? { receipt: null, error: "", unknownWrite: false } : {}),
+      ...(changed
+        ? {
+            receipt: null,
+            error: "",
+            unknownWrite: false,
+            unknownWriteError: "",
+          }
+        : {}),
     });
     this.lastDrop = dropped;
     if (changed || this.state.bootstrap?.controller_id !== frame.controller_id)
@@ -146,11 +163,14 @@ export class ConsoleClient {
     if (scopeKey(expected) !== scopeKey(scopeOf(this.state)))
       throw new Error("会话已变化，请重新确认操作。");
     const sent = scopeKey(expected);
+    const seen = new Set(
+      (this.state.frame?.operations || []).map((op) => op.id),
+    );
+    this.pendingSeen = seen;
     this.set({
       pending: true,
       pendingKind: kind,
       error: "",
-      unknownWrite: false,
     });
     try {
       const receipt = await api.operate(
@@ -162,6 +182,7 @@ export class ConsoleClient {
       const current = scopeOf(this.state);
       if (
         "id" in receipt &&
+        !seen.has(receipt.id) &&
         current.controller_id === expected.controller_id &&
         (sent === scopeKey(current) ||
           (["create_session", "select_session"].includes(kind) &&
@@ -171,18 +192,24 @@ export class ConsoleClient {
         this.set({ receipt });
       return receipt;
     } catch (error) {
-      if (sent === scopeKey(scopeOf(this.state)))
+      if (sent === scopeKey(scopeOf(this.state))) {
+        const unknown =
+          !(error instanceof api.HttpError) ||
+          !error.status ||
+          error.status >= 500;
         this.set({
           error: (error as Error).message,
-          unknownWrite:
-            !(error instanceof api.HttpError) ||
-            !error.status ||
-            error.status >= 500,
+          unknownWrite: this.state.unknownWrite || unknown,
+          unknownWriteError:
+            this.state.unknownWriteError ||
+            (unknown ? (error as Error).message : ""),
         });
+      }
       throw error;
     } finally {
+      this.pendingSeen = null;
       this.set({ pending: false, pendingKind: null });
     }
   }
-  dismissError = () => this.set({ error: "", unknownWrite: false });
+  dismissError = () => this.set({ error: "" });
 }

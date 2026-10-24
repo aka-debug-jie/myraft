@@ -26,6 +26,14 @@ def main():
         'viewport': {'width': 1440, 'height': 900},
         'reduced_motion': 'no-preference',
         'rounds_per_case': 3,
+        'measurement_notes': {
+            'first_node_details_ms': 'Legacy metric: elapsed from navigation start through the first node details becoming visible.',
+            'click_to_details_ms': 'Elapsed from clicking node 1 until its details become visible.',
+            'sse_updates.long_tasks': 'Legacy full-page long-task durations collected by the shared setup observer.',
+            'sse_updates.long_tasks_update': 'Long-task entries whose startTime falls within the 120-update measurement window.',
+            'cpu_vs_raf': 'TaskDuration and ScriptDuration are browser CPU time deltas; update times and drag frame_times_ms are elapsed/frame timings and are not CPU time.',
+            'drag.transform': 'Computed viewport transform before the drag, at the intermediate point, and after returning to the start.',
+        },
         'runs': [],
         'result': 'FAIL',
     }
@@ -63,9 +71,11 @@ def main():
                                 arg=count,
                             )
                             run['ready_ms'] = (time.perf_counter() - started) * 1000
+                            click_started = time.perf_counter()
                             page.locator('[data-node="1"]').click()
                             page.get_by_label('节点 1 详情').wait_for()
                             run['first_node_details_ms'] = (time.perf_counter() - started) * 1000
+                            run['click_to_details_ms'] = (time.perf_counter() - click_started) * 1000
                             page.get_by_label('关闭节点详情').click()
                             page.keyboard.press('Escape')
                             page.get_by_label('返回全景').click()
@@ -73,7 +83,10 @@ def main():
                             if count == 100:
                                 before = {m['name']: m['value'] for m in cdp.send('Performance.getMetrics')['metrics']}
                                 update = page.evaluate('''async()=>{
-                                  const times=[];
+                                  const times=[],updateLongTasks=[];
+                                  const observer=new PerformanceObserver(list=>updateLongTasks.push(...list.getEntries().map(e=>({startTime:e.startTime,duration:e.duration}))));
+                                  observer.observe({type:'longtask'});
+                                  const windowStart=performance.now();
                                   for(let i=0;i<120;i++){
                                     const f=structuredClone(window.__fixture);
                                     f.snapshot.seq++;
@@ -82,9 +95,14 @@ def main():
                                     const start=performance.now();
                                     window.__send(f);
                                     await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+                                    const expected=String(f.snapshot.nodes[0].status.commit_index);
+                                    if(document.querySelector('[data-kpi="commit"]')?.textContent!==expected)throw new Error(`Commit KPI did not match update ${i+1}: expected ${expected}`);
                                     times.push(performance.now()-start);
                                   }
-                                  return {times,long_tasks:window.__long,heap:performance.memory?.usedJSHeapSize??null,active_sse:window.__streams.size};
+                                  const windowEnd=performance.now();
+                                  updateLongTasks.push(...observer.takeRecords().map(e=>({startTime:e.startTime,duration:e.duration})));
+                                  observer.disconnect();
+                                  return {times,long_tasks:window.__long,long_tasks_update:updateLongTasks.filter(e=>e.startTime>=windowStart&&e.startTime<=windowEnd),heap:performance.memory?.usedJSHeapSize??null,active_sse:window.__streams.size};
                                 }''')
                                 values = update['times']
                                 update.update(
@@ -107,11 +125,27 @@ def main():
                             }''')
                             box = page.locator('.canvas-host').bounding_box()
                             x, y = box['x'] + box['width'] * .46, box['y'] + box['height'] * .35
+                            drag_before = page.evaluate('''()=>{
+                              const viewport=document.querySelector('.node-layer, .react-flow__viewport');
+                              return viewport ? getComputedStyle(viewport).transform : null;
+                            }''')
                             page.mouse.move(x, y)
                             page.mouse.down()
                             page.mouse.move(box['x'] + box['width'] * .66, box['y'] + box['height'] * .48, steps=40)
+                            transform = page.evaluate('''()=>{
+                              const viewport=document.querySelector('.node-layer, .react-flow__viewport');
+                              return viewport ? getComputedStyle(viewport).transform : null;
+                            }''')
+                            drag_mid = transform
                             page.mouse.move(x, y, steps=40)
                             page.mouse.up()
+                            drag_after = page.evaluate('''()=>{
+                              const viewport=document.querySelector('.node-layer, .react-flow__viewport');
+                              return viewport ? getComputedStyle(viewport).transform : null;
+                            }''')
+                            assert drag_mid is not None and drag_before is not None and drag_mid != drag_before, {
+                                'renderer': renderer, 'before': drag_before, 'mid': drag_mid, 'after': drag_after,
+                            }
                             frames = page.evaluate('()=>{window.__record=false;return window.__frames.slice(1)}')
                             run['drag'] = {
                                 'steps': 80,
@@ -119,6 +153,7 @@ def main():
                                 'frame_times_ms': frames,
                                 'p50_ms': statistics.median(frames),
                                 'p95_ms': percentile(frames, .95),
+                                'transform': {'before': drag_before, 'mid': drag_mid, 'after': drag_after},
                             }
                             run['active_sse'] = page.evaluate('()=>window.__streams.size')
                             context.close()

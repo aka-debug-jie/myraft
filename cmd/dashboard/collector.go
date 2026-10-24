@@ -44,8 +44,13 @@ func (d *dashboard) collectRound() {
 	nodeEvents := make([]wire.EventReply, len(samples))
 	eventErrors := make([]string, len(samples))
 	jobs := make(chan int, len(samples))
+	// Rotate the first worker batch so a slow prefix cannot starve later members.
+	start := 0
+	if len(samples) > 0 {
+		start = int(prior.Seq%uint64(len(samples))) * 8 % len(samples)
+	}
 	for i := range samples {
-		jobs <- i
+		jobs <- (start + i) % len(samples)
 	}
 	close(jobs)
 	var wg sync.WaitGroup
@@ -56,6 +61,11 @@ func (d *dashboard) collectRound() {
 			for i := range jobs {
 				node := s.Config.Nodes[i]
 				item := nodeSample{ID: node.ID, SampledAt: time.Now().UTC()}
+				if ctx.Err() != nil {
+					item.Error = "本轮采样预算已耗尽，未尝试连接"
+					samples[i] = item
+					continue
+				}
 				var status wire.StatusReply
 				d.monitorRPCs.Add(1)
 				err := wire.CallContext(ctx, node.Addr, "RaftNode.Status", &wire.StatusArgs{Summary: true}, &status, 500*time.Millisecond)
@@ -78,7 +88,7 @@ func (d *dashboard) collectRound() {
 					if cursor := cursors[node.ID]; cursor.Instance == status.InstanceID {
 						after = cursor.Seq
 					}
-					if after < status.EventSeq {
+					if after < status.EventSeq && ctx.Err() == nil {
 						var events wire.EventReply
 						d.monitorRPCs.Add(1)
 						if e := wire.CallContext(ctx, node.Addr, "RaftNode.EventRange", &wire.EventArgs{After: after, Limit: 256}, &events, 300*time.Millisecond); e == nil && events.NodeID == node.ID && events.ClusterID == identity.ClusterID && events.InstanceID == status.InstanceID {

@@ -17,6 +17,10 @@ export class HttpError extends Error {
 }
 
 export function parseJSON<T>(text: string): T {
+  // Most Summary frames contain only safe integers. Avoid materializing source
+  // contexts for every field; reparse the original text if precision is at risk.
+  const value: unknown = JSON.parse(text);
+  if (!hasUnsafeInteger(value)) return value as T;
   const reviver = (
     _key: string,
     value: unknown,
@@ -34,6 +38,15 @@ export function parseJSON<T>(text: string): T {
     return value;
   };
   return JSON.parse(text, reviver as never) as T;
+}
+
+function hasUnsafeInteger(value: unknown): boolean {
+  if (typeof value === "number")
+    return Number.isInteger(value) && !Number.isSafeInteger(value);
+  if (value && typeof value === "object")
+    for (const item of Object.values(value))
+      if (hasUnsafeInteger(item)) return true;
+  return false;
 }
 
 export async function request<T>(

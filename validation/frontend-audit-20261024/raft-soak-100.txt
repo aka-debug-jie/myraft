@@ -1,0 +1,8 @@
+=== RUN   TestResourceSoak
+    soak_test.go:97: {"accepted_connections":99,"commands":2101,"elapsed_seconds":3.699796342,"goroutines":599,"heap_live_bytes":20515152,"phase":"initial","round":0,"worker_bound":99,"workers":99}
+    soak_test.go:97: {"accepted_connections":99,"commands":2117,"elapsed_seconds":7.213473935,"goroutines":599,"heap_live_bytes":20312920,"phase":"rotation","round":1,"worker_bound":99,"workers":99}
+    soak_test.go:53: listen on 127.0.0.1:39987: listen tcp 127.0.0.1:39987: bind: address already in use
+--- FAIL: TestResourceSoak (10.32s)
+FAIL
+FAIL	myraft/raft	10.331s
+FAIL

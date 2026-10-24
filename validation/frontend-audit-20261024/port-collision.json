@@ -1,0 +1,15 @@
+{
+  "mode": "REAL",
+  "failed_endpoint": "127.0.0.1:39987",
+  "soak_log_finished_at": "2026-10-24T14:28:15.292033+08:00",
+  "parallel_session_id": "988e088e7f8c4dd789ca518a1693d7c7",
+  "parallel_node_id": 3,
+  "parallel_node_log_lines": [
+    "2026/10/24 14:28:13.785994 node=3 term=0 role=Follower | node_recovered index=0 commit=0 applied=0 x=0",
+    "2026/10/24 14:28:13.786515 node=3 term=0 role=Follower | started addr=127.0.0.1:39987 members=100 quorum=51",
+    "2026/10/24 14:28:17.447846 node=3 term=1 role=Follower | higher_term_observed",
+    "2026/10/24 14:28:17.449358 node=3 term=1 role=Follower | vote_granted candidate=4"
+  ],
+  "interpretation": "Strong evidence of concurrent experiment port reuse; no instantaneous socket/PID snapshot. Original FAIL retained; isolated diagnostic rerun PASS.",
+  "diagnostic_command": "RAFT_SOAK_NODES=100 RAFT_SOAK_ROTATIONS=20 RAFT_SOAK_DURATION=3m GOMAXPROCS=4 go test -overlay soak-overlay.json ./raft -run ^TestResourceSoak$ -count=1 -v -timeout 10m"
+}

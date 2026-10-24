@@ -27,7 +27,7 @@ describe("API transport", () => {
         ? reviver.call({ "": value }, "", 9_223_372_036_854_776_000)
         : value;
     }) as typeof JSON.parse);
-    expect(() => parseJSON("9")).toThrow(RangeError);
+    expect(() => parseJSON("9223372036854775807")).toThrow(RangeError);
   });
 
   it("adds the read only transport header to bootstrap data", async () => {
@@ -104,6 +104,7 @@ describe("action boundaries", () => {
     pendingKind: null,
     error: "",
     unknownWrite: false,
+    unknownWriteError: "",
     receipt: null,
     events: [],
     gap: false,
@@ -128,4 +129,28 @@ describe("action boundaries", () => {
       ),
     ).toBe("当前预览入口只允许查看，操作请使用本机控制台");
   });
+});
+
+it("matches the source-preserving parser for nested, signed and exponent integers", () => {
+  const inputs = [
+    "null",
+    '{"array":[1,2,3],"text":"9223372036854775807"}',
+    '{"nested":[{"x":-9223372036854775808},{"x":9007199254740991},{"x":9007199254740992}]}',
+    "[1e20,9.007199254740992e15,1e-20,-0,1.5,9007199254740992.0]",
+    '{"__proto__":{"x":9223372036854775807},"x":42}',
+  ];
+  for (const text of inputs) {
+    const expected = JSON.parse(text, ((
+      _key: string,
+      value: unknown,
+      context: { source: string },
+    ) =>
+      typeof value === "number" &&
+      Number.isInteger(value) &&
+      !Number.isSafeInteger(value)
+        ? context.source
+        : value) as never);
+    expect(parseJSON(text)).toEqual(expected);
+  }
+  expect(() => parseJSON('{"x":1,}')).toThrow(SyntaxError);
 });

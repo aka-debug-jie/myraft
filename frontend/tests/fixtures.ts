@@ -131,6 +131,7 @@ export function clientState(
     pendingKind: null,
     error: "",
     unknownWrite: false,
+    unknownWriteError: "",
     receipt: null,
     events: [],
     gap: false,

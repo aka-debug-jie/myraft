@@ -1,0 +1,149 @@
+{
+  "mode": "SYNTHETIC",
+  "checks": [
+    {
+      "name": "mobile-node-detail-svg",
+      "result": "PASS"
+    },
+    {
+      "name": "mobile-node-detail-flow",
+      "result": "PASS"
+    },
+    {
+      "name": "mobile-navigation-evidence-tasks-exclusive",
+      "result": "PASS"
+    },
+    {
+      "name": "compare-flow-detail-return-focus-owner",
+      "result": "PASS"
+    },
+    {
+      "name": "desktop-leader-summary-focus-edge",
+      "result": "PASS"
+    },
+    {
+      "name": "hundred-node-label-level-restores-after-resize",
+      "result": "PASS"
+    },
+    {
+      "name": "receipt-commit-three-states",
+      "result": "PASS"
+    },
+    {
+      "name": "mobile-panel-lifecycle-svg",
+      "result": "PASS"
+    },
+    {
+      "name": "mobile-panel-lifecycle-flow",
+      "result": "PASS"
+    }
+  ],
+  "result": "PASS",
+  "panel_lifecycle": [
+    {
+      "renderer": "svg",
+      "samples": [
+        {
+          "Nodes": 360,
+          "JSEventListeners": 349,
+          "JSHeapUsedSize": 3881616
+        },
+        {
+          "Nodes": 360,
+          "JSEventListeners": 349,
+          "JSHeapUsedSize": 4194872
+        },
+        {
+          "Nodes": 360,
+          "JSEventListeners": 349,
+          "JSHeapUsedSize": 4381220
+        },
+        {
+          "Nodes": 360,
+          "JSEventListeners": 349,
+          "JSHeapUsedSize": 4435996
+        },
+        {
+          "Nodes": 360,
+          "JSEventListeners": 349,
+          "JSHeapUsedSize": 4451844
+        },
+        {
+          "Nodes": 360,
+          "JSEventListeners": 349,
+          "JSHeapUsedSize": 4497456
+        },
+        {
+          "Nodes": 360,
+          "JSEventListeners": 349,
+          "JSHeapUsedSize": 4518372
+        },
+        {
+          "Nodes": 360,
+          "JSEventListeners": 349,
+          "JSHeapUsedSize": 4553772
+        },
+        {
+          "Nodes": 360,
+          "JSEventListeners": 349,
+          "JSHeapUsedSize": 4605320
+        }
+      ],
+      "warmup_cycles": 2,
+      "measured_cycles": 40
+    },
+    {
+      "renderer": "flow",
+      "samples": [
+        {
+          "Nodes": 426,
+          "JSEventListeners": 400,
+          "JSHeapUsedSize": 5039368
+        },
+        {
+          "Nodes": 426,
+          "JSEventListeners": 400,
+          "JSHeapUsedSize": 5386792
+        },
+        {
+          "Nodes": 426,
+          "JSEventListeners": 400,
+          "JSHeapUsedSize": 5599792
+        },
+        {
+          "Nodes": 426,
+          "JSEventListeners": 400,
+          "JSHeapUsedSize": 5641300
+        },
+        {
+          "Nodes": 426,
+          "JSEventListeners": 400,
+          "JSHeapUsedSize": 5688820
+        },
+        {
+          "Nodes": 426,
+          "JSEventListeners": 400,
+          "JSHeapUsedSize": 5734204
+        },
+        {
+          "Nodes": 426,
+          "JSEventListeners": 400,
+          "JSHeapUsedSize": 5801016
+        },
+        {
+          "Nodes": 426,
+          "JSEventListeners": 400,
+          "JSHeapUsedSize": 5847212
+        },
+        {
+          "Nodes": 426,
+          "JSEventListeners": 400,
+          "JSHeapUsedSize": 5903844
+        }
+      ],
+      "warmup_cycles": 2,
+      "measured_cycles": 40
+    }
+  ],
+  "page_errors": []
+}
